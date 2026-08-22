@@ -1,0 +1,9 @@
+# PathAhead runtime dependencies.
+#
+# Deliberately one line long. The engine, the CLI, the local server and the
+# browser app all run on the Python standard library; PyYAML is needed only to
+# read the human-authored pack source. A compiled .json pack needs nothing at
+# all.
+#
+# No AI model, no web framework, no database, no telemetry SDK.
+PyYAML>=6.0,<7

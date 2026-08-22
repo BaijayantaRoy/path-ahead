@@ -1,0 +1,341 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="masthead">
+      <a class="logo" href="#/" aria-label="PathAhead home">Path<em>Ahead</em></a>
+      <div class="tagline" id="freshText">loading…</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Toggle Theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <p class="disclaim">
+        An independent, open-source tool. Not affiliated with, endorsed by, or connected to
+        the Ministry of Education, SEAB, Cambridge Assessment, or any school, polytechnic,
+        ITE or university. Nothing you type here leaves this device.
+      </p>
+    </div>
+  </div>
+</header>
+
+<!-- The nav lives OUTSIDE the header so it can stick. `position:sticky` is
+     bounded by its containing block, so a nav inside <header> would unstick
+     the moment the header scrolled away — which is exactly the bug it would
+     look like it was fixing. -->
+<div class="navbar" id="navbar">
+  <div class="wrap">
+    <nav class="topnav" id="topnav" aria-label="Sections"></nav>
+  </div>
+</div>
+
+<!-- Icon set. Inline SVG symbols: no icon font, no sprite file, no network
+     request — the same self-contained-single-file rule the rest of the app
+     follows. `currentColor` means each icon inherits the state colour of the
+     item it sits in, so hover and active need no separate icon rules. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <g id="i-start"><path d="M4 20h16M6 16l9.5-9.5a2.1 2.1 0 0 0-3-3L3 13v3h3z"/></g>
+    <g id="i-result"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3"/></g>
+    <g id="i-courses"><path d="M4 6h16M4 12h16M4 18h10"/></g>
+    <g id="i-compare"><rect x="3.5" y="4.5" width="7" height="15" rx="1.5"/><rect x="13.5" y="4.5" width="7" height="15" rx="1.5"/></g>
+    <g id="i-dates"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v4M16 3.5v4"/></g>
+    <g id="i-routes"><path d="M6 20V9a3 3 0 0 1 3-3h6"/><path d="M12.5 3.5 15.5 6l-3 2.5"/><circle cx="6" cy="20" r="1.6"/></g>
+    <g id="i-fees"><circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.2c-.6-.9-1.6-1.4-2.7-1.4-1.5 0-2.6.8-2.6 2s1 1.7 2.6 2.1c1.8.4 2.9 1 2.9 2.3s-1.2 2.1-2.8 2.1c-1.2 0-2.2-.5-2.8-1.4M12 6.2v11.6"/></g>
+    <g id="i-data"><path d="M4.5 5.5A2 2 0 0 1 6.5 3.5H19v14H6.5a2 2 0 0 0-2 2z"/><path d="M8 8h7M8 11.5h7"/></g>
+    <g id="i-explore"><circle cx="12" cy="12" r="8.5"/><path d="m15.2 8.8-1.9 4.5-4.5 1.9 1.9-4.5z"/></g>
+    <!-- The fan: where you stand, and three ways on. Horizontal on purpose —
+         an upward arrow would mean one direction is better. -->
+    <g id="i-psle"><circle cx="5" cy="12" r="1.8"/><path d="M6.8 12h13M7 12c5-.4 6-5 12.5-5M7 12c5 .4 6 5 12.5 5"/></g>
+    <g id="i-alevel"><path d="M12 4.2 19.5 8 12 11.8 4.5 8z"/><path d="M7.5 10v4.6c0 1.4 2 2.6 4.5 2.6s4.5-1.2 4.5-2.6V10"/></g>
+    <!-- One exam, two rulebooks: a single line forking into two. -->
+    <g id="i-olevel"><circle cx="12" cy="4.5" r="1.6"/><path d="M12 6.1v3.4"/><path d="M12 9.5c0 3-4.5 3-4.5 6.5"/><path d="M12 9.5c0 3 4.5 3 4.5 6.5"/><circle cx="7.5" cy="19.5" r="1.6"/><circle cx="16.5" cy="19.5" r="1.6"/></g>
+    <g id="i-resultsday"><path d="M3.5 18h17M6.5 18a5.5 5.5 0 0 1 11 0"/><path d="M12 5v2.5M5.6 7.6l1.8 1.8M18.4 7.6l-1.8 1.8"/></g>
+    <g id="i-perspectives"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9.5" r="2.4"/><path d="M3.5 19a5 5 0 0 1 10 0M14 19a4.2 4.2 0 0 1 6.5-3.5"/></g>
+    <g id="i-more"><circle cx="5.5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18.5" cy="12" r="1.6"/></g>
+  </defs>
+</svg>
+
+<main id="main" class="wrap">
+  <div id="loadError" class="err" hidden></div>
+
+  <!-- The front door. Deliberately the smallest page in the app: one question,
+       three answers, no form. It used to be the A-Level grades table, which
+       meant every family — including the parent of a twelve-year-old — was
+       greeted by a request for H2 subject grades. -->
+  <div class="view" id="view-home"><div id="homeOut"></div></div>
+
+  <!-- data-stage is load-bearing, not documentation: buildStart() fills the
+       year-level dropdown from it, so a cohort belonging to another stage
+       cannot appear on this page. -->
+  <div class="view" id="view-start" data-stage="a-level">
+  <!-- ── 1 ─────────────────────────────────────────────────── -->
+  <section class="card" aria-labelledby="h1a">
+    <p class="eyebrow" data-step="1">Step one</p>
+    <h1 id="h1a">Where is your child right now?</h1>
+    <p class="lede">This one answer decides which rulebook applies. One school year apart
+      can mean two entirely different systems — so PathAhead reads your answer back to you.</p>
+    <div class="field field-max">
+      <label for="yearLevel">Year level</label>
+      <select id="yearLevel"></select>
+    </div>
+    <div class="note info" id="cohortEcho" role="status" aria-live="polite"><span></span></div>
+    <p class="hint" id="otherStages"></p>
+  </section>
+
+  <!-- ── 2 ─────────────────────────────────────────────────── -->
+  <section class="card" aria-labelledby="h2a">
+    <p class="eyebrow" data-step="2">Step two</p>
+    <h2 id="h2a">The grades</h2>
+    <p class="hint">Start typing a subject — it will find it. No name, no school, no email:
+      those fields do not exist here.</p>
+    <table class="grades">
+      <thead><tr><th>Level</th><th>Subject</th><th>Grade</th><th><span class="vh">Remove</span></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="actions">
+      <button type="button" id="addRow">Add a subject</button>
+      <button type="button" class="ghost" id="sample">Fill in a worked example instead</button>
+    </div>
+    <div id="inputError" class="err" hidden role="alert"></div>
+
+    <!-- Not a preference, and deliberately not one of the eight optional
+         questions: it cannot raise or lower any score. A handful of courses
+         are taught IN a language and require it at O-Level, and without this
+         PathAhead ranked a Chinese-medium diploma as a top match for a
+         student who does not read Chinese. -->
+    <div class="field" style="margin-top:1.4rem">
+      <label id="lblMt">Which mother tongue did you offer at O-Level?</label>
+      <p class="hint" style="margin:.1rem 0 .5rem">
+        A few courses are taught in one of these and require it to apply. Answering
+        stops PathAhead putting those in front of you if they are not yours to take —
+        it changes nothing else, and no score goes up or down.</p>
+      <div class="chips" id="mtChips" role="group" aria-labelledby="lblMt"></div>
+    </div>
+  </section>
+
+  <!-- ── 3 ─────────────────────────────────────────────────── -->
+  <section class="card" aria-labelledby="h3a">
+    <p class="eyebrow" data-step="3">Step three — every question optional</p>
+    <h2 id="h3a">A little about you</h2>
+    <p class="lede">Skip all of it and PathAhead still works. Answer some and it can explain
+      <em>why</em> a course might suit you — with the reasoning shown, line by line.</p>
+
+    <div class="field">
+      <label id="lblEnjoy">Which of your subjects do you actually enjoy? </label>
+      <p class="hint" style="margin:-.1rem 0 .5rem">Not the ones you score well in — the ones you would happily do more of.</p>
+      <div class="chips" id="enjoyChips" role="group" aria-labelledby="lblEnjoy"></div>
+    </div>
+
+    <div class="field">
+      <label id="lblInt">What pulls at you? <span style="font-weight:400;color:var(--ink-3)">Pick up to three</span></label>
+      <div class="chips" id="interestChips" role="group" aria-labelledby="lblInt"></div>
+    </div>
+
+    <div class="field">
+      <label id="lblAsm">How do you do your best work? </label>
+      <div class="seg" id="asmSeg" role="group" aria-labelledby="lblAsm"></div>
+    </div>
+
+    <div class="field">
+      <label id="lblTeam">And do you prefer to work… </label>
+      <div class="seg" id="teamSeg" role="group" aria-labelledby="lblTeam"></div>
+    </div>
+
+    <div class="field">
+      <label id="lblPri">What do you want from work? <span style="font-weight:400;color:var(--ink-3)">Pick any</span></label>
+      <div class="chips" id="priChips" role="group" aria-labelledby="lblPri"></div>
+    </div>
+
+    <!-- Stream preference. This is a FILTER, not a scoring signal: it changes
+         which courses are listed, never how any of them scores. Kept separate
+         from the questions above for that reason, and always reversible —
+         the list says how many courses the choice is hiding. -->
+    <!-- What matters most, in the student's own order. This is the control
+         that replaced seven weights nobody could justify. -->
+    <div class="field">
+      <label id="lblRank">How much should each of these count?
+        <span style="font-weight:400;color:var(--ink-3)">One tap each — this is what turns your answers into a score</span></label>
+      <p class="hint" style="margin:-.1rem 0 .5rem">
+        PathAhead used to decide this for you: what you enjoy counted two and a half
+        times more than who you work with, for no reason anyone could defend. Now you
+        decide. Set each one to how much it should count. Ties are fine, and anything set to “Doesn’t matter” is left out of the arithmetic entirely.</p>
+      <div id="rankExplain" class="note info"><span></span></div>
+      <ol id="rankPicked" class="ranked" aria-labelledby="lblRank"></ol>
+      <div class="actions" id="rankActions"></div>
+      <!-- Kept for the checks and for anything that still expects a pool; the
+           list above is the control people actually use. -->
+      <div class="chips" id="rankChips" role="group" aria-labelledby="lblRank" hidden></div>
+    </div>
+
+    <div class="field">
+      <label id="lblStream">Which fields are you interested in?
+        <span style="font-weight:400;color:var(--ink-3)">Pick any — leave blank to see everything</span></label>
+      <p class="hint" style="margin:-.1rem 0 .5rem">This narrows the list to those fields.
+        It does not change any score, and you can clear it at any time.</p>
+      <div class="chips" id="streamChips" role="group" aria-labelledby="lblStream"></div>
+    </div>
+
+    <div class="field field-max">
+      <label for="citizenship">Citizenship — this changes the fees shown</label>
+      <select id="citizenship">
+        <option value="citizen">Singapore Citizen</option>
+        <option value="pr">Singapore Permanent Resident</option>
+        <option value="international">International student</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label id="lblCon">Anything else we should factor in? </label>
+      <div class="chips" id="conChips" role="group" aria-labelledby="lblCon"></div>
+    </div>
+
+    <div class="field">
+      <label for="goalText">In your own words, what do you want to be doing in ten years?</label>
+      <textarea id="goalText" placeholder="No wrong answer. &quot;No idea&quot; is a real answer."></textarea>
+      <div id="goalSuggestions" class="note info" style="margin-top:.6rem" hidden></div>
+      <p class="hint" style="margin-top:.4rem">PathAhead will show this back to you next to your
+        options rather than pretending to interpret it — there is no language model running here.</p>
+    </div>
+
+    <!-- How much has been answered, and what one more would buy.
+         Nothing told the reader how far through they were or why it mattered
+         (ISSUES_v0.2.md section H). Deliberately framed as what it UNLOCKS,
+         never as a nag: every question here is optional and a blank answer is
+         a valid one. -->
+    <div class="note info" id="signalProgress" role="status" aria-live="polite"><span></span></div>
+
+    <div class="actions">
+      <button type="button" class="primary" id="go">Show me the result</button>
+      <button type="button" id="reset">Clear everything</button>
+    </div>
+  </section>
+  </div><!-- /view-start -->
+
+  <!-- Routes that need a completed run. `#results` keeps its exact old
+       meaning — hidden until `run()` succeeds — so the checks that assert on
+       it still assert the same thing. What changed is that its cards are now
+       separate VIEWS, and the router shows one at a time. -->
+  <div id="results" hidden>
+
+    <div class="view" id="view-result">
+    <section class="card" aria-labelledby="hScore">
+      <p class="eyebrow">Your score</p>
+      <h2 id="hScore" class="vh">Your score</h2>
+      <div class="result-head">
+        <div class="dial" id="dial"></div>
+        <div>
+          <p class="lede" id="scoreLede"></p>
+          <div id="scoreNotes"></div>
+        </div>
+      </div>
+      <details class="disclosure">
+        <summary>Show me how this was worked out</summary>
+        <pre class="trace" id="traceText"></pre>
+        <p class="cite" id="ruleCite"></p>
+      </details>
+    </section>
+
+    </div><!-- /view-result -->
+
+    <div class="view" id="view-dates">
+    <section class="card" aria-labelledby="hTime">
+      <p class="eyebrow">The calendar</p>
+      <h2 id="hTime">What happens next, and when</h2>
+      <p class="lede">Missing a deadline costs more than missing a grade profile by two points —
+        and unlike the grade profile, it is entirely preventable.</p>
+      <ol class="timeline" id="timeline"></ol>
+      <div id="timelineNotes"></div>
+      <div class="actions">
+        <button type="button" id="icsBtn">Add these dates to my calendar</button>
+      </div>
+    </section>
+
+    </div><!-- /view-dates -->
+
+    <div class="view" id="view-courses">
+    <section class="card" aria-labelledby="hOpts">
+      <p class="eyebrow">Where this could lead</p>
+      <h2 id="hOpts">Your options</h2>
+      <div id="fitCoverage"></div>
+      <div id="goalReflect"></div>
+      <p class="hint" id="notPrediction"></p>
+      <div id="filterBar" class="filterbar"></div>
+      <div id="sortControl"></div>
+      <div id="groups"></div>
+    </section>
+
+    <!-- Not hidden until used. This card previously appeared only once
+         something had been added to it, so nothing ever invited anyone to add
+         the first course and the feature went undiscovered (ISSUES_v0.2.md
+         section H). -->
+    </div><!-- /view-courses -->
+
+    <div class="view" id="view-compare">
+    <section class="card" id="cmpCard" aria-labelledby="hCmp">
+      <p class="eyebrow">Side by side</p>
+      <h2 id="hCmp">Your shortlist</h2>
+      <p class="hint">This is how the decision actually gets made — around a table, comparing.
+        Print this page and take it to a form teacher.</p>
+      <p class="lede" id="cmpEmpty">Empty so far. Use <strong>Add to shortlist</strong> on any
+        course below and they will line up here side by side — match, last year's figures, fees,
+        the service bond, salary and how easily you could change course later.</p>
+      <div class="cmp-wrap" id="cmpWrap" hidden><table class="cmp" id="cmpTable"></table></div>
+    </section>
+
+    </div><!-- /view-compare -->
+
+    <div class="view" id="view-routes">
+    <section class="card" aria-labelledby="hPlan">
+      <p class="eyebrow">Working backwards</p>
+      <h2 id="hPlan">Getting to a particular course</h2>
+      <div class="field field-max">
+        <label for="target">Course</label>
+        <select id="target"></select>
+      </div>
+      <div id="planOut"></div>
+    </section>
+    </div><!-- /view-routes -->
+  </div>
+
+  <!-- Routes that do NOT need a run. A family should be able to read about a
+       course, a university or the fees without first typing a child's grades
+       in. These are rendered from the pack on navigation. -->
+  <div class="view" id="view-course"><div id="courseOut"></div></div>
+  <div class="view" id="view-uni"><div id="uniOut"></div></div>
+  <div class="view" id="view-fees"><div id="feesOut"></div></div>
+  <div class="view" id="view-data"><div id="dataOut"></div></div>
+  <div class="view" id="view-gate"><div id="gateOut"></div></div>
+  <div class="view" id="view-more"><div id="moreOut"></div></div>
+  <!-- U5: the flows that were missing. None of these asks for a grade. -->
+  <div class="view" id="view-psle"><div id="psleOut"></div></div>
+  <div class="view" id="view-olevel"><div id="olevelOut"></div></div>
+  <div class="view" id="view-explore"><div id="exploreOut"></div></div>
+  <div class="view" id="view-scoring"><div id="scoringOut"></div></div>
+  <div class="view" id="view-resultsday"><div id="resultsDayOut"></div></div>
+  <div class="view" id="view-perspectives"><div id="perspOut"></div></div>
+  <div class="view" id="view-404">
+    <section class="card">
+      <h2>That page does not exist</h2>
+      <p class="lede">The address may have been mistyped, or a link may be out of date.</p>
+      <div class="actions"><a class="btn primary" href="#/alevel">Back to the start</a></div>
+    </section>
+  </div>
+</main>
+
+<!-- Bottom tab bar: mobile only. The thumb is at the bottom of a phone and
+     this is a phone-first audience. Primary routes only; never overflow. -->
+<nav class="tabbar" id="tabbar" aria-label="Main"></nav>
+
+<footer>
+  <div class="wrap">
+    <h4>Before you rely on this</h4>
+    <p id="footAdvice"></p>
+    <p id="footAttr"></p>
+    <p class="links">
+      <a href="#/data">What this is, and what it is not</a> ·
+      <a href="https://github.com/BaijayantaRoy/path-ahead">Source code and data</a> ·
+      <a href="https://github.com/BaijayantaRoy/path-ahead/issues/new?labels=data&amp;title=Figure%20looks%20wrong">Report a figure that looks wrong</a> ·
+      MIT licensed, no warranty
+    </p>
+    <p class="cite" id="footVersion"></p>
+  </div>
+</footer>

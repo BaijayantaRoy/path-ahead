@@ -1,0 +1,842 @@
+/* ═══════════════════════════════════════════════════════════════════
+   PathAhead — one file. No framework, no fonts fetched, no trackers.
+   Everything runs in the browser; there is no server to send anything to.
+
+   Design intent: a well-made handbook, not a form. This topic carries a lot
+   of anxiety, so the page is deliberately quiet — and deliberately WARM.
+
+   Everything here is on a warm axis. The paper is oat rather than white, the
+   "black" is a dark brown rather than a neutral grey, and the accent is a
+   burnt terracotta rather than the cool teal this used to use. That last one
+   mattered most: a teal on grey paper reads clinical, and a page that tells a
+   seventeen-year-old where their life might go should not feel like a bank
+   statement. Warmth is not decoration here — it is the difference between a
+   page that feels like it is on your side and one that feels like it is
+   assessing you.
+
+   Every foreground/background pair below is at or above WCAG AA (4.5:1 for
+   body text, 3:1 for large text and UI edges). Warm does not mean washed out.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  /* paper & ink — oat, cream, and a brown-black */
+  --paper:#faf5ed; --card:#fffcf7; --sunk:#f4ece0; --rule:#e8dcc9;
+  --rule-soft:#f0e6d6;
+  --ink:#2a211b; --ink-2:#5b4d42; --ink-3:#746455;
+  /* accents — terracotta, moss, amber, plum. All warm-side. */
+  --brand:#a8481b; --brand-deep:#8a3a15; --brand-soft:#fbe8da; --brand-ink:#fffcf7;
+  --focus:#96401a;
+  --good:#5a6b2f;  --good-bg:#eef1dd;
+  --mid:#a8481b;   --mid-bg:#fbe8da;
+  --soft:#8a5a12;  --soft-bg:#faedd4;
+  --quiet:#736656; --quiet-bg:#f2ebdf;
+  --editorial:#7a4560; --editorial-bg:#f8e9f0;
+  /* Type.
+     System fonts only, deliberately. These used to name "Outfit" and
+     "Inter" and pull them from Google's CDN, which meant every visitor's
+     IP address reached Google before a single word rendered. For a tool
+     used by children, on a page that promises nothing leaves the device,
+     that was the wrong trade for a slightly nicer headline. Removed
+     2026-08-14.
+
+     "Inter" and "Outfit" are still named FIRST in each stack: they cost
+     nothing when absent, and a reader who happens to have them installed
+     locally — designers often do — gets the intended type with no network
+     request. Everyone else gets their platform's own UI font, which is
+     already tuned for long-form reading on that device and is what the
+     fallback silently delivered on any slow or blocked connection anyway.
+
+     The stacks are ordered so each platform reaches its native face
+     before any generic: San Francisco on Apple, Segoe on Windows, Roboto
+     on Android, then the generics. --serif is a misnomer kept for churn
+     reasons; the display face has always been a sans. */
+  --serif: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --r: 20px; --r-sm: 12px;
+  /* Layered, realistic shadows */
+  --lift: 0 1px 3px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.06);
+  --lift-lg: 0 2px 8px rgba(0,0,0,.06), 0 12px 30px rgba(0,0,0,.1);
+  --lift-xl: 0 4px 16px rgba(0,0,0,.08), 0 24px 48px rgba(0,0,0,.12);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    /* Warm dark: a brown-black, not a blue-black. */
+    --paper:#191411; --card:#221b16; --sunk:#2b221c; --rule:#3f332a;
+    --rule-soft:#332a22;
+    --ink:#f3e9dd; --ink-2:#c8b6a4; --ink-3:#9a8878;
+    --brand:#eb9a68; --brand-deep:#f5b184; --brand-soft:#36241a; --brand-ink:#191411;
+    --focus:#f2a97c;
+    --good:#aec27a; --good-bg:#242a17;
+    --mid:#eb9a68;  --mid-bg:#36241a;
+    --soft:#e5b872; --soft-bg:#302416;
+    --quiet:#c8b6a4; --quiet-bg:#2b221c;
+    --editorial:#d9a8c0; --editorial-bg:#2d1f27;
+    --lift: 0 1px 3px rgba(0,0,0,.5), 0 4px 12px rgba(0,0,0,.5);
+    --lift-lg: 0 2px 8px rgba(0,0,0,.6), 0 12px 30px rgba(0,0,0,.6);
+  }
+}
+[data-theme="evening"] {
+  /* Circadian Mode: Warm, softer tones for eye comfort at night */
+  --paper: #1a1614; --card: #241e1b; --sunk: #2c2522; --rule: #3d342f;
+  --rule-soft: #332b27;
+  --ink: #f0e6d2; --ink-2: #d1c1a7; --ink-3: #a39581;
+  --brand: #d97746; --brand-deep: #eb8c57; --brand-soft: #332015; --brand-ink: #1a1614;
+  --focus: #f29a6d;
+  --good: #9ab362; --good-bg: #242a17;
+  --mid: #d99a46;  --mid-bg: #332415;
+  --soft: #c98855; --soft-bg: #2f2115;
+  --quiet: #a39581; --quiet-bg: #2c2522;
+  --editorial: #c78ab0; --editorial-bg: #2f1d27;
+}
+
+/* Track identity — a distinct accent per stage ("distinct look and feel",
+   the redesign that added the three-door chooser). Reuses the ALREADY
+   WCAG-AA-checked moss (--good) and plum (--editorial) pairs from the
+   palette above as --brand's role, rather than inventing new colours that
+   would need their own contrast proof: moss on paper is 5.4:1, plum on
+   paper 6.8:1, both comfortably over the 4.5:1 body-text floor, and the
+   dark-mode values below are the palette's own existing dark --good/
+   --editorial pairs (9.4:1 and 9.0:1 on dark paper). A-Level's block
+   restates :root's own terracotta explicitly, so navigating AWAY from a
+   track never leaves a stale accent from whichever track set --brand last.
+
+   `[data-theme="evening"]` is declared before these in the stylesheet, so a
+   track's colour wins over evening mode's own softened terracotta when
+   both attributes are present — a known, deliberate simplification rather
+   than building a three-theme-by-three-track matrix; evening mode still
+   applies to every other variable (paper, ink, the tinted badges). */
+[data-track="psle"]   { --brand:#5a6b2f; --brand-deep:#465423; --brand-soft:#eef1dd; --brand-ink:#fffcf7; --focus:#465423; }
+[data-track="olevel"] { --brand:#7a4560; --brand-deep:#623650; --brand-soft:#f8e9f0; --brand-ink:#fffcf7; --focus:#623650; }
+[data-track="alevel"] { --brand:#a8481b; --brand-deep:#8a3a15; --brand-soft:#fbe8da; --brand-ink:#fffcf7; --focus:#96401a; }
+@media (prefers-color-scheme:dark){
+  [data-track="psle"]   { --brand:#aec27a; --brand-deep:#c3d494; --brand-soft:#242a17; --brand-ink:#191411; --focus:#c3d494; }
+  [data-track="olevel"] { --brand:#d9a8c0; --brand-deep:#e5bdd2; --brand-soft:#2d1f27; --brand-ink:#191411; --focus:#e5bdd2; }
+  [data-track="alevel"] { --brand:#eb9a68; --brand-deep:#f5b184; --brand-soft:#36241a; --brand-ink:#191411; --focus:#f2a97c; }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+/* A very slow warm wash down the page: light at the top where the masthead
+   sits, settling into the oat paper. Two stops, no animation, no cost. */
+body{margin:0;color:var(--ink);
+  font:17px/1.65 var(--sans);letter-spacing:-.003em;
+  padding-bottom:env(safe-area-inset-bottom);
+  background:var(--paper);
+  background-image:
+    radial-gradient(1200px 520px at 50% -280px, rgba(168,72,27,.055), transparent 70%),
+    radial-gradient(900px 420px at 100% 0, rgba(138,90,18,.04), transparent 65%);
+  background-attachment:fixed}
+
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.18;
+  letter-spacing:-.015em;margin:0 0 .45rem}
+h1{font-size:clamp(1.85rem,5.2vw,2.7rem)}
+h2{font-size:clamp(1.35rem,3.4vw,1.75rem)}
+h3{font-size:1.12rem}
+p{margin:0 0 .85rem;max-width:var(--measure)}
+a{color:var(--focus);text-underline-offset:2px}
+strong{font-weight:640}
+:focus-visible{outline:2.5px solid var(--focus);outline-offset:3px;border-radius:5px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;z-index:99;background:var(--card);padding:.7em 1.1em;border-radius:var(--r-sm)}
+
+/* ── the front door ───────────────────────────────────────────
+   Three doors, side by side on a laptop and stacked on a phone. Equal width
+   and equal weight on purpose: this grid must not imply that one stage is the
+   main one and the others are afterthoughts, which is precisely what the app
+   looked like when the A-Level form WAS the front page. */
+.doors{display:grid;gap:1rem;grid-template-columns:1fr;margin:1.25rem 0 0}
+@media(min-width:52rem){.doors{grid-template-columns:repeat(3,1fr)}}
+.door{display:flex;flex-direction:column;gap:.35rem;text-align:left;
+  background:var(--card);border:1px solid var(--rule);border-radius:var(--r);
+  padding:1.15rem 1.15rem 1.25rem;color:inherit;text-decoration:none;
+  box-shadow:var(--lift);transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease)}
+a.door:hover{transform:translateY(-2px);box-shadow:var(--lift-lg);border-color:var(--brand)}
+.door .who{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--brand);font-weight:640}
+.door h3{margin:.1rem 0 .15rem;font-size:1.18rem}
+.door p{margin:0;font-size:.92rem;line-height:1.55;color:var(--ink-2)}
+.door .go{margin-top:.6rem;font-size:.88rem;font-weight:600;color:var(--focus)}
+/* The stage that is not built. Flat, no lift, no hover, not a link — it must
+   read as an honest gap rather than a button that does nothing. */
+.door.unbuilt{background:var(--sunk);box-shadow:none;border-style:dashed}
+.door.unbuilt .who{color:var(--ink-3)}
+.door.unbuilt .go{color:var(--ink-3);font-weight:500}
+
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+.narrow{max-width:44rem}
+
+/* ── the text measure, in ONE place ───────────────────────────
+   Every block of prose used to carry its own cap — p at 62ch, .lede and
+   .hint at 58ch, .group>p and .c-summary at 60ch. Six numbers meant six
+   different right-hand edges inside the same card, and a paragraph could
+   stop halfway across a 940px card and orphan a word ("of.") onto its own
+   line with a dead zone beside it.
+
+   Now there is one variable, and it is simply 100%: prose fills its box.
+
+   A `ch` guard rail was tried here and was wrong — 92ch resolves to about
+   736px at body size, inside a 992px container, so it silently reintroduced
+   the very dead zone it was meant to prevent. Line length is already bounded
+   by `.wrap` (62rem); a second cap measured in a different unit could only
+   ever fight it. If a line ever needs shortening, narrow the CONTAINER —
+   that is what `.narrow` is for. Do not put a `ch` cap back here. */
+:root{--measure:100%}
+
+/* ── masthead ─────────────────────────────────────────────────── */
+header.top{border-bottom:1px solid var(--rule);background:var(--card);
+  position:relative;overflow:hidden}
+/* A hairline of the accent along the very top. One pixel of colour does more
+   for the page's temperature than a large block of it would. */
+header.top::before{content:"";position:absolute;inset:0 0 auto;height:3px;
+  background:linear-gradient(90deg,var(--brand),#c9762f 45%,var(--soft) 100%)}
+/* Row one is the brand and the freshness note, one at each end. Row two is
+   the disclaimer, spanning BOTH columns so it runs the full width of the
+   page rather than stopping at the edge of a column.
+
+   It was capped at 58ch, which is the right measure for body copy in a card
+   and the wrong one for a band of small print across the top of the page:
+   capped, it stopped a third of the way across and left a dead zone beside
+   it. Column-width was better and still stopped short. Full width is what it
+   wants — at 62rem the paragraph settles into two lines. */
+.masthead{display:grid;grid-template-columns:minmax(0,1fr) auto auto;
+  align-items:center;gap:.5rem 1.5rem;padding:1.4rem 0 1rem}
+.logo{font-family:var(--serif);font-size:1.8rem;font-weight:700;letter-spacing:-.035em;
+  display:inline-flex;align-items:baseline;gap:.05em;
+  color:inherit;text-decoration:none}
+.logo:hover{opacity:.82}
+.logo em{font-style:normal;color:var(--editorial)}
+.tagline{color:var(--ink-3);font-size:.88rem;text-align:right;white-space:nowrap}
+.theme-toggle{background:transparent;border:none;color:var(--ink-2);cursor:pointer;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;transition:all .2s;}
+.theme-toggle svg{width:20px;height:20px;}
+.theme-toggle:hover{background:var(--rule-soft);color:var(--brand);transform:scale(1.1);}
+.disclaim{grid-column:1/-1;font-size:.79rem;line-height:1.6;color:var(--ink-3);
+  max-width:none;margin:.5rem 0 0 0}
+/* Stack once the two ends would fight for room. `nowrap` on the freshness
+   note is what forces this breakpoint — allowed to wrap, it would squeeze the
+   logo instead. */
+@media (max-width:48rem){
+  .masthead{grid-template-columns:1fr auto;gap:.35rem}
+  .tagline{grid-column:1/-1;text-align:left;white-space:normal}
+}
+
+/* ── navigation (U1) ──────────────────────────────────────────
+   Two bars, one set of routes. The top nav is the desktop affordance; the
+   tab bar is the phone one, pinned to the bottom because that is where the
+   thumb is and this is a phone-first audience. Both are built from the same
+   ROUTES table in script, so they cannot drift apart. */
+/* The bar itself: sticks to the top, and lifts off the page once you scroll
+   past it so it reads as a layer above the content rather than part of it. */
+.navbar{position:sticky;top:0;z-index:50;background:var(--card);
+  border-bottom:1px solid var(--rule);
+  transition:box-shadow .2s var(--ease),border-color .2s var(--ease)}
+@supports (backdrop-filter:blur(8px)){
+  .navbar{background:color-mix(in srgb,var(--card) 75%,transparent);
+    backdrop-filter:saturate(200%) blur(20px)}
+}
+.navbar.stuck{box-shadow:0 1px 2px rgba(90,60,35,.06),0 10px 24px -14px rgba(90,60,35,.4);
+  border-bottom-color:transparent}
+
+.topnav{display:flex;gap:.3rem;flex-wrap:wrap;padding:.5rem 0;margin:0}
+.topnav a{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font:600 .82rem/1 var(--sans);color:var(--ink-2);text-decoration:none;
+  padding:.5rem .72rem;border-radius:10px;white-space:nowrap;
+  border:1px solid var(--rule);background:var(--card);
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+  transition:all .2s var(--ease)}
+.topnav a svg{width:16px;height:16px;flex:none;
+  fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.topnav a:hover{color:var(--brand-deep);border-color:var(--brand);
+  background:var(--brand-soft);transform:translateY(-2px);
+  box-shadow:0 4px 6px -1px rgba(92,124,250,.2), 0 2px 4px -1px rgba(92,124,250,.1)}
+.topnav a:hover svg{opacity:1}
+/* Current page: filled, so it reads at a glance rather than by comparison. */
+.topnav a[aria-current="page"]{background:var(--brand);color:var(--brand-ink);
+  border-color:var(--brand);
+  box-shadow:0 4px 6px -1px rgba(92,124,250,.3), 0 2px 4px -1px rgba(92,124,250,.15)}
+.topnav a[aria-current="page"] svg{opacity:1}
+.topnav a[aria-current="page"]:hover{background:var(--brand-deep);
+  border-color:var(--brand-deep);color:var(--brand-ink)}
+.topnav a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* The way back to the three-door chooser, set apart from the current
+   track's own pages rather than blended into them. */
+.navlink-change-track{margin-left:auto;border-style:dashed}
+
+.tabbar{display:none}
+@media (max-width:44rem){
+  .topnav{display:none}
+  .tabbar{display:flex;position:fixed;inset:auto 0 0 0;z-index:40;
+    background:color-mix(in srgb,var(--card) 75%,transparent);
+    backdrop-filter:saturate(200%) blur(20px);
+    border-top:1px solid var(--rule);
+    padding:.3rem .25rem calc(.3rem + env(safe-area-inset-bottom));
+    justify-content:space-around}
+  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:.15rem;
+    font:600 .66rem/1.1 var(--sans);color:var(--ink-2);text-decoration:none;
+    padding:.45rem .2rem;min-height:48px;justify-content:center;
+    border-radius:var(--r-sm);text-align:center}
+  .tabbar a[aria-current="page"]{color:var(--brand-ink);background:var(--brand)}
+  .tabbar svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round}
+  main{padding-bottom:5.5rem}
+  /* On a phone the bar would eat a third of the screen, so it scrolls
+     sideways instead of wrapping — and the masthead is not sticky, only
+     the nav. */
+  .navbar{display:none}
+}
+/* Eleven items do not fit on one row much below 68rem, so they wrap onto a
+   second row. An earlier version scrolled them sideways instead, which put a
+   grey scrollbar across the whole bar and hid half the routes behind a
+   gesture nobody would guess was there. Wrapping costs one row of height and
+   keeps every destination visible, which is the better trade for a nav that
+   is the app's main way around. */
+
+/* One view at a time. `hidden` is the mechanism so that a view which is not
+   on screen is also out of the accessibility tree, not merely invisible. */
+.view[hidden]{display:none}
+ul.plain{list-style:none;padding:0;margin:.6rem 0 0;
+  display:grid;gap:.5rem}
+ul.plain li{padding:.5rem .1rem;border-bottom:1px solid var(--rule)}
+ul.plain a{color:var(--focus)}
+.big-fig{font:600 1.5rem/1.2 var(--serif);margin:.3rem 0}
+a.wrong{font:600 .72rem/1 var(--sans);color:var(--ink-2);text-decoration:none;
+  margin-left:.5rem;white-space:nowrap;border-bottom:1px dotted var(--rule)}
+a.wrong:hover{color:var(--brand-deep)}
+a.src{font:600 .74rem/1.4 var(--sans);color:var(--focus);white-space:nowrap}
+.tag.band{background:var(--quiet-bg);color:var(--quiet);font-variant-numeric:tabular-nums;font-weight:700}
+a.src:hover{color:var(--brand-deep)}
+.course-sec h3{font:600 1rem/1.3 var(--sans);margin:1.1rem 0 .3rem}
+.course-sec h4{font:600 .9rem/1.3 var(--sans);margin:1rem 0 .2rem}
+
+/* U3 — the toolbar. Deliberately no control for selectivity or pay. */
+.filterbar{border:1px solid var(--rule);border-radius:var(--r-sm);
+  padding:.9rem 1rem;margin:0 0 1.1rem;background:var(--bg-2,transparent)}
+.filterbar .filters{display:grid;gap:.6rem;margin-top:.6rem;
+  grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}
+.filterbar .field{margin:0}
+.ranked{display:grid;gap:.4rem;margin:.2rem 0 .6rem;padding:0;list-style:none}
+.ranked-row{display:flex;align-items:center;gap:1rem;padding:.55rem .2rem;
+  border-bottom:1px solid var(--rule);transition:opacity .15s var(--ease)}
+.ranked-row:last-child{border-bottom:none}
+.ranked-row.is-off{opacity:.5}
+.rank-label{flex:1;font-weight:600;font-size:.9rem;min-width:0}
+.seg.imp{flex:none;display:inline-flex;border:1px solid var(--rule);
+  border-radius:999px;overflow:hidden;background:var(--card)}
+.seg.imp button{min-height:34px;padding:.3rem .7rem;font-size:.76rem;font-weight:600;
+  border:none;border-right:1px solid var(--rule);border-radius:0;background:none;
+  color:var(--ink-3);white-space:nowrap}
+.seg.imp button:last-child{border-right:none}
+.seg.imp button:hover{background:var(--brand-soft);color:var(--brand-deep)}
+.seg.imp button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink)}
+@media (max-width:44rem){
+  .ranked-row{flex-wrap:wrap;gap:.4rem;padding:.6rem .2rem}
+  .rank-label{flex:1 1 100%}
+  .seg.imp{width:100%}
+  .seg.imp button{flex:1;padding:.35rem .2rem;font-size:.72rem}
+}
+.filterbar input[type=search]{width:100%}
+table.cmp.compact td,table.cmp.compact th{padding:.4rem .55rem;font-size:.86rem}
+table.cmp.compact a{color:var(--focus)}
+a.btn{display:inline-flex;align-items:center;justify-content:center;
+  font:600 1rem/1 var(--sans);border-radius:var(--r-sm);border:1px solid var(--rule);
+  background:var(--card);color:inherit;padding:.72rem 1.15rem;min-height:48px;
+  text-decoration:none}
+a.btn.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+a.btn:hover{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-deep)}
+a.btn.primary:hover{background:var(--brand-deep);color:var(--brand-ink)}
+
+/* ── shell ────────────────────────────────────────────────────── */
+main{padding:2rem 0 5rem}
+.card{
+  background:var(--card);border:1px solid var(--rule);border-radius:24px;
+  box-shadow:var(--lift);padding:1.8rem;margin:0 0 1.75rem;
+  position:relative;transition:box-shadow .35s var(--ease), transform .3s var(--ease);
+  overflow:hidden;
+}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  /* This used to run brand -> a fixed orange -> the plum "editorial" colour,
+     regardless of which track's page it sat on -- so a card on the moss
+     PSLE page carried an orange-to-purple stripe that matched nothing on
+     the page. Now it runs brand -> brand-deep, both of which follow
+     `data-track` (see the palette block near the top of this file), so the
+     stripe is always the CURRENT track's own colour, not a leftover mix of
+     two others. */
+  background:linear-gradient(90deg, var(--brand) 0%, var(--brand-deep) 100%);
+}
+.card:hover{
+  box-shadow:var(--lift-lg);
+  transform:translateY(-3px);
+}
+@media (min-width:40rem){.card{padding:2.4rem 2.6rem}}
+
+/* Steps read as steps. The eyebrow used to be the only signal that this was
+   a sequence, and it was easy to miss; the numeral makes the shape of the
+   task visible before any of it is read. */
+.eyebrow{
+  font:700 .68rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand);margin:0 0 .9rem;display:flex;align-items:center;gap:.6rem
+}
+.eyebrow::before{content:attr(data-step);display:none}
+.eyebrow[data-step]::before{
+  display:grid;place-items:center;
+  width:1.7rem;height:1.7rem;border-radius:50%;flex:none;
+  background:var(--brand);color:var(--brand-ink);
+  font:700 .82rem/1 var(--sans);letter-spacing:0;
+  box-shadow:0 2px 6px rgba(192,90,34,.35);
+}
+.eyebrow.done[data-step]::before{background:var(--good);box-shadow:0 2px 6px rgba(77,106,39,.35)}
+
+/* 58ch is the readable measure for body copy, and it stays. It is the wrong
+   measure for a strip of small print that spans the page: capped, those sit
+   in the left third with a dead zone beside them. The rule is the ROLE of the
+   text, not its size — a caption beside a field is body copy, a page-wide
+   notice is a band. */
+.lede{color:var(--ink-2);font-size:1.04rem;max-width:var(--measure)}
+.hint{color:var(--ink-3);font-size:.88rem;max-width:var(--measure)}
+
+/* ── notes & banners ──────────────────────────────────────────── */
+.note{display:flex;gap:.8rem;font-size:.88rem;line-height:1.55;
+  padding:.85rem 1.05rem;border-radius:var(--r-sm);background:var(--sunk);
+  color:var(--ink-2);border:1px solid var(--rule-soft);margin:.9rem 0}
+.note::before{content:"";flex:none;width:3px;border-radius:3px;background:var(--ink-3);align-self:stretch}
+.note.warn{background:var(--soft-bg);border-color:transparent;color:var(--soft)}
+.note.warn::before{background:currentColor}
+.note.info::before{background:var(--brand)}
+.note.editorial{background:var(--editorial-bg);color:var(--editorial)}
+.note.editorial::before{background:currentColor}
+
+/* ── forms ────────────────────────────────────────────────────── */
+label{display:block;font-weight:620;margin-bottom:.4rem;font-size:.92rem}
+select,input[type=text],textarea{width:100%;padding:.75rem .9rem;font:inherit;color:inherit;
+  border:1px solid var(--rule);border-radius:var(--r-sm);background:var(--card);
+  min-height:48px;font-size:.98rem;
+  transition:border-color .18s var(--ease),box-shadow .18s var(--ease)}
+/* The native arrow rendered as a scribble in print (ISSUES_v0.2.md section
+   G5). Drawing our own as a background chevron gives a shape that prints, and
+   it is warmer than the platform default besides. */
+select{appearance:none;-webkit-appearance:none;padding-right:2.5rem;
+  background-image:
+    linear-gradient(45deg,transparent 50%,currentColor 50%),
+    linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 1.15rem) calc(50% + 2px),calc(100% - .8rem) calc(50% + 2px);
+  background-size:6px 6px,6px 6px;background-repeat:no-repeat;color:var(--ink)}
+textarea{min-height:88px;resize:vertical;line-height:1.55}
+select:hover,input:hover,textarea:hover{border-color:var(--brand)}
+select:focus,input:focus,textarea:focus{border-color:var(--brand);
+  box-shadow:0 0 0 3px var(--brand-soft)}
+.field{margin-bottom:1.1rem}
+.field-max{max-width:min(27rem,100%)}
+
+button{cursor:pointer;font:inherit;font-weight:600;border-radius:var(--r-sm);
+  border:1px solid var(--rule);background:var(--card);color:inherit;
+  padding:.72rem 1.15rem;min-height:48px;
+  transition:all .2s var(--ease)}
+button:hover{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-deep);
+  transform:translateY(-2px);box-shadow:var(--lift)}
+button:active{transform:translateY(0)}
+button.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);
+  box-shadow:0 4px 6px -1px rgba(92,124,250,.2), 0 2px 4px -1px rgba(92,124,250,.1)}
+button.primary:hover{background:var(--brand-deep);border-color:var(--brand-deep);
+  color:var(--brand-ink);box-shadow:0 10px 15px -3px rgba(92,124,250,.3), 0 4px 6px -2px rgba(92,124,250,.15)}
+button.ghost{background:none;border-color:transparent;color:var(--focus);
+  text-decoration:underline;padding:.4rem .2rem;min-height:0}
+button.ghost:hover{background:none;border-color:transparent}
+button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;margin-top:1.1rem}
+
+/* headroom — how far above the floor of last year's intake the student sits.
+   It's the only discriminating figure once many courses share the same p90.
+   Named clearly, not buried as grey micro-text. */
+.headroom{
+  font-size:.82rem;color:var(--good);font-weight:600;
+  margin-top:.25rem;
+  display:flex;align-items:center;gap:.35rem;
+}
+.headroom::before{content:"\2714";font-size:.75rem;opacity:.8}
+
+/* chips (multi-select) */
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:.3rem 0 .4rem}
+
+/* Pill chips — used for priorities, constraints etc. */
+.chip{
+  display:inline-flex;align-items:center;gap:.4rem;
+  border:1.5px solid var(--rule);
+  border-radius:999px;padding:.5rem 1.25rem;
+  background:var(--card);font-size:.9rem;
+  font-weight:600;min-height:44px;
+  transition:all .22s var(--ease);
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.chip:hover{
+  border-color:var(--brand);background:var(--brand-soft);
+  transform:translateY(-2px);
+  box-shadow:0 5px 14px rgba(192,90,34,.15);
+}
+.chip[aria-pressed=true]{
+  background:linear-gradient(135deg,var(--brand),var(--focus));
+  border-color:transparent;
+  color:var(--brand-ink);
+  box-shadow:0 4px 14px rgba(192,90,34,.35);
+}
+.chip[aria-pressed=true]:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(192,90,34,.45);
+}
+.chip[aria-pressed=true] small{color:rgba(255,252,247,.82)}
+.chip small{display:block;font-weight:400;color:var(--ink-3);font-size:.78rem}
+
+/* Stacked tile chips — interest cards in a 2-col grid */
+.chip-stack{
+  flex-direction:column;align-items:flex-start;text-align:left;
+  border-radius:18px;
+  padding:1.15rem 1.3rem;
+  gap:.3rem;
+  /* Override the pill shape */
+  border-radius:18px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05), 0 4px 10px rgba(0,0,0,.05);
+  border:1.5px solid var(--rule);
+  transition:all .25s var(--ease);
+}
+.chip-stack:hover{
+  border-color:var(--brand);
+  box-shadow:0 4px 16px rgba(192,90,34,.14);
+  transform:translateY(-3px);
+  background:color-mix(in srgb, var(--brand-soft) 60%, var(--card) 40%);
+}
+.chip-stack[aria-pressed=true]{
+  background:linear-gradient(140deg, var(--brand) 0%, #b84e19 60%, var(--editorial) 130%);
+  border-color:transparent;
+  color:var(--brand-ink);
+  box-shadow:0 6px 20px rgba(192,90,34,.4);
+}
+.chip-stack[aria-pressed=true]:hover{
+  box-shadow:0 10px 28px rgba(192,90,34,.5);
+}
+.chip-stack strong{font-size:.95rem;font-weight:700;letter-spacing:-.01em}
+.chip-stack small{
+  font-size:.8rem;font-weight:400;
+  color:var(--ink-3);
+  line-height:1.4;
+}
+.chip-stack[aria-pressed=true] small{color:rgba(255,252,247,.75)}
+
+/* The chips container for chip-stack tiles: a tight 2-col grid */
+.chips:has(.chip-stack){
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(14rem,100%),1fr));
+  gap:.7rem;
+  margin:.4rem 0 .5rem;
+}
+
+/* segmented — iOS-style pill */
+.seg{
+  display:inline-flex;
+  background:var(--sunk);
+  border-radius:999px;
+  padding:4px;gap:4px;
+  flex-wrap:wrap;
+  border:1.5px solid var(--rule);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.07);
+}
+.seg button{
+  border:none;border-radius:999px;
+  padding:.55rem 1.3rem;
+  font-size:.9rem;font-weight:600;
+  background:transparent;
+  color:var(--ink-3);
+  min-height:38px;
+  transition:all .2s var(--ease);
+}
+.seg button:hover{color:var(--ink);background:color-mix(in srgb,var(--card) 50%,transparent)}
+.seg button[aria-pressed=true]{
+  background:var(--card);
+  color:var(--ink);
+  box-shadow:0 1px 3px rgba(0,0,0,.1), 0 3px 8px rgba(0,0,0,.08);
+}
+.seg button[aria-pressed=true]:hover{
+  background:var(--card);
+  color:var(--ink);
+}
+
+/* ── subject table ────────────────────────────────────────────── */
+table.grades{width:100%;border-collapse:collapse}
+table.grades th{text-align:left;font:600 .7rem/1 var(--sans);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);padding:0 .35rem .45rem}
+table.grades td{padding:.22rem .35rem;vertical-align:top}
+td.lv{width:9rem} td.gr{width:6.5rem} td.rm{width:3rem}
+.rmbtn{width:100%;padding:0;min-height:48px;font-size:1.2rem;line-height:1;color:var(--ink-3)}
+.fixed-subject{display:inline-block;padding:.55rem .1rem;color:var(--ink-2);font-weight:600}
+/* Stacked rows on a narrow screen.
+   `thead` is hidden here, which used to leave three unlabelled boxes with no
+   way to tell level from subject from grade (ISSUES_v0.2.md section F). Each
+   cell now carries its own label. The breakpoint is 44rem, NOT the viewport
+   width -- a desktop window is wider than that, so the stacked layout stopped
+   leaking into desktop when the two conflicting media queries were merged. */
+@media (max-width:44rem){
+  table.grades,table.grades tbody,table.grades tr,table.grades td{display:block;width:100%}
+  table.grades thead{display:none}
+  table.grades tr{border:1px solid var(--rule);border-radius:var(--r-sm);
+    padding:.7rem;margin-bottom:.7rem;display:grid;grid-template-columns:1fr 6.5rem;gap:.5rem}
+  td.lv,td.gr,td.rm{width:auto}
+  td.nm,td.rm{grid-column:1/-1}
+  table.grades td::before{
+    content:attr(data-label);display:block;font-size:.72rem;font-weight:620;
+    letter-spacing:.03em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.15rem
+  }
+  table.grades td.rm::before{content:""}
+}
+
+/* combobox */
+.combo{position:relative}
+.combo ul{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 4px);
+  margin:0;padding:.3rem;list-style:none;background:var(--card);
+  border:1px solid var(--rule);border-radius:var(--r-sm);
+  box-shadow:var(--lift);max-height:15rem;overflow-y:auto}
+.combo li{padding:.55rem .7rem;border-radius:6px;font-size:.94rem;cursor:pointer}
+.combo li[aria-selected=true]{background:var(--brand-soft);color:var(--brand)}
+.combo li small{display:block;color:var(--ink-3);font-size:.78rem}
+.combo[hidden],.combo ul[hidden]{display:none}
+
+/* ── the dial ─────────────────────────────────────────────────── */
+.result-head{display:grid;gap:1.6rem;align-items:center;
+  grid-template-columns:minmax(0,1fr)}
+@media (min-width:44rem){.result-head{grid-template-columns:auto minmax(0,1fr)}}
+.dial{position:relative;width:180px;height:180px;flex:none;margin:0 auto}
+.dial svg{transform:rotate(-90deg);overflow:visible}
+.dial .val{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center}
+.dial .num{font-family:var(--serif);font-size:3.1rem;line-height:1;font-weight:600;
+  letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.dial .of{font-size:.78rem;color:var(--ink-3);margin-top:.35rem}
+
+/* ── trace ────────────────────────────────────────────────────── */
+details.disclosure{border-top:1px solid var(--rule);margin-top:1.4rem;padding-top:.5rem}
+details.disclosure summary{cursor:pointer;font-weight:640;color:var(--focus);
+  padding:.6rem 0;font-size:.94rem;list-style:none;
+  display:flex;align-items:center;gap:.5rem}
+details.disclosure summary:hover{color:var(--brand-deep)}
+details.disclosure summary::-webkit-details-marker{display:none}
+/* A drawn triangle rather than a text glyph: the glyph rendered inconsistently
+   across platforms and disappeared entirely in print. */
+details.disclosure summary::before{content:"";flex:none;
+  width:0;height:0;border-left:6px solid currentColor;
+  border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;
+  transition:transform .2s var(--ease)}
+details.disclosure[open] summary::before{transform:rotate(90deg)}
+pre.trace{font:13px/1.75 var(--mono);background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--r-sm);padding:1.15rem;overflow-x:auto;margin:.6rem 0 0;white-space:pre;
+  color:var(--ink-2)}
+
+/* ── result groups ────────────────────────────────────────────── */
+/* Each bucket gets a warm spine in its own colour. With 296 courses the
+   reader is scrolling a long way, and the stripe is what tells them which
+   verdict they are still inside without re-reading the heading. */
+.group{margin:2.2rem 0 0;padding-left:1rem;border-left:3px solid var(--rule)}
+.group.g-ok{border-left-color:var(--good)}
+.group.g-mid{border-left-color:var(--mid)}
+.group.g-soft{border-left-color:var(--soft)}
+.group.g-quiet{border-left-color:var(--rule)}
+.group-head{display:flex;align-items:baseline;gap:.65rem;flex-wrap:wrap}
+.group-head h3{font-size:1.2rem}
+.count{font:700 .74rem/1 var(--sans);padding:.32rem .65rem;border-radius:999px;
+  background:var(--quiet-bg);color:var(--quiet);font-variant-numeric:tabular-nums}
+.g-ok .count{background:var(--good-bg);color:var(--good)}
+.g-mid .count{background:var(--mid-bg);color:var(--mid)}
+.g-soft .count{background:var(--soft-bg);color:var(--soft)}
+.group>p{font-size:.9rem;color:var(--ink-2);margin:.3rem 0 1rem;max-width:var(--measure)}
+button.more{margin-top:.7rem;background:var(--card);border:1px solid var(--rule);
+  border-radius:999px;padding:.55rem 1.2rem;font-size:.88rem;font-weight:640;
+  color:var(--focus);cursor:pointer;min-height:44px}
+button.more:hover{border-color:var(--brand);color:var(--brand-deep);background:var(--brand-soft)}
+
+ul.courses{list-style:none;padding:0;margin:0;display:grid;gap:.85rem}
+li.course{border:1px solid var(--rule);border-radius:var(--r);padding:1.1rem 1.2rem;
+  background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.05);
+  transition:all .3s var(--ease)}
+@media (hover:hover){
+  li.course:hover{box-shadow:var(--lift-lg);border-color:var(--brand);
+    transform:translateY(-4px)}
+}
+li.course.stale{opacity:.62}
+.c-top{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;flex-wrap:wrap}
+.c-name{font-family:var(--serif);font-size:1.18rem;font-weight:600;letter-spacing:-.012em}
+.c-sub{font-size:.81rem;color:var(--ink-3);margin-top:.12rem}
+.c-summary{font-size:.91rem;color:var(--ink-2);margin:.6rem 0 0;max-width:var(--measure)}
+.c-meta{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin-top:.75rem;
+  font-size:.79rem;color:var(--ink-3)}
+.tag{border:1px solid var(--rule);border-radius:999px;padding:.18rem .65rem;white-space:nowrap}
+.tag.ed{border-color:transparent;background:var(--editorial-bg);color:var(--editorial)}
+.tag.money{border-color:transparent;background:var(--good-bg);color:var(--good);
+  font-variant-numeric:tabular-nums}
+.tag.flex{border-color:transparent;background:var(--mid-bg);color:var(--mid)}
+
+/* Two axes, and they must never look like one number.
+   MATCH is scored because every point traces to something the student typed.
+   EVIDENCE is never scored because that would be predicting an admissions
+   committee. Giving them the same tile, the same weight and the same
+   typography is what keeps them legible as two different kinds of claim. */
+.axes{display:grid;gap:.7rem;margin-top:.9rem;
+  grid-template-columns:minmax(0,1fr)}
+@media (min-width:38rem){.axes{grid-template-columns:1fr 1fr}}
+.axis{background:var(--sunk);border-radius:var(--r-sm);padding:.8rem .95rem;
+  border:1px solid var(--rule-soft)}
+.axis h4{margin:0 0 .35rem;font:700 .67rem/1 var(--sans);letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3)}
+.axis .big{font-family:var(--serif);font-size:1.35rem;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.axis .small{font-size:.83rem;color:var(--ink-2);line-height:1.5}
+.bar{height:8px;border-radius:99px;background:var(--rule);overflow:hidden;margin:.5rem 0 .4rem}
+.bar i{display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--brand),#c9762f)}
+.badge{display:inline-block;font:700 .78rem/1 var(--sans);padding:.38rem .7rem;
+  border-radius:999px;margin-bottom:.4rem}
+.b-ok{background:var(--good-bg);color:var(--good)}
+.b-mid{background:var(--mid-bg);color:var(--mid)}
+.b-soft{background:var(--soft-bg);color:var(--soft)}
+.b-quiet{background:var(--quiet-bg);color:var(--quiet)}
+
+/* The derivation, which is the product. Every line traces a point back to
+   something the student typed, so it reads as a receipt rather than a verdict. */
+.plain-list{list-style:none;padding:0;margin:.6rem 0;font-size:.9rem;display:grid;gap:.4rem}
+.plain-list li{padding:.2rem 0 .2rem .9rem;border-left:2px solid var(--rule);color:var(--ink-2)}
+.factors{list-style:none;padding:0;margin:.75rem 0 0;font-size:.86rem;display:grid;gap:.5rem}
+.factors li{display:grid;grid-template-columns:3.9rem 1fr;gap:.65rem;align-items:baseline}
+.factors b{font-variant-numeric:tabular-nums;font-weight:700;color:var(--brand);
+  text-align:right;font-size:.84rem;background:var(--brand-soft);
+  border-radius:5px;padding:.1rem .35rem}
+.factors b.zero{color:var(--ink-3);background:var(--quiet-bg)}
+.factors span{color:var(--ink-2)}
+
+/* ── timeline ─────────────────────────────────────────────────── */
+ol.timeline{list-style:none;margin:1rem 0 0;padding:0 0 0 1.5rem;
+  border-left:2px solid var(--rule);display:grid;gap:1.2rem}
+ol.timeline li{position:relative}
+/* Round dots, explicitly. These rendered as dark squares in the printed PDF
+   (ISSUES_v0.2.md section G4) because they were list markers; they are now
+   drawn shapes with the list style removed, which prints as drawn. */
+ol.timeline li::before{content:"";position:absolute;left:calc(-1.5rem - 7px);top:.48rem;
+  width:12px;height:12px;border-radius:50%;background:var(--rule);
+  border:2px solid var(--card);box-sizing:border-box}
+ol.timeline li.next::before{background:var(--brand);
+  box-shadow:0 0 0 4px var(--brand-soft), 0 0 0 5px rgba(168,72,27,.18)}
+ol.timeline li.past{opacity:.5}
+.t-when{font:600 .78rem/1 var(--sans);color:var(--brand);letter-spacing:.02em}
+li.past .t-when{color:var(--ink-3)}
+.t-label{font-family:var(--serif);font-size:1.04rem;font-weight:600;margin:.2rem 0 .15rem}
+.t-detail{font-size:.87rem;color:var(--ink-2);max-width:var(--measure)}
+.t-date{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+/* ── routes ───────────────────────────────────────────────────── */
+.routes{display:grid;gap:.9rem;margin-top:.9rem}
+/* Three kinds of route, three colours, and the direct one is not privileged
+   by weight — "another way" and "second chance" are real routes, not
+   consolation, and the styling says so. */
+.route{border:1px solid var(--rule);border-left:4px solid var(--brand);
+  border-radius:0 var(--r) var(--r) 0;padding:1rem 1.15rem;background:var(--card);
+  box-shadow:0 1px 2px rgba(90,60,35,.035)}
+.route.alt{border-left-color:var(--good)}
+.route.second{border-left-color:var(--soft)}
+.route h4{font-family:var(--serif);font-size:1.08rem;font-weight:600;margin:0 0 .2rem}
+.route ul{margin:.55rem 0 0;padding-left:1.15rem;font-size:.88rem;color:var(--ink-2)}
+.route ul li{margin-bottom:.2rem}
+
+/* ── compare ──────────────────────────────────────────────────── */
+.cmp-wrap{overflow-x:auto;margin-top:1rem;-webkit-overflow-scrolling:touch}
+table.cmp{border-collapse:collapse;width:100%;font-size:.87rem;min-width:34rem}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--rule-soft);padding:.75rem .85rem;
+  text-align:left;vertical-align:top}
+table.cmp thead th{font:700 .74rem/1.3 var(--sans);letter-spacing:.05em;
+  color:var(--ink);position:sticky;top:0;background:var(--card);
+  border-bottom:2px solid var(--brand)}
+/* Zebra striping in warm oat rather than grey. Reading across a row of five
+   courses is the point of this table, and a stripe is what keeps the eye on
+   the line. */
+table.cmp tbody tr:nth-child(odd){background:var(--sunk)}
+table.cmp tbody th{font-weight:640;color:var(--ink-2);white-space:nowrap;font-size:.82rem}
+
+.cite{font-size:.78rem;color:var(--ink-3);margin-top:.5rem;line-height:1.55}
+.cite a{color:inherit}
+.err{background:var(--soft-bg);color:var(--soft);padding:.95rem 1.1rem;
+  border-radius:var(--r-sm);margin:.9rem 0;font-size:.9rem;
+  border-left:4px solid var(--soft)}
+
+/* Section heads inside the results, e.g. "Where your answers point". */
+#sortControl h3{font-size:1.2rem;margin-top:.4rem}
+/* The empty shortlist is an invitation, so it is given the warm tint rather
+   than the grey of a disabled thing. */
+#cmpEmpty{background:var(--brand-soft);border:1px dashed var(--brand);
+  border-radius:var(--r-sm);padding:1rem 1.15rem;color:var(--ink-2);
+  font-size:.95rem;max-width:none;margin:.8rem 0 0}
+footer{border-top:1px solid var(--rule);background:var(--card);
+  padding:2.2rem 0 3rem;font-size:.84rem;color:var(--ink-3);
+  position:relative}
+footer::before{content:"";position:absolute;inset:0 0 auto;height:2px;
+  background:linear-gradient(90deg,var(--soft),#c9762f 55%,var(--brand))}
+footer h4{font:700 .72rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--brand);margin:0 0 .55rem}
+footer a{color:var(--focus)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* ---------- print ----------
+   This page exists to be printed and taken to a form teacher, so the printed
+   artefact is a deliverable, not a courtesy.
+
+   The old rule hid every `button` and every disclosure summary. That was the
+   bug behind ISSUES_v0.2.md sections C and D: chips, segmented answers, the
+   remove controls and the entire per-factor derivation are all buttons or sit
+   behind one, so the printout came out as a bare "23 / 100" with no reasoning
+   and no visible answers — the exact gap that started this work.
+
+   The rule now is: an ACTION disappears, an ANSWER prints. A button that is a
+   verb ("Add a subject", "Clear") is noise on paper. A button that records a
+   choice is the choice, and prints as static text. */
+@media print{
+  header.top,.actions,footer .links,.skip,.topnav,.tabbar,.navbar{display:none}
+
+  /* One course to one clean sheet (ROADMAP_UI U2). This is the page people
+     will share with each other and take to a form teacher, so the printed
+     artefact is a deliverable. The reporting links are interactive affordances
+     with no meaning on paper; the citations they sit beside are the point and
+     stay. Sections must not be split across a fold mid-figure. */
+  a.wrong{display:none}
+  .course-sec{break-inside:avoid;page-break-inside:avoid}
+  .course-sec .eyebrow{break-after:avoid;page-break-after:avoid}
+
+  /* Verbs: no answer to carry. */
+  button:not([aria-pressed]){display:none}
+  /* An option nobody chose is not an answer either. */
+  button[aria-pressed=false]{display:none}
+  /* A chosen option prints as what it says, not as a control. */
+  button[aria-pressed=true]{
+    display:inline!important;border:none!important;background:none!important;
+    color:inherit!important;box-shadow:none!important;
+    padding:0!important;margin:0 .6rem 0 0!important;font:inherit;font-weight:620;
+  }
+  .chip small{display:inline;font-weight:400;color:#444}
+  .seg{border:none!important;display:inline;background:none}
+  /* Say so out loud rather than leaving a silent blank where an answer would
+     be. A reader cannot tell the difference between "not asked" and "skipped". */
+  .seg:not(:has(button[aria-pressed=true]))::after,
+  .chips:not(:has(button[aria-pressed=true]))::after{
+    content:"— not answered";color:#666;font-style:italic
+  }
+
+  /* The derivation IS the product. `beforeprint` opens every disclosure; this
+     keeps the heading visible so the reader knows what they are looking at. */
+  details.disclosure summary{display:block;list-style:none;font-weight:640;color:#000}
+  /* The disclosure triangle is a drawn shape, not a glyph. On paper nothing
+     can be expanded, so the affordance is noise — but the HEADING must stay,
+     or the reader cannot tell what the derivation below it belongs to. */
+  details.disclosure summary::before{content:none;border:0;width:0;height:0}
+  details[open] > *{display:revert}
+
+  body{background:#fff}.card{box-shadow:none;break-inside:avoid;border-color:#ccc}
+  details.disclosure[open] pre{border-color:#ccc}
+  /* A card split across a page break loses the link between a course and its
+     verdict, which is the one thing on the card that must not be orphaned. */
+  li.course{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  a[href]::after{content:""}  /* URLs are cited in the notes already */
+}

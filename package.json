@@ -1,0 +1,24 @@
+{
+  "name": "path-ahead-checks",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only checks for the browser build. The app itself has no dependencies and no build step.",
+  "scripts": {
+    "check:golden": "node tools/check_golden.mjs",
+    "check:filters": "node tools/check_filters.mjs",
+    "check:flows": "node tools/check_flows.mjs",
+    "check:ui": "node tools/check_ui.mjs",
+    "site": "node tools/build_static.mjs",
+    "site:report": "node tools/build_static.mjs --report",
+    "check:site": "npm run site && node tools/check_static.mjs",
+    "//comment": "check:fast is everything that does not need jsdom. It runs in about a second and catches most regressions; check:ui is still the one that proves the controls are wired up.",
+    "check:fast": "npm run check:boot && npm run check:golden && npm run check:filters && npm run check:flows && npm run check:site",
+    "build:web": "python tools/build_web.py",
+    "check:web": "python tools/build_web.py --check",
+    "check": "npm run check:web && npm run check:fast && npm run check:ui",
+    "check:boot": "node tools/check_boot.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.3"
+  }
+}

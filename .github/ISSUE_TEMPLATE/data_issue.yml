@@ -1,0 +1,42 @@
+name: Wrong or outdated figure
+description: A number, date, range or citation in the app is wrong. This is the single most valuable report anyone can make.
+title: "[data] "
+labels: ["data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every figure in PathAhead is dated, cited and linked back to its source — this form is for saying one of them is wrong, stale, or the citation itself has moved. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for the full picture.
+  - type: input
+    id: where
+    attributes:
+      label: Where in the app
+      description: The screen and, if shown, the course/school/route name (e.g. "A-Level results page, NUS Computer Science")
+    validations:
+      required: true
+  - type: input
+    id: current
+    attributes:
+      label: What PathAhead currently shows
+    validations:
+      required: true
+  - type: input
+    id: correct
+    attributes:
+      label: What it should say instead
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: The official page you found this on
+      description: A link to the institution's or MOE's own page. This is what makes the fix possible.
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else worth knowing
+    validations:
+      required: false

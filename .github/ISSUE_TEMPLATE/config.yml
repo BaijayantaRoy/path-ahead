@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Wording that would land badly on a worried reader
+    url: https://github.com/BaijayantaRoy/path-ahead/issues/new?labels=wording&title=%5Bwording%5D+
+    about: Quote the exact sentence. No code needed — see CONTRIBUTING.md.
+  - name: Security or privacy concern
+    url: https://github.com/BaijayantaRoy/path-ahead/security/advisories/new
+    about: Please use private reporting rather than a public issue — see SECURITY.md.

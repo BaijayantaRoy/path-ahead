@@ -1,0 +1,48 @@
+# Prerequisites -- the "is this goal even reachable from where I am?" edges.
+#
+# This is the data that makes backward mode more than a calculator run in
+# reverse. A required score can be worked towards; a subject you did not take
+# in Secondary 3 may close a route years before anyone notices.
+#
+# KNOWN GAP: NUS publishes per-programme subject prerequisites as PDFs, and
+# states they change every year. PathAhead links to them rather than copying
+# them, so this pack currently carries the general rule and not the
+# per-programme detail. The Data Health report counts this as a coverage gap on
+# purpose -- see docs/PACK_AUTHORING.md.
+
+prerequisites:
+  - id: nus-subject-prerequisites
+    applies_to: [university-direct]
+    requires_subject: Programme-specific H1/H2 subjects
+    at_stage: a-level
+    depends_on_earlier: >
+      your Secondary 3 subject combination, which determines which H2 subjects
+      you can offer at JC
+    detail: >
+      NUS publishes a subject prerequisite list for every single-degree
+      programme and states that it is subject to change every year. Meeting the
+      grade profile is not sufficient if the subject prerequisite is not met.
+      Because these choices are made years earlier, check the list before
+      choosing a JC subject combination -- not after results.
+    fact:
+      value: Subject prerequisites apply per programme and change annually
+      as_of_year: 2026
+      source: nus-prerequisites
+      confidence: high
+      stale_after: 2027-06-30
+
+  - id: alevel-project-work
+    applies_to: [university-direct]
+    requires_subject: Project Work (pass)
+    at_stage: a-level
+    depends_on_earlier: null
+    detail: >
+      From the 2026 cohort Project Work no longer contributes points to the
+      University Admission Score, but passing it remains part of qualifying.
+      Treat it as a gate to clear rather than a score to maximise.
+    fact:
+      value: Project Work graded pass/fail, no longer contributes points
+      as_of_year: 2026
+      source: uas-grade-points-2026
+      confidence: medium
+      stale_after: 2027-06-30

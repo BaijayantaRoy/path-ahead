@@ -1,0 +1,287 @@
+# Routes -- how you can actually get there.
+#
+# PathAhead never returns a single required score on its own. Backward mode
+# refuses to answer with fewer than three routes, at least one of which is not
+# the direct one. That is a safety rule enforced in the engine, not a feature
+# request: "you need AAA" delivered alone to a seventeen-year-old is a verdict,
+# not guidance.
+#
+# Singapore genuinely has these routes. Almost no public calculator shows them.
+
+routes:
+  - id: alevel-direct
+    applies_to: [university-direct]
+    kind: direct
+    label: Apply directly after the A-Level
+    summary: >
+      The usual route. You apply in the admissions exercise following your
+      A-Level results, and are considered on your University Admission Score
+      together with any programme-specific assessment.
+    steps:
+      - Sit the A-Level at the end of JC2 or MI3.
+      - Apply in the university admissions exercise for the following academic year.
+      - Meet the programme's subject prerequisites as published by the university.
+      - Attend any interview, test, audition or portfolio review the programme requires.
+    typical_duration: Admission decided in the year after your results
+    source: nus-igp-2026
+
+  - id: aptitude-based-admissions
+    applies_to: [university-direct]
+    kind: alternative
+    label: Aptitude-Based Admissions
+    summary: >
+      NUS considers applicants whose strengths, interests and achievements are
+      not fully captured by grades alone. Offers made this way are included in
+      the published grade profiles, which is part of why those profiles are a
+      range rather than a line.
+    steps:
+      - Apply through the normal admissions exercise.
+      - Present the aptitude, portfolio or achievement evidence the scheme asks for.
+      - Be assessed on more than the score alone.
+    caveat: >
+      Each university runs its own version of this with its own name and its own
+      criteria. Read the university's own page rather than assuming they work
+      the same way.
+    source: nus-aba
+
+  - id: polytechnic-to-degree
+    applies_to: [university-direct]
+    kind: alternative
+    label: Polytechnic diploma, then a degree
+    summary: >
+      A polytechnic diploma is a full route into a university degree, not a
+      consolation. Universities publish separate admission requirements and
+      separate grade profiles for diploma holders, and some faculties grant
+      advanced standing that shortens the degree.
+    steps:
+      - Enter a polytechnic course after O-Level, SEC, or after the A-Level.
+      - Complete the diploma, aiming at the GPA the target faculty publishes.
+      - Apply to the university as a polytechnic diploma holder.
+      - Check whether the faculty grants advanced standing or module exemptions.
+    typical_duration: 3 years of diploma, then 3 to 4 years of degree
+    caveat: >
+      Diploma-holder places are a distinct and competitive pool with their own
+      published GPA profiles. It is a different route, not an easier one.
+    source: nus-poly-route
+
+  - id: other-autonomous-universities
+    applies_to: [university-direct]
+    kind: alternative
+    label: A different university with the same subject
+    summary: >
+      Singapore has six autonomous universities and they do not admit on
+      identical terms. SIT and SUSS run applied and industry-linked degrees,
+      SUTD admits on a design-and-technology basis, and SMU and NTU publish
+      their own profiles. The same field of study is often reachable at more
+      than one of them.
+    steps:
+      - List the universities that teach the subject you want.
+      - Compare each one's published profile and admission basis, not just its reputation.
+      - Consider what each degree is actually built for -- research, industry practice, or design.
+    caveat: >
+      PathAhead now holds verified figures for all six autonomous universities,
+      but they are not the same KIND of figure -- NUS, NTU and SMU publish a
+      10th-90th percentile grade profile, SIT and SUSS publish the share of
+      applicants in each band who got through, and SUTD publishes neither and
+      says so. Read each one on its own terms rather than lining them up.
+
+  - id: jae-to-polytechnic
+    applies_to: [polytechnic-diploma]
+    kind: direct
+    label: Apply through the Joint Admissions Exercise
+    summary: >
+      The main route into a polytechnic diploma, and the one the published
+      aggregate ranges describe. Applicants are posted by merit on their net
+      ELR2B2 O-Level aggregate, best score considered first, subject to
+      vacancies in the course they chose.
+    steps:
+      - Apply in JAE in the January after the O-Level results are released.
+      - You may list up to 12 courses you are eligible for, in order of preference.
+      - Posting is by net ELR2B2 aggregate, after any CCA bonus points.
+      - An appeal window opens after posting, for courses whose range you met.
+    typical_duration: 3-year diploma
+    caveat: >
+      An A-Level holder may apply through JAE, but is admitted on their GCE
+      O-Level results -- not on their A-Level score. That is why PathAhead shows
+      the aggregate range on these cards and does not compare your result with
+      it.
+    source: tp-alevel-admissions
+
+  - id: dae-after-a-level
+    applies_to: [polytechnic-diploma]
+    kind: alternative
+    label: Direct Admissions Exercise, after the A-Level
+    summary: >
+      The route that actually applies to an A-Level holder. Polytechnics admit
+      A-Level graduates directly into shortened 2 or 2.5-year versions of
+      selected diplomas, recognising the work already done at JC or MI.
+    steps:
+      - Apply directly to the polytechnic, usually in the weeks after A-Level results.
+      - Check which diplomas that polytechnic shortens, and to 2 or 2.5 years.
+      - Expect to be assessed on academic results, and an interview or test where required.
+      - Places depend on vacancies, so apply to more than one course.
+    typical_duration: 2 to 2.5 years instead of 3
+    caveat: >
+      There is no published aggregate range for this route at all. Admission is
+      on "academic results and/or interview/test where applicable and subject to
+      the availability of vacancies", so no tool -- including this one -- can
+      tell you where you stand. Ask the polytechnic's admissions office.
+    source: tp-alevel-admissions
+
+  - id: diploma-then-degree
+    applies_to: [polytechnic-diploma]
+    kind: alternative
+    label: Finish the diploma, then go on to a degree
+    summary: >
+      A diploma is a starting point as often as an ending one. Every autonomous
+      university admits polytechnic diploma holders through a separate pool with
+      its own published GPA profile, and some faculties grant advanced standing
+      that shortens the degree.
+    steps:
+      - Complete the diploma, aiming at the GPA the target faculty publishes.
+      - Apply to the university as a diploma holder, not as an A-Level applicant.
+      - Ask the faculty whether it grants module exemptions or advanced standing.
+    typical_duration: 3 years of diploma, then 2 to 4 years of degree
+    caveat: >
+      The diploma-holder pool is distinct and competitive, with its own GPA
+      profiles. A different route, not an easier one.
+    source: nus-poly-route
+
+  - id: polytechnic-second-chance
+    applies_to: [polytechnic-diploma]
+    kind: second-chance
+    label: If the posting does not go your way
+    summary: >
+      A JAE posting is not the last word. There is an appeal window, a direct
+      admissions round afterwards, and the option of a different polytechnic
+      teaching the same subject under a different course name.
+    steps:
+      - Use the JAE appeal window for courses whose published range you met.
+      - Look at the same subject at the other four polytechnics -- course names differ.
+      - Ask about the Direct Admissions Exercise, which runs after JAE posting.
+      - Talk to your school's Education & Career Guidance counsellor first.
+    caveat: >
+      Appeal outcomes depend on vacancies that nobody can see in advance. Treat
+      this as a set of doors worth knocking on, not a plan with an expected
+      result.
+    source: moe-ecg
+
+  - id: retake-appeal-later-entry
+    applies_to: [university-direct]
+    kind: second-chance
+    label: Retake, appeal, or come back later
+    summary: >
+      A result in one year is not a permanent ceiling. Candidates re-sit the
+      A-Level privately, appeal where a university's process allows it, apply
+      again in a later cycle, or enter through part-time and work-study degrees
+      after National Service or employment.
+    steps:
+      - Ask the university's admissions office what its appeal process actually allows.
+      - Consider re-sitting specific papers rather than the whole examination.
+      - Look at part-time, work-study and later-entry degree routes.
+      - Talk to your school's Education & Career Guidance counsellor before deciding.
+    caveat: >
+      Each of these has real costs in time and money, and the rules differ by
+      university. This is a route worth understanding properly with a
+      counsellor, not one to choose from a web page.
+    source: moe-ecg
+
+  - id: jae-to-jc
+    applies_to: [jc-direct]
+    kind: direct
+    label: Apply through the Joint Admissions Exercise (JAE)
+    summary: >
+      The standard route into Junior College. Leavers apply in January using
+      their net aggregate, with merit posting based on vacancies and student
+      choices.
+    steps:
+      - Sit the O-Level (2027 JAE) or the SEC examination (2028+ Admissions Exercise) at Secondary 4.
+      - Apply during the Joint Admissions Exercise (or its 2028+ successor) in January.
+      - Meet the minimum aggregate ceiling MOE publishes for your own cohort -- your computed aggregate is shown above.
+      - List up to 12 choices across Junior Colleges and Polytechnics.
+    typical_duration: 2 years full-time
+    caveat: >
+      The ceiling itself changes cohort: L1R5 <= 20 for the 2027 O-Level JAE,
+      L1R4 <= 16 for the 2028+ SEC-era exercise. The two are not the same
+      number and are not comparable -- see the caveats on your own computed
+      aggregate above rather than a number quoted here.
+    source: moe-jae-jc-mi-2027
+
+  - id: jae-to-mi
+    applies_to: [mi-direct]
+    kind: direct
+    label: Apply to Millennia Institute through JAE
+    summary: >
+      The direct route into Millennia Institute's 3-year A-Level programme,
+      posted on a net L1R4 aggregate.
+    steps:
+      - Apply in JAE (or its 2028+ successor) in January following your results.
+      - Meet the minimum L1R4 aggregate ceiling MOE publishes for your own cohort -- your computed aggregate is shown above.
+      - Choose from Arts, Science, or Commerce tracks.
+    typical_duration: 3 years full-time
+    source: moe-jae-jc-mi-2027
+
+  - id: dsa-jc
+    applies_to: [jc-direct, mi-direct]
+    kind: alternative
+    label: Direct School Admission for Junior Colleges (DSA-JC)
+    summary: >
+      DSA-JC allows students to secure a place in a Junior College or MI before sitting
+      their national examinations, based on distinctive talents in sports, arts,
+      leadership, or academic niches.
+    steps:
+      - Apply directly to participating Junior Colleges mid-year (around June/July).
+      - Attend auditions, trials, interviews, or talent assessments.
+      - Receive a confirmed offer or waitlist offer prior to O-Level/SEC results.
+      - Meet the baseline eligibility criteria on results release to confirm the place.
+    typical_duration: 2 to 3 years full-time
+    caveat: >
+      Once a DSA offer is accepted and confirmed, you cannot participate in JAE
+      posting or transfer to another JC.
+    source: moe-dsajc
+
+  - id: millennia-institute-3yr
+    applies_to: [jc-direct]
+    kind: alternative
+    label: Three-year A-Level pathway (Millennia Institute)
+    summary: >
+      For students who want an A-Level track at a different pace. Millennia Institute
+      offers a 3-year curriculum leading to the same Singapore-Cambridge GCE A-Level,
+      posted on a net L1R4 aggregate rather than the L1R5 aggregate JCs use.
+    steps:
+      - Apply via JAE for Millennia Institute Arts, Commerce, or Science streams.
+      - Complete the GCE A-Level over 3 years instead of 2.
+      - Offers commerce stream subjects (e.g. Principles of Accounting, Management of Business).
+    typical_duration: 3 years full-time
+    source: moe-jae-jc-mi-2027
+
+  - id: poly-alternative-from-sec
+    applies_to: [jc-direct, mi-direct]
+    kind: alternative
+    label: Polytechnic diploma pathway
+    summary: >
+      A 3-year applied diploma at one of Singapore's five polytechnics, offering
+      hands-on industry training and a direct route to university with advanced standing.
+    steps:
+      - Apply via JAE for polytechnic diploma courses across 5 polytechnics.
+      - Complete a 3-year diploma curriculum with industry internship.
+      - Gain advanced standing or module exemptions toward university degrees.
+    typical_duration: 3 years full-time
+    source: moe-jae
+
+  - id: jc-appeal-retake
+    applies_to: [jc-direct, mi-direct]
+    kind: second-chance
+    label: JAE appeal window or alternative pathways
+    summary: >
+      If not posted to your preferred JC or MI, an official online appeal window opens
+      immediately after posting results. Poly diplomas and private candidate
+      re-sits provide solid alternative tracks.
+    steps:
+      - Submit an appeal to JAE institutions where your net aggregate meets the cut-off.
+      - Consider polytechnic diploma courses in related fields.
+      - ECG counsellors at secondary schools provide guidance throughout posting week.
+    caveat: >
+      Appeals depend strictly on available vacancies and meeting the net aggregate.
+    source: moe-ecg
+

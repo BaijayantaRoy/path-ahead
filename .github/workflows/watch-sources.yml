@@ -1,0 +1,49 @@
+name: Watch official sources
+
+# Maintainer-only, and deliberately modest.
+#
+# This is NOT a scraper and NOT a user-facing pipeline. Once a week it fetches
+# a short allowlist of pages that PathAhead already cites, hashes the part it
+# cares about, and opens an issue if the hash moved. It never downloads in
+# bulk, never mirrors, never republishes, and never edits a pack by itself --
+# it only tells a human to go and look.
+#
+# See SAFEGUARDS.md 3b and DESIGN_REVIEW.md 6.
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"   # Mondays, 03:17 UTC -- off-peak, once a week
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt
+
+      - name: Check the cited pages for changes
+        id: watch
+        run: python tools/watch_sources.py --pack packs/singapore --state .watch-state.json
+
+      - name: Open an issue if something moved
+        if: steps.watch.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = process.env.SUMMARY;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Official source changed - review the Singapore pack`,
+              labels: ['data', 'needs-review'],
+              body
+            });
+        env:
+          SUMMARY: ${{ steps.watch.outputs.summary }}

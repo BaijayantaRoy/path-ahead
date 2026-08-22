@@ -1,0 +1,176 @@
+# The calendar — what has to happen, and roughly when.
+#
+# The question a family actually asks is not "what is my score" but "what
+# closes first". Missing an application window is worse than missing a grade
+# profile by two points, and unlike the grade profile it is preventable.
+#
+# EVERY DATE HERE IS APPROXIMATE and marked as such in the app. Institutions
+# publish exact dates each cycle and move them; PathAhead's job is to make sure
+# nobody is surprised, then send them to the official page. `year_offset` is
+# relative to the exam year, so one declaration serves every cohort.
+
+milestones:
+  - id: alevel-results
+    label: A-Level results released
+    detail: >
+      Results are released by SEAB through your school, usually in the second
+      half of February following the examination.
+    year_offset: 1
+    month: 2
+    day: 20
+    kind: result
+    applies_to: [a-level]
+    url: https://www.seab.gov.sg/
+    fact:
+      value: A-Level results released in February following the examination
+      as_of_year: 2026
+      source: moe-ecg
+      confidence: medium
+      stale_after: 2027-06-30
+      note: >
+        Month is well established; the exact day is published each cycle.
+
+  - id: university-application-opens
+    label: University applications open
+    detail: >
+      The autonomous universities open applications shortly after results. Each
+      one runs its own exercise with its own window — check every university on
+      your list separately, because they do not all close on the same day.
+    year_offset: 1
+    month: 2
+    day: 22
+    kind: application
+    applies_to: [a-level]
+    url: https://www.nus.edu.sg/oam/admissions/important-dates
+    fact:
+      value: Applications open shortly after results release
+      as_of_year: 2026
+      source: nus-important-dates
+      confidence: medium
+      stale_after: 2027-06-30
+
+  - id: university-application-closes
+    label: University applications close
+    detail: >
+      This is the deadline that matters most, and the one families miss. Windows
+      differ between universities — confirm the exact date for each on your list
+      rather than assuming they match.
+    year_offset: 1
+    month: 3
+    day: 19
+    kind: application
+    applies_to: [a-level]
+    url: https://www.nus.edu.sg/oam/admissions/important-dates
+    fact:
+      value: Application window closes in March
+      as_of_year: 2026
+      source: nus-important-dates
+      confidence: medium
+      stale_after: 2027-06-30
+      note: >
+        Approximate. Confirm per university — this is the single highest-cost
+        date to get wrong.
+
+  - id: interviews-and-tests
+    label: Interviews, tests and portfolio reviews
+    detail: >
+      Courses that assess beyond grades — Medicine, Dentistry, Law, Architecture,
+      Industrial Design, Nursing, PPE and others — schedule these in the months
+      after applications close. Faculties publish their own dates.
+    year_offset: 1
+    month: 4
+    day: 15
+    kind: assessment
+    applies_to: [a-level]
+    url: https://www.nus.edu.sg/oam/admissions/faculty-interview-and-test-dates
+    fact:
+      value: Faculty interview and test dates published separately per programme
+      as_of_year: 2026
+      source: nus-interview-dates
+      confidence: high
+      stale_after: 2027-06-30
+
+  - id: offers-released
+    label: Offers released
+    detail: >
+      Offers arrive in waves rather than all at once. Not hearing on the first
+      day is normal and means nothing.
+    year_offset: 1
+    month: 5
+    day: 20
+    kind: decision
+    applies_to: [a-level]
+    url: https://www.nus.edu.sg/oam/admissions/respond-to-admission-offer
+    fact:
+      value: Offers released in waves from around May
+      as_of_year: 2026
+      source: nus-important-dates
+      confidence: medium
+      stale_after: 2027-06-30
+
+  - id: accept-offer
+    label: Deadline to accept an offer
+    detail: >
+      Acceptance windows are short — often days, not weeks. Decide in advance
+      what you will do if two offers arrive, so you are not deciding under time
+      pressure.
+    year_offset: 1
+    month: 6
+    day: 5
+    kind: decision
+    applies_to: [a-level]
+    url: https://www.nus.edu.sg/oam/admissions/respond-to-admission-offer
+    fact:
+      value: Acceptance deadline shortly after an offer is made
+      as_of_year: 2026
+      source: nus-important-dates
+      confidence: medium
+      stale_after: 2027-06-30
+
+  # NOTE — there is deliberately no "appeal window" milestone.
+  #
+  # An earlier draft carried one, dated by guesswork because appeal windows are
+  # not published consistently in one place. The Data Health gate rejected it
+  # for being below the confidence floor, which was the correct outcome: a tool
+  # that refuses to show an invented cut-off must equally refuse to show an
+  # invented date. Appeals are covered instead in routes.yaml as a
+  # second-chance route, where the honest instruction is "ask the admissions
+  # office what its process actually allows" rather than a date to diarise.
+
+  - id: ns-enlistment
+    label: National Service enlistment
+    detail: >
+      If National Service applies, you would normally apply for and accept a
+      place, then defer it. Universities run a distinct admissions path for
+      returning servicemen — this is an ordinary published route, not a setback.
+    year_offset: 1
+    month: 7
+    day: 1
+    kind: service
+    applies_to: [a-level]
+    requires_service: true
+    url: https://www.nus.edu.sg/oam/admissions/reserved-places-in-nus/information-for-full-time-national-servicemen
+    fact:
+      value: Places may be reserved and deferred for full-time National Servicemen
+      as_of_year: 2026
+      source: nus-nsmen
+      confidence: high
+      stale_after: 2027-06-30
+
+  - id: open-house
+    label: Open house season
+    detail: >
+      Worth more than any website, including this one. Go, ask what a normal
+      week looks like, and ask a current student what they would change.
+    year_offset: 1
+    month: 3
+    day: 1
+    kind: event
+    applies_to: [a-level]
+    url: https://www.nus.edu.sg/oam/why-nus/admissions-oh2026
+    fact:
+      value: University open houses run around the application period
+      as_of_year: 2026
+      source: nus-important-dates
+      confidence: medium
+      stale_after: 2027-06-30

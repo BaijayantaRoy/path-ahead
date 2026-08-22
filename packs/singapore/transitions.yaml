@@ -1,0 +1,86 @@
+# Transitions -- the admission decision at each handoff.
+#
+# This is where all the yearly churn lives, which is why each one is a dated,
+# versioned file section rather than a formula buried in code. When the rules
+# change, this file changes and nothing else does.
+
+transitions:
+  - id: a-level-to-university-2026
+    stage: a-level
+    name: A-Level to university -- University Admission Score (70 points)
+    applies_to_exam_years: [2025, 2026, 2027]
+    admission_years: [2026, 2027, 2028]
+    direction: higher_is_better
+    policy_status: settled
+
+    rule_kind: weighted_best_n_with_substitution
+    rule_params:
+      total_label: University Admission Score
+      cap: 70
+      cap_note: >
+        Your components added to more than 70, so the score was capped there.
+        Exactly how the cap is applied when an optional subject pushes the total
+        past the maximum -- a hard cap or a proportional adjustment -- is not
+        confirmed against a primary source. PathAhead applies a hard cap and
+        tells you when it did.
+      core:
+        label: Your best 3 H2 subjects
+        subtotal_label: Your 3 H2 subjects
+        level: h2
+        take: 3
+        scale: h2
+      mandatory:
+        label: General Paper
+        level: gp
+        scale: gp
+      bonus:
+        label: Optional extra -- counted only if it helps
+        only_if_improves: true
+        best_of:
+          - level: h1
+            scale: h1
+          - level: mtl
+            scale: mtl
+      # Which part of the trace is comparable to published grade profiles.
+      # See comparison_basis below for why this is NOT the 70-point total.
+      comparison_component: Your 3 H2 subjects
+
+    comparison_basis: your 3 best H2 grades, out of 60
+
+    scales:
+      h2:  {A: 20,   B: 17.5,  C: 15,   D: 12.5,  E: 10,   S: 5,    U: 0}
+      h1:  {A: 10,   B: 8.75,  C: 7.5,  D: 6.25,  E: 5,    S: 2.5,  U: 0}
+      gp:  {A: 10,   B: 8.75,  C: 7.5,  D: 6.25,  E: 5,    S: 2.5,  U: 0}
+      mtl: {A: 10,   B: 8.75,  C: 7.5,  D: 6.25,  E: 5,    S: 2.5,  U: 0}
+
+    changed_from:
+      ref: a-level-to-university-2025
+      summary: >
+        The University Admission Score moved from a 90-point scale to a 70-point
+        scale. Three H2 subjects now supply 60 of the 70 points and General
+        Paper the remaining 10. Project Work is reported pass or fail and no
+        longer contributes points. A fourth content subject counts only if it
+        improves the total.
+
+    caveats:
+      - >
+        NUS states that no grade profile has yet been established on the new
+        70-point basis, because AY2026/2027 is the first year it is used. Any
+        tool that compares your 70-point score directly against a published
+        grade profile is comparing two different things. PathAhead does not do
+        that: it compares your three H2 grades against the three H2 grades in
+        the published profile, which is what NUS itself advises.
+      - >
+        The exact grade-to-point table used here has not been confirmed against
+        a primary publication and is marked medium confidence. The total is
+        correct in structure; a single grade's point value could be off.
+
+    fact:
+      value: "70-point University Admission Score"
+      as_of_year: 2026
+      source: uas-grade-points-2026
+      confidence: medium
+      stale_after: 2027-06-30
+      note: >
+        Component structure corroborated by the NUS notification; grade-point
+        table pending primary confirmation.

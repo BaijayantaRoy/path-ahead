@@ -1,0 +1,164 @@
+name: Release
+
+# Builds the self-contained desktop app for Windows, macOS and Linux and
+# attaches all three to a GitHub Release.
+#
+# Why CI rather than a local build: PyInstaller freezes the interpreter it is
+# running on, so it cannot cross-compile. A Windows .exe has to be produced on
+# Windows. These runners are the only way to ship one without owning the
+# machine -- and, usefully, they are also a clean checkout every time, which
+# means a maintainer's private local data overlay physically cannot end up
+# inside a published binary.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # The release must not be able to outrun the checks. A binary handed to a
+  # parent is harder to recall than a bad commit.
+  verify:
+    name: Full suite before anything is published
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check .
+      - run: pytest -q
+      - run: python app/cli.py build --out web/data
+      - run: python app/cli.py health --gate
+      - run: node tools/check_golden.mjs
+      - run: |
+          npm install --no-fund --no-audit
+          node tools/build_static.mjs
+          node tools/check_static.mjs
+          node tools/check_ui.mjs
+
+  build:
+    name: ${{ matrix.label }}
+    needs: verify
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, label: "Windows (.exe)",  artifact: PathAhead-windows, binary: "PathAhead.exe" }
+          - { os: macos-latest,   label: "macOS",           artifact: PathAhead-macos,   binary: "PathAhead" }
+          - { os: ubuntu-latest,  label: "Linux",           artifact: PathAhead-linux,   binary: "PathAhead" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt pyinstaller
+
+      # No --include-local, ever, in CI. build_desktop.py refuses to bundle
+      # overlay data without it, so this is belt and braces on a checkout that
+      # has no overlay to begin with.
+      - name: Build the desktop app
+        run: python tools/build_desktop.py
+
+      # A binary that ships figures PathAhead may not redistribute would be a
+      # licensing problem nobody could see by reading the repository. Assert
+      # it against the artifact itself, not against the source it came from.
+      - name: The binary carries no cut-off figures
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, sys
+          pack = json.load(open("web/data/singapore.json"))
+          carried = [s["id"] for s in pack.get("schools", []) if s.get("cutoff_2025")]
+          if carried:
+              print(f"::error::the packaged build carries cut-off figures for {len(carried)} school(s). See docs/LOCAL_DATA.md.")
+              sys.exit(1)
+          print(f"{len(pack.get('schools', []))} schools, 0 cut-off figures - safe to distribute")
+          PY
+
+      # Proves the artifact actually runs before it is offered to anyone --
+      # a binary that builds and does not start is the classic release bug.
+      - name: Smoke-test the built binary
+        shell: bash
+        run: |
+          BIN="build/dist/${{ matrix.binary }}"
+          "$BIN" --no-browser --port 8931 &
+          PID=$!
+          sleep 8
+          code=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8931/ || echo 000)
+          kill $PID 2>/dev/null || true
+          [ "$code" = "200" ] || { echo "::error::the built binary did not serve the app (HTTP $code)"; exit 1; }
+          echo "binary serves the app - OK"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: build/dist/${{ matrix.binary }}
+          if-no-files-found: error
+
+  publish:
+    name: Attach the binaries to the release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: artifacts }
+      - name: Give each binary a platform-specific name
+        run: |
+          mkdir -p out
+          cp artifacts/PathAhead-windows/PathAhead.exe out/PathAhead-windows.exe
+          cp artifacts/PathAhead-macos/PathAhead        out/PathAhead-macos
+          cp artifacts/PathAhead-linux/PathAhead        out/PathAhead-linux
+          chmod +x out/PathAhead-macos out/PathAhead-linux
+          (cd out && sha256sum * > SHA256SUMS.txt)
+          cat out/SHA256SUMS.txt
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
+          generate_release_notes: true
+          body: |
+            ## PathAhead — desktop build
+
+            One file. No install, no Python, no internet, no account.
+            Download the one for your computer and double-click it; a browser
+            opens on PathAhead, served from your own machine.
+
+            | Platform | File |
+            |---|---|
+            | Windows | `PathAhead-windows.exe` |
+            | macOS | `PathAhead-macos` |
+            | Linux | `PathAhead-linux` |
+
+            Verify your download against `SHA256SUMS.txt`.
+
+            **macOS and Windows will warn you** that the app is from an
+            unidentified developer. That is expected: these binaries are not
+            code-signed, because signing certificates cost money this project
+            does not take. On macOS, right-click → Open. On Windows, More info
+            → Run anyway. If you would rather not, the source is here and
+            `python tools/serve.py` does the same thing.
+
+            ### What it does not do
+
+            No account, no telemetry, no analytics, and nothing you type is
+            stored or sent anywhere — there is no server to send it to. Turn
+            your wifi off and it keeps working; that is the easiest way to
+            check the claim rather than take our word for it.
+
+            ### Before you rely on it
+
+            These are last year's published figures, not a prediction, and
+            this is not advice. Every figure links to the official page that
+            published it — check anything that matters there, and talk to
+            your child's teachers and the school's ECG counsellor.
+
+            PathAhead is an independent, open-source project. It is not
+            affiliated with, endorsed by, or connected to the Ministry of
+            Education, SEAB, Cambridge Assessment, or any school, polytechnic,
+            ITE or university.

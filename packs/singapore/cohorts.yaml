@@ -1,0 +1,42 @@
+# Cohorts -- the first question PathAhead asks, and the one everything else
+# hangs on.
+#
+# A family knows what year their child is in. They do not know which admission
+# cycle that implies, and in Singapore right now the difference between two
+# adjacent school years is the difference between two entirely different
+# rulebooks. So we ask the question people can answer and resolve the rest.
+#
+#   years_to_exam     0 = sits the exam this calendar year
+#   admission_offset  exam_year + offset = the year admission is decided
+
+cohorts:
+  - year_level: jc-2
+    label: Junior College 2
+    stage: a-level
+    years_to_exam: 0
+    admission_offset: 1
+    transition: a-level-to-university-2026
+    note: >
+      You sit the A-Level this year and apply for a university place for the
+      following academic year.
+
+  - year_level: jc-1
+    label: Junior College 1
+    stage: a-level
+    years_to_exam: 1
+    admission_offset: 1
+    transition: a-level-to-university-2026
+    note: >
+      You sit the A-Level next year. The rules below are this year's; check
+      again after the next results cycle, because grade profiles are
+      republished every January.
+
+  - year_level: mi-3
+    label: Millennia Institute Year 3
+    stage: a-level
+    years_to_exam: 0
+    admission_offset: 1
+    transition: a-level-to-university-2026
+    note: >
+      Millennia Institute runs a three-year course to the same A-Level
+      examination.

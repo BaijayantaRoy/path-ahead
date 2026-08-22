@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 40" width="56" height="40" role="img" aria-labelledby="t d">
+  <title id="t">PathAhead</title>
+  <desc id="d">A single point on a path from which two ways continue, mirrored so that neither sits above the other.</desc>
+  <!-- currentColor: inherits the masthead ink or accent, works in every theme -->
+  <g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round">
+    <path d="M7 20 H22"/>
+    <path d="M22 20 C31 20, 30 8, 39 8 H49"/>
+    <path d="M22 20 C31 20, 30 32, 39 32 H49"/>
+  </g>
+  <circle cx="22" cy="20" r="4.6" fill="currentColor"/>
+</svg>

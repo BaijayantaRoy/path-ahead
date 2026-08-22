@@ -1,0 +1,2930 @@
+# PathAhead data pack: Singapore secondary schools — the shortlisting stage
+#
+# 147 schools a PSLE cohort can actually be posted to at S1, transcribed from
+# MOE's own "General information of schools" dataset on data.gov.sg, under the
+# Singapore Open Data Licence v1.0 -- NOT from SchoolFinder, whose Terms of Use
+# permit citing and deep-linking but not copying. This is the licensing gap
+# psle.yaml's "what is not here yet" note flagged; this file closes it for the
+# DIRECTORY data (name, location, type, gender, SAP/IP/autonomous status) while
+# leaving the COP/Posting-Group-by-school gap exactly where it was, because no
+# permissively licensed source for THAT exists (verified 2026-08-10 -- see
+# tools/build_secondary_schools_pack.py's module docstring for the search).
+#
+# WHAT THIS DOES NOT ANSWER: "can my child get into this school." That question
+# needs a cut-off point, which is not in here for the reason above -- ask it on
+# the Posting Group calculator this page already has. This file answers a
+# DIFFERENT, narrower question: among schools your family could plausibly list,
+# which ones match what you've said matters to you (location, co-ed preference,
+# SAP, Integrated Programme). The two questions are never blended into one
+# number -- see engine/school_fit.py's module docstring, which is the school-
+# scoring equivalent of engine/fit.py's A-Level course-fit engine and follows
+# the identical rule: eligibility and fit are different axes, and only
+# eligibility ever gates a result.
+#
+# WHAT IS DELIBERATELY NOT IN THIS FILE, AND WHY:
+#   - Cut-off points / Posting Groups per school -- no permissively licensed
+#     source exists; see above.
+#   - CCA (co-curricular activity) offerings -- a data.gov.sg dataset exists
+#     but could not be reliably pulled and cleaned in this pass; a real gap,
+#     not a silent one. Tracked as follow-up work, not filled with a guess.
+#   - Religious affiliation and primary-school affiliation (e.g. which
+#     secondary schools a given primary school's students are affiliated
+#     to) -- true and checkable per school, but not in any bulk licensed
+#     dataset. Hand-curating 147 schools one at a time is exactly the kind
+#     of unverifiable transcription this project avoids, so it is left out
+#     rather than guessed at.
+
+sources:
+  - id: datagovsg-school-directory-2026
+    name: General information of schools
+    publisher: Ministry of Education, Singapore (via data.gov.sg)
+    url: https://data.gov.sg/datasets/d_688b934f82c1059ed0a6993d2a829089/view
+    retrieved: 2026-08-10
+    licence: sg-odl-1.0
+    note: >
+      337 schools, all levels; 147 of them can take a normal PSLE-to-S1 intake
+      and are the ones loaded here. Name, address, postal code, MRT/bus
+      description, school type, gender composition, SAP/Autonomous/Gifted/IP
+      indicator flags -- transcribed verbatim, one field renamed for clarity
+      ("nature_code" -> gender) and none reinterpreted. Licensed under the
+      Singapore Open Data Licence v1.0, which permits commercial use,
+      modification and redistribution with attribution -- a materially
+      different, more permissive grant than SchoolFinder's cite-and-link-only
+      terms.
+  - id: singpost-postal-districts
+    name: Singapore Postal Districts (SingPost district scheme)
+    publisher: Singapore Post, via secondary transcription
+    url: https://www.penang-traveltips.com/singapore/postal-districts.htm
+    retrieved: 2026-08-10
+    licence: institution-tou
+    note: >
+      The 28-district, 81-sector table used to turn a postal code into a
+      district and a coarse region. This is structural, decades-old public
+      information (SingPost's own delivery scheme, referenced by Wikipedia's
+      "Postal codes in Singapore" article) rather than a licensed dataset in
+      its own right, so it is recorded under PathAhead's "facts cited and
+      linked, nothing reproduced wholesale" licence code rather than an
+      open-data one -- the table below is transcribed for citation, the way
+      any fact in this project is, not redistributed as someone else's
+      dataset. The REGION column (Central/North/North-East/East/West) is
+      PathAhead's own editorial grouping of the 28 districts, not part of any
+      cited source -- see engine/school_fit.py.
+  - id: onemap-geocoding-2026
+    name: OneMap Singapore search API (address/postal code geocoding)
+    publisher: Singapore Land Authority
+    url: https://www.onemap.gov.sg/apidocs/
+    retrieved: 2026-08-13
+    licence: sg-odl-1.0
+    note: >
+      Latitude/longitude for each school's own postal code, and one
+      representative anchor point per postal district (the first named place
+      in that district's `area` field). Used only to compute a real, honestly
+      labelled straight-line distance -- never a routed travel time, and never
+      a live call made with a family's own postal code. Governed by the
+      Singapore Open Data Licence, per OneMap's own Terms of Use.
+  - id: moe-schoolfinder
+    name: MOE SchoolFinder -- each school's own page
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/schoolfinder
+    retrieved: 2026-08-14
+    licence: moe-tou-linked
+    note: >
+      MOE publishes each secondary school's Posting Group and Integrated
+      Programme PSLE Score ranges on that school's own SchoolFinder page.
+      PathAhead does NOT reproduce those figures. They are published under
+      MOE's Terms of Use, which reserve reproduction, and a compiled table of
+      every school's cut-off is additionally somebody's compilation. Anyone
+      may read them; that is not the same as this project being free to
+      redistribute them under MIT. So the app carries a per-school deep link
+      instead, and the reader opens the official page and reads the current
+      figures at source -- unaltered, in context, and never stale, which a
+      copied snapshot would eventually be.
+      MOE's own words apply to every figure a reader will find there: cut-off
+      points "can fluctuate by a few points year-on-year" and meeting one
+      "does not guarantee admission". They are a record of last year's
+      exercise, not a threshold for this one.
+
+postal_districts:
+  - {district: "01", sectors: ["01", "02", "03", "04", "05", "06"], area: "Raffles Place, Cecil, Marina, People's Park", region: CENTRAL, lat: 1.2820837651092, lng: 103.851559731294}
+  - {district: "02", sectors: ["07", "08"], area: "Anson Road, Tanjong Pagar", region: CENTRAL, lat: 1.27462245416877, lng: 103.845525426538}
+  - {district: "03", sectors: ["14", "15", "16"], area: "Bukit Merah, Queenstown, Tiong Bahru", region: CENTRAL, lat: 1.2820403214522, lng: 103.817210058118}
+  - {district: "04", sectors: ["09", "10"], area: "Telok Blangah, HarbourFront", region: CENTRAL, lat: 1.26617727280392, lng: 103.823388742056}
+  - {district: "05", sectors: ["11", "12", "13"], area: "Pasir Panjang, Hong Leong Garden, Clementi New Town", region: WEST, lat: 1.27542965698062, lng: 103.795763658167}
+  - {district: "06", sectors: ["17"], area: "High Street, Beach Road (partial)", region: CENTRAL, lat: 1.2906187666319, lng: 103.84945080632}
+  - {district: "07", sectors: ["18", "19"], area: "Middle Road, Golden Mile, Beach Road (partial)", region: CENTRAL, lat: 1.29973919380889, lng: 103.852196307383}
+  - {district: "08", sectors: ["20", "21"], area: "Little India, Farrer Park, Jalan Besar, Lavender", region: CENTRAL, lat: 1.30971192399962, lng: 103.85343473875}
+  - {district: "09", sectors: ["22", "23"], area: "Orchard, Cairnhill, River Valley", region: CENTRAL, lat: 1.30231817080686, lng: 103.824973438871}
+  - {district: "10", sectors: ["24", "25", "26", "27"], area: "Ardmore, Bukit Timah, Holland Road, Tanglin", region: CENTRAL, lat: 1.30843615423188, lng: 103.828596763934}
+  - {district: "11", sectors: ["28", "29", "30"], area: "Watten Estate, Novena, Thomson", region: CENTRAL, lat: 1.3315346260194, lng: 103.811182176153}
+  - {district: "12", sectors: ["31", "32", "33"], area: "Balestier, Toa Payoh, Serangoon", region: CENTRAL, lat: 1.32297698121569, lng: 103.852811354547}
+  - {district: "13", sectors: ["34", "35", "36", "37"], area: "Macpherson, Braddell, Potong Pasir, Bidadari", region: CENTRAL, lat: 1.32551693484516, lng: 103.889903603926}
+  - {district: "14", sectors: ["38", "39", "40", "41"], area: "Geylang, Eunos, Aljunied", region: EAST, lat: 1.32005980149776, lng: 103.871792121922}
+  - {district: "15", sectors: ["42", "43", "44", "45"], area: "Katong, Joo Chiat, Amber Road", region: EAST, lat: 1.30044665793745, lng: 103.884808493904}
+  - {district: "16", sectors: ["46", "47", "48"], area: "Bedok, Upper East Coast, Eastwood, Kew Drive", region: EAST, lat: 1.32500460459969, lng: 103.92777031436}
+  - {district: "17", sectors: ["49", "50", "81"], area: "Loyang, Changi", region: EAST, lat: 1.37316799974603, lng: 103.998160999626}
+  - {district: "18", sectors: ["51", "52"], area: "Simei, Tampines, Pasir Ris", region: EAST, lat: 1.34281294298699, lng: 103.9565189799}
+  - {district: "19", sectors: ["53", "54", "55", "82"], area: "Serangoon Garden, Hougang, Punggol", region: NORTH-EAST, lat: 1.36511490572797, lng: 103.865159501442}
+  - {district: "20", sectors: ["56", "57"], area: "Bishan, Ang Mo Kio", region: NORTH-EAST, lat: 1.36517069591469, lng: 103.83629822663}
+  - {district: "21", sectors: ["58", "59"], area: "Upper Bukit Timah, Clementi Park, Ulu Pandan", region: WEST, lat: 1.34517702414227, lng: 103.773389778832}
+  - {district: "22", sectors: ["60", "61", "62", "63", "64"], area: "Penjuru, Jurong, Pioneer, Tuas", region: WEST, lat: 1.31204393314282, lng: 103.733938054257}
+  - {district: "23", sectors: ["65", "66", "67", "68"], area: "Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang, Bukit Batok", region: WEST, lat: 1.3560153779275, lng: 103.762587763182}
+  - {district: "24", sectors: ["69", "70", "71"], area: "Lim Chu Kang, Tengah", region: WEST, lat: 1.42806779226264, lng: 103.704222285092}
+  - {district: "25", sectors: ["72", "73"], area: "Kranji, Woodgrove, Woodlands", region: NORTH, lat: 1.40413016625403, lng: 103.741615893274}
+  - {district: "26", sectors: ["77", "78"], area: "Upper Thomson, Springleaf", region: NORTH, lat: 1.37093477804545, lng: 103.82824145342}
+  - {district: "27", sectors: ["75", "76"], area: "Yishun, Sembawang, Senoko, Canberra", region: NORTH, lat: 1.42429399247954, lng: 103.835696050981}
+  - {district: "28", sectors: ["79", "80"], area: "Seletar", region: NORTH-EAST, lat: 1.40011513983478, lng: 103.868284405834}
+
+schools:
+  - id: admiralty-secondary-school
+    name: "Admiralty Secondary School"
+    address: "31 WOODLANDS CRESCENT"
+    postal_code: "737916"
+    mrt_desc: "ADMIRALTY MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.44589068910993
+    lng: 103.802398196596
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: ahmad-ibrahim-secondary-school
+    name: "Ahmad Ibrahim Secondary School"
+    address: "751 YISHUN AVENUE 7"
+    postal_code: "768928"
+    mrt_desc: "CANBERRA MRT, YISHUN MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.43605975368804
+    lng: 103.829718690077
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: anderson-secondary-school
+    name: "Anderson Secondary School"
+    address: "10 ANG MO KIO STREET 53"
+    postal_code: "569206"
+    mrt_desc: "ANG MO KIO MRT, YIO CHU KANG MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.37434001701177
+    lng: 103.851554107068
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: ang-mo-kio-secondary-school
+    name: "Ang Mo Kio Secondary School"
+    address: "6 ANG MO KIO STREET 22"
+    postal_code: "569362"
+    mrt_desc: "ANG MO KIO MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.36733710171069
+    lng: 103.842154973672
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: anglican-high-school
+    name: "Anglican High School"
+    address: "600 UPPER CHANGI ROAD"
+    postal_code: "487012"
+    mrt_desc: "TANAH MERAH MRT"
+    district: "16"
+    region: EAST
+    lat: 1.33118107926966
+    lng: 103.941853465631
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: true
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: anglo-chinese-school-barker-road
+    name: "Anglo-chinese School (Barker Road)"
+    address: "60 BARKER ROAD"
+    postal_code: "309919"
+    mrt_desc: "NEWTON MRT, STEVENS MRT"
+    district: "11"
+    region: CENTRAL
+    lat: 1.31961649151328
+    lng: 103.835772689988
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: anglo-chinese-school-independent
+    name: "Anglo-chinese School (Independent)"
+    address: "121 DOVER ROAD"
+    postal_code: "139650"
+    mrt_desc: "DOVER MRT, BUONA VISTA MRT, ONE-NORTH MRT"
+    district: "05"
+    region: WEST
+    lat: 1.30370409257783
+    lng: 103.780363417671
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: assumption-english-school
+    name: "Assumption English School"
+    address: "622 UPPER BUKIT TIMAH ROAD"
+    postal_code: "678117"
+    mrt_desc: "CASHEW MRT"
+    district: "23"
+    region: WEST
+    lat: 1.36916295281535
+    lng: 103.767937546001
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: assumption-pathway-school
+    name: "Assumption Pathway School"
+    address: "30 Cashew Road"
+    postal_code: "679697"
+    mrt_desc: "DOWNTOWN LINE 2, CASHEW MRT"
+    district: "23"
+    region: WEST
+    lat: 1.3696707043227
+    lng: 103.765959130581
+    type_code: "SPECIALISED INDEPENDENT SCHOOL"
+    type_label: "Specialised independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: bartley-secondary-school
+    name: "Bartley Secondary School"
+    address: "10 JALAN BUNGA RAMPAI"
+    postal_code: "538403"
+    mrt_desc: "BARTLEY MRT, TAI SENG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.33995415587811
+    lng: 103.882806211705
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: beatty-secondary-school
+    name: "Beatty Secondary School"
+    address: "1 TOA PAYOH NORTH"
+    postal_code: "318990"
+    mrt_desc: "BRADDELL MRT, TOA PAYOH MRT"
+    district: "12"
+    region: CENTRAL
+    lat: 1.341790284928
+    lng: 103.852280842345
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bedok-green-secondary-school
+    name: "Bedok Green Secondary School"
+    address: "360 BEDOK NORTH AVE 3"
+    postal_code: "469722"
+    mrt_desc: "BEDOK MRT, BEDOK RESERVOIR MRT"
+    district: "16"
+    region: EAST
+    lat: 1.33451947288431
+    lng: 103.935028383346
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bedok-south-secondary-school
+    name: "Bedok South Secondary School"
+    address: "1 JALAN LANGGAR BEDOK"
+    postal_code: "468585"
+    mrt_desc: "TANAH MERAH MRT"
+    district: "16"
+    region: EAST
+    lat: 1.32513655159184
+    lng: 103.950989139261
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bedok-view-secondary-school
+    name: "Bedok View Secondary School"
+    address: "6 BEDOK SOUTH AVENUE 3"
+    postal_code: "469293"
+    mrt_desc: "TANAH MERAH MRT"
+    district: "16"
+    region: EAST
+    lat: 1.32415704029686
+    lng: 103.943776245024
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bendemeer-secondary-school
+    name: "Bendemeer Secondary School"
+    address: "1 ST WILFRED ROAD"
+    postal_code: "327919"
+    mrt_desc: "BOON KENG MRT"
+    district: "12"
+    region: CENTRAL
+    lat: 1.32461111307996
+    lng: 103.860970284401
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: boon-lay-secondary-school
+    name: "Boon Lay Secondary School"
+    address: "11 JURONG WEST STREET 65"
+    postal_code: "648354"
+    mrt_desc: "Boon Lay"
+    district: "22"
+    region: WEST
+    lat: 1.34272216334333
+    lng: 103.701891453912
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bowen-secondary-school
+    name: "Bowen Secondary School"
+    address: "2 LORONG NAPIRI"
+    postal_code: "547529"
+    mrt_desc: "HOUGANG MRT, SERANGOON MRT, SENGKANG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.37035994436209
+    lng: 103.877659577677
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: broadrick-secondary-school
+    name: "Broadrick Secondary School"
+    address: "61 DAKOTA CRESCENT"
+    postal_code: "399935"
+    mrt_desc: "DAKOTA MRT"
+    district: "14"
+    region: EAST
+    lat: 1.30705061123433
+    lng: 103.886917922608
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bukit-batok-secondary-school
+    name: "Bukit Batok Secondary School"
+    address: "50 BUKIT BATOK WEST AVE 8"
+    postal_code: "658962"
+    mrt_desc: "BUKIT BATOK MRT"
+    district: "23"
+    region: WEST
+    lat: 1.34849111079052
+    lng: 103.74087370482
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bukit-merah-secondary-school
+    name: "Bukit Merah Secondary School"
+    address: "10 LENGKOK BAHRU"
+    postal_code: "159050"
+    mrt_desc: "REDHILL MRT"
+    district: "03"
+    region: CENTRAL
+    lat: 1.28569283064288
+    lng: 103.813438929393
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bukit-panjang-govt-high-school
+    name: "Bukit Panjang Govt. High School"
+    address: "7 CHOA CHU KANG AVE 4"
+    postal_code: "689809"
+    mrt_desc: "CHOA CHU KANG MRT"
+    district: "23"
+    region: WEST
+    lat: 1.38224243360043
+    lng: 103.738361221869
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: bukit-view-secondary-school
+    name: "Bukit View Secondary School"
+    address: "16 BUKIT BATOK STREET 21"
+    postal_code: "659633"
+    mrt_desc: "BUKIT BATOK MRT"
+    district: "23"
+    region: WEST
+    lat: 1.3457330554294
+    lng: 103.752226593984
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chij-katong-convent
+    name: "CHIJ Katong Convent"
+    address: "346 MARINE TERRACE"
+    postal_code: "449150"
+    mrt_desc: "BEDOK MRT, KEMBANGAN MRT, EUNOS MRT, PAYA LEBAR MRT, MARINE TERRACE MRT"
+    district: "15"
+    region: EAST
+    lat: 1.30644268034894
+    lng: 103.917144350028
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chij-secondary-toa-payoh
+    name: "CHIJ Secondary (Toa Payoh)"
+    address: "626 LORONG 1 TOA PAYOH"
+    postal_code: "319764"
+    mrt_desc: "TOA PAYOH MRT"
+    district: "12"
+    region: CENTRAL
+    lat: 1.33246079948303
+    lng: 103.843271625083
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chij-st-josephs-convent
+    name: "CHIJ St. Joseph's Convent"
+    address: "62 SENGKANG EAST WAY"
+    postal_code: "548595"
+    mrt_desc: "SENGKANG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.39175222260369
+    lng: 103.902464991543
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chij-st-nicholas-girls-school
+    name: "CHIJ St. Nicholas Girls' School"
+    address: "501 ANG MO KIO STREET 13"
+    postal_code: "569405"
+    mrt_desc: "ANG MO KIO MRT, YIO CHU KANG MRT, MAYFLOWER MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.37347687878916
+    lng: 103.834253269436
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: true
+    autonomous: true
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chij-st-theresas-convent
+    name: "CHIJ St. Theresa's Convent"
+    address: "160 LOWER DELTA ROAD"
+    postal_code: "099138"
+    mrt_desc: "HARBOURFRONT MRT, TIONG BAHRU MRT"
+    district: "04"
+    region: CENTRAL
+    lat: 1.27535177510054
+    lng: 103.822440701642
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: canberra-secondary-school
+    name: "Canberra Secondary School"
+    address: "51 SEMBAWANG DRIVE"
+    postal_code: "757699"
+    mrt_desc: "SEMBAWANG MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.45319086315972
+    lng: 103.814203583818
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: catholic-high-school
+    name: "Catholic High School"
+    address: "9 BISHAN STREET 22"
+    postal_code: "579767"
+    mrt_desc: "BISHAN MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.35438878373608
+    lng: 103.844210670766
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: true
+    autonomous: true
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: cedar-girls-secondary-school
+    name: "Cedar Girls' Secondary School"
+    address: "1 CEDAR AVENUE"
+    postal_code: "349692"
+    mrt_desc: "WOODLEIGH MRT, POTONG PASIR MRT, MATTAR MRT"
+    district: "13"
+    region: CENTRAL
+    lat: 1.33375800216334
+    lng: 103.873933064886
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: changkat-changi-secondary-school
+    name: "Changkat Changi Secondary School"
+    address: "23 SIMEI ST 3"
+    postal_code: "529894"
+    mrt_desc: "SIMEI MRT"
+    district: "18"
+    region: EAST
+    lat: 1.33950630072876
+    lng: 103.953245525564
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: christ-church-secondary-school
+    name: "Christ Church Secondary School"
+    address: "20 WOODLANDS DRIVE 17"
+    postal_code: "737924"
+    mrt_desc: "WOODLANDS MRT, WOODLANDS SOUTH MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.42656780901455
+    lng: 103.793451105242
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chua-chu-kang-secondary-school
+    name: "Chua Chu Kang Secondary School"
+    address: "31 TECK WHYE CRESCENT"
+    postal_code: "688848"
+    mrt_desc: "CHOA CHU KANG MRT, PHOENIX LRT"
+    district: "23"
+    region: WEST
+    lat: 1.38333422637073
+    lng: 103.75510327583
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chung-cheng-high-school-main
+    name: "Chung Cheng High School (Main)"
+    address: "50 GOODMAN ROAD"
+    postal_code: "439012"
+    mrt_desc: "DAKOTA MRT"
+    district: "15"
+    region: EAST
+    lat: 1.30509154753048
+    lng: 103.891653229373
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: true
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: chung-cheng-high-school-yishun
+    name: "Chung Cheng High School (Yishun)"
+    address: "11 YISHUN STREET 61"
+    postal_code: "768547"
+    mrt_desc: "KHATIB MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.41922603586175
+    lng: 103.837390782849
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: clementi-town-secondary-school
+    name: "Clementi Town Secondary School"
+    address: "10 CLEMENTI AVE 3"
+    postal_code: "129904"
+    mrt_desc: "CLEMENTI MRT"
+    district: "05"
+    region: WEST
+    lat: 1.31553912945073
+    lng: 103.762020598524
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: commonwealth-secondary-school
+    name: "Commonwealth Secondary School"
+    address: "698 WEST COAST ROAD"
+    postal_code: "608784"
+    mrt_desc: "JURONG EAST MRT, CLEMENTI MRT"
+    district: "22"
+    region: WEST
+    lat: 1.31920395934801
+    lng: 103.745637393049
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: compassvale-secondary-school
+    name: "Compassvale Secondary School"
+    address: "51 COMPASSVALE CRESCENT"
+    postal_code: "545083"
+    mrt_desc: "SENGKANG MRT, COMPASSVALE LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.39614083952009
+    lng: 103.899847164494
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: crescent-girls-school
+    name: "Crescent Girls' School"
+    address: "357 TANGLIN ROAD"
+    postal_code: "247961"
+    mrt_desc: "REDHILL MRT"
+    district: "10"
+    region: CENTRAL
+    lat: 1.29331947077104
+    lng: 103.817544461755
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: crest-secondary-school
+    name: "Crest Secondary School"
+    address: "561 JURONG EAST STREET 24"
+    postal_code: "609561"
+    mrt_desc: "BUKIT BATOK MRT, JURONG EAST MRT"
+    district: "22"
+    region: WEST
+    lat: 1.3431198045076
+    lng: 103.742628105304
+    type_code: "SPECIALISED INDEPENDENT SCHOOL"
+    type_label: "Specialised independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: damai-secondary-school
+    name: "Damai Secondary School"
+    address: "4800 BEDOK RESERVOIR ROAD"
+    postal_code: "479229"
+    mrt_desc: "BEDOK RESERVOIR MRT, BEDOK MRT, TAMPINES MRT"
+    district: "16"
+    region: EAST
+    lat: 1.33692798510393
+    lng: 103.927091653438
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: deyi-secondary-school
+    name: "Deyi Secondary School"
+    address: "1 ANG MO KIO STREET 42"
+    postal_code: "569277"
+    mrt_desc: "ANG MO KIO MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.36599702567717
+    lng: 103.852545772422
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: dunearn-secondary-school
+    name: "Dunearn Secondary School"
+    address: "21 BUKIT BATOK WEST AVENUE 2"
+    postal_code: "659204"
+    mrt_desc: "BUKIT BATOK MRT, BUKIT GOMBAK MRT"
+    district: "23"
+    region: WEST
+    lat: 1.36357900792871
+    lng: 103.74472109107
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: dunman-high-school
+    name: "Dunman High School"
+    address: "10 TANJONG RHU ROAD"
+    postal_code: "436895"
+    mrt_desc: "KATONG PARK MRT,ALJUNIED MRT, KALLANG MRT, MOUNTBATTEN MRT,"
+    district: "15"
+    region: EAST
+    lat: 1.29996216014962
+    lng: 103.88294155989
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: true
+    autonomous: true
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: dunman-secondary-school
+    name: "Dunman Secondary School"
+    address: "21 TAMPINES STREET 45"
+    postal_code: "529093"
+    mrt_desc: "TAMPINES EAST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.36065258337022
+    lng: 103.956213906966
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: east-spring-secondary-school
+    name: "East Spring Secondary School"
+    address: "30 TAMPINES STREET 34"
+    postal_code: "529231"
+    mrt_desc: "TAMPINES MRT, TAMPINES EAST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.35622508992581
+    lng: 103.960640700298
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: edgefield-secondary-school
+    name: "Edgefield Secondary School"
+    address: "36 PUNGGOL FIELD"
+    postal_code: "828814"
+    mrt_desc: "PUNGGOL MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.40059309981824
+    lng: 103.902687385465
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: evergreen-secondary-school
+    name: "Evergreen Secondary School"
+    address: "11 WOODLANDS STREET 83"
+    postal_code: "738489"
+    mrt_desc: "WOODLANDS MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.44149131273737
+    lng: 103.794137756171
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: fairfield-methodist-school-secondary
+    name: "Fairfield Methodist School (Secondary)"
+    address: "102 DOVER ROAD"
+    postal_code: "139649"
+    mrt_desc: "BUONA VISTA MRT, ONE-NORTH MRT"
+    district: "05"
+    region: WEST
+    lat: 1.30163374395823
+    lng: 103.784099647149
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: fuhua-secondary-school
+    name: "Fuhua Secondary School"
+    address: "5 JURONG WEST STREET 41"
+    postal_code: "649410"
+    mrt_desc: "CHINESE GARDEN MRT, LAKESIDE MRT"
+    district: "22"
+    region: WEST
+    lat: 1.34701408913756
+    lng: 103.72652089832
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: gan-eng-seng-school
+    name: "Gan Eng Seng School"
+    address: "1 HENDERSON ROAD"
+    postal_code: "159561"
+    mrt_desc: "REDHILL MRT, TIONG BAHRU MRT"
+    district: "03"
+    region: CENTRAL
+    lat: 1.28907114485773
+    lng: 103.823733673089
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: geylang-methodist-school-secondary
+    name: "Geylang Methodist School (Secondary)"
+    address: "2 GEYLANG EAST CENTRAL"
+    postal_code: "389705"
+    mrt_desc: "ALJUNIED MRT"
+    district: "14"
+    region: EAST
+    lat: 1.31764900474601
+    lng: 103.882661129303
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: greendale-secondary-school
+    name: "Greendale Secondary School"
+    address: "51 EDGEDALE PLAINS"
+    postal_code: "828866"
+    mrt_desc: "PUNGGOL MRT, MERIDIAN LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.39696019936894
+    lng: 103.91170014084
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: greenridge-secondary-school
+    name: "Greenridge Secondary School"
+    address: "31 Gangsa Road"
+    postal_code: "678972"
+    mrt_desc: "Bukit Panjang MRT, Bukit Panjang LRT, Petir LRT"
+    district: "23"
+    region: WEST
+    lat: 1.375600053443
+    lng: 103.763998914082
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: guangyang-secondary-school
+    name: "Guangyang Secondary School"
+    address: "8 BISHAN STREET 12"
+    postal_code: "579807"
+    mrt_desc: "BISHAN MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.34440943525695
+    lng: 103.850212163078
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: hai-sing-catholic-school
+    name: "Hai Sing Catholic School"
+    address: "9 Pasir Ris Drive 6"
+    postal_code: "519421"
+    mrt_desc: "PASIR RIS MRT"
+    district: "18"
+    region: EAST
+    lat: 1.3743371707478
+    lng: 103.954544548905
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: hillgrove-secondary-school
+    name: "Hillgrove Secondary School"
+    address: "10 BUKIT BATOK STREET 52"
+    postal_code: "659250"
+    mrt_desc: "BUKIT BATOK MRT, BUKIT GOMBAK MRT"
+    district: "23"
+    region: WEST
+    lat: 1.35273576615912
+    lng: 103.752986488399
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: holy-innocents-high-school
+    name: "Holy Innocents' High School"
+    address: "1191 UPPER SERANGOON ROAD"
+    postal_code: "534786"
+    mrt_desc: "HOUGANG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.37154508822261
+    lng: 103.896398814264
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: hougang-secondary-school
+    name: "Hougang Secondary School"
+    address: "2 HOUGANG STREET 93"
+    postal_code: "534256"
+    mrt_desc: "HOUGANG MRT, BUANGKOK MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.3776287955319
+    lng: 103.882539108965
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: hua-yi-secondary-school
+    name: "Hua Yi Secondary School"
+    address: "60 JURONG WEST ST 42"
+    postal_code: "649371"
+    mrt_desc: "LAKESIDE MRT, CHINESE GARDEN MRT"
+    district: "22"
+    region: WEST
+    lat: 1.35234365488339
+    lng: 103.721832320169
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: hwa-chong-institution
+    name: "Hwa Chong Institution"
+    address: "661 BUKIT TIMAH ROAD"
+    postal_code: "269734"
+    mrt_desc: "TAN KAH KEE MRT"
+    district: "10"
+    region: CENTRAL
+    lat: 1.3263580622144
+    lng: 103.803290365022
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: co-ed
+    sap: true
+    autonomous: false
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: junyuan-secondary-school
+    name: "Junyuan Secondary School"
+    address: "11 TAMPINES STREET 84"
+    postal_code: "528933"
+    mrt_desc: "TAMPINES MRT, TAMPINES WEST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.35361315263537
+    lng: 103.933886165824
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: jurong-secondary-school
+    name: "Jurong Secondary School"
+    address: "31 YUAN CHING ROAD"
+    postal_code: "618652"
+    mrt_desc: "LAKESIDE MRT"
+    district: "22"
+    region: WEST
+    lat: 1.33002032220942
+    lng: 103.723952961648
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: jurong-west-secondary-school
+    name: "Jurong West Secondary School"
+    address: "61 JURONG WEST STREET 65"
+    postal_code: "648348"
+    mrt_desc: "BOON LAY MRT, PIONEER MRT"
+    district: "22"
+    region: WEST
+    lat: 1.33525634688323
+    lng: 103.702098904443
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: jurongville-secondary-school
+    name: "Jurongville Secondary School"
+    address: "202 JURONG EAST AVENUE 1"
+    postal_code: "609790"
+    mrt_desc: "JURONG EAST MRT, LAKESIDE MRT"
+    district: "22"
+    region: WEST
+    lat: 1.35128862770284
+    lng: 103.728907710089
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: juying-secondary-school
+    name: "Juying Secondary School"
+    address: "33 JURONG WEST STREET 91"
+    postal_code: "649038"
+    mrt_desc: "BOON LAY MRT, PIONEER MRT, JOO KOON MRT"
+    district: "22"
+    region: WEST
+    lat: 1.3387227734133
+    lng: 103.687310264575
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: kent-ridge-secondary-school
+    name: "Kent Ridge Secondary School"
+    address: "147 WEST COAST ROAD"
+    postal_code: "127368"
+    mrt_desc: "CLEMENTI MRT, HAW PAR VILLA MRT"
+    district: "05"
+    region: WEST
+    lat: 1.30122773426098
+    lng: 103.764889617566
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: kranji-secondary-school
+    name: "Kranji Secondary School"
+    address: "61 CHOA CHU KANG STREET 51"
+    postal_code: "689333"
+    mrt_desc: "CHOA CHU KANG MRT, YEW TEE MRT"
+    district: "23"
+    region: WEST
+    lat: 1.39005109871311
+    lng: 103.741190664845
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: kuo-chuan-presbyterian-secondary-school
+    name: "Kuo Chuan Presbyterian Secondary School"
+    address: "10 BISHAN STREET 13"
+    postal_code: "579795"
+    mrt_desc: "BISHAN MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.35017129930314
+    lng: 103.854983746416
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: loyang-view-secondary-school
+    name: "Loyang View Secondary School"
+    address: "12 PASIR RIS STREET 11"
+    postal_code: "519073"
+    mrt_desc: "PASIR RIS MRT"
+    district: "18"
+    region: EAST
+    lat: 1.36658417167238
+    lng: 103.956944585725
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: manjusri-secondary-school
+    name: "Manjusri Secondary School"
+    address: "20 UBI AVENUE 1"
+    postal_code: "408940"
+    mrt_desc: "UBI MRT"
+    district: "14"
+    region: EAST
+    lat: 1.32747123084846
+    lng: 103.901719963831
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: maris-stella-high-school
+    name: "Maris Stella High School"
+    address: "25 MOUNT VERNON ROAD"
+    postal_code: "368051"
+    mrt_desc: "BARTLEY MRT"
+    district: "13"
+    region: CENTRAL
+    lat: 1.34139181236127
+    lng: 103.877740713449
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: true
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: marsiling-secondary-school
+    name: "Marsiling Secondary School"
+    address: "12 MARSILING ROAD"
+    postal_code: "739110"
+    mrt_desc: "MARSILING MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.43664424769955
+    lng: 103.776008090454
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: mayflower-secondary-school
+    name: "Mayflower Secondary School"
+    address: "2 ANG MO KIO STREET 21"
+    postal_code: "569384"
+    mrt_desc: "ANG MO KIO MRT, MAYFLOWER MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.36827266209722
+    lng: 103.835360726863
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: meridian-secondary-school
+    name: "Meridian Secondary School"
+    address: "31 PASIR RIS STREET 51"
+    postal_code: "518901"
+    mrt_desc: "PASIR RIS MRT"
+    district: "18"
+    region: EAST
+    lat: 1.3672468492013
+    lng: 103.948972483629
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: methodist-girls-school-secondary
+    name: "Methodist Girls' School (Secondary)"
+    address: "11 BLACKMORE DRIVE"
+    postal_code: "599986"
+    mrt_desc: "KING ALBERT PARK MRT"
+    district: "21"
+    region: WEST
+    lat: 1.33292998864414
+    lng: 103.782962649043
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: girls
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: montfort-secondary-school
+    name: "Montfort Secondary School"
+    address: "50 HOUGANG AVENUE 8"
+    postal_code: "538785"
+    mrt_desc: "HOUGANG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.37396131656912
+    lng: 103.888928372577
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: nus-high-school-of-mathematics-and-science
+    name: "NUS High School of Mathematics and Science"
+    address: "20 Clementi Avenue 1"
+    postal_code: "129957"
+    mrt_desc: "Nearest MRT Stations - Clementi and Dover"
+    district: "05"
+    region: WEST
+    lat: 1.30600678096247
+    lng: 103.770152807737
+    type_code: "SPECIALISED SCHOOL"
+    type_label: "Specialised school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: nan-chiau-high-school
+    name: "Nan Chiau High School"
+    address: "20 ANCHORVALE LINK"
+    postal_code: "545079"
+    mrt_desc: "SENGKANG MRT, RENJONG LRT, TONGKANG LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.38879582498399
+    lng: 103.890004423764
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: true
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: nan-hua-high-school
+    name: "Nan Hua High School"
+    address: "41 CLEMENTI AVENUE 1"
+    postal_code: "129956"
+    mrt_desc: "CLEMENTI MRT"
+    district: "05"
+    region: WEST
+    lat: 1.30809529518605
+    lng: 103.768561446725
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: true
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: nanyang-girls-high-school
+    name: "Nanyang Girls' High School"
+    address: "2 LINDEN DRIVE"
+    postal_code: "288683"
+    mrt_desc: "SIXTH AVENUE MRT, TAN KAH KEE MRT"
+    district: "11"
+    region: CENTRAL
+    lat: 1.33058326666479
+    lng: 103.802420979943
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: girls
+    sap: true
+    autonomous: false
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: national-junior-college
+    name: "National Junior College"
+    address: "37 HILLCREST ROAD"
+    postal_code: "288913"
+    mrt_desc: "BOTANIC GARDENS MRT, TAN KAH KEE MRT, SIXTH AVENUE MRT"
+    district: "11"
+    region: CENTRAL
+    lat: 1.33029291072172
+    lng: 103.804110905425
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: naval-base-secondary-school
+    name: "Naval Base Secondary School"
+    address: "901 YISHUN RING ROAD"
+    postal_code: "768689"
+    mrt_desc: "KHATIB MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.41937881620441
+    lng: 103.831050390247
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: new-town-secondary-school
+    name: "New Town Secondary School"
+    address: "1020 DOVER ROAD"
+    postal_code: "139657"
+    mrt_desc: "DOVER MRT, CLEMENTI MRT"
+    district: "05"
+    region: WEST
+    lat: 1.30977590011357
+    lng: 103.77318863421
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: ngee-ann-secondary-school
+    name: "Ngee Ann Secondary School"
+    address: "1 TAMPINES STREET 32"
+    postal_code: "529283"
+    mrt_desc: "TAMPINES MRT, SIMEI MRT, TAMPINES EAST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.35447525755806
+    lng: 103.956747262496
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: north-vista-secondary-school
+    name: "North Vista Secondary School"
+    address: "11 RIVERVALE LINK"
+    postal_code: "545081"
+    mrt_desc: "SENGKANG MRT, BUANGKOK MRT, RANGGUNG LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.381131285358
+    lng: 103.899188813886
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: northbrooks-secondary-school
+    name: "Northbrooks Secondary School"
+    address: "585 YISHUN RING ROAD"
+    postal_code: "768692"
+    mrt_desc: "YISHUN MRT, KHATIB MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.42081285020652
+    lng: 103.845147332528
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: northland-secondary-school
+    name: "Northland Secondary School"
+    address: "3 YISHUN STREET 22"
+    postal_code: "768578"
+    mrt_desc: "YISHUN MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.43580183362637
+    lng: 103.840104687784
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: northlight-school
+    name: "Northlight School"
+    address: "151 Towner Road"
+    postal_code: "327830"
+    mrt_desc: "BOON KENG (NE9)"
+    district: "12"
+    region: CENTRAL
+    lat: 1.3191002158167
+    lng: 103.85575955353
+    type_code: "SPECIALISED INDEPENDENT SCHOOL"
+    type_label: "Specialised independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: orchid-park-secondary-school
+    name: "Orchid Park Secondary School"
+    address: "10 YISHUN STREET 81"
+    postal_code: "768454"
+    mrt_desc: "KHATIB MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.41532032779634
+    lng: 103.837859241343
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: outram-secondary-school
+    name: "Outram Secondary School"
+    address: "48 Anchorvale Crescent"
+    postal_code: "549936"
+    mrt_desc: "York Hill Campus, OUTRAM PARK MRT (EW16), CHINATOWN MRT (DT19), Anchorvale Campus, CHENG LIM (SW1)"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.39775020428346
+    lng: 103.891230426312
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: pasir-ris-crest-secondary-school
+    name: "Pasir Ris Crest Secondary School"
+    address: "11 PASIR RIS STREET 41"
+    postal_code: "518934"
+    mrt_desc: "PASIR RIS MRT"
+    district: "18"
+    region: EAST
+    lat: 1.37284060102246
+    lng: 103.959728202919
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: pasir-ris-secondary-school
+    name: "Pasir Ris Secondary School"
+    address: "390 TAMPINES STREET 21"
+    postal_code: "529400"
+    mrt_desc: "TAMPINES MRT, TAMPINES EAST MRT,  TAMPINES WEST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.35422732653396
+    lng: 103.948962626204
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: paya-lebar-methodist-girls-school-secondary
+    name: "Paya Lebar Methodist Girls' School (Secondary)"
+    address: "296 LOR AH SOO"
+    postal_code: "536742"
+    mrt_desc: "KOVAN MRT, SERANGOON MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.35096755912522
+    lng: 103.885120050588
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: pei-hwa-secondary-school
+    name: "Pei Hwa Secondary School"
+    address: "21 FERNVALE LINK"
+    postal_code: "797702"
+    mrt_desc: "SENGKANG MRT, LAYAR LRT"
+    district: "28"
+    region: NORTH-EAST
+    lat: 1.39037504993234
+    lng: 103.878461745339
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: peicai-secondary-school
+    name: "Peicai Secondary School"
+    address: "10 SERANGOON AVENUE 4"
+    postal_code: "556094"
+    mrt_desc: "SERANGOON MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.35951583222214
+    lng: 103.870010749055
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: peirce-secondary-school
+    name: "Peirce Secondary School"
+    address: "10 SIN MING WALK"
+    postal_code: "575566"
+    mrt_desc: "ANG MO KIO MRT, BISHAN MRT, MARYMOUNT MRT, BRIGHT HILL MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.36665944653812
+    lng: 103.83021606804
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: presbyterian-high-school
+    name: "Presbyterian High School"
+    address: "5209 ANG MO KIO AVENUE 6"
+    postal_code: "569845"
+    mrt_desc: "YIO CHU KANG MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.38175437421949
+    lng: 103.842382968794
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: punggol-secondary-school
+    name: "Punggol Secondary School"
+    address: "51 EDGEFIELD PLAINS"
+    postal_code: "828870"
+    mrt_desc: "PUNGGOL MRT, COVE LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.40205738421399
+    lng: 103.909213706482
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: queenstown-secondary-school
+    name: "Queenstown Secondary School"
+    address: "1 STRATHMORE ROAD"
+    postal_code: "148800"
+    mrt_desc: "REDHILL MRT, QUEENSTOWN MRT"
+    district: "03"
+    region: CENTRAL
+    lat: 1.29352126774652
+    lng: 103.813190980055
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: queensway-secondary-school
+    name: "Queensway Secondary School"
+    address: "2A MARGARET DRIVE"
+    postal_code: "149295"
+    mrt_desc: "COMMONWEALTH MRT, QUEENSTOWN MRT"
+    district: "03"
+    region: CENTRAL
+    lat: 1.30022271592188
+    lng: 103.802207291625
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: raffles-girls-school-secondary
+    name: "Raffles Girls' School (Secondary)"
+    address: "2 BRADDELL RISE"
+    postal_code: "318871"
+    mrt_desc: "BRADDELL MRT, CALDECOTT MRT"
+    district: "12"
+    region: CENTRAL
+    lat: 1.34217479932295
+    lng: 103.84313404727
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: girls
+    sap: false
+    autonomous: false
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: raffles-institution
+    name: "Raffles Institution"
+    address: "1 RAFFLES INSTITUTION LANE"
+    postal_code: "575954"
+    mrt_desc: "BISHAN MRT, MARYMOUNT MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.34629045013358
+    lng: 103.843620247231
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: true
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: regent-secondary-school
+    name: "Regent Secondary School"
+    address: "50 CHOA CHU KANG NORTH 5"
+    postal_code: "689621"
+    mrt_desc: "YEW TEE MRT, CHOA CHU KANG MRT"
+    district: "23"
+    region: WEST
+    lat: 1.39327908335682
+    lng: 103.751034411529
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: river-valley-high-school
+    name: "River Valley High School"
+    address: "6 BOON LAY AVENUE"
+    postal_code: "649961"
+    mrt_desc: "BOON LAY MRT, LAKESIDE MRT"
+    district: "22"
+    region: WEST
+    lat: 1.34459584223718
+    lng: 103.708190688947
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: true
+    autonomous: true
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: riverside-secondary-school
+    name: "Riverside Secondary School"
+    address: "3 WOODLANDS STREET 81"
+    postal_code: "738524"
+    mrt_desc: "WOODLANDS MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.44110157139127
+    lng: 103.78830823641
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: school-of-science-and-technology-singapore
+    name: "School of Science and Technology, Singapore"
+    address: "1 Technology Drive"
+    postal_code: "138572"
+    mrt_desc: "Dover"
+    district: "05"
+    region: WEST
+    lat: 1.31292810600277
+    lng: 103.774011529322
+    type_code: "SPECIALISED SCHOOL"
+    type_label: "Specialised school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: school-of-the-arts-singapore
+    name: "School of the Arts, Singapore"
+    address: "1 Zubir Said Drive 05 01"
+    postal_code: "227968"
+    mrt_desc: "Dhoby Ghaut"
+    district: "09"
+    region: CENTRAL
+    lat: 1.29936480411316
+    lng: 103.848687419363
+    type_code: "SPECIALISED SCHOOL"
+    type_label: "Specialised school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: sembawang-secondary-school
+    name: "Sembawang Secondary School"
+    address: "30 SEMBAWANG CRESCENT"
+    postal_code: "757704"
+    mrt_desc: "SEMBAWANG MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.44531502131387
+    lng: 103.816843258118
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: seng-kang-secondary-school
+    name: "Seng Kang Secondary School"
+    address: "10 COMPASSVALE LANE"
+    postal_code: "545090"
+    mrt_desc: "SENGKANG MRT, RANGGUNG LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.38659683143747
+    lng: 103.898365036709
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: serangoon-garden-secondary-school
+    name: "Serangoon Garden Secondary School"
+    address: "21 SERANGOON NORTH AVENUE 1"
+    postal_code: "555889"
+    mrt_desc: "SERANGOON MRT, ANG MO KIO MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.36932570490947
+    lng: 103.869270301476
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: serangoon-secondary-school
+    name: "Serangoon Secondary School"
+    address: "11 UPPER SERANGOON VIEW"
+    postal_code: "534237"
+    mrt_desc: "HOUGANG MRT, KANGKAR LRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.37465538827443
+    lng: 103.902138740699
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: singapore-chinese-girls-school
+    name: "Singapore Chinese Girls' School"
+    address: "190 DUNEARN ROAD"
+    postal_code: "309437"
+    mrt_desc: "STEVENS MRT"
+    district: "11"
+    region: CENTRAL
+    lat: 1.3206340835184
+    lng: 103.828164966953
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: girls
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: singapore-sports-school
+    name: "Singapore Sports School"
+    address: "1 Champions Way"
+    postal_code: "737913"
+    mrt_desc: "Woodlands South MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.42641140556342
+    lng: 103.789444793951
+    type_code: "SPECIALISED SCHOOL"
+    type_label: "Specialised school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: spectra-secondary-school
+    name: "Spectra Secondary School"
+    address: "1 WOODLANDS DRIVE 64"
+    postal_code: "737758"
+    mrt_desc: "ADMIRALTY"
+    district: "25"
+    region: NORTH
+    lat: 1.43703750789961
+    lng: 103.804100467487
+    type_code: "SPECIALISED INDEPENDENT SCHOOL"
+    type_label: "Specialised independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
+  - id: springfield-secondary-school
+    name: "Springfield Secondary School"
+    address: "30 TAMPINES AVENUE 8"
+    postal_code: "529593"
+    mrt_desc: "TAMPINES MRT, TAMPINES WEST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.34957303471476
+    lng: 103.930354460693
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-andrews-school-secondary
+    name: "St Andrew's School (Secondary)"
+    address: "15 FRANCIS THOMAS DRIVE"
+    postal_code: "359342"
+    mrt_desc: "POTONG PASIR MRT"
+    district: "13"
+    region: CENTRAL
+    lat: 1.33069360968075
+    lng: 103.866249138562
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-anthonys-canossian-secondary-school
+    name: "St. Anthony's Canossian Secondary School"
+    address: "1600 BEDOK NORTH AVENUE 4"
+    postal_code: "469700"
+    mrt_desc: "BEDOK MRT, BEDOK RESERVOIR MRT"
+    district: "16"
+    region: EAST
+    lat: 1.33466313498855
+    lng: 103.941977166932
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-gabriels-secondary-school
+    name: "St. Gabriel's Secondary School"
+    address: "24 SERANGOON AVENUE 1"
+    postal_code: "556140"
+    mrt_desc: "SERANGOON MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.34648798732177
+    lng: 103.876094163287
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-hildas-secondary-school
+    name: "St. Hilda's Secondary School"
+    address: "2 TAMPINES STREET 82"
+    postal_code: "528986"
+    mrt_desc: "TAMPINES MRT, TAMPINES WEST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.34973922385379
+    lng: 103.937608032148
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-josephs-institution
+    name: "St. Joseph's Institution"
+    address: "38 MALCOLM ROAD"
+    postal_code: "308274"
+    mrt_desc: "STEVENS MRT"
+    district: "11"
+    region: CENTRAL
+    lat: 1.32365313490152
+    lng: 103.828498974985
+    type_code: "INDEPENDENT SCHOOL"
+    type_label: "Independent school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-margarets-school-secondary
+    name: "St. Margaret's School (Secondary)"
+    address: "111 FARRER ROAD"
+    postal_code: "259240"
+    mrt_desc: "FARRER ROAD MRT"
+    district: "10"
+    region: CENTRAL
+    lat: 1.31977464050584
+    lng: 103.809602215402
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: st-patricks-school
+    name: "St. Patrick's School"
+    address: "490 EAST COAST ROAD"
+    postal_code: "429058"
+    mrt_desc: "MARINE TERRACE MRT (TEL)"
+    district: "15"
+    region: EAST
+    lat: 1.30788341871801
+    lng: 103.917638193713
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: boys
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: swiss-cottage-secondary-school
+    name: "Swiss Cottage Secondary School"
+    address: "3 BUKIT BATOK STREET 34"
+    postal_code: "659322"
+    mrt_desc: "BUKIT GOMBAK MRT"
+    district: "23"
+    region: WEST
+    lat: 1.36471742697475
+    lng: 103.750396136688
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: tampines-secondary-school
+    name: "Tampines Secondary School"
+    address: "252 TAMPINES ST 12"
+    postal_code: "529427"
+    mrt_desc: "TAMPINES MRT"
+    district: "18"
+    region: EAST
+    lat: 1.34926094811197
+    lng: 103.944263709507
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: tanjong-katong-girls-school
+    name: "Tanjong Katong Girls' School"
+    address: "20 Dunman Lane"
+    postal_code: "439272"
+    mrt_desc: "PAYA LEBAR MRT, DAKOTA MRT"
+    district: "15"
+    region: EAST
+    lat: 1.30821274627283
+    lng: 103.895820094229
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: girls
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: tanjong-katong-secondary-school
+    name: "Tanjong Katong Secondary School"
+    address: "130 HAIG ROAD"
+    postal_code: "438796"
+    mrt_desc: "PAYA LEBAR MRT, DAKOTA MRT"
+    district: "15"
+    region: EAST
+    lat: 1.30873515955341
+    lng: 103.897225196199
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: temasek-junior-college
+    name: "Temasek Junior College"
+    address: "2 Tampines Avenue 9   Temasek Junior College"
+    postal_code: "529564"
+    mrt_desc: "TAMPINES EAST MRT"
+    district: "18"
+    region: EAST
+    lat: 1.35728017255861
+    lng: 103.956185936394
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: temasek-secondary-school
+    name: "Temasek Secondary School"
+    address: "600 UPPER EAST COAST ROAD"
+    postal_code: "465561"
+    mrt_desc: "BEDOK MRT, TANAH MERAH MRT"
+    district: "16"
+    region: EAST
+    lat: 1.31591673150616
+    lng: 103.947564112022
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: unity-secondary-school
+    name: "Unity Secondary School"
+    address: "20 CHOA CHU KANG STREET 62"
+    postal_code: "689143"
+    mrt_desc: "YEW TEE MRT"
+    district: "23"
+    region: WEST
+    lat: 1.40001524119441
+    lng: 103.74602091483
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: victoria-school
+    name: "Victoria School"
+    address: "2 SIGLAP LINK"
+    postal_code: "448880"
+    mrt_desc: "SIGLAP, BEDOK MRT, PAYA LEBAR MRT"
+    district: "15"
+    region: EAST
+    lat: 1.3087130270751
+    lng: 103.927980966639
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: boys
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: true
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: west-spring-secondary-school
+    name: "West Spring Secondary School"
+    address: "61 SENJA  ROAD"
+    postal_code: "677737"
+    mrt_desc: "BUKIT PANJANG MRT, JELAPANG LRT, SENJA LRT"
+    district: "23"
+    region: WEST
+    lat: 1.38782283303782
+    lng: 103.760128840155
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: westwood-secondary-school
+    name: "Westwood Secondary School"
+    address: "11 JURONG WEST STREET 25"
+    postal_code: "648350"
+    mrt_desc: "BOON LAY MRT"
+    district: "22"
+    region: WEST
+    lat: 1.35373698510994
+    lng: 103.701772102139
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: whitley-secondary-school
+    name: "Whitley Secondary School"
+    address: "30 BISHAN STREET 24"
+    postal_code: "579747"
+    mrt_desc: "BISHAN MRT, MARYMOUNT MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.35505208480649
+    lng: 103.842552378136
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: woodgrove-secondary-school
+    name: "Woodgrove Secondary School"
+    address: "3 WOODLANDS AVENUE 6"
+    postal_code: "738990"
+    mrt_desc: "WOODLANDS MRT, WOODLANDS SOUTH MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.42831828137013
+    lng: 103.79604758539
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: woodlands-ring-secondary-school
+    name: "Woodlands Ring Secondary School"
+    address: "21 WOODLANDS AVENUE 1"
+    postal_code: "739062"
+    mrt_desc: "ADMIRALTY MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.43070452883799
+    lng: 103.777625748539
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: woodlands-secondary-school
+    name: "Woodlands Secondary School"
+    address: "11 MARSILING ROAD"
+    postal_code: "739111"
+    mrt_desc: "MARSILING MRT, WOODLANDS MRT"
+    district: "25"
+    region: NORTH
+    lat: 1.43912528141356
+    lng: 103.774586410437
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: xinmin-secondary-school
+    name: "Xinmin Secondary School"
+    address: "11 HOUGANG AVENUE 8"
+    postal_code: "538789"
+    mrt_desc: "HOUGANG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.37255884700002
+    lng: 103.88305161385
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yio-chu-kang-secondary-school
+    name: "Yio Chu Kang Secondary School"
+    address: "3063 ANG MO KIO AVENUE 5"
+    postal_code: "569868"
+    mrt_desc: "YIO CHU KANG MRT"
+    district: "20"
+    region: NORTH-EAST
+    lat: 1.37797597740925
+    lng: 103.84213696352
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yishun-secondary-school
+    name: "Yishun Secondary School"
+    address: "4 YISHUN STREET 71"
+    postal_code: "768516"
+    mrt_desc: "YISHUN MRT, KHATIB MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.42813324276086
+    lng: 103.828764316679
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yishun-town-secondary-school
+    name: "Yishun Town Secondary School"
+    address: "6 YISHUN STREET 21"
+    postal_code: "768610"
+    mrt_desc: "YISHUN MRT"
+    district: "27"
+    region: NORTH
+    lat: 1.43232156717386
+    lng: 103.838094226361
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: true
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yuan-ching-secondary-school
+    name: "Yuan Ching Secondary School"
+    address: "103 YUAN CHING ROAD"
+    postal_code: "618654"
+    mrt_desc: "LAKESIDE MRT"
+    district: "22"
+    region: WEST
+    lat: 1.34200635764467
+    lng: 103.72089870437
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yuhua-secondary-school
+    name: "Yuhua Secondary School"
+    address: "35 JURONG WEST STREET 41"
+    postal_code: "649406"
+    mrt_desc: "LAKESIDE MRT"
+    district: "22"
+    region: WEST
+    lat: 1.34718626876968
+    lng: 103.722687235839
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yusof-ishak-secondary-school
+    name: "Yusof Ishak Secondary School"
+    address: "8 SUMANG WALK"
+    postal_code: "828676"
+    mrt_desc: "PUNGGOL MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.40693702458178
+    lng: 103.896275149571
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: yuying-secondary-school
+    name: "Yuying Secondary School"
+    address: "47 HOUGANG AVENUE 1"
+    postal_code: "538884"
+    mrt_desc: "KOVAN MRT, SERANGOON MRT, HOUGANG MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.35713595302467
+    lng: 103.890194755287
+    type_code: "GOVERNMENT-AIDED SCH"
+    type_label: "Government-aided school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: zhenghua-secondary-school
+    name: "Zhenghua Secondary School"
+    address: "62 Bukit Panjang Ring Road"
+    postal_code: "679962"
+    mrt_desc: "JELAPANG LRT"
+    district: "23"
+    region: WEST
+    lat: 1.38836583415352
+    lng: 103.765510638527
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
+  - id: zhonghua-secondary-school
+    name: "Zhonghua Secondary School"
+    address: "13 SERANGOON AVENUE 3"
+    postal_code: "556123"
+    mrt_desc: "SERANGOON MRT"
+    district: "19"
+    region: NORTH-EAST
+    lat: 1.34840720846208
+    lng: 103.869430481414
+    type_code: "GOVERNMENT SCHOOL"
+    type_label: "Government school"
+    gender: co-ed
+    sap: false
+    autonomous: false
+    gifted: false
+    ip: false
+    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
+    cutoff_2025: null
+    cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."

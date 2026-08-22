@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Build output -- packs are published as release assets, not committed
+dist/
+web/data/
+
+# PyInstaller desktop build (tools/build_desktop.py). Binaries are release
+# assets built by CI on each platform, never committed -- and a locally built
+# one may have been built with --include-local, which must never be shared.
+build/
+*.spec
+
+# Generated static course pages: 391 files rebuilt from the pack by
+# `npm run site`, and by CI before every Pages deploy. Committing them would
+# mean shipping build output that silently drifts from the data it was built
+# from -- and the drift is invisible in review, because a stale page looks
+# exactly like a fresh one.
+web/site/
+web/sitemap.txt
+web/robots.txt
+
+node_modules/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Never commit anything a user typed. There should be nothing to commit,
+# because PathAhead does not write user data anywhere -- this is belt and
+# braces for anyone experimenting locally.
+*.profile.json
+profiles/
+logs/
+
+# ---------------------------------------------------------------------------
+# LOCAL-ONLY DATA OVERLAYS -- never published, and the reason is legal, not
+# tidiness.
+#
+# Some figures a family wants are published by MOE, SEAB or an institution
+# under terms that let anyone READ them but reserve the right to reproduce
+# them. PathAhead's public build therefore carries none of those figures and
+# links the reader to the primary source instead (see
+# tools/build_secondary_schools_pack.py and docs/LOCAL_DATA.md).
+#
+# An individual may still keep a personal copy for their own private study.
+# If one exists here, the build picks it up and the corresponding feature
+# lights up locally. These patterns exist so that a personal copy can never
+# become a published one by way of a `git add -A` at the wrong moment.
+#
+# Anything under a `local/` directory inside a pack is covered, so a new
+# overlay added later is ignored by default rather than by remembering to
+# come back here.
+packs/*/local/
+packs/**/local/
+local-data/
+*.local.json
+*.local.yaml
+
+# The compiled pack is a build artifact -- but note it is ALSO the file that
+# would carry a local overlay's figures if one were present. Ignored twice
+# over for that reason: once as build output above (dist/, web/data/), and
+# named again here so the reason is not lost if that comment is ever edited.
+web/data/singapore.json

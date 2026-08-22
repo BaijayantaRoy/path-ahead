@@ -1,0 +1,586 @@
+# PathAhead data pack: Singapore
+#
+# This file is meant to be read by a teacher, a counsellor or a parent -- not
+# only by a programmer. Nothing here executes. Every number carries the year it
+# refers to, the source it came from, how confident we are in it, and the date
+# after which it should no longer be shown as current.
+#
+# If you spot a wrong figure, please open an issue. There is a link on every
+# number in the app.
+
+pack:
+  id: singapore
+  country: SG
+  name: Singapore
+  version: sg-2026.1
+  pack_format: 1
+  published: 2026-08-02
+  description: >
+    Singapore's exam-to-next-stage pathways. This release covers the A-Level to
+    university transition under the 70-point University Admission Score that
+    applies from the 2026 cohort. PSLE and O-Level/SEC are planned; see
+    ROADMAP.md.
+  # Rendered in the app footer on every page and again, in full, on the
+  # "Sources and licences" page. The second line is not editorial: the
+  # Singapore Open Data Licence v1.0 requires that a product using an ODL
+  # dataset carry "a conspicuous notice acknowledging the source of the
+  # datasets and including a link to the most recent version of this
+  # Licence", and gives the wording below as its own example. Naming the
+  # datasets and the access date -- rather than a vague "some data comes
+  # from data.gov.sg" -- is what the condition actually asks for. Reviewed
+  # and tightened 2026-08-14.
+  attribution:
+    - >
+      Figures are cited to, and linked from, their official publisher. PathAhead
+      is not affiliated with, endorsed by, or connected to the Ministry of
+      Education, SEAB, Cambridge Assessment, or any school, polytechnic, ITE or
+      university.
+    - >
+      Contains information from the Graduate Employment Survey and the General
+      information of schools datasets, accessed 2026-08-13 from data.gov.sg,
+      which is made available under the terms of the Singapore Open Data Licence
+      version 1.0 (https://data.gov.sg/open-data-licence).
+
+sources:
+  - id: nus-igp-2026
+    name: Indicative Grade Profile
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Published January 2026. Table 1 gives representative grade profiles at the
+      10th and 90th percentile of Singapore-Cambridge GCE A-Level applicants
+      offered places in AY2025/2026, as three H2 grades plus one H1 grade. NUS
+      states that Grade C is assumed for General Paper and Project Work in
+      determining these profiles. Only the figures are recorded here; no NUS
+      text, table layout or document is reproduced.
+
+  - id: nus-uas-revision
+    name: Revision to the University Admission Score computation
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/docs/default-source/singapore-cambridge-gce-a-level/faqs-on-revised-uas-computation.pdf
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Referenced from the NUS IGP page, which states that from AY2026/2027
+      applicants presenting 2025 A-Level results will no longer have their H1
+      content subject grade included in the UAS by default, and that no grade
+      profile has yet been established on the new basis.
+
+  - id: uas-grade-points-2026
+    name: 70-point University Admission Score grade-point tables
+    publisher: Multiple secondary explainers (pending primary confirmation)
+    url: https://www.nus.edu.sg/oam/admissions/singapore-cambridge-gce-a-level/admission-requirements
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      CONFIDENCE MEDIUM. The component structure (three H2 subjects at 20 points
+      each plus General Paper at 10, total 70; Project Work pass/fail; a fourth
+      content subject counted only if it improves the total) is consistently
+      reported and is consistent with the NUS notification. The exact
+      grade-to-point table and the precise treatment when the optional subject
+      would push the total above 70 have NOT been confirmed against a primary
+      publication. Replace this source and raise the confidence before release.
+
+  - id: nus-prerequisites
+    name: Programme Prerequisites
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/programme-prerequisites
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      NUS states that subject prerequisites apply in addition to admission
+      requirements, and that they are subject to change every year. The
+      per-programme detail is published as PDFs; PathAhead links to them rather
+      than copying them.
+
+  - id: nus-aba
+    name: Aptitude-Based Admissions
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/aptitude-based-admissions
+    retrieved: 2026-08-02
+    licence: institution-tou
+
+  - id: nus-poly-route
+    name: Admission requirements - Polytechnic Diploma from Singapore
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/polytechnic-diploma-from-singapore/admission-requirements
+    retrieved: 2026-08-02
+    licence: institution-tou
+
+  - id: moe-ecg
+    name: Education and Career Guidance
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/education-in-sg/our-programmes/education-and-career-guidance
+    retrieved: 2026-08-02
+    licence: moe-tou
+
+  - id: moe-jae
+    name: Joint Admissions Exercise (JAE) — overview, eligibility and how to apply
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/post-secondary/admissions/jae
+    retrieved: 2026-08-19
+    licence: moe-tou
+    note: >
+      The process pages only -- how JAE works, when it runs, how appeals and
+      choices are submitted. The actual L1R5/L1R4 aggregate ceilings for JC
+      and MI are a separate, more specific source -- see moe-jae-jc-mi-2027
+      in olevel.yaml, and do not restate a number from here without it.
+
+  - id: moe-dsajc
+    name: Direct School Admission for junior colleges (DSA-JC) — overview and how to apply
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/post-secondary/admissions/dsa
+    retrieved: 2026-08-19
+    licence: moe-tou
+    note: >
+      DSA-JC lets a student secure a place on talent, before O-Level/SEC
+      results are out. Accepting an offer withdraws the student from JAE and
+      from transferring to a different JC -- MOE's own page states this
+      plainly, so PathAhead's caveat on the route repeats it rather than
+      softening it.
+
+  - id: ges-datagov
+    name: Graduate Employment Survey - NTU, NUS, SIT, SMU, SUSS & SUTD
+    publisher: Ministry of Education, via data.gov.sg
+    url: https://data.gov.sg/dataset/graduate-employment-survey-ntu-nus-sit-smu-suss-sutd
+    retrieved: 2026-08-02
+    licence: sg-odl-1.0
+    note: >
+      Run jointly by the six autonomous universities, published by MOE, and made
+      available on data.gov.sg under the Singapore Open Data Licence v1.0 --
+      which permits redistribution with attribution. Graduates are surveyed
+      roughly six months after their final examinations. Figures used here are
+      the 2024 survey (the most recent in the dataset at retrieval), per degree:
+      overall employment rate, gross monthly median, and the 25th and 75th
+      percentiles. A median alone would invite being read as "what I will earn",
+      so PathAhead always shows the range.
+
+  - id: nus-important-dates
+    name: Important Dates
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/important-dates
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Admission cycle dates. These move every year; PathAhead treats every one
+      as approximate and links out rather than asserting a day.
+
+  - id: nus-interview-dates
+    name: Faculty Interview and Test Dates
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/faculty-interview-and-test-dates
+    retrieved: 2026-08-02
+    licence: institution-tou
+
+  - id: nus-nsmen
+    name: Information for Full-Time National Servicemen
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/admissions/reserved-places-in-nus/information-for-full-time-national-servicemen
+    retrieved: 2026-08-02
+    licence: institution-tou
+
+  - id: nus-fees
+    name: MOE Tuition Grant & Tuition Fees
+    publisher: NUS Office of Admissions
+    url: https://www.nus.edu.sg/oam/financial-aid/moe-tuition-grant-tuition-fees
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Fees vary by course and by citizenship, and the MOE Tuition Grant carries
+      a service obligation for non-citizens. PathAhead links rather than
+      reproducing the fee tables, and flags the bond as an overlay rather than
+      as fine print.
+
+  - id: ntu-igp-2026
+    name: Indicative Grade Profile (AY2025-26 grade profiles, polytechnic GPAs and programme places)
+    publisher: Nanyang Technological University
+    url: https://www.ntu.edu.sg/admissions/undergraduate/indicative-grade-profile
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Published as a PDF at
+      https://www.ntu.edu.sg/docs/default-source/undergraduate-admissions/igp/ntu_igp.pdf
+      Three tables: A-Level grade profiles at the 10th and 90th percentile
+      (3 H2 + 1 H1, Grade C assumed for GP and PW), polytechnic GPAs, and
+      places taken up. NTU states the profiles include Aptitude-Based
+      Admissions offers, and that meeting them does not guarantee admission.
+      Only the figures are recorded here; no NTU text or table is reproduced.
+
+  - id: smu-igp-2026
+    name: Indicative Grade Profile (2026 University Admissions Exercise)
+    publisher: Singapore Management University
+    url: https://admissions.smu.edu.sg/admissions-requirements/indicative-grade-profile
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Published 9 January 2026. Same three tables as NTU and NUS. SMU states
+      that it admits holistically, that shortlisted applicants are assessed at
+      interview, and that some programmes also require an essay -- so every SMU
+      programme carries an additional-assessment overlay.
+
+  - id: suss-igp-2026
+    name: Indicative Grade Profile & Number of Programme Places (reference for the AY2026 exercise)
+    publisher: Singapore University of Social Sciences
+    url: https://www.suss.edu.sg/admissions/application-process/indicative-grade-profile-igp
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      A different shape from the NUS/NTU/SMU tables, and deliberately kept
+      different. SUSS publishes, in two stages, the share of AY2025 first-choice
+      applicants in each score band who were shortlisted, and then the share of
+      those shortlisted who were offered a place after an essay, a cognitive
+      exercise and a programme interview. Not a 10th-90th percentile profile,
+      and it must never be converted into one.
+
+      SUSS's own note 7 says the UAS in these tables is still the old 90-point
+      calculation, and note 6 says the AY2026 UAS counts three H2 subjects and
+      General Paper. PathAhead therefore shows the bands and withholds the
+      comparison for A-Level applicants. Polytechnic GPA is out of 4.00 on both
+      sides and is comparable.
+
+  - id: sit-igp-2025
+    name: SIT Indicative Grade Profile 2025
+    publisher: Singapore Institute of Technology
+    url: https://www.singaporetech.edu.sg/sites/default/files/2026-01/IGP%202025%20Publication.pdf
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Per programme, the share of first-choice polytechnic applicants in each
+      GPA band who received an offer, plus places taken up in the AY2025/26
+      intake and the 2024 Graduate Employment Survey results.
+
+      Two things are deliberately not carried across. SIT's A-Level percentages
+      are aggregated across an academic cluster rather than a programme -- its
+      own footnote 1 says so -- and are on the retired 90-point scale, so they
+      are not attached to individual courses. And SIT publishes a bare median
+      salary with no quartiles; PathAhead shows a range or nothing, so the
+      employment rate is loaded and the salary is not.
+
+  - id: sutd-igp-2026
+    name: Student profile for A-Level applicants (2025 admission exercise)
+    publisher: Singapore University of Technology and Design
+    url: https://www.sutd.edu.sg/admissions/undergraduate/singapore-cambridge-gce-a-level/indicative-grade-profile-igp/
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      SUTD publishes no grade band and no percentile profile at all -- it
+      describes which subjects the students it admitted had taken and roughly
+      how they did. PathAhead carries that as what it is, a subject profile,
+      and does not manufacture a band from it. SUTD also admits to the
+      university rather than to a pillar, with the pillar chosen after a common
+      first year.
+
+  - id: ntu-fees
+    name: Tuition Fees — Accepted Programme Offer in 2026
+    publisher: Nanyang Technological University
+    url: https://www.ntu.edu.sg/admissions/undergraduate/financial-matters/tuition-fees/accepted-programme-offer-in-2026
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      NTU sets fees by cohort: the rate is fixed at the 2026 figure for the
+      whole degree, so the 2026 page is the one a current applicant needs.
+      Four bands — all programmes, the Accountancy and Business family,
+      Medicine, and the Renaissance Engineering Programme. Transcription was
+      cross-checked against the AY2025 page, which has the identical column
+      structure and row shapes.
+
+      One figure is deliberately NOT recorded. For the "all programmes" band
+      NTU publishes two non-subsidised rates, SGD 40,600 lab-based and
+      SGD 36,350 non-lab-based, and publishes no mapping from programme to
+      cluster — not on this page, not on the AY2025 page, and not in the
+      overstayers' fee PDF, which uses the same two clusters without naming
+      their members. Guessing the classification would put a roughly SGD 17,000
+      four-year error in front of a family, so the field is left empty and both
+      figures are named in the note on every affected course.
+
+  - id: ntu-candidature
+    name: Academic Handbook for Undergraduate Studies, Cohort AY2025-26 (section 3.2, Period of Candidature)
+    publisher: NTU Office of Academic Services
+    url: https://www.ntu.edu.sg/media/docs/default-source/office-of-academic-services/academic-handbook-(undergraduate-studies)-ay2025-26_expanded-fgo_260511.pdf
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      The normal period of candidature for every full-time NTU programme, which
+      is what turns an annual fee into a total. Worth reading rather than
+      assuming: Accountancy and Business are three-year direct honours
+      programmes, not four, and the Renaissance Engineering Programme is four
+      and a half.
+
+  - id: smu-fees
+    name: Tuition Fees & Grant (AY2026/27 entering freshmen)
+    publisher: SMU Office of Admissions & Financial Assistance
+    url: https://admissions.smu.edu.sg/financial-matters/tuition-fees-grant
+    retrieved: 2026-08-02
+    licence: institution-tou
+    note: >
+      Two bands — Law, and everything else. SMU states the four-year duration
+      and the fixed-fee model on the same page, and sets out the three tuition
+      grant tiers plainly, including that Tier C for international students is
+      limited and competitive.
+
+  - id: sit-fees-2026
+    name: Undergraduate Tuition Fees, Academic Year 2026
+    publisher: Singapore Institute of Technology
+    url: https://www.singaporetech.edu.sg/admissions/undergraduate/tuition-fees
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      SIT charges per CREDIT UNIT, not per academic year, and states that fees
+      are payable as long as a student's candidature remains active, derived
+      each trimester from the modules actually registered. There is no annual
+      figure in the publication and none is recorded here: dividing a programme
+      total by a nominal number of years would invent a figure that looks like
+      every other university's and would be wrong for any student taking a
+      lighter or heavier load. Singapore Citizen and Permanent Resident rates
+      exclude GST, which MOE subsidises; the international and non-subsidised
+      rates include 9% GST. Four courses are left without a figure because the
+      published programme names cannot be mapped to them unambiguously -- see
+      tools/add_sit_fees.py, which records the reason per course.
+
+  - id: nyp-cop-datagov
+    name: Nanyang Polytechnic GCE 'O' Level Aggregate Cut-Off-Points by Course, 2014-2026
+    publisher: Nanyang Polytechnic via data.gov.sg
+    url: https://data.gov.sg/datasets/d_eb7bb85a49e021e63f9cb7b54497a400/view
+    retrieved: 2026-08-03
+    licence: sg-odl-1.0
+    note: >
+      Contains information from data.gov.sg accessed on 3 August 2026, under the
+      Singapore Open Data Licence v1.0. The dataset's own column description
+      defines the figure as the net aggregate, after deducting CCA bonus points,
+      of the LOWEST and HIGHEST ranked student admitted through the Joint
+      Admissions Exercise -- a full min-to-max of the admitted cohort, not a
+      percentile band. AY2024, AY2025 and AY2026 are recorded here as three
+      separate exercises and are never merged into one range.
+
+  - id: ntu-msr-alevel
+    name: Minimum Subject Requirements for Singapore-Cambridge GCE 'A' Level
+    publisher: Nanyang Technological University
+    url: https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_alevel.pdf
+    retrieved: 2026-08-09
+    licence: institution-tou
+    note: >
+      NTU's own table of the subjects each degree programme requires before it
+      will consider an application, stamped "correct as at February 2026" for
+      the AY2026-27 window. This is the document that closes the gap behind a
+      real complaint: PathAhead had been scoring NTU's Physics / Applied
+      Physics at 52/100 for a student with no Physics, on the strength of a
+      blanket overlay saying programmes "may require specific subjects". The
+      table states exactly which, so the engine can stop guessing and start
+      quoting.
+
+  - id: ntu-programme-requirements
+    name: Undergraduate programme pages, entry requirements
+    publisher: Nanyang Technological University
+    url: https://www.ntu.edu.sg/education/degree-programmes
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      Each NTU degree programme page carries its own entry requirements, which
+      are where subject and language conditions live -- the Indicative Grade
+      Profile page does not carry them. Used for two language conditions: the
+      Bachelor of Chinese Medicine, whose page states "a bilingual course with
+      English and Mandarin as the media of instruction" alongside a required
+      pass in Chinese Language, and the Bachelor of Arts (Hons) in Chinese,
+      whose page sets a Chinese subject condition for A-Level applicants but
+      states no language of instruction. The difference between those two is
+      carried into the pack rather than smoothed over. The Bachelor of Arts
+      (Hons) in Linguistics and Multilingual Studies was checked against the
+      same source and states no language condition; its curriculum is a
+      linguistics curriculum taught about languages, so no requirement was
+      added. Only the conditions are recorded; no NTU prose is reproduced.
+
+  - id: np-entry-requirements
+    name: Course Entry Requirements
+    publisher: Ngee Ann Polytechnic
+    url: https://www.np.edu.sg/schools-courses
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      Each NP course page carries an Entry Requirements table naming the
+      aggregate type and the O-Level subjects and grades needed to be
+      considered. Only the language requirements are recorded here, and only
+      for the courses that are taught IN that language -- the Diploma in
+      Chinese Studies states that at least half the course is conducted in
+      Chinese. This was added after a student who does not read Chinese was
+      shown Chinese Studies as her second-strongest match out of 296 courses.
+
+  - id: np-cop-datagov
+    name: Ngee Ann Polytechnic Planned Intake and Cut-Off Points
+    publisher: Ngee Ann Polytechnic via data.gov.sg
+    url: https://data.gov.sg/collections/1502/view
+    retrieved: 2026-08-03
+    licence: sg-odl-1.0
+    note: >
+      Contains information from data.gov.sg accessed on 3 August 2026, under the
+      Singapore Open Data Licence v1.0. Published as one dataset per year; the
+      2023, 2024 and 2025 exercises are recorded here as three separate
+      exercises and never merged. The most recent NP dataset is the 2025
+      exercise, so these figures are one year behind Nanyang Polytechnic's --
+      each card names the years it is showing rather than implying they match.
+      Ngee Ann also publishes an ELR2B2 TYPE per course (A, B, C or D), which
+      differ in which subjects count as relevant; the type is carried into the
+      basis so two NP courses on different types are not read as one scale.
+
+  - id: rp-elr2b2-intake
+    name: ELR2B2 & Intake Numbers
+    publisher: Republic Polytechnic
+    url: https://www.rp.edu.sg/admissions/intake/
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      Page states "last updated 4 March 2026" and gives, per course, the RP
+      course code, the ELR2B2 aggregate type, the 2026 planned intake and the
+      range of net ELR2B2 for the 2026 JAE. Only the current exercise is
+      published, so RP courses carry one year where NYP and NP carry three --
+      each card names the years it is showing rather than implying they match.
+      Courses that still had vacancies after JAE posting are marked with an
+      asterisk on the source page; that marking is carried into the fact note,
+      together with RP's own stated appeal condition (Minimum Entry
+      Requirements plus a net aggregate of 26 or better, with no guarantee of a
+      place). Only the figures and those conditions are recorded; no Republic
+      Polytechnic text or table layout is reproduced.
+
+  - id: sp-course-elr2b2
+    name: Net ELR2B2 Aggregate Range (2026 JAE), per course page
+    publisher: Singapore Polytechnic
+    url: https://www.sp.edu.sg/courses/diplomas
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      Singapore Polytechnic publishes no institution-wide cut-off table. Each
+      course page carries its own "Net ELR2B2 Aggregate Range (2026 JAE)" and
+      planned intake, so this source is thirty-four individual course pages,
+      enumerated from SP's ten school pages and transcribed one at a time. The
+      /courses listing itself is client-rendered and returns "Showing 0 - 0 of
+      0" to a plain fetch, which is why the school pages are the entry point.
+      Only the current exercise is published, so SP courses carry one year, like
+      TP and RP. SP is mixed on the ELR2B2 aggregate type: business courses are
+      type B, computing and maritime business C, the built environment and
+      design D, media A, and every science and engineering course states no type
+      at all -- where none is stated the basis stays the generic "net ELR2B2"
+      rather than inventing a letter. The seven "Diploma in MAD, ..." pages all
+      carry course code S29 and one range, and SP labels the intake as being for
+      the entire Media, Arts & Design cohort, so they are one course, not seven.
+      The Diploma in Nautical Studies publishes entry requirements but no
+      aggregate range and no JAE course code, and therefore carries no band.
+      Because this source is a SET of pages rather than one page, each SP
+      figure carries its own `url` pointing at the course page it was
+      transcribed from, and the course itself links there too — the URL below
+      is only the listing, and the listing does not render without JavaScript.
+      Only the figures are recorded; no Singapore Polytechnic text or table
+      layout is reproduced.
+
+  - id: tp-intake-aggregate
+    name: Course Intake and Last Aggregate Scores
+    publisher: Temasek Polytechnic
+    url: https://www.tp.edu.sg/admissions-and-finance/course-intake-aggregate-range.html
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      Gives, per course, the 2026 planned intake and the range of net ELR2B2
+      aggregate scores of students admitted through the 2026 Joint Admissions
+      Exercise. TP states these "are meant as a reference for applicants
+      applying to these courses and do not constitute the admissions scores for
+      subsequent admissions exercises", and that admission "is based on merit
+      and subjected to the availability of vacancies". Only the current exercise
+      is published, so TP courses carry one year. TP does NOT state an ELR2B2
+      type on this page, so the basis recorded here stays the generic "net
+      ELR2B2" rather than inventing a letter. The page lists every course twice,
+      once by interest and once by school; the 41 courses were transcribed from
+      the by-interest listing and the by-school tables repeat them. Only the
+      figures are recorded; no Temasek Polytechnic text or table is reproduced.
+
+  - id: tp-alevel-admissions
+    name: Application Guide for A-Level Graduates (JAE|DAE)
+    publisher: Temasek Polytechnic
+    url: https://www.tp.edu.sg/admissions-and-finance/application-guide-for-prospective-students/a-level-graduates-jae-dae.html
+    retrieved: 2026-08-03
+    licence: institution-tou
+    note: >
+      The source for how an A-Level holder actually enters a polytechnic, which
+      is why no polytechnic figure in this pack is compared with an A-Level
+      score. Through JAE, an A-Level holder applies on their GCE O-Level results.
+      Through the Direct Admissions Exercise they apply for 2 or 2.5-year
+      diploma courses and are admitted on "academic results and/or interview/test
+      where applicable and subject to the availability of vacancies" -- no
+      published aggregate exists for that route. Only these facts are recorded;
+      no Temasek Polytechnic text or table is reproduced.
+
+  - id: nyp-fees
+    name: Annual Course Fees (AY2026 full-time diploma)
+    publisher: Nanyang Polytechnic
+    url: https://www.nyp.edu.sg/student/study/financial-matters/annual-course-fees
+    retrieved: 2026-08-05
+    licence: institution-tou
+    note: >
+      Subsidised tuition, supplementary fees and total payable, for a student
+      who accepts the MOE Tuition Grant. NYP prints the 2023 to 2026 intakes in
+      one table, which makes the cohort-based fee structure legible: a 2024
+      entrant still pays the 2024 rate. AY2026 is the first year NYP charges
+      international students from ASEAN and elsewhere differently. The page
+      states it is correct as of 14 May 2026. Only the figures are recorded; no
+      Nanyang Polytechnic text or table is reproduced.
+
+  - id: rp-fees
+    name: Course Fees (With MOE Tuition Grant), Admission Year 2026
+    publisher: Republic Polytechnic
+    url: https://www.rp.edu.sg/student/financial-matters/course-fees/
+    retrieved: 2026-08-05
+    licence: institution-tou
+    note: >
+      Subsidised tuition and supplementary fee per academic year, with AY2024
+      and AY2025 kept alongside. RP is the one of the four that names the
+      eleven ASEAN member states its ASEAN rate applies to, rather than
+      assuming a reader knows. Page last updated 27 February 2026. Only the
+      figures are recorded; no Republic Polytechnic text or table is
+      reproduced.
+
+  - id: sp-fees
+    name: Course Fees — Full-Time Diploma (new students enrolling in AY2026)
+    publisher: Singapore Polytechnic
+    url: https://www.sp.edu.sg/admissions/course-fees/full-time-diploma
+    retrieved: 2026-08-05
+    licence: institution-tou
+    note: >
+      Tuition fee and fees payable per year. SP itemises what separates the two
+      — examination, sports, insurance, student union and CLASS licence — which
+      is why the supplementary figure is quoted on the course rather than
+      dropped. SP states the information is correct as of 7 May 2026. Students
+      who reject the Tuition Grant "must pay full fees, including 9% GST on the
+      TG amount", and SP publishes no figure for that, so none is recorded.
+      Only the figures are recorded; no Singapore Polytechnic text or table is
+      reproduced.
+
+  - id: tp-fees
+    name: Fees & Financial Matters (AY2026/2027 April intake)
+    publisher: Temasek Polytechnic
+    url: https://www.tp.edu.sg/admissions-and-finance/fees-financial-matters.html
+    retrieved: 2026-08-05
+    licence: institution-tou
+    note: >
+      One table per citizenship and per intake year, each broken into two
+      semesters. Two traps on this page. The Polytechnic Foundation Programme
+      tables sit beside the diploma ones and are a different programme at a
+      different price. And an earlier reading of this page, on 2026-08-03,
+      found no AY2026/2027 international table and recorded that TP's visible
+      international figure was the AY2025/2026 one; TP has since published both
+      the ASEAN and non-ASEAN tables for AY2026/2027, and those are what is
+      recorded here. Only the figures are recorded; no Temasek Polytechnic text
+      or table is reproduced.
+
+  - id: pathahead-editorial
+    name: PathAhead course characterisations
+    publisher: PathAhead (this project)
+    url: https://github.com/BaijayantaRoy/path-ahead/blob/main/docs/PACK_AUTHORING.md
+    retrieved: 2026-08-02
+    licence: derived
+    note: >
+      NOT AN OFFICIAL SOURCE, and deliberately kept separate from every source
+      that is. Descriptions of what a course is like -- which interests it draws
+      on, how it is assessed, whether it is mostly individual or team work --
+      are this project's own judgement, written to make fit reasoning possible.
+      They are opinions. They render differently in the app, they never mix with
+      published figures, and every one carries an invitation to disagree. If one
+      is wrong, that is a bug worth reporting.

@@ -1,0 +1,29 @@
+name: Feature or route suggestion
+description: A route, filter, stage, or country PathAhead should cover but does not yet.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: this project will not accept analytics, telemetry, accounts, identity fields, ranking/league-table features, predicted admission probabilities, or ads — see [CONTRIBUTING.md](../../CONTRIBUTING.md#what-this-project-will-not-accept). If your idea runs into one of those, it is worth reading why first.
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like PathAhead to do
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this matters
+      description: A real route, filter or gap you or a family you know actually ran into is far more useful here than a hypothetical.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: A source, if this involves a fact or a rule
+      description: A link to where the official rule is published, if applicable.
+    validations:
+      required: false

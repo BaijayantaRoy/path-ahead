@@ -1,0 +1,298 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  engine:
+    name: Engine (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: ruff check .
+      - name: Tests
+        run: pytest -q
+
+  data-health:
+    name: Data health gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt
+
+      # A pack that ships a figure past its publication cycle, or a required
+      # field below the confidence floor, must not be releasable. Credibility
+      # that is only reported drifts; credibility that is enforced holds.
+      - name: Gate every pack
+        run: |
+          for p in packs/*/; do
+            echo "::group::$p"
+            python app/cli.py health --pack "$p" --gate
+            echo "::endgroup::"
+          done
+
+      - name: Publish the report in the job summary
+        if: always()
+        run: python app/cli.py health --markdown >> "$GITHUB_STEP_SUMMARY"
+
+  cross-engine:
+    name: Python and browser engines agree
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: pip install -r requirements.txt
+
+      # web/index.html is a generated artifact of web/src/*.
+      # (head.html/styles.css/body.html/app.js), kept as a committed file
+      # only so the app stays a genuine single-file, zero-build distribution.
+      # If the two drift, a reviewer reading a src/ diff would sign off on
+      # something the shipped file never runs. This is the gate that makes
+      # that impossible rather than merely unlikely.
+      - name: web/index.html matches web/src/
+        run: python tools/build_web.py --check
+
+      # web/data/ is where every tools/*.mjs reads the compiled pack. Build
+      # it once, here, and every later step in this job has what it needs.
+      # This used to build to dist/, which check_golden.mjs alone read, so
+      # check_ui.mjs further down died on a missing web/data/singapore.json
+      # in every clean checkout. See tools/check_golden.mjs for the full note.
+      - name: Compile the pack
+        run: python app/cli.py build --out web/data
+
+      # PathAhead has two implementations of the same rule kinds so that the
+      # browser build needs no runtime download. This job is what keeps that
+      # duplication safe: every golden fixture is replayed through the JS
+      # engine extracted from web/index.html and compared step by step.
+      - name: Regenerate golden fixtures and check they are unchanged
+        run: |
+          python tools/make_golden.py
+          git diff --exit-code evals/golden/ || {
+            echo "::error::Golden fixtures changed. A real family's answer just moved -- review the diff and commit it deliberately."
+            exit 1
+          }
+
+      - name: Replay fixtures through the browser engine
+        run: node tools/check_golden.mjs
+
+      # The engine suite cannot see interface faults. What reached a real
+      # family was a control that never refreshed and a list that never
+      # sorted -- both invisible to Python. These drive the actual HTML.
+      - name: Drive the browser build like a person
+        run: |
+          npm install --no-fund --no-audit
+          node tools/check_ui.mjs
+
+  safeguards:
+    name: Safeguards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements-dev.txt
+
+      - name: Safeguard and guardrail suites
+        run: pytest tests/test_safeguards.py tests/test_guardrail.py -q
+
+      # PathAhead publishes no Posting Group cut-off points. They are MOE's
+      # to publish, MOE's Terms of Use reserve reproduction, and the app
+      # deep-links to each school's own SchoolFinder page instead. A person
+      # may keep a private copy locally (packs/*/local/, gitignored) and the
+      # loader merges it in memory -- but nothing tracked in this repository
+      # may ever carry those figures.
+      #
+      # This gate is the difference between that being a rule and being a
+      # habit. It checks the tracked YAML, not the in-memory pack, because
+      # the tracked YAML is what a fork or a release would carry.
+      - name: No cut-off figures in any tracked pack
+        run: |
+          if grep -rnE 'cutoff_2025:\s*\{' packs/ ; then
+            echo "::error::A tracked pack carries Posting Group cut-off figures. These are not redistributable -- see tools/build_secondary_schools_pack.py and docs/LOCAL_DATA.md. Local overlays belong in packs/*/local/, which is gitignored."
+            exit 1
+          fi
+          if git ls-files --error-unmatch 'packs/*/local/*' 2>/dev/null; then
+            echo "::error::A local-only data overlay has been committed. Remove it from the index: git rm --cached the file, and check .gitignore."
+            exit 1
+          fi
+          echo "no cut-off figures in tracked packs - OK"
+
+      # Cheap, blunt, and it has caught real regressions elsewhere: nothing in
+      # the shipped app may ask for identifying information.
+      - name: No identity fields anywhere in the app
+        run: |
+          if grep -rniE '(name=|id=)"(student|child|pupil)?_?(name|nric|email|phone|mobile)"' web/ app/ engine/; then
+            echo "::error::An identifying input field was added. See SAFEGUARDS.md 2."
+            exit 1
+          fi
+
+      - name: No analytics or telemetry
+        run: |
+          # Domains and SDK call sites, not bare words -- "plausible" is a
+          # perfectly good English adjective and appears in engine/errors.py.
+          if grep -rniE --exclude-dir=__pycache__ \
+              'google-analytics\.com|googletagmanager\.com|gtag\(|mixpanel\.|segment\.(com|io)|sentry\.io|posthog\.(com|init)|plausible\.io|hotjar\.com|amplitude\.com' \
+              web/ app/ engine/ tools/ tests/; then
+            echo "::error::A telemetry endpoint was added. PathAhead has no analytics, ever. See SAFEGUARDS.md 2."
+            exit 1
+          fi
+
+      # Fit ranks options against each other. While the pack covers a fraction
+      # of the real option space, calling anything "best" is misinformation
+      # with a progress bar. See DESIGN_REVIEW_2.md 0.
+      - name: No superlatives while fit coverage is partial
+        run: |
+          if python -c "
+          import sys; sys.path.insert(0,'.')
+          from engine import load_pack
+          from engine.fit import coverage
+          sys.exit(0 if coverage(load_pack('packs/singapore')).complete else 1)
+          "; then
+            echo "fit coverage complete - superlatives permitted"
+          else
+            if grep -niE '\b(best|top|#1|number one|ideal) (match|course|choice|fit|option)' web/index.html engine/*.py; then
+              echo "::error::Fit coverage is partial, so the app must not use superlatives. See DESIGN_REVIEW_2.md 0."
+              exit 1
+            fi
+            echo "coverage partial, no superlatives found - OK"
+          fi
+
+      - name: Editorial claims are labelled as opinion, not fact
+        run: |
+          python -c "
+          import sys; sys.path.insert(0,'.')
+          from engine import load_pack
+          p = load_pack('packs/singapore')
+          bad = [o.id for o in p.outcomes.values()
+                 if o.editorial and o.editorial.fact and not o.editorial.fact.is_editorial]
+          assert not bad, f'course descriptions not marked editorial: {bad}'
+          print(f'{sum(1 for o in p.outcomes.values() if o.editorial)} course descriptions, all labelled editorial')
+          "
+
+      # The allowlist is deliberately short, and everything on it is a
+      # destination a reader chooses to travel to by clicking — never a
+      # resource the page loads on their behalf. That distinction is the
+      # whole point: an outbound link is the reader's decision, a
+      # <link>/<script>/<img> to someone else's server is a disclosure
+      # made for them before the page even paints.
+      #
+      #   moe.gov.sg / nus.edu.sg / data.gov.sg  — citation deep links
+      #   github.com/BaijayantaRoy                — source and "looks wrong"
+      #   google.com/maps                         — "Get directions", opened
+      #       only on click, carrying the SCHOOL's own public address as the
+      #       destination and nothing else. The family's typed postal code is
+      #       never attached; tools/check_ui.mjs asserts that explicitly.
+      #   w3.org/2000/svg                         — the SVG XML namespace, an
+      #       identifier, never fetched.
+      #
+      # This gate caught a real leak on 2026-08-14: the page had been pulling
+      # webfonts from Google's CDN, sending every visitor's IP to Google
+      # before rendering. Keep it strict.
+      - name: No third-party resources in the browser build
+        run: |
+          if grep -oE 'https?://[^"'"'"' )]+' web/index.html \
+             | grep -vE '(moe\.gov\.sg|nus\.edu\.sg|data\.gov\.sg|github\.com/BaijayantaRoy|google\.com/maps|w3\.org/2000/svg)' ; then
+            echo "::error::web/index.html references an external resource. The browser build must be fully self-contained."
+            exit 1
+          fi
+
+      # Belt and braces for the above: the guarantee must travel IN the
+      # document, because a CSP response header cannot follow index.html
+      # onto GitHub Pages, a USB stick, or a file:// open.
+      - name: The browser build carries its own Content-Security-Policy
+        run: |
+          if ! grep -q "http-equiv=\"Content-Security-Policy\"" web/index.html; then
+            echo "::error::web/index.html has no meta CSP. See SAFEGUARDS.md 1."
+            exit 1
+          fi
+          if ! grep -q "default-src 'self'" web/index.html; then
+            echo "::error::the meta CSP does not start from default-src 'self'."
+            exit 1
+          fi
+
+  pages:
+    name: Publish the zero-install build
+    # GitHub Pages is not available on a private repository on the Free plan,
+    # so this job cannot succeed while the repo is private -- and a job that
+    # is red for a reason nobody can fix teaches people to ignore red, which
+    # is the failure mode this whole CI file exists to prevent. So it is
+    # opt-in: set the repository variable PUBLISH_PAGES to "true"
+    # (Settings -> Secrets and variables -> Actions -> Variables) once the
+    # repo is public and Pages is enabled. Until then it is skipped, not
+    # failed.
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      github.event_name == 'push' &&
+      vars.PUBLISH_PAGES == 'true'
+    needs: [engine, data-health, cross-engine, safeguards]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: pip install -r requirements.txt
+      - name: Build the pack into the site
+        run: python app/cli.py build --out web/data
+
+      # The pack this builds carries NO Posting Group cut-off figures: the
+      # checkout has no packs/*/local/ overlay (it is gitignored), so
+      # engine/loader.py finds nothing to merge. Asserted rather than assumed,
+      # because this is the artifact the public actually receives.
+      - name: The published pack carries no cut-off figures
+        run: |
+          python - <<'PY'
+          import json, sys
+          pack = json.load(open("web/data/singapore.json"))
+          carried = [s["id"] for s in pack.get("schools", []) if s.get("cutoff_2025")]
+          if carried:
+              print(f"::error::the pack built for publication carries cut-off figures for "
+                    f"{len(carried)} school(s), e.g. {carried[:3]}. See docs/LOCAL_DATA.md.")
+              sys.exit(1)
+          print(f"{len(pack.get('schools', []))} schools, 0 cut-off figures - OK")
+          PY
+
+      # Generated here rather than committed: 391 files that must not drift
+      # from the pack. --base makes robots.txt advertise a real sitemap URL.
+      - name: Build the static course pages
+        run: |
+          npm install --no-fund --no-audit
+          node tools/build_static.mjs --base "${{ steps.pages.outputs.base_url || format('https://{0}.github.io/path-ahead', github.repository_owner) }}"
+      - id: pages
+        uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: web }
+      - id: deploy
+        uses: actions/deploy-pages@v4

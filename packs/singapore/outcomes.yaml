@@ -1,0 +1,2566 @@
+# Outcomes -- destinations, with everything a family actually asks about.
+#
+# Four kinds of information live here, and they are NOT the same kind of claim:
+#
+#   band        official, published by the institution. The 10th-90th
+#               percentile of students admitted LAST year. Not a cutoff.
+#   employment  official, from the Graduate Employment Survey via data.gov.sg
+#               under the Singapore Open Data Licence. A range, never a bare
+#               median, for the same reason the band is a range.
+#   cost        official, and deliberately includes the tuition grant bond,
+#               which families routinely discover far too late.
+#   editorial   PathAhead's OWN characterisation of what a course is like.
+#               An opinion. It exists so fit reasoning is possible at all, it
+#               renders differently in the app, and it invites correction.
+#
+# Generated once from the published tables and then hand-maintained.
+
+outcomes:
+  - id: nus-law
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Law
+    faculty: Faculty of Law
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 252
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 93.8
+      employment_rate_ft_perm: 90.4
+      gross_median: 7000
+      gross_p25: 6200
+      gross_p75: 7000
+      covers: Bachelor of Laws
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Law
+      annual_fee_citizen: 12750
+      annual_fee_pr: 17800
+      annual_fee_international: 27750
+      annual_fee_is_other: 30450
+      annual_fee_no_grant: 44450
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 12750/yr citizen, 17800 PR, 27750 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Law". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["E", "A"]
+      subject_affinity: ["literature", "history", "general-paper", "knowledge-inquiry"]
+      assessment_style: ["exams", "coursework"]
+      work_setting: ["office", "court"]
+      teamwork: individual
+      maths_intensity: low
+      writing_intensity: high
+      sectors: ["legal services", "public sector", "finance"]
+      summary: >-
+        Sustained reading and argument, assessed heavily on written reasoning. Suits people who enjoy building a case and can work alone for long stretches.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+      - kind: subject_requirement
+        label: Licensed profession
+        detail: >-
+          This leads to a regulated profession with further training and
+          registration after graduation. The degree is the start of the path,
+          not the end of it.
+        source: pathahead-editorial
+
+  - id: nus-medicine
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Medicine
+    faculty: School of Medicine
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 286
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: "Bachelor of Medicine and Bachelor of Surgery"
+      unavailable_reason: >-
+        Medicine graduates enter a compulsory postgraduate training year, so the survey does not report a starting salary for them.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Medicine (except Nursing)
+      annual_fee_citizen: 33200
+      annual_fee_pr: 48900
+      annual_fee_international: 74750
+      annual_fee_is_other: 87800
+      annual_fee_no_grant: 190150
+      years: 5
+      tuition_grant_available: true
+      bond_years_citizen: 5
+      bond_years_pr_is: 6
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating. Separately, everyone admitted to this programme takes a service bond with the Ministry of Health: 5 years for Singapore Citizens, 6 years for PRs and international students.
+      fact:
+        value: "SGD 33200/yr citizen, 48900 PR, 74750 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Medicine (except Nursing)". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "S"]
+      subject_affinity: ["biology", "chemistry"]
+      assessment_style: ["exams", "practical"]
+      work_setting: ["hospital", "clinic"]
+      teamwork: team
+      maths_intensity: medium
+      writing_intensity: medium
+      sectors: ["healthcare"]
+      summary: >-
+        Long, structured, and clinical from early on. Heavy memory load, constant contact with people at their most vulnerable, and a training path that continues well past graduation.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+      - kind: subject_requirement
+        label: Licensed profession
+        detail: >-
+          This leads to a regulated profession with further training and
+          registration after graduation. The degree is the start of the path,
+          not the end of it.
+        source: pathahead-editorial
+
+  - id: nus-nursing
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Nursing
+    faculty: School of Medicine
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "CCD/C"
+      p90: "ABB/B"
+      p10_points: 42.5
+      p90_points: 55
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "CCD/C to ABB/B"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 343
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 94.9
+      employment_rate_ft_perm: 94.3
+      gross_median: 4050
+      gross_p25: 3880
+      gross_p75: 4250
+      covers: Bachelor of Science (Nursing) (Hons)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Medicine (Nursing)
+      annual_fee_citizen: 9050
+      annual_fee_pr: 12700
+      annual_fee_international: 19800
+      annual_fee_is_other: 22500
+      annual_fee_no_grant: 38750
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 9050/yr citizen, 12700 PR, 19800 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Medicine (Nursing)". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["S", "I"]
+      subject_affinity: ["biology", "chemistry"]
+      assessment_style: ["practical", "coursework"]
+      work_setting: ["hospital", "clinic", "community"]
+      teamwork: team
+      maths_intensity: low
+      writing_intensity: medium
+      sectors: ["healthcare"]
+      summary: >-
+        Hands-on and people-facing from the start, with clinical placements throughout. Physically and emotionally demanding, and consistently in demand.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+      - kind: subject_requirement
+        label: Licensed profession
+        detail: >-
+          This leads to a regulated profession with further training and
+          registration after graduation. The degree is the start of the path,
+          not the end of it.
+        source: pathahead-editorial
+
+  - id: nus-dentistry
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Dentistry
+    faculty: Faculty of Dentistry
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 80
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 100.0
+      employment_rate_ft_perm: 100.0
+      gross_median: 4550
+      gross_p25: 4550
+      gross_p75: 4950
+      covers: Bachelor of Dental Surgery
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Dentistry
+      annual_fee_citizen: 32750
+      annual_fee_pr: 48450
+      annual_fee_international: 74100
+      annual_fee_is_other: 84550
+      annual_fee_no_grant: 190150
+      years: 5
+      tuition_grant_available: true
+      bond_years_citizen: 4
+      bond_years_pr_is: 5
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating. Separately, everyone admitted to this programme takes a service bond with the Ministry of Health: 4 years for Singapore Citizens, 5 years for PRs and international students.
+      fact:
+        value: "SGD 32750/yr citizen, 48450 PR, 74100 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Dentistry". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "R"]
+      subject_affinity: ["biology", "chemistry"]
+      assessment_style: ["practical", "exams"]
+      work_setting: ["clinic"]
+      teamwork: individual
+      maths_intensity: low
+      writing_intensity: low
+      sectors: ["healthcare"]
+      summary: >-
+        Precise manual work combined with clinical science. Suits people who want medicine's rigour with a craft element and more predictable hours.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+      - kind: subject_requirement
+        label: Licensed profession
+        detail: >-
+          This leads to a regulated profession with further training and
+          registration after graduation. The degree is the start of the path,
+          not the end of it.
+        source: pathahead-editorial
+
+  - id: nus-architecture
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Architecture
+    faculty: College of Design & Engineering
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "CCC/C"
+      p90: "AAB/B"
+      p10_points: 45
+      p90_points: 57.5
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "CCC/C to AAB/B"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 165
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 96.5
+      employment_rate_ft_perm: 94.1
+      gross_median: 4995
+      gross_p25: 4535
+      gross_p75: 5400
+      covers: Bachelor of Arts (Architecture)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Design and Engineering (Architecture, Landscape Architecture)
+      annual_fee_citizen: 8950
+      annual_fee_pr: 12500
+      annual_fee_international: 19500
+      annual_fee_is_other: 22750
+      annual_fee_no_grant: 40450
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8950/yr citizen, 12500 PR, 19500 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Design and Engineering (Architecture, Landscape Architecture)". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["A", "R"]
+      subject_affinity: ["art", "physics", "mathematics"]
+      assessment_style: ["coursework", "practical"]
+      work_setting: ["studio", "site"]
+      teamwork: mixed
+      maths_intensity: medium
+      writing_intensity: medium
+      sectors: ["architecture", "construction", "design"]
+      summary: >-
+        Studio-based and portfolio-driven, with long project cycles and public critique. Creative, but far more technical and far longer than most applicants expect.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-engineering
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Engineering
+    faculty: College of Design & Engineering
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "BBB/C"
+      p90: "AAA/A"
+      p10_points: 52.5
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "BBB/C to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 1259
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: "nine separate engineering degrees"
+      unavailable_reason: >-
+        NUS Engineering is a common-entry programme; the survey reports each engineering degree separately. In 2024 those medians ran from about $4,200 to $5,500 gross per month, with employment rates from about 70% to 96% depending on the discipline. Pick a discipline and check that degree specifically.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Design and Engineering
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Design and Engineering". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: true
+      common_first_year: true
+      switching_note: >-
+        Common engineering entry with the discipline chosen after a shared first year.
+      keeps_open: ["all NUS engineering disciplines"]
+      forecloses: []
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["R", "I"]
+      subject_affinity: ["mathematics", "physics", "chemistry"]
+      assessment_style: ["exams", "practical"]
+      work_setting: ["lab", "site", "office"]
+      teamwork: team
+      maths_intensity: high
+      writing_intensity: low
+      sectors: ["engineering", "manufacturing", "technology", "construction"]
+      summary: >-
+        Common entry, then a discipline. Mathematics and physics carry it throughout, with laboratory and project work alongside examinations.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-industrial-design
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Industrial Design
+    faculty: College of Design & Engineering
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "BBC/B"
+      p90: "AAA/A"
+      p10_points: 50
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "BBC/B to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 43
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 76.7
+      employment_rate_ft_perm: 60.0
+      gross_median: 4025
+      gross_p25: 3500
+      gross_p75: 4500
+      covers: Bachelor of Arts (Industrial Design)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Design and Engineering
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Design and Engineering". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["A", "R"]
+      subject_affinity: ["art", "physics"]
+      assessment_style: ["coursework", "practical"]
+      work_setting: ["studio", "workshop"]
+      teamwork: mixed
+      maths_intensity: low
+      writing_intensity: medium
+      sectors: ["design", "manufacturing", "technology"]
+      summary: >-
+        Making things people use — sketching, prototyping, workshop time. Portfolio matters as much as grades, both to get in and to get hired.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-landscape-architecture
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Landscape Architecture
+    faculty: College of Design & Engineering
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "CCC/B"
+      p90: "AAB/C"
+      p10_points: 45
+      p90_points: 57.5
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "CCC/B to AAB/C"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 47
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 70.6
+      employment_rate_ft_perm: 52.9
+      gross_median: 3800
+      gross_p25: 3500
+      gross_p75: 4330
+      covers: Bachelor of Landscape Architecture
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Design and Engineering (Architecture, Landscape Architecture)
+      annual_fee_citizen: 8950
+      annual_fee_pr: 12500
+      annual_fee_international: 19500
+      annual_fee_is_other: 22750
+      annual_fee_no_grant: 40450
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8950/yr citizen, 12500 PR, 19500 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Design and Engineering (Architecture, Landscape Architecture)". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["A", "R"]
+      subject_affinity: ["art", "geography", "biology"]
+      assessment_style: ["coursework", "practical"]
+      work_setting: ["studio", "field"]
+      teamwork: mixed
+      maths_intensity: low
+      writing_intensity: medium
+      sectors: ["landscape", "planning", "public sector"]
+      summary: >-
+        Design at the scale of parks and city edges, mixing ecology with drawing. Small cohort, distinctive, and less well known than it deserves.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-business-analytics
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Business Analytics
+    faculty: School of Computing
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 274
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 92.5
+      employment_rate_ft_perm: 87.8
+      gross_median: 5400
+      gross_p25: 4900
+      gross_p75: 6350
+      covers: Bachelor of Science (Business Analytics)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Computing
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Computing". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["C", "I"]
+      subject_affinity: ["mathematics", "economics", "computing"]
+      assessment_style: ["coursework", "exams"]
+      work_setting: ["office"]
+      teamwork: team
+      maths_intensity: high
+      writing_intensity: low
+      sectors: ["technology", "financial services", "consulting"]
+      summary: >-
+        Data and business in equal measure — statistics and programming applied to commercial questions rather than research ones.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-business-ai-systems
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Business Artificial Intelligence Systems
+    faculty: School of Computing
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/B"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/B to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 93
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: ""
+      unavailable_reason: >-
+        This programme is too new to appear in the 2024 survey. No figures rather than a guess.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Computing
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Computing". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "C"]
+      subject_affinity: ["mathematics", "computing", "economics"]
+      assessment_style: ["coursework", "exams"]
+      work_setting: ["office"]
+      teamwork: team
+      maths_intensity: high
+      writing_intensity: low
+      sectors: ["technology", "financial services"]
+      summary: >-
+        Newer programme pairing artificial intelligence with business systems. Strong mathematics and programming load.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-computer-science
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Common Computer Science Programmes
+    faculty: School of Computing
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 893
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 89.1
+      employment_rate_ft_perm: 87.8
+      gross_median: 6500
+      gross_p25: 5600
+      gross_p75: 7500
+      covers: Bachelor of Computing (Computer Science)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Computing
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Computing". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "R"]
+      subject_affinity: ["mathematics", "computing", "physics"]
+      assessment_style: ["coursework", "practical"]
+      work_setting: ["office"]
+      teamwork: individual
+      maths_intensity: high
+      writing_intensity: low
+      sectors: ["technology", "financial services", "public sector"]
+      summary: >-
+        Substantial mathematics behind the programming, and much of it assessed individually. Rewards people who build things unprompted.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-information-security
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Information Security
+    faculty: School of Computing
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/B"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/B to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 47
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 91.2
+      employment_rate_ft_perm: 88.2
+      gross_median: 6110
+      gross_p25: 5500
+      gross_p75: 7049
+      covers: Bachelor of Computing (Information Security)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Computing
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Computing". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "C"]
+      subject_affinity: ["mathematics", "computing"]
+      assessment_style: ["coursework", "practical"]
+      work_setting: ["office"]
+      teamwork: individual
+      maths_intensity: high
+      writing_intensity: low
+      sectors: ["technology", "public sector", "defence"]
+      summary: >-
+        Computer science with an adversarial mindset. Suits people who instinctively ask how something could be broken.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-computer-engineering
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Computer Engineering
+    faculty: College of Design & Engineering and School of Computing
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 203
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 90.4
+      employment_rate_ft_perm: 84.2
+      gross_median: 5800
+      gross_p25: 5000
+      gross_p75: 6666
+      covers: Bachelor of Engineering (Computer Engineering)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Design and Engineering
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 39700
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Design and Engineering". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["R", "I"]
+      subject_affinity: ["mathematics", "physics", "computing"]
+      assessment_style: ["coursework", "practical", "exams"]
+      work_setting: ["lab", "office"]
+      teamwork: team
+      maths_intensity: high
+      writing_intensity: low
+      sectors: ["technology", "manufacturing", "defence"]
+      summary: >-
+        Where software meets hardware — a genuinely different discipline from computer science, closer to the metal.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-data-science-economics
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Data Science and Economics
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 103
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: ""
+      unavailable_reason: >-
+        No single survey row matches this programme. The closest, Bachelor of Science (Data Science and Analytics), reported a 2024 median of $5,400 - but it is a different degree, so PathAhead will not present it as this one.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Humanities and Sciences
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 36650
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Humanities and Sciences". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Structured joint programme; switching means a formal transfer.
+      keeps_open: []
+      forecloses: []
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "C"]
+      subject_affinity: ["mathematics", "economics"]
+      assessment_style: ["exams", "coursework"]
+      work_setting: ["office"]
+      teamwork: mixed
+      maths_intensity: high
+      writing_intensity: medium
+      sectors: ["financial services", "technology", "public sector"]
+      summary: >-
+        Economics with real statistical machinery. Mathematically heavier than economics alone, and less programming-led than computer science.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-environmental-studies
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Environmental Studies
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/B"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/B to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 45
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 90.0
+      employment_rate_ft_perm: 62.5
+      gross_median: 4300
+      gross_p25: 4000
+      gross_p75: 4500
+      covers: Bachelor of Environmental Studies
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Humanities and Sciences
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 36650
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Humanities and Sciences". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: true
+      common_first_year: false
+      switching_note: >-
+        Interdisciplinary by design, drawing on several departments.
+      keeps_open: ["science and policy routes"]
+      forecloses: []
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "S"]
+      subject_affinity: ["biology", "geography", "chemistry"]
+      assessment_style: ["coursework", "practical"]
+      work_setting: ["field", "lab", "office"]
+      teamwork: mixed
+      maths_intensity: medium
+      writing_intensity: high
+      sectors: ["environment", "public sector", "consulting"]
+      summary: >-
+        Interdisciplinary and field-oriented, spanning science and policy. Suits people who want to work on climate and ecosystems rather than read about them.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-food-science
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Food Science and Technology
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/C"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/C to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 45
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: ""
+      unavailable_reason: >-
+        No matching degree row in the 2024 survey.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Humanities and Sciences
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 36650
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Humanities and Sciences". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "R"]
+      subject_affinity: ["chemistry", "biology"]
+      assessment_style: ["practical", "exams"]
+      work_setting: ["lab"]
+      teamwork: team
+      maths_intensity: medium
+      writing_intensity: low
+      sectors: ["food manufacturing", "consumer goods", "public sector"]
+      summary: >-
+        Applied chemistry and biology directed at what people eat. Laboratory-heavy and industry-facing.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-humanities-sciences
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Humanities and Sciences
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "ABB/C"
+      p90: "AAA/A"
+      p10_points: 55
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "ABB/C to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 1976
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: "the degrees CHS replaced"
+      unavailable_reason: >-
+        The College of Humanities and Sciences is recent; the survey still reports its predecessor degrees separately. In 2024 Bachelor of Arts (Hons) reported a median of $4,419, Social Sciences $4,210 and Science (Hons) $4,150. Treat those as the neighbourhood, not the figure.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Humanities and Sciences
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 36650
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Humanities and Sciences". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: true
+      common_first_year: true
+      switching_note: >-
+        Common curriculum with the major declared later — the most reversible choice in this list.
+      keeps_open: ["most CHS majors", "science and humanities routes"]
+      forecloses: []
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "A"]
+      subject_affinity: ["literature", "history", "geography", "economics", "biology", "chemistry", "physics", "mathematics", "general-paper"]
+      assessment_style: ["exams", "coursework"]
+      work_setting: ["office", "lab"]
+      teamwork: mixed
+      maths_intensity: medium
+      writing_intensity: high
+      sectors: ["public sector", "education", "media", "consulting"]
+      summary: >-
+        Broad entry with a common curriculum and a major declared later. The strongest option in this list for someone who is genuinely unsure.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-pharmaceutical-science
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Pharmaceutical Science
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 65
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: ""
+      unavailable_reason: >-
+        No matching degree row in the 2024 survey.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Humanities and Sciences
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 36650
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Humanities and Sciences". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["I", "R"]
+      subject_affinity: ["chemistry", "biology"]
+      assessment_style: ["practical", "exams"]
+      work_setting: ["lab"]
+      teamwork: individual
+      maths_intensity: medium
+      writing_intensity: low
+      sectors: ["pharmaceuticals", "biotechnology", "research"]
+      summary: >-
+        Drug discovery and development on the laboratory side, distinct from Pharmacy's clinical and dispensing route.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-pharmacy
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Pharmacy
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/C"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/C to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 193
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: "Bachelor of Science (Pharmacy)"
+      unavailable_reason: >-
+        Pharmacy graduates complete pre-registration training, so the survey does not report a starting salary for them.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Science (Pharmacy)
+      annual_fee_citizen: 9200
+      annual_fee_pr: 12900
+      annual_fee_international: 20100
+      annual_fee_is_other: 23650
+      annual_fee_no_grant: 43050
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 9200/yr citizen, 12900 PR, 20100 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Science (Pharmacy)". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["S", "I"]
+      subject_affinity: ["chemistry", "biology"]
+      assessment_style: ["exams", "practical"]
+      work_setting: ["clinic", "community"]
+      teamwork: mixed
+      maths_intensity: low
+      writing_intensity: medium
+      sectors: ["healthcare", "pharmaceuticals"]
+      summary: >-
+        Clinical and patient-facing, with a registration year after graduation. A licensed profession rather than an open field.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+      - kind: subject_requirement
+        label: Licensed profession
+        detail: >-
+          This leads to a regulated profession with further training and
+          registration after graduation. The degree is the start of the path,
+          not the end of it.
+        source: pathahead-editorial
+      - kind: subject_requirement
+        label: Programme note
+        detail: Pharmacy does not follow the CHS curriculum.
+        source: nus-igp-2026
+
+  - id: nus-ppe
+    institution: National University of Singapore
+    institution_short: NUS
+    name: 'Philosophy, Politics, and Economics'
+    faculty: College of Humanities & Sciences
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/A"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/A to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 43
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: null
+      employment_rate_ft_perm: null
+      gross_median: null
+      gross_p25: null
+      gross_p75: null
+      covers: ""
+      unavailable_reason: >-
+        No matching degree row in the 2024 survey.
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Humanities and Sciences
+      annual_fee_citizen: 8300
+      annual_fee_pr: 11600
+      annual_fee_international: 18050
+      annual_fee_is_other: 21400
+      annual_fee_no_grant: 36650
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 8300/yr citizen, 11600 PR, 18050 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Humanities and Sciences". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: false
+      common_first_year: false
+      switching_note: >-
+        Professional or structured programme — switching later usually means a formal transfer application and lost time.
+      keeps_open: []
+      forecloses: ["most changes of direction after year one"]
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["E", "I"]
+      subject_affinity: ["history", "economics", "literature", "knowledge-inquiry", "general-paper"]
+      assessment_style: ["exams", "coursework"]
+      work_setting: ["office"]
+      teamwork: mixed
+      maths_intensity: medium
+      writing_intensity: high
+      sectors: ["public sector", "consulting", "media", "law"]
+      summary: >-
+        Argument, evidence and institutions. Selective, discussion-led, and assessed heavily on writing.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: interview
+        label: Additional assessment
+        detail: >-
+          This programme requires further assessment such as an interview,
+          selection test, audition or portfolio. Grades are one part of the
+          decision, not the whole of it.
+        source: nus-igp-2026
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites
+
+  - id: nus-business-administration
+    institution: National University of Singapore
+    institution_short: NUS
+    name: Business Administration
+    faculty: NUS Business School
+    transition: a-level-to-university-2026
+    url: https://www.nus.edu.sg/oam/admissions/indicative-grade-profile
+    route_group: university-direct
+    tags: [university, nus]
+    band:
+      p10: "AAA/C"
+      p90: "AAA/A"
+      p10_points: 60
+      p90_points: 60
+      basis: 3 H2 grades, out of 60
+      fact:
+        value: "AAA/C to AAA/A"
+        as_of_year: 2025
+        source: nus-igp-2026
+        confidence: high
+        stale_after: 2027-01-31
+        note: >-
+          Representative grade profile of the 10th and 90th percentile of
+          A-Level applicants offered places in AY2025/2026. Published January
+          2026. A new profile on the 70-point basis is expected January 2027.
+    intake:
+      value: 914
+      as_of_year: 2025
+      source: nus-igp-2026
+      confidence: high
+      stale_after: 2027-01-31
+    employment:
+      employment_rate: 91.1
+      employment_rate_ft_perm: 84.9
+      gross_median: 4900
+      gross_p25: 4200
+      gross_p75: 5800
+      covers: Bachelor of Business Administration (Hons)
+      fact:
+        value: Graduate Employment Survey 2024
+        as_of_year: 2024
+        source: ges-datagov
+        confidence: high
+        stale_after: 2026-12-31
+        note: >-
+          Graduates surveyed about six months after final examinations. Gross
+          monthly salary in SGD. Contains information from data.gov.sg under the
+          Singapore Open Data Licence v1.0.
+    cost:
+      fee_group: Business
+      annual_fee_citizen: 9700
+      annual_fee_pr: 13550
+      annual_fee_international: 21150
+      annual_fee_is_other: 22200
+      annual_fee_no_grant: 33400
+      years: 4
+      tuition_grant_available: true
+      bond_years_citizen: 0
+      bond_years_pr_is: 3
+      bond_note: >-
+        Singapore Citizens owe no bond for the tuition grant itself. Permanent Residents and international students who accept it must work for a Singapore entity for 3 years after graduating.
+      fact:
+        value: "SGD 9700/yr citizen, 13550 PR, 21150 international (ASEAN)"
+        as_of_year: 2026
+        source: nus-fees
+        confidence: high
+        stale_after: 2027-04-30
+        note: >-
+          Annual tuition for the AY2026/2027 intake, set by faculty band
+          "Business". Citizen and PR figures exclude GST; international and
+          non-subsidised figures include it. NUS uses a cohort-based system, so
+          the fee you start on is fixed for your whole candidature. Fees are
+          republished each February to April.
+    flexibility:
+      declares_major_later: true
+      common_first_year: false
+      switching_note: >-
+        Specialisation is chosen within the degree rather than at entry.
+      keeps_open: ["most business functions"]
+      forecloses: []
+      fact:
+        value: Programme flexibility as characterised by PathAhead
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+    editorial:
+      interests: ["E", "C"]
+      subject_affinity: ["economics", "mathematics", "management-of-business"]
+      assessment_style: ["coursework", "exams"]
+      work_setting: ["office"]
+      teamwork: team
+      maths_intensity: medium
+      writing_intensity: medium
+      sectors: ["financial services", "consulting", "technology", "consumer goods"]
+      summary: >-
+        Broad and team-heavy, with specialisation later. Networks and internships shape outcomes as much as the curriculum does.
+      fact:
+        value: PathAhead's own description of this course
+        as_of_year: 2026
+        source: pathahead-editorial
+        confidence: medium
+        basis: editorial
+        stale_after: 2027-06-30
+        note: >-
+          NOT the institution's description. If this is wrong, please tell us.
+    overlays:
+      - kind: subject_requirement
+        label: Subject prerequisites
+        detail: >-
+          NUS publishes subject prerequisites per programme, and states that
+          they change from year to year. Check the official list before
+          committing to a subject combination.
+        source: nus-prerequisites

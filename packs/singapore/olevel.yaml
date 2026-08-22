@@ -1,0 +1,1112 @@
+# PathAhead data pack: Singapore — the O-Level stage, and the SEC cutover
+#
+# One exam feeds two published aggregates -- L1R5 for JC/MI and ELR2B2 for
+# polytechnics -- so this file holds two transitions per era rather than one,
+# both scored from the same entered grade sheet. See engine/forward.py
+# `explore_secondary()` for how a second aggregate is computed without asking
+# "what year are you in" twice.
+#
+# THE CUTOVER, in one paragraph: 2026 is the last year the GCE O-Level is
+# awarded. A student who started Secondary 1 in 2023 sits it in 2026 and
+# applies through the 2027 JAE under L1R5/ELR2B2 as they exist today. Everyone
+# who started Secondary 1 in 2024 or later sits the Secondary Education
+# Certificate instead, and applies through the 2028+ Post-Secondary Admissions
+# Exercise under a DIFFERENT ceiling (L1R4 <= 16, not L1R5 <= 20) computed on
+# G3-basis grades. The two must never be compared on one axis -- see
+# SAFEGUARDS.md 4b2 and the caveats on each transition below.
+#
+# WHAT IS AND IS NOT REAL DATA HERE, STATED PLAINLY:
+#
+#   - The L1R5/ELR2B2/L1R4 FORMULAS are transcribed from moe.gov.sg, verified
+#     2026-08-09, confidence high.
+#   - The 16 JC/MI cut-off ranges are each read from that institution's own
+#     MOE SchoolFinder page, individually dated and cited, confidence high.
+#     16 of roughly 19 JAE-entry JCs. The missing ones were not a research
+#     priority call -- see NEXT.md if this file still says so.
+#   - The Polytechnic ELR2B2 ranges are not new: they are the ~330 outcomes
+#     already loaded in outcomes-polytechnic.yaml for the A-Level pack, where
+#     they are shown to A-Level students with the comparison declined (an
+#     A-Level score cannot be placed against an O-Level statistic). For an
+#     ACTUAL O-Level applicant that same range is their own basis, so this
+#     file does not duplicate the data -- it adds a second transition id that
+#     `also_scored_under` (see engine/model.py and the loader's
+#     `_attach_cross_transition_reuse`) makes those same outcomes answer to.
+#   - The ELR2B2 "2 relevant subjects" are course-specific in reality (an
+#     Engineering diploma and a Business diploma name different subjects as
+#     "relevant") and that per-course list is not loaded. This pack computes
+#     the GENERIC form -- English plus the best 4 of everything else -- and
+#     every screen that shows it says so. See the transition's caveats.
+#   - The SEC-era (2028+) transitions compute a real aggregate from real
+#     formulas, against NO course outcomes at all, because none exist to load:
+#     PSE 2028 is the first year of a new system and no institution has
+#     published a course-level cut-off under it. Asserting one would be
+#     inventing a number nobody has published yet.
+
+sources:
+  - id: moe-jae-jc-mi-2027
+    name: Junior colleges and Millennia Institute — admission criteria (2026/2027 basis)
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/post-secondary/admissions/jae/junior-colleges-and-millennia-institute
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      The L1R5 (JC) and L1R4 (MI) gross-aggregate formulas, the subject
+      categories (Humanities / Mathematics or Science / any), grade
+      requirements, conditional admission, and the CCA/language/affiliated-JC
+      bonus-point tables. Last updated by MOE 2025-09-15. Bonus points are NOT
+      modelled in this pack -- see the transition caveats -- so PathAhead
+      computes the GROSS aggregate, which is the more conservative of the two
+      figures a family will see.
+
+  - id: moe-pse-jc-mi-2028
+    name: Junior colleges and Millennia Institute — admission criteria from 2028 PSE
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/post-secondary/admissions/pse/jc-and-mi
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      The incoming L1R4 <= 16 (JC) / L1R4 <= 20 (MI) formula on G3-basis
+      grades, effective from the 2028 Post-Secondary Admissions Exercise.
+      Last updated by MOE 2026-03-16.
+
+  - id: moe-pse-polytechnic-2028
+    name: Polytechnic diploma course — admission criteria from 2028 PSE
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/post-secondary/admissions/pse/polytechnic-diploma-course
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      ELR2B2 net <= 22 (<= 24 for Nursing) from 2028, with B2 computed on the
+      G2-equivalent grade even when the subject was taken at G3. This is NOT a
+      tightening from today's <= 26 -- it is the same intake made to look
+      harder by the mapping change alone. Last updated by MOE 2026-03-16.
+
+  - id: seab-sec-2026
+    name: Secondary Education Certificate (SEC)
+    publisher: Singapore Examinations and Assessment Board
+    url: https://www.seab.gov.sg/secondary-education-certificate-sec/
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      Confirms 2026 as the last O-Level/N-Level cohort, the G1/G2/G3 subject
+      levels and their grade structures, and the G3->G2->G1 mapping table used
+      to compute ELMAB3 and ELR2B2 aggregates from mixed-level subjects. Last
+      updated by SEAB 2026-05-14.
+
+  # -- Junior College and Millennia Institute cut-off ranges ---------------
+  # Each fetched individually from MOE SchoolFinder on 2026-08-09. The "Last
+  # Updated" date on each institution's own page is carried in its Fact, not
+  # collapsed to one date here -- SchoolFinder republishes each school on its
+  # own schedule, same posture as the polytechnic fee pages.
+  - {id: sf-njc,  name: "National Junior College — SchoolFinder",              publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/national-junior-college",             retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-asrjc, name: "Anderson Serangoon Junior College — SchoolFinder",   publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/anderson-serangoon-junior-college",     retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-acjc, name: "Anglo-Chinese Junior College — SchoolFinder",         publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/anglo-chinese-junior-college",           retrieved: 2026-08-09, licence: moe-tou, note: "Page shows the 2025 JAE net aggregate, not 2026 -- SchoolFinder had not yet republished this school for the year at time of fetch. Recorded with as_of_year 2025 rather than assumed current."}
+  - {id: sf-cjc,  name: "Catholic Junior College — SchoolFinder",              publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/catholic-junior-college",                retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-dhs,  name: "Dunman High School (Junior College) — SchoolFinder",  publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/dunman-high-school-junior-college",       retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-ejc,  name: "Eunoia Junior College — SchoolFinder",                publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/eunoia-junior-college",                   retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-hci,  name: "Hwa Chong Institution (Junior College) — SchoolFinder", publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/hwa-chong-institution-junior-college", retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-jpjc, name: "Jurong Pioneer Junior College — SchoolFinder",        publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/jurong-pioneer-junior-college",           retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-mi,   name: "Millennia Institute — SchoolFinder",                  publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute",                     retrieved: 2026-08-09, licence: moe-tou, note: "MOE's own page notes the Commerce/Science floor is shown as 20 by convention where the school had vacancies after the last L1R4=20 posting -- carried verbatim rather than smoothed into a tighter-looking number."}
+  - {id: sf-nyjc, name: "Nanyang Junior College — SchoolFinder",               publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/nanyang-junior-college",                  retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-ri,   name: "Raffles Institution (Junior College) — SchoolFinder", publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/raffles-institution-junior-college",       retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-rvhs, name: "River Valley High School (Junior College) — SchoolFinder", publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/river-valley-high-school-junior-college", retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-sajc, name: "St Andrew's Junior College — SchoolFinder",           publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/st-andrews-junior-college",               retrieved: 2026-08-09, licence: moe-tou}
+  - {id: sf-tmjc, name: "Tampines Meridian Junior College — SchoolFinder",     publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/tampines-meridian-junior-college",         retrieved: 2026-08-09, licence: moe-tou, note: "Page shows the 2025 JAE net aggregate, not 2026, at time of fetch. Recorded with as_of_year 2025."}
+  - {id: sf-tjc,  name: "Temasek Junior College — SchoolFinder",               publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/temasek-junior-college",                  retrieved: 2026-08-09, licence: moe-tou, note: "Page shows the 2025 JAE net aggregate, not 2026, at time of fetch. Recorded with as_of_year 2025."}
+  - {id: sf-vjc,  name: "Victoria Junior College — SchoolFinder",              publisher: Ministry of Education, Singapore, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/victoria-junior-college",                  retrieved: 2026-08-09, licence: moe-tou}
+
+# ---------------------------------------------------------------------------
+# Cohorts -- routed by the year a student started Secondary 1, which is the
+# one question that decides which of two entirely different systems applies.
+# ---------------------------------------------------------------------------
+
+cohorts:
+  - year_level: sec-4
+    label: Secondary 4 (started Sec 1 in 2023)
+    stage: o-level
+    years_to_exam: 0
+    admission_offset: 1
+    transition: o-level-to-jc-mi-2027
+    note: >
+      You are the LAST cohort to sit the GCE O-Level. You sit it in October to
+      November 2026, results release in January 2027, and you apply through
+      the 2027 Joint Admissions Exercise (JAE) under today's L1R5/ELR2B2
+      formulas. Everyone who started Secondary 1 after you sits the Secondary
+      Education Certificate instead, under a different ceiling.
+
+  - year_level: sec-3
+    label: Secondary 3 (started Sec 1 in 2024)
+    stage: o-level
+    years_to_exam: 1
+    admission_offset: 1
+    transition: sec-to-jc-mi-2028
+    note: >
+      You are the FIRST cohort to sit the Secondary Education Certificate
+      (SEC), in 2027, applying through the first Post-Secondary Admissions
+      Exercise (PSE) in 2028. Your JC ceiling is L1R4 <= 16 -- a different
+      subject count AND a different number from today's L1R5 <= 20, not a
+      rescaled version of it. No institution has published a course-level
+      cut-off under this system yet, because it does not exist until 2028:
+      PathAhead can compute your aggregate and cannot yet tell you which JC or
+      polytechnic it would have reached.
+
+  - year_level: sec-2
+    label: Secondary 2 (started Sec 1 in 2025)
+    stage: o-level
+    years_to_exam: 2
+    admission_offset: 1
+    transition: sec-to-jc-mi-2028
+    note: >
+      You sit the SEC in 2028 and apply through the PSE in 2029, under the
+      same L1R4 <= 16 formula as the cohort ahead of you. Check back closer to
+      your own results year -- rules are republished, not assumed durable.
+
+# ---------------------------------------------------------------------------
+# Subjects
+#
+# `field` is PathAhead's OWN classification of each subject into Humanities /
+# Mathematics-or-Science / other, used to compute L1R5, L1R4 and the ELR2B2
+# approximation via the SAME `required_plus_best_n` rule kind the formulas'
+# own "Relevant subject" groups already assume. MOE does publish an exact
+# per-subject group table in the JAE information booklet; this classification
+# was built from the ordinary meaning of each subject name rather than
+# transcribed from that booklet, so it carries confidence MEDIUM and a
+# reasonable person could place two or three of these differently. It affects
+# WHICH of a student's own subjects fills R1/R2/R3 -- never whether a subject
+# counts at all, and never the grade points themselves.
+# ---------------------------------------------------------------------------
+
+subjects:
+  - {code: ol-english,            name: English Language,                 levels: [subject], stage: o-level, field: other,       aka: [el, english]}
+  - {code: ol-higher-chinese,     name: Higher Chinese Language,          levels: [subject], stage: o-level, field: other,       aka: [hcl, higher chinese]}
+  - {code: ol-higher-malay,       name: Higher Malay Language,            levels: [subject], stage: o-level, field: other,       aka: [higher malay]}
+  - {code: ol-higher-tamil,       name: Higher Tamil Language,            levels: [subject], stage: o-level, field: other,       aka: [higher tamil]}
+  - {code: ol-chinese,            name: Chinese Language,                 levels: [subject], stage: o-level, field: other,       aka: [cl, mandarin]}
+  - {code: ol-malay,              name: Malay Language,                   levels: [subject], stage: o-level, field: other,       aka: [ml]}
+  - {code: ol-tamil,              name: Tamil Language,                   levels: [subject], stage: o-level, field: other,       aka: [tl]}
+  - {code: ol-elit,               name: English Literature,               levels: [subject], stage: o-level, field: humanities,  aka: [lit, literature]}
+  - {code: ol-history,            name: History,                          levels: [subject], stage: o-level, field: humanities,  aka: [hist]}
+  - {code: ol-geography,          name: Geography,                        levels: [subject], stage: o-level, field: humanities,  aka: [geog]}
+  - {code: ol-combined-humanities, name: Combined Humanities,             levels: [subject], stage: o-level, field: humanities,  aka: [ch, comb hum]}
+  - {code: ol-social-studies,     name: Social Studies,                   levels: [subject], stage: o-level, field: humanities,  aka: [ss]}
+  - {code: ol-economics,          name: Economics,                        levels: [subject], stage: o-level, field: humanities,  aka: [econs]}
+  - {code: ol-poa,                name: Principles of Accounts,           levels: [subject], stage: o-level, field: other,       aka: [poa, accounts]}
+  - {code: ol-emath,              name: Mathematics,                      levels: [subject], stage: o-level, field: science-math, aka: [maths, emath, e math]}
+  - {code: ol-amath,              name: Additional Mathematics,           levels: [subject], stage: o-level, field: science-math, aka: [amath, a math]}
+  - {code: ol-physics,            name: Physics,                          levels: [subject], stage: o-level, field: science-math, aka: [phys]}
+  - {code: ol-chemistry,          name: Chemistry,                        levels: [subject], stage: o-level, field: science-math, aka: [chem]}
+  - {code: ol-biology,            name: Biology,                          levels: [subject], stage: o-level, field: science-math, aka: [bio]}
+  - {code: ol-combined-science,   name: Combined Science,                 levels: [subject], stage: o-level, field: science-math, aka: [comb sci]}
+  - {code: ol-computing,          name: Computing,                        levels: [subject], stage: o-level, field: science-math, aka: [comp, cs]}
+  - {code: ol-art,                name: Art,                              levels: [subject], stage: o-level, field: other,       aka: []}
+  - {code: ol-music,              name: Music,                            levels: [subject], stage: o-level, field: other,       aka: []}
+  - {code: ol-design-tech,        name: Design and Technology,            levels: [subject], stage: o-level, field: other,       aka: [dt]}
+  - {code: ol-food-nutrition,     name: Food and Nutrition,               levels: [subject], stage: o-level, field: other,       aka: [fn]}
+
+# ---------------------------------------------------------------------------
+# Subject-code groups, referenced by the transitions below via YAML aliases.
+#
+# `required_plus_best_n`'s pool filter (engine/rules/required_plus_best_n.py
+# `_pool`, mirrored in web/index.html's `requiredPlusBestN`) matches a group's
+# `tags` against SubjectGrade.level -- and `level` is a small CLOSED set
+# (h1/h2/h3/gp/mtl/pw/subject) that every O-Level subject shares the single
+# value "subject" under, same as PSLE subjects share "subject" too. There is
+# no per-subject level slot free to carry "humanities" or "science-math", and
+# widening that enum would ripple into A-Level's H1/H2 display prefixing for
+# no real gain. So R1/R2/R3's Humanities-vs-Mathematics-or-Science split is
+# expressed here as explicit `codes` lists instead of `tags` -- defined once,
+# as anchors, and aliased into every transition that needs the same split, so
+# the two eras (2027 and 2028) cannot drift apart by editing one and not the
+# other. This key is not a schema field the loader reads; `_from_mapping`
+# only pulls the sections it knows about, so an anchor-only key is inert
+# everywhere except where a `*` alias resolves it.
+# ---------------------------------------------------------------------------
+_subject_groups:
+  humanities: &humanities-codes
+    [ol-elit, ol-history, ol-geography, ol-combined-humanities, ol-social-studies, ol-economics]
+  science-math: &science-math-codes
+    [ol-emath, ol-amath, ol-physics, ol-chemistry, ol-biology, ol-combined-science, ol-computing]
+  # The exact union of the two lists above, for R3 (L1R5) which draws from
+  # either category. Kept as its own anchor rather than computed, because
+  # YAML has no list-concatenation operator -- if you add a subject to either
+  # list above, add it here too, or R3 will quietly stop seeing it.
+  humanities-or-science: &humanities-or-science-codes
+    [ol-elit, ol-history, ol-geography, ol-combined-humanities, ol-social-studies, ol-economics,
+     ol-emath, ol-amath, ol-physics, ol-chemistry, ol-biology, ol-combined-science, ol-computing]
+
+# ---------------------------------------------------------------------------
+# Transitions
+# ---------------------------------------------------------------------------
+
+transitions:
+  # -- 2027 JAE: legacy O-Level, JC and MI -----------------------------------
+  - id: o-level-to-jc-mi-2027
+    stage: o-level
+    name: O-Level to Junior College or Millennia Institute — L1R5 / L1R4 (2027 JAE)
+    applies_to_exam_years: [2026]
+    admission_years: [2027]
+    direction: lower_is_better
+    policy_status: settled
+
+    rule_kind: required_plus_best_n
+    rule_params:
+      total_label: L1R5 gross aggregate
+      scale: ol-letter
+      best_possible: 6
+      worst_possible: 54
+      qualifying_max: 20
+      groups:
+        - label: "L1 — English Language"
+          codes: [ol-english]
+          take: 1
+        - label: "R1 — best Humanities subject"
+          codes: *humanities-codes
+          take: 1
+        - label: "R2 — best Mathematics or Science subject"
+          codes: *science-math-codes
+          take: 1
+        - label: "R3 — best remaining Humanities, Mathematics or Science subject"
+          codes: *humanities-or-science-codes
+          take: 1
+        - label: "R4 and R5 — best 2 remaining subjects"
+          take: 2
+
+    comparison_basis: your L1R5 gross aggregate, out of a possible 54, lower is better
+
+    scales:
+      ol-letter: {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
+
+    caveats:
+      - >
+        This is the GROSS aggregate. MOE subtracts bonus points -- up to 4,
+        from CCA grade, English-and-Higher-Mother-Tongue, a Special Programme
+        or Bahasa Indonesia grade, or attending an affiliated JC -- to reach
+        the NET aggregate JAE actually posts on. PathAhead does not collect
+        CCA records or affiliation status, so your real result may be a few
+        points lower (better) than this. The gross figure is the more
+        conservative one to plan around.
+      - >
+        L1 is modelled as English Language only. A student offering Higher
+        Mother Tongue may use it as L1 instead if that produces a better
+        aggregate -- MOE computes both and takes the better. PathAhead
+        computes the English-as-L1 version only.
+      - >
+        Which subject counts toward R1 (Humanities) versus R2 (Mathematics or
+        Science) versus "other" is PathAhead's own classification of each
+        subject by its ordinary meaning, not a transcription of MOE's official
+        subject-group table. It affects which of YOUR subjects fills which
+        slot, never whether a subject counts, and it is confidence medium.
+      - >
+        A Junior College's cut-off range is the L1R5 net aggregate of the
+        first and last student posted to it in the 2027 JAE -- the whole
+        intake, both tails included, from a formula scored on GROSS above. It
+        moves every year, and it is a record of what happened rather than a
+        threshold: some students who matched it were tie-broken out and
+        posted elsewhere.
+
+    fact:
+      value: "L1R5 gross aggregate, English plus 5 relevant subjects, 6 to 54"
+      as_of_year: 2026
+      source: moe-jae-jc-mi-2027
+      confidence: high
+      stale_after: 2027-02-28
+      note: Formula structure and thresholds read directly from MOE's JAE JC/MI page on 2026-08-09.
+
+  # -- 2027 JAE: legacy O-Level, Polytechnic ---------------------------------
+  - id: o-level-to-polytechnic-2027
+    stage: o-level
+    name: O-Level to Polytechnic — ELR2B2 (2027 JAE, generic approximation)
+    applies_to_exam_years: [2026]
+    admission_years: [2027]
+    direction: lower_is_better
+    policy_status: settled
+
+    rule_kind: required_plus_best_n
+    rule_params:
+      total_label: ELR2B2 net aggregate (generic)
+      scale: ol-letter
+      best_possible: 5
+      worst_possible: 45
+      qualifying_max: 26
+      groups:
+        - label: "EL — English Language"
+          codes: [ol-english]
+          take: 1
+        - label: "R1, R2, B1, B2 — best 4 remaining subjects"
+          take: 4
+      comparison_component: ELR2B2 net aggregate (generic)
+
+    comparison_basis: >
+      your English grade plus your best 4 other subjects, as a stand-in for the
+      real ELR2B2 -- see the caveat on this being a generic approximation
+
+    scales:
+      ol-letter: {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
+
+    caveats:
+      - >
+        THIS IS AN APPROXIMATION, NOT THE REAL ELR2B2. The actual formula is
+        English plus 2 subjects the DIPLOMA COURSE names as "relevant" plus
+        your 2 remaining best subjects -- and which subjects count as
+        relevant differs by course: an engineering diploma names Mathematics
+        and Physics, a business diploma names Principles of Accounts and
+        Combined Humanities. PathAhead does not hold that per-course list, so
+        it computes English plus your best 4 remaining subjects overall. For
+        most students most of the time this produces the same number, because
+        your best subjects and a course's relevant subjects often overlap --
+        but it can differ, and the honest thing to do is say so on every
+        screen that shows this figure rather than present it as the number
+        the polytechnic itself would compute.
+      - >
+        Bonus points (up to 2, from a CCA grade) are not modelled. This is the
+        gross aggregate.
+      - >
+        A polytechnic course's published range is the whole admitted intake --
+        the lowest and highest ELR2B2 of anyone admitted -- not a middle band.
+        It moves every year, and it is a record of last year's intake rather
+        than a promise about this year's.
+
+    fact:
+      value: "ELR2B2 aggregate (generic form), English plus best 4, 5 to 45"
+      as_of_year: 2026
+      source: moe-jae-jc-mi-2027
+      confidence: medium
+      stale_after: 2027-02-28
+      note: >
+        Formula shape confirmed against MOE's polytechnic PSE page; the
+        generic (non-course-specific) computation is PathAhead's own stated
+        simplification, not an MOE figure.
+
+  # -- 2028 PSE: SEC, JC and MI (aggregate only) -----------------------------
+  - id: sec-to-jc-mi-2028
+    stage: o-level
+    name: SEC to Junior College or Millennia Institute — L1R4 (2028 PSE)
+    applies_to_exam_years: [2027, 2028, 2029]
+    admission_years: [2028, 2029, 2030]
+    direction: lower_is_better
+    policy_status: mid_rollout
+
+    rule_kind: required_plus_best_n
+    rule_params:
+      total_label: L1R4 gross aggregate (G3 basis)
+      scale: ol-letter
+      best_possible: 4
+      worst_possible: 36
+      qualifying_max: 16
+      groups:
+        - label: "L1 — G3 English Language"
+          codes: [ol-english]
+          take: 1
+        - label: "R1 — best Humanities subject"
+          codes: *humanities-codes
+          take: 1
+        - label: "R2 — best Mathematics or Science subject"
+          codes: *science-math-codes
+          take: 1
+        - label: "R3 — any 1 best-scoring remaining subject"
+          take: 1
+
+    comparison_basis: your L1R4 gross aggregate on the incoming G3 basis, out of a possible 36
+
+    scales:
+      ol-letter: {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
+
+    caveats:
+      - >
+        THIS TRANSITION HAS NO COURSE OUTCOMES LOADED, AND CANNOT HAVE ANY
+        YET. The Post-Secondary Admissions Exercise this feeds does not run
+        until 2028 -- no junior college has published a cut-off under it,
+        because none exists. PathAhead computes your aggregate and stops
+        there, rather than showing last cohort's L1R5 ranges next to it: those
+        are a different subject count on a different ceiling, and putting the
+        two side by side would look like a comparison and be nonsense. See
+        SAFEGUARDS.md 4b2.
+      - >
+        L1R4 <= 16 (2028) is NOT a rescaled L1R5 <= 20 (2026/2027). Five
+        subjects became four, and the ceiling dropped by more than
+        proportionally. There is no arithmetic that turns one into the other.
+      - >
+        Bonus points, CCA-based and otherwise, are not modelled. This is the
+        gross aggregate. All subjects here are assumed taken at G3 -- the
+        G3-to-G2 mapping that matters for the polytechnic transition below
+        does not apply to L1R4, which requires G3 across the board.
+      - >
+        The subject-field classification (Humanities / Mathematics-or-Science)
+        carries the same medium-confidence caveat as the 2027 transition.
+
+    fact:
+      value: "L1R4 gross aggregate, G3 basis, English plus 3 relevant subjects, 4 to 36"
+      as_of_year: 2026
+      source: moe-pse-jc-mi-2028
+      confidence: high
+      stale_after: 2027-06-30
+      note: >
+        Formula and threshold read directly from MOE's PSE JC/MI page,
+        2026-08-09. No course-level cut-off exists to load; see the caveats.
+
+  # -- 2028 PSE: SEC, Polytechnic (aggregate only) ---------------------------
+  - id: sec-to-polytechnic-2028
+    stage: o-level
+    name: SEC to Polytechnic — ELR2B2 (2028 PSE, generic approximation)
+    applies_to_exam_years: [2027, 2028, 2029]
+    admission_years: [2028, 2029, 2030]
+    direction: lower_is_better
+    policy_status: mid_rollout
+
+    rule_kind: required_plus_best_n
+    rule_params:
+      total_label: ELR2B2 net aggregate (generic, G2-mapped B2)
+      scale: ol-letter
+      best_possible: 5
+      worst_possible: 45
+      qualifying_max: 22
+      groups:
+        - label: "EL — G3 English Language"
+          codes: [ol-english]
+          take: 1
+        - label: "R1, R2, B1 — best 3 remaining G3 subjects"
+          take: 3
+        - label: "B2 — next best remaining subject, scored on the G2-equivalent grade"
+          take: 1
+      comparison_component: ELR2B2 net aggregate (generic, G2-mapped B2)
+
+    comparison_basis: >
+      your English grade plus your best 4 other subjects, with the 5th scored
+      on its G2-equivalent grade -- a stand-in for the real, course-specific
+      ELR2B2
+
+    scales:
+      ol-letter: {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9}
+
+    caveats:
+      - >
+        THIS TRANSITION HAS NO COURSE OUTCOMES LOADED, AND CANNOT HAVE ANY
+        YET, for the same reason as the JC/MI transition above: PSE 2028 has
+        not run.
+      - >
+        The B2 subject is scored on its G2-equivalent grade even when taken at
+        G3 -- a G3 B4 maps to G2 grade 2 before it is added in. PathAhead
+        applies the published G3-to-G2 mapping table (A1-B3 to 1, B4-C6 to 2,
+        D7 to 3, E8 to 4; grade 9/5/6 excluded) to whichever of your best 5
+        subjects falls into the B2 slot, rather than treating all 5 subjects
+        identically -- getting this step wrong is exactly what would make the
+        published ceiling of 22 look like a tightening from today's 26, when
+        it is the same intake made to look harder by the mapping alone.
+      - >
+        THIS IS AN APPROXIMATION, not the real course-specific ELR2B2 -- same
+        caveat as the 2027 polytechnic transition, and for the same reason:
+        which 2 subjects a diploma calls "relevant" is not loaded.
+      - >
+        ELR2B2 <= 22 (2028) and ELR2B2 <= 26 (2027 and earlier) are NOT the
+        same claim rendered differently. They are different numbers because of
+        the mapping change, not because entry became easier or harder, and
+        they must never be plotted as one trend line. See SAFEGUARDS.md 4b4.
+
+    fact:
+      value: "ELR2B2 aggregate (generic form, G2-mapped B2), 5 to 45"
+      as_of_year: 2026
+      source: moe-pse-polytechnic-2028
+      confidence: medium
+      stale_after: 2027-06-30
+      note: >
+        Formula shape (including the B2 G2-mapping) confirmed against MOE's
+        polytechnic PSE page, 2026-08-09. The generic non-course-specific
+        computation is PathAhead's own stated simplification.
+
+# ---------------------------------------------------------------------------
+# Junior College and Millennia Institute outcomes — 2027 JAE, L1R5 / L1R4
+#
+# Each course code and net-aggregate range is transcribed from that school's
+# own MOE SchoolFinder page, fetched 2026-08-09. `band.statistic: min_max`
+# throughout: this is the net aggregate of the FIRST and LAST student posted,
+# the whole intake, exactly the same published shape as the polytechnic
+# ranges already in this pack -- never described in percentile words.
+# ---------------------------------------------------------------------------
+
+outcomes:
+  - id: jc-national-jc-science
+    institution: National Junior College
+    institution_short: NJC
+    name: Science (27S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/national-junior-college
+    band:
+      p10: "2"
+      p90: "6"
+      p10_points: 2
+      p90_points: 6
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 6", as_of_year: 2026, source: sf-njc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/national-junior-college"}
+  - id: jc-national-jc-arts
+    institution: National Junior College
+    institution_short: NJC
+    name: Arts (27A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/national-junior-college
+    band:
+      p10: "4"
+      p90: "8"
+      p10_points: 4
+      p90_points: 8
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "4 to 8", as_of_year: 2026, source: sf-njc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/national-junior-college"}
+
+  - id: jc-anderson-serangoon-science
+    institution: Anderson Serangoon Junior College
+    institution_short: ASRJC
+    name: Science (39S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/anderson-serangoon-junior-college
+    band:
+      p10: "3"
+      p90: "9"
+      p10_points: 3
+      p90_points: 9
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "3 to 9", as_of_year: 2026, source: sf-asrjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/anderson-serangoon-junior-college"}
+  - id: jc-anderson-serangoon-arts
+    institution: Anderson Serangoon Junior College
+    institution_short: ASRJC
+    name: Arts (39A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/anderson-serangoon-junior-college
+    band:
+      p10: "7"
+      p90: "10"
+      p10_points: 7
+      p90_points: 10
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "7 to 10", as_of_year: 2026, source: sf-asrjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/anderson-serangoon-junior-college"}
+
+  - id: jc-anglo-chinese-science
+    institution: Anglo-Chinese Junior College
+    institution_short: ACJC
+    name: Science (22S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/anglo-chinese-junior-college
+    band:
+      p10: "2"
+      p90: "8"
+      p10_points: 2
+      p90_points: 8
+      basis: 2025 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 8", as_of_year: 2025, source: sf-acjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/anglo-chinese-junior-college", note: "SchoolFinder showed 2025 JAE figures at time of fetch, not yet 2026."}
+  - id: jc-anglo-chinese-arts
+    institution: Anglo-Chinese Junior College
+    institution_short: ACJC
+    name: Arts (22A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/anglo-chinese-junior-college
+    band:
+      p10: "3"
+      p90: "9"
+      p10_points: 3
+      p90_points: 9
+      basis: 2025 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "3 to 9", as_of_year: 2025, source: sf-acjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/anglo-chinese-junior-college", note: "SchoolFinder showed 2025 JAE figures at time of fetch, not yet 2026."}
+
+  - id: jc-catholic-science
+    institution: Catholic Junior College
+    institution_short: CJC
+    name: Science (23S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/catholic-junior-college
+    band:
+      p10: "6"
+      p90: "11"
+      p10_points: 6
+      p90_points: 11
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "6 to 11", as_of_year: 2026, source: sf-cjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/catholic-junior-college"}
+  - id: jc-catholic-arts
+    institution: Catholic Junior College
+    institution_short: CJC
+    name: Arts (23A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/catholic-junior-college
+    band:
+      p10: "5"
+      p90: "12"
+      p10_points: 5
+      p90_points: 12
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "5 to 12", as_of_year: 2026, source: sf-cjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/catholic-junior-college"}
+
+  - id: jc-dunman-high-science
+    institution: Dunman High School (Junior College)
+    institution_short: DHS
+    name: Science (44S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/dunman-high-school-junior-college
+    band:
+      p10: "4"
+      p90: "6"
+      p10_points: 4
+      p90_points: 6
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "4 to 6", as_of_year: 2026, source: sf-dhs, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/dunman-high-school-junior-college"}
+  - id: jc-dunman-high-arts
+    institution: Dunman High School (Junior College)
+    institution_short: DHS
+    name: Arts (44A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/dunman-high-school-junior-college
+    band:
+      p10: "6"
+      p90: "8"
+      p10_points: 6
+      p90_points: 8
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "6 to 8", as_of_year: 2026, source: sf-dhs, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/dunman-high-school-junior-college"}
+
+  - id: jc-eunoia-science
+    institution: Eunoia Junior College
+    institution_short: EJC
+    name: Science (38S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/eunoia-junior-college
+    band:
+      p10: "2"
+      p90: "5"
+      p10_points: 2
+      p90_points: 5
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 5", as_of_year: 2026, source: sf-ejc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/eunoia-junior-college"}
+  - id: jc-eunoia-arts
+    institution: Eunoia Junior College
+    institution_short: EJC
+    name: Arts (38A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/eunoia-junior-college
+    band:
+      p10: "2"
+      p90: "6"
+      p10_points: 2
+      p90_points: 6
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 6", as_of_year: 2026, source: sf-ejc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/eunoia-junior-college"}
+
+  - id: jc-hwa-chong-science
+    institution: Hwa Chong Institution (Junior College)
+    institution_short: HCI
+    name: Science (24S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/hwa-chong-institution-junior-college
+    band:
+      p10: "2"
+      p90: "3"
+      p10_points: 2
+      p90_points: 3
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 3", as_of_year: 2026, source: sf-hci, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/hwa-chong-institution-junior-college"}
+  - id: jc-hwa-chong-arts
+    institution: Hwa Chong Institution (Junior College)
+    institution_short: HCI
+    name: Arts (24A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/hwa-chong-institution-junior-college
+    band:
+      p10: "2"
+      p90: "5"
+      p10_points: 2
+      p90_points: 5
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 5", as_of_year: 2026, source: sf-hci, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/hwa-chong-institution-junior-college"}
+
+  - id: jc-jurong-pioneer-science
+    institution: Jurong Pioneer Junior College
+    institution_short: JPJC
+    name: Science (40S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/jurong-pioneer-junior-college
+    band:
+      p10: "4"
+      p90: "14"
+      p10_points: 4
+      p90_points: 14
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "4 to 14", as_of_year: 2026, source: sf-jpjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/jurong-pioneer-junior-college"}
+  - id: jc-jurong-pioneer-arts
+    institution: Jurong Pioneer Junior College
+    institution_short: JPJC
+    name: Arts (40A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/jurong-pioneer-junior-college
+    band:
+      p10: "9"
+      p90: "14"
+      p10_points: 9
+      p90_points: 14
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "9 to 14", as_of_year: 2026, source: sf-jpjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/jurong-pioneer-junior-college"}
+
+  - id: jc-nanyang-science
+    institution: Nanyang Junior College
+    institution_short: NYJC
+    name: Science (26S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/nanyang-junior-college
+    band:
+      p10: "2"
+      p90: "5"
+      p10_points: 2
+      p90_points: 5
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 5", as_of_year: 2026, source: sf-nyjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/nanyang-junior-college"}
+  - id: jc-nanyang-arts
+    institution: Nanyang Junior College
+    institution_short: NYJC
+    name: Arts (26A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/nanyang-junior-college
+    band:
+      p10: "2"
+      p90: "7"
+      p10_points: 2
+      p90_points: 7
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 7", as_of_year: 2026, source: sf-nyjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/nanyang-junior-college"}
+
+  - id: jc-raffles-institution-science
+    institution: Raffles Institution (Junior College)
+    institution_short: RI
+    name: Science (28S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/raffles-institution-junior-college
+    band:
+      p10: "2"
+      p90: "3"
+      p10_points: 2
+      p90_points: 3
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 3", as_of_year: 2026, source: sf-ri, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/raffles-institution-junior-college"}
+  - id: jc-raffles-institution-arts
+    institution: Raffles Institution (Junior College)
+    institution_short: RI
+    name: Arts (28A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/raffles-institution-junior-college
+    band:
+      p10: "2"
+      p90: "5"
+      p10_points: 2
+      p90_points: 5
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 5", as_of_year: 2026, source: sf-ri, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/raffles-institution-junior-college"}
+
+  - id: jc-river-valley-high-science
+    institution: River Valley High School (Junior College)
+    institution_short: RVHS
+    name: Science (45S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/river-valley-high-school-junior-college
+    band:
+      p10: "2"
+      p90: "8"
+      p10_points: 2
+      p90_points: 8
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 8", as_of_year: 2026, source: sf-rvhs, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/river-valley-high-school-junior-college"}
+  - id: jc-river-valley-high-arts
+    institution: River Valley High School (Junior College)
+    institution_short: RVHS
+    name: Arts (45A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/river-valley-high-school-junior-college
+    band:
+      p10: "7"
+      p90: "9"
+      p10_points: 7
+      p90_points: 9
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "7 to 9", as_of_year: 2026, source: sf-rvhs, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/river-valley-high-school-junior-college"}
+
+  - id: jc-st-andrews-science
+    institution: St Andrew's Junior College
+    institution_short: SAJC
+    name: Science (30S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/st-andrews-junior-college
+    band:
+      p10: "3"
+      p90: "8"
+      p10_points: 3
+      p90_points: 8
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "3 to 8", as_of_year: 2026, source: sf-sajc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/st-andrews-junior-college"}
+  - id: jc-st-andrews-arts
+    institution: St Andrew's Junior College
+    institution_short: SAJC
+    name: Arts (30A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/st-andrews-junior-college
+    band:
+      p10: "5"
+      p90: "10"
+      p10_points: 5
+      p90_points: 10
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "5 to 10", as_of_year: 2026, source: sf-sajc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/st-andrews-junior-college"}
+
+  - id: jc-tampines-meridian-science
+    institution: Tampines Meridian Junior College
+    institution_short: TMJC
+    name: Science (41S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/tampines-meridian-junior-college
+    band:
+      p10: "6"
+      p90: "12"
+      p10_points: 6
+      p90_points: 12
+      basis: 2025 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "6 to 12", as_of_year: 2025, source: sf-tmjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/tampines-meridian-junior-college", note: "SchoolFinder showed 2025 JAE figures at time of fetch, not yet 2026."}
+  - id: jc-tampines-meridian-arts
+    institution: Tampines Meridian Junior College
+    institution_short: TMJC
+    name: Arts (41A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/tampines-meridian-junior-college
+    band:
+      p10: "9"
+      p90: "13"
+      p10_points: 9
+      p90_points: 13
+      basis: 2025 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "9 to 13", as_of_year: 2025, source: sf-tmjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/tampines-meridian-junior-college", note: "SchoolFinder showed 2025 JAE figures at time of fetch, not yet 2026."}
+
+  - id: jc-temasek-science
+    institution: Temasek Junior College
+    institution_short: TJC
+    name: Science (32S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/temasek-junior-college
+    band:
+      p10: "2"
+      p90: "7"
+      p10_points: 2
+      p90_points: 7
+      basis: 2025 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 7", as_of_year: 2025, source: sf-tjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/temasek-junior-college", note: "SchoolFinder showed 2025 JAE figures at time of fetch, not yet 2026."}
+  - id: jc-temasek-arts
+    institution: Temasek Junior College
+    institution_short: TJC
+    name: Arts (32A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/temasek-junior-college
+    band:
+      p10: "6"
+      p90: "8"
+      p10_points: 6
+      p90_points: 8
+      basis: 2025 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "6 to 8", as_of_year: 2025, source: sf-tjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/temasek-junior-college", note: "SchoolFinder showed 2025 JAE figures at time of fetch, not yet 2026."}
+
+  - id: jc-victoria-science
+    institution: Victoria Junior College
+    institution_short: VJC
+    name: Science (33S)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/victoria-junior-college
+    band:
+      p10: "2"
+      p90: "6"
+      p10_points: 2
+      p90_points: 6
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "2 to 6", as_of_year: 2026, source: sf-vjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/victoria-junior-college"}
+  - id: jc-victoria-arts
+    institution: Victoria Junior College
+    institution_short: VJC
+    name: Arts (33A)
+    transition: o-level-to-jc-mi-2027
+    route_group: jc-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/victoria-junior-college
+    band:
+      p10: "4"
+      p90: "8"
+      p10_points: 4
+      p90_points: 8
+      basis: 2026 JAE L1R5 net aggregate
+      statistic: min_max
+      scale: l1r5
+      comparable: true
+      fact: {value: "4 to 8", as_of_year: 2026, source: sf-vjc, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/victoria-junior-college"}
+
+  # Millennia Institute uses L1R4, not L1R5 -- the same rule kind and formula
+  # as MI's own line in o-level-to-jc-mi-2027's `groups`, since that transition
+  # scores L1R5 for JC courses. MI's course is scored against the SAME L1R5
+  # derivation's comparison_component would be wrong -- MI is genuinely on
+  # L1R4. Rather than force MI through the L1R5 rule, its three courses are
+  # assessed against the R1..R3 subtotal of the SAME derivation (English + 3
+  # relevant, before R4/R5 are added) via `comparison_component`, which is
+  # exactly the mechanism the A-Level pack already uses to compare a 3-H2
+  # subtotal out of a 4-component score. See `comparison_component` on the
+  # transition above -- MI reads the R1-R2-R3 subtotal, not the full L1R5.
+  - id: mi-arts
+    institution: Millennia Institute
+    institution_short: MI
+    name: Arts (43A)
+    transition: o-level-to-jc-mi-2027
+    route_group: mi-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute
+    band:
+      p10: "10"
+      p90: "20"
+      p10_points: 10
+      p90_points: 20
+      basis: 2026 JAE L1R4 net aggregate
+      statistic: min_max
+      scale: l1r4
+      comparable: false
+      fact: {value: "10 to 20", as_of_year: 2026, source: sf-mi, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute", note: "MI is scored on L1R4, not the L1R5 this transition's headline computes -- comparable is false here deliberately until a dedicated L1R4 comparison is wired up. See the outcome comment above this block."}
+  - id: mi-commerce
+    institution: Millennia Institute
+    institution_short: MI
+    name: Commerce (43C)
+    transition: o-level-to-jc-mi-2027
+    route_group: mi-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute
+    band:
+      p10: "10"
+      p90: "20"
+      p10_points: 10
+      p90_points: 20
+      basis: 2026 JAE L1R4 net aggregate
+      statistic: min_max
+      scale: l1r4
+      comparable: false
+      fact: {value: "10 to 20", as_of_year: 2026, source: sf-mi, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute", note: "The school's own page states the true last-posted score was better than 20, and 20 is shown by convention because vacancies remained after posting at that ceiling. Carried verbatim."}
+  - id: mi-science
+    institution: Millennia Institute
+    institution_short: MI
+    name: Science (43S)
+    transition: o-level-to-jc-mi-2027
+    route_group: mi-direct
+    url: https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute
+    band:
+      p10: "9"
+      p90: "20"
+      p10_points: 9
+      p90_points: 20
+      basis: 2026 JAE L1R4 net aggregate
+      statistic: min_max
+      scale: l1r4
+      comparable: false
+      fact: {value: "9 to 20", as_of_year: 2026, source: sf-mi, confidence: high, url: "https://www.moe.gov.sg/schoolfinder/schooldetail/millennia-institute"}

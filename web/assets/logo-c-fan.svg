@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 40" width="56" height="40" role="img" aria-labelledby="t d">
+  <title id="t">PathAhead</title>
+  <desc id="d">Where you stand now, with three routes continuing outward from it. None is drawn above the others.</desc>
+  <g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round">
+    <path d="M13 20 C27 20, 30 8, 48 8"/>
+    <path d="M13 20 H48"/>
+    <path d="M13 20 C27 20, 30 32, 48 32"/>
+  </g>
+  <circle cx="11" cy="20" r="5" fill="currentColor"/>
+</svg>

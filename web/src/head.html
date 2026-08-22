@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="PathAhead — understand how Singapore's education pathways actually work. Free, open source, and nothing you type leaves your device.">
+<title>PathAhead — understand the path ahead</title>
+<!-- The guarantee, enforced by the browser rather than promised in prose.
+     tools/serve.py sends the same policy as a real header, but a header
+     cannot follow this file onto GitHub Pages, onto a USB stick, or into a
+     file:// open from a Downloads folder — and those are the ways most
+     families will actually meet it. So it travels in the document.
+
+     `default-src 'self'` is what makes the line in the page header
+     ("nothing you type here leaves this device") checkable instead of
+     merely stated: no font CDN, no analytics beacon, no third-party
+     anything can load, and if someone adds one later the browser blocks it
+     and the CI gate in .github/workflows/ci.yml fails the build.
+
+     This file previously linked Google Fonts here, which quietly sent every
+     visitor's IP address to Google before the page rendered — on a tool
+     built for children, whose whole promise is that it does not do that.
+     Removed 2026-08-14; the type now uses the system UI font, which is
+     already what most of the page fell back to. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'">
+<meta name="referrer" content="no-referrer">

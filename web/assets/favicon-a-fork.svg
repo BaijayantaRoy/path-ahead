@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" width="56" height="56" role="img" aria-label="PathAhead">
+  <rect width="56" height="56" rx="12" fill="#a8481b"/>
+  <g fill="none" stroke="#fffcf7" stroke-width="6" stroke-linecap="round">
+    <path d="M12 28 H25"/>
+    <path d="M25 28 C33 28, 33 16, 41 16"/>
+    <path d="M25 28 C33 28, 33 40, 41 40"/>
+  </g>
+</svg>

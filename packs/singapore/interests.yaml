@@ -1,0 +1,35 @@
+# The interest taxonomy behind the six-tap question.
+#
+# These are Holland's RIASEC categories, in plain language. The framework is
+# public domain and has been used in career guidance for decades. PathAhead
+# uses it as a vocabulary for describing what pulls at someone -- it does not
+# claim to have administered a psychometric instrument, and it says so.
+#
+# Six taps, meaningful, done. The moment this feels like a personality quiz, an
+# anxious family closes the tab.
+
+interests:
+  - code: R
+    label: Building and making
+    detail: hands-on work, machines, materials, being outdoors
+    examples: [engineering, architecture, laboratory work, construction]
+  - code: I
+    label: Investigating and analysing
+    detail: working out why things happen, evidence, experiments, patterns
+    examples: [research, medicine, data, the sciences]
+  - code: A
+    label: Designing and creating
+    detail: visual work, writing, performing, original ideas
+    examples: [design, media, the arts, architecture]
+  - code: S
+    label: Helping and teaching
+    detail: working with people, care, guidance, community
+    examples: [nursing, teaching, social work, public health]
+  - code: E
+    label: Leading and persuading
+    detail: starting things, selling an idea, taking charge
+    examples: [business, law, entrepreneurship, policy]
+  - code: C
+    label: Organising and systems
+    detail: structure, accuracy, data, making things run properly
+    examples: [accountancy, logistics, information systems]

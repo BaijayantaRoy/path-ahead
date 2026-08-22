@@ -1,0 +1,37 @@
+# Singapore A-Level subjects, for the type-to-search entry box.
+#
+# `aka` holds the things people actually type -- "amath", "econs", "lit",
+# "further maths". A seventeen-year-old typing "chem" at 11pm should not have
+# to guess our spelling.
+#
+# `levels` lists the levels each subject is commonly offered at. This is a
+# convenience list for input, not an assertion about what any particular school
+# offers -- schools differ, and PathAhead does not claim to know your timetable.
+
+subjects:
+  - {code: mathematics,        name: Mathematics,                     levels: [h1, h2],     aka: [maths, math, h2 math, a math]}
+  - {code: further-mathematics, name: Further Mathematics,            levels: [h2],         aka: [further maths, fm], family: mathematics}
+  - {code: physics,            name: Physics,                         levels: [h1, h2],     aka: [phys]}
+  - {code: chemistry,          name: Chemistry,                       levels: [h1, h2],     aka: [chem]}
+  - {code: biology,            name: Biology,                         levels: [h1, h2],     aka: [bio]}
+  - {code: economics,          name: Economics,                       levels: [h1, h2],     aka: [econs, econ]}
+  - {code: geography,          name: Geography,                       levels: [h1, h2],     aka: [geog]}
+  - {code: history,            name: History,                         levels: [h1, h2],     aka: [hist]}
+  - {code: literature,         name: Literature in English,           levels: [h1, h2],     aka: [lit, english lit]}
+  - {code: art,                name: Art,                             levels: [h1, h2],     aka: []}
+  - {code: computing,          name: Computing,                       levels: [h2],         aka: [comp, cs]}
+  - {code: principles-of-accounting, name: Principles of Accounting,   levels: [h2],         aka: [poa, accounting]}
+  - {code: management-of-business,   name: Management of Business,     levels: [h1, h2],     aka: [mob, business]}
+  - {code: theatre-studies,    name: Theatre Studies and Drama,       levels: [h1, h2],     aka: [ts, tsd, drama]}
+  - {code: music,              name: Music,                           levels: [h1, h2],     aka: []}
+  - {code: china-studies,      name: China Studies,                   levels: [h1, h2],     aka: [csc, cse]}
+  - {code: knowledge-inquiry,  name: Knowledge and Inquiry,           levels: [h2],         aka: [ki]}
+  - {code: general-paper,      name: General Paper,                   levels: [gp],         aka: [gp]}
+  - {code: project-work,       name: Project Work,                    levels: [pw],         aka: [pw]}
+  - {code: chinese,            name: Chinese Language,                levels: [mtl, h1, h2], aka: [cl, mandarin, higher chinese]}
+  - {code: malay,              name: Malay Language,                  levels: [mtl, h1, h2], aka: [ml]}
+  - {code: tamil,              name: Tamil Language,                  levels: [mtl, h1, h2], aka: [tl]}
+  - {code: hindi,              name: Hindi,                           levels: [mtl],        aka: []}
+  - {code: chinese-lit,        name: Chinese Language and Literature, levels: [h2],         aka: [cll], family: literature}
+  - {code: malay-lit,          name: Malay Language and Literature,   levels: [h2],         aka: [mll], family: literature}
+  - {code: tamil-lit,          name: Tamil Language and Literature,   levels: [h2],         aka: [tll], family: literature}

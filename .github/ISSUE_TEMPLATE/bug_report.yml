@@ -1,0 +1,37 @@
+name: Bug report
+description: Something in the app is broken, crashes, or behaves unexpectedly.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: false
+  - type: input
+    id: where
+    attributes:
+      label: Where you ran it
+      description: Web build in a browser (which one?), or the desktop build (which OS?)
+      placeholder: "e.g. Chrome 128 on Windows 11, or PathAhead-macos v0.3.0"
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy-ack
+    attributes:
+      label: Before you paste anything
+      options:
+        - label: I have not included a real PSLE/O-Level/A-Level score, postal code, or any other personal detail in this report — PathAhead never asks for these, and neither does this form.
+          required: true

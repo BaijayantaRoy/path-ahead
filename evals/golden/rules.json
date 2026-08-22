@@ -1,0 +1,3836 @@
+{
+  "generated_by": "tools/make_golden.py",
+  "cases": [
+    {
+      "id": "perfect-three-h2-and-gp",
+      "why": "the ceiling, reached without any bonus subject",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "a-level-to-university-2026",
+      "year_level": "jc-2",
+      "subjects": [
+        {
+          "code": "h2-mathematics",
+          "name": "Mathematics",
+          "level": "h2",
+          "grade": "A"
+        },
+        {
+          "code": "h2-physics",
+          "name": "Physics",
+          "level": "h2",
+          "grade": "A"
+        },
+        {
+          "code": "h2-chemistry",
+          "name": "Chemistry",
+          "level": "h2",
+          "grade": "A"
+        },
+        {
+          "code": "gp-general-paper",
+          "name": "General Paper",
+          "level": "gp",
+          "grade": "A"
+        }
+      ],
+      "expected": {
+        "value": 70.0,
+        "max_value": 70.0,
+        "direction": "higher_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your best 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "H2 Chemistry  A",
+            "detail": null,
+            "points": 20.0,
+            "running_total": 20.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Mathematics  A",
+            "detail": null,
+            "points": 20.0,
+            "running_total": 40.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Physics  A",
+            "detail": null,
+            "points": 20.0,
+            "running_total": 60.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Your 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": 60.0
+          },
+          {
+            "kind": "heading",
+            "label": "General Paper",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "General Paper  A",
+            "detail": null,
+            "points": 10.0,
+            "running_total": 70.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 70.0
+          },
+          {
+            "kind": "heading",
+            "label": "Optional extra -- counted only if it helps",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "note",
+            "label": "No optional subject entered, so no bonus was added.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "total",
+            "label": "University Admission Score",
+            "detail": null,
+            "points": null,
+            "running_total": 70.0
+          }
+        ],
+        "warnings": [
+          "NUS states that no grade profile has yet been established on the new 70-point basis, because AY2026/2027 is the first year it is used. Any tool that compares your 70-point score directly against a published grade profile is comparing two different things. PathAhead does not do that: it compares your three H2 grades against the three H2 grades in the published profile, which is what NUS itself advises.\n",
+          "The exact grade-to-point table used here has not been confirmed against a primary publication and is marked medium confidence. The total is correct in structure; a single grade's point value could be off.\n"
+        ]
+      }
+    },
+    {
+      "id": "bonus-pushes-past-cap",
+      "why": "the cap actually bites, and the trace must say so",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "a-level-to-university-2026",
+      "year_level": "jc-2",
+      "subjects": [
+        {
+          "code": "h2-chemistry",
+          "name": "Chemistry",
+          "level": "h2",
+          "grade": "A"
+        },
+        {
+          "code": "h2-biology",
+          "name": "Biology",
+          "level": "h2",
+          "grade": "A"
+        },
+        {
+          "code": "h2-mathematics",
+          "name": "Mathematics",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "gp-general-paper",
+          "name": "General Paper",
+          "level": "gp",
+          "grade": "A"
+        },
+        {
+          "code": "h1-economics",
+          "name": "Economics",
+          "level": "h1",
+          "grade": "C"
+        },
+        {
+          "code": "mtl-chinese",
+          "name": "Chinese",
+          "level": "mtl",
+          "grade": "B"
+        }
+      ],
+      "expected": {
+        "value": 70.0,
+        "max_value": 70.0,
+        "direction": "higher_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your best 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "H2 Biology  A",
+            "detail": null,
+            "points": 20.0,
+            "running_total": 20.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Chemistry  A",
+            "detail": null,
+            "points": 20.0,
+            "running_total": 40.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Mathematics  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 57.5
+          },
+          {
+            "kind": "subtotal",
+            "label": "Your 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": 57.5
+          },
+          {
+            "kind": "heading",
+            "label": "General Paper",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "General Paper  A",
+            "detail": null,
+            "points": 10.0,
+            "running_total": 67.5
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 67.5
+          },
+          {
+            "kind": "heading",
+            "label": "Optional extra -- counted only if it helps",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "H1 Economics  C",
+            "detail": "the other optional subject scored higher",
+            "points": 7.5,
+            "running_total": null
+          },
+          {
+            "kind": "substitution",
+            "label": "Chinese  B",
+            "detail": "counted - the higher of your optional subjects",
+            "points": 8.75,
+            "running_total": 76.25
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 76.25
+          },
+          {
+            "kind": "cap",
+            "label": "Capped at the maximum of 70",
+            "detail": "your components added to 76.25",
+            "points": null,
+            "running_total": 70.0
+          },
+          {
+            "kind": "total",
+            "label": "University Admission Score",
+            "detail": null,
+            "points": null,
+            "running_total": 70.0
+          }
+        ],
+        "warnings": [
+          "NUS states that no grade profile has yet been established on the new 70-point basis, because AY2026/2027 is the first year it is used. Any tool that compares your 70-point score directly against a published grade profile is comparing two different things. PathAhead does not do that: it compares your three H2 grades against the three H2 grades in the published profile, which is what NUS itself advises.\n",
+          "The exact grade-to-point table used here has not been confirmed against a primary publication and is marked medium confidence. The total is correct in structure; a single grade's point value could be off.\n",
+          "Your components added to more than 70, so the score was capped there. Exactly how the cap is applied when an optional subject pushes the total past the maximum -- a hard cap or a proportional adjustment -- is not confirmed against a primary source. PathAhead applies a hard cap and tells you when it did.\n"
+        ]
+      }
+    },
+    {
+      "id": "four-h2-only-best-three-count",
+      "why": "a fourth H2 must be excluded from the core, not silently added",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "a-level-to-university-2026",
+      "year_level": "jc-2",
+      "subjects": [
+        {
+          "code": "h2-mathematics",
+          "name": "Mathematics",
+          "level": "h2",
+          "grade": "A"
+        },
+        {
+          "code": "h2-physics",
+          "name": "Physics",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "h2-chemistry",
+          "name": "Chemistry",
+          "level": "h2",
+          "grade": "C"
+        },
+        {
+          "code": "h2-economics",
+          "name": "Economics",
+          "level": "h2",
+          "grade": "D"
+        },
+        {
+          "code": "gp-general-paper",
+          "name": "General Paper",
+          "level": "gp",
+          "grade": "C"
+        }
+      ],
+      "expected": {
+        "value": 60.0,
+        "max_value": 70.0,
+        "direction": "higher_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your best 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "H2 Mathematics  A",
+            "detail": null,
+            "points": 20.0,
+            "running_total": 20.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Physics  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 37.5
+          },
+          {
+            "kind": "component",
+            "label": "H2 Chemistry  C",
+            "detail": null,
+            "points": 15.0,
+            "running_total": 52.5
+          },
+          {
+            "kind": "excluded",
+            "label": "H2 Economics  D",
+            "detail": "only your best 3 count here",
+            "points": 12.5,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Your 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": 52.5
+          },
+          {
+            "kind": "heading",
+            "label": "General Paper",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "General Paper  C",
+            "detail": null,
+            "points": 7.5,
+            "running_total": 60.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 60.0
+          },
+          {
+            "kind": "heading",
+            "label": "Optional extra -- counted only if it helps",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "note",
+            "label": "No optional subject entered, so no bonus was added.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "total",
+            "label": "University Admission Score",
+            "detail": null,
+            "points": null,
+            "running_total": 60.0
+          }
+        ],
+        "warnings": [
+          "NUS states that no grade profile has yet been established on the new 70-point basis, because AY2026/2027 is the first year it is used. Any tool that compares your 70-point score directly against a published grade profile is comparing two different things. PathAhead does not do that: it compares your three H2 grades against the three H2 grades in the published profile, which is what NUS itself advises.\n",
+          "The exact grade-to-point table used here has not been confirmed against a primary publication and is marked medium confidence. The total is correct in structure; a single grade's point value could be off.\n"
+        ]
+      }
+    },
+    {
+      "id": "mother-tongue-beats-fourth-subject",
+      "why": "the substitution must pick the higher of the two candidates",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "a-level-to-university-2026",
+      "year_level": "jc-2",
+      "subjects": [
+        {
+          "code": "h2-literature",
+          "name": "Literature",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "h2-history",
+          "name": "History",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "h2-economics",
+          "name": "Economics",
+          "level": "h2",
+          "grade": "C"
+        },
+        {
+          "code": "gp-general-paper",
+          "name": "General Paper",
+          "level": "gp",
+          "grade": "B"
+        },
+        {
+          "code": "h1-mathematics",
+          "name": "Mathematics",
+          "level": "h1",
+          "grade": "E"
+        },
+        {
+          "code": "mtl-malay",
+          "name": "Malay",
+          "level": "mtl",
+          "grade": "A"
+        }
+      ],
+      "expected": {
+        "value": 68.75,
+        "max_value": 70.0,
+        "direction": "higher_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your best 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "H2 History  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 17.5
+          },
+          {
+            "kind": "component",
+            "label": "H2 Literature  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 35.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Economics  C",
+            "detail": null,
+            "points": 15.0,
+            "running_total": 50.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Your 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": 50.0
+          },
+          {
+            "kind": "heading",
+            "label": "General Paper",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "General Paper  B",
+            "detail": null,
+            "points": 8.75,
+            "running_total": 58.75
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 58.75
+          },
+          {
+            "kind": "heading",
+            "label": "Optional extra -- counted only if it helps",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "H1 Mathematics  E",
+            "detail": "the other optional subject scored higher",
+            "points": 5.0,
+            "running_total": null
+          },
+          {
+            "kind": "substitution",
+            "label": "Malay  A",
+            "detail": "counted - the higher of your optional subjects",
+            "points": 10.0,
+            "running_total": 68.75
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 68.75
+          },
+          {
+            "kind": "total",
+            "label": "University Admission Score",
+            "detail": null,
+            "points": null,
+            "running_total": 68.75
+          }
+        ],
+        "warnings": [
+          "NUS states that no grade profile has yet been established on the new 70-point basis, because AY2026/2027 is the first year it is used. Any tool that compares your 70-point score directly against a published grade profile is comparing two different things. PathAhead does not do that: it compares your three H2 grades against the three H2 grades in the published profile, which is what NUS itself advises.\n",
+          "The exact grade-to-point table used here has not been confirmed against a primary publication and is marked medium confidence. The total is correct in structure; a single grade's point value could be off.\n"
+        ]
+      }
+    },
+    {
+      "id": "ungraded-subject-scores-zero",
+      "why": "a U must score zero rather than raise an error or be dropped",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "a-level-to-university-2026",
+      "year_level": "jc-2",
+      "subjects": [
+        {
+          "code": "h2-mathematics",
+          "name": "Mathematics",
+          "level": "h2",
+          "grade": "C"
+        },
+        {
+          "code": "h2-physics",
+          "name": "Physics",
+          "level": "h2",
+          "grade": "D"
+        },
+        {
+          "code": "h2-chemistry",
+          "name": "Chemistry",
+          "level": "h2",
+          "grade": "U"
+        },
+        {
+          "code": "gp-general-paper",
+          "name": "General Paper",
+          "level": "gp",
+          "grade": "E"
+        }
+      ],
+      "expected": {
+        "value": 32.5,
+        "max_value": 70.0,
+        "direction": "higher_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your best 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "H2 Mathematics  C",
+            "detail": null,
+            "points": 15.0,
+            "running_total": 15.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Physics  D",
+            "detail": null,
+            "points": 12.5,
+            "running_total": 27.5
+          },
+          {
+            "kind": "component",
+            "label": "H2 Chemistry  U",
+            "detail": null,
+            "points": 0.0,
+            "running_total": 27.5
+          },
+          {
+            "kind": "subtotal",
+            "label": "Your 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": 27.5
+          },
+          {
+            "kind": "heading",
+            "label": "General Paper",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "General Paper  E",
+            "detail": null,
+            "points": 5.0,
+            "running_total": 32.5
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 32.5
+          },
+          {
+            "kind": "heading",
+            "label": "Optional extra -- counted only if it helps",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "note",
+            "label": "No optional subject entered, so no bonus was added.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "total",
+            "label": "University Admission Score",
+            "detail": null,
+            "points": null,
+            "running_total": 32.5
+          }
+        ],
+        "warnings": [
+          "NUS states that no grade profile has yet been established on the new 70-point basis, because AY2026/2027 is the first year it is used. Any tool that compares your 70-point score directly against a published grade profile is comparing two different things. PathAhead does not do that: it compares your three H2 grades against the three H2 grades in the published profile, which is what NUS itself advises.\n",
+          "The exact grade-to-point table used here has not been confirmed against a primary publication and is marked medium confidence. The total is correct in structure; a single grade's point value could be off.\n"
+        ]
+      }
+    },
+    {
+      "id": "jc1-cohort-next-years-exam",
+      "why": "cohort routing: JC1 sits the exam a year later and must still resolve",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "a-level-to-university-2026",
+      "year_level": "jc-1",
+      "subjects": [
+        {
+          "code": "h2-mathematics",
+          "name": "Mathematics",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "h2-chemistry",
+          "name": "Chemistry",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "h2-biology",
+          "name": "Biology",
+          "level": "h2",
+          "grade": "B"
+        },
+        {
+          "code": "gp-general-paper",
+          "name": "General Paper",
+          "level": "gp",
+          "grade": "C"
+        }
+      ],
+      "expected": {
+        "value": 60.0,
+        "max_value": 70.0,
+        "direction": "higher_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your best 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "H2 Biology  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 17.5
+          },
+          {
+            "kind": "component",
+            "label": "H2 Chemistry  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 35.0
+          },
+          {
+            "kind": "component",
+            "label": "H2 Mathematics  B",
+            "detail": null,
+            "points": 17.5,
+            "running_total": 52.5
+          },
+          {
+            "kind": "subtotal",
+            "label": "Your 3 H2 subjects",
+            "detail": null,
+            "points": null,
+            "running_total": 52.5
+          },
+          {
+            "kind": "heading",
+            "label": "General Paper",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "General Paper  C",
+            "detail": null,
+            "points": 7.5,
+            "running_total": 60.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 60.0
+          },
+          {
+            "kind": "heading",
+            "label": "Optional extra -- counted only if it helps",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "note",
+            "label": "No optional subject entered, so no bonus was added.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "total",
+            "label": "University Admission Score",
+            "detail": null,
+            "points": null,
+            "running_total": 60.0
+          }
+        ],
+        "warnings": [
+          "NUS states that no grade profile has yet been established on the new 70-point basis, because AY2026/2027 is the first year it is used. Any tool that compares your 70-point score directly against a published grade profile is comparing two different things. PathAhead does not do that: it compares your three H2 grades against the three H2 grades in the published profile, which is what NUS itself advises.\n",
+          "The exact grade-to-point table used here has not been confirmed against a primary publication and is marked medium confidence. The total is correct in structure; a single grade's point value could be off.\n"
+        ]
+      }
+    },
+    {
+      "id": "psle-typical-four-subjects",
+      "why": "the ordinary case: four Standard subjects, summed, lower is better",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "psle-to-secondary-2026",
+      "year_level": "pri-6",
+      "subjects": [
+        {
+          "code": "psle-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "3"
+        },
+        {
+          "code": "psle-mathematics",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "psle-science",
+          "name": "Science",
+          "level": "subject",
+          "grade": "2"
+        },
+        {
+          "code": "psle-mtl",
+          "name": "Mother Tongue Language",
+          "level": "subject",
+          "grade": "2"
+        }
+      ],
+      "expected": {
+        "value": 8.0,
+        "max_value": 32.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your four subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  AL3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 3.0
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  AL1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 4.0
+          },
+          {
+            "kind": "component",
+            "label": "Science  AL2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "component",
+            "label": "Mother Tongue Language  AL2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 8.0
+          },
+          {
+            "kind": "total",
+            "label": "PSLE Score",
+            "detail": null,
+            "points": null,
+            "running_total": 8.0
+          },
+          {
+            "kind": "note",
+            "label": "Lower is better. The best possible is 4 and the weakest is 32.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "The Achievement Level bands are fixed against the curriculum, not against the cohort. A child's AL does not depend on how anyone else did. The bands are deliberately uneven \u2014 MOE expects slightly under half the cohort to score AL1 to AL4, so the upper bands are narrower. An AL5 covering twenty marks does not mean AL4 is far away.\n",
+          "A cut-off point is the score of the FIRST and LAST student posted to a school in that Posting Group last year. It moves by a few points every year with each cohort's results and choices, and it is a record of what happened rather than a threshold \u2014 some students who matched it were tie-broken out and posted elsewhere.\n",
+          "Two MOE pages currently disagree about the second tie-breaker. The Full SBB infographic gives citizenship, then choice order, then ballot; the older results page says choice order does not give priority, but it is describing the 2020 cohort and states that the process changed from 2021. PathAhead encodes the infographic and links both.\n",
+          "A child admitted through Direct School Admission cannot submit the six S1 school choices and cannot transfer. The commitment runs for the duration of the programme, and it is agreed to before PSLE results exist.\n"
+        ]
+      }
+    },
+    {
+      "id": "psle-best-possible-score",
+      "why": "the floor of the scale. Four AL1s is a PSLE Score of 4, not of 0",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "psle-to-secondary-2026",
+      "year_level": "pri-6",
+      "subjects": [
+        {
+          "code": "psle-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "psle-mathematics",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "psle-science",
+          "name": "Science",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "psle-mtl",
+          "name": "Mother Tongue Language",
+          "level": "subject",
+          "grade": "1"
+        }
+      ],
+      "expected": {
+        "value": 4.0,
+        "max_value": 32.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your four subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  AL1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 1.0
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  AL1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 2.0
+          },
+          {
+            "kind": "component",
+            "label": "Science  AL1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 3.0
+          },
+          {
+            "kind": "component",
+            "label": "Mother Tongue Language  AL1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 4.0
+          },
+          {
+            "kind": "total",
+            "label": "PSLE Score",
+            "detail": null,
+            "points": null,
+            "running_total": 4.0
+          },
+          {
+            "kind": "note",
+            "label": "Lower is better. The best possible is 4 and the weakest is 32.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "The Achievement Level bands are fixed against the curriculum, not against the cohort. A child's AL does not depend on how anyone else did. The bands are deliberately uneven \u2014 MOE expects slightly under half the cohort to score AL1 to AL4, so the upper bands are narrower. An AL5 covering twenty marks does not mean AL4 is far away.\n",
+          "A cut-off point is the score of the FIRST and LAST student posted to a school in that Posting Group last year. It moves by a few points every year with each cohort's results and choices, and it is a record of what happened rather than a threshold \u2014 some students who matched it were tie-broken out and posted elsewhere.\n",
+          "Two MOE pages currently disagree about the second tie-breaker. The Full SBB infographic gives citizenship, then choice order, then ballot; the older results page says choice order does not give priority, but it is describing the 2020 cohort and states that the process changed from 2021. PathAhead encodes the infographic and links both.\n",
+          "A child admitted through Direct School Admission cannot submit the six S1 school choices and cannot transfer. The commitment runs for the duration of the programme, and it is agreed to before PSLE results exist.\n"
+        ]
+      }
+    },
+    {
+      "id": "psle-foundation-subject-substitutes",
+      "why": "a Foundation subject satisfies the Standard requirement and maps to AL6-AL8. Both engines must accept the sheet as complete -- reporting a missing subject here would be wrong, and to a parent it reads as an accusation about their child",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "psle-to-secondary-2026",
+      "year_level": "pri-6",
+      "subjects": [
+        {
+          "code": "psle-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "5"
+        },
+        {
+          "code": "psle-mathematics-foundation",
+          "name": "Foundation Mathematics",
+          "level": "subject",
+          "grade": "FA"
+        },
+        {
+          "code": "psle-science",
+          "name": "Science",
+          "level": "subject",
+          "grade": "6"
+        },
+        {
+          "code": "psle-mtl",
+          "name": "Mother Tongue Language",
+          "level": "subject",
+          "grade": "7"
+        }
+      ],
+      "expected": {
+        "value": 24.0,
+        "max_value": 32.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your four subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  AL5",
+            "detail": null,
+            "points": 5.0,
+            "running_total": 5.0
+          },
+          {
+            "kind": "component",
+            "label": "Foundation Mathematics  Foundation A",
+            "detail": "Foundation A counts as AL6 of the Standard scale when the four subjects are added up.",
+            "points": 6.0,
+            "running_total": 11.0
+          },
+          {
+            "kind": "component",
+            "label": "Science  AL6",
+            "detail": null,
+            "points": 6.0,
+            "running_total": 17.0
+          },
+          {
+            "kind": "component",
+            "label": "Mother Tongue Language  AL7",
+            "detail": null,
+            "points": 7.0,
+            "running_total": 24.0
+          },
+          {
+            "kind": "total",
+            "label": "PSLE Score",
+            "detail": null,
+            "points": null,
+            "running_total": 24.0
+          },
+          {
+            "kind": "note",
+            "label": "Lower is better. The best possible is 4 and the weakest is 32.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "The Achievement Level bands are fixed against the curriculum, not against the cohort. A child's AL does not depend on how anyone else did. The bands are deliberately uneven \u2014 MOE expects slightly under half the cohort to score AL1 to AL4, so the upper bands are narrower. An AL5 covering twenty marks does not mean AL4 is far away.\n",
+          "A cut-off point is the score of the FIRST and LAST student posted to a school in that Posting Group last year. It moves by a few points every year with each cohort's results and choices, and it is a record of what happened rather than a threshold \u2014 some students who matched it were tie-broken out and posted elsewhere.\n",
+          "Two MOE pages currently disagree about the second tie-breaker. The Full SBB infographic gives citizenship, then choice order, then ballot; the older results page says choice order does not give priority, but it is describing the 2020 cohort and states that the process changed from 2021. PathAhead encodes the infographic and links both.\n",
+          "A child admitted through Direct School Admission cannot submit the six S1 school choices and cannot transfer. The commitment runs for the duration of the programme, and it is agreed to before PSLE results exist.\n"
+        ]
+      }
+    },
+    {
+      "id": "psle-all-foundation-subjects",
+      "why": "every subject at Foundation level: FA/FB/FC must all map, and the label must never show 'FA'",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "psle-to-secondary-2026",
+      "year_level": "pri-6",
+      "subjects": [
+        {
+          "code": "psle-english-foundation",
+          "name": "Foundation English Language",
+          "level": "subject",
+          "grade": "FA"
+        },
+        {
+          "code": "psle-mathematics-foundation",
+          "name": "Foundation Mathematics",
+          "level": "subject",
+          "grade": "FB"
+        },
+        {
+          "code": "psle-science-foundation",
+          "name": "Foundation Science",
+          "level": "subject",
+          "grade": "FC"
+        },
+        {
+          "code": "psle-mtl-foundation",
+          "name": "Foundation Mother Tongue Language",
+          "level": "subject",
+          "grade": "FB"
+        }
+      ],
+      "expected": {
+        "value": 28.0,
+        "max_value": 32.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your four subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Foundation English Language  Foundation A",
+            "detail": "Foundation A counts as AL6 of the Standard scale when the four subjects are added up.",
+            "points": 6.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "component",
+            "label": "Foundation Mathematics  Foundation B",
+            "detail": "Foundation B counts as AL7 of the Standard scale when the four subjects are added up.",
+            "points": 7.0,
+            "running_total": 13.0
+          },
+          {
+            "kind": "component",
+            "label": "Foundation Science  Foundation C",
+            "detail": "Foundation C counts as AL8 of the Standard scale when the four subjects are added up.",
+            "points": 8.0,
+            "running_total": 21.0
+          },
+          {
+            "kind": "component",
+            "label": "Foundation Mother Tongue Language  Foundation B",
+            "detail": "Foundation B counts as AL7 of the Standard scale when the four subjects are added up.",
+            "points": 7.0,
+            "running_total": 28.0
+          },
+          {
+            "kind": "total",
+            "label": "PSLE Score",
+            "detail": null,
+            "points": null,
+            "running_total": 28.0
+          },
+          {
+            "kind": "note",
+            "label": "Lower is better. The best possible is 4 and the weakest is 32.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "The Achievement Level bands are fixed against the curriculum, not against the cohort. A child's AL does not depend on how anyone else did. The bands are deliberately uneven \u2014 MOE expects slightly under half the cohort to score AL1 to AL4, so the upper bands are narrower. An AL5 covering twenty marks does not mean AL4 is far away.\n",
+          "A cut-off point is the score of the FIRST and LAST student posted to a school in that Posting Group last year. It moves by a few points every year with each cohort's results and choices, and it is a record of what happened rather than a threshold \u2014 some students who matched it were tie-broken out and posted elsewhere.\n",
+          "Two MOE pages currently disagree about the second tie-breaker. The Full SBB infographic gives citizenship, then choice order, then ballot; the older results page says choice order does not give priority, but it is describing the 2020 cohort and states that the process changed from 2021. PathAhead encodes the infographic and links both.\n",
+          "A child admitted through Direct School Admission cannot submit the six S1 school choices and cannot transfer. The commitment runs for the duration of the programme, and it is agreed to before PSLE results exist.\n"
+        ]
+      }
+    },
+    {
+      "id": "psle-p5-cohort-next-years-exam",
+      "why": "cohort routing on a second stage: P5 resolves to the same transition a year out",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "psle-to-secondary-2026",
+      "year_level": "pri-5",
+      "subjects": [
+        {
+          "code": "psle-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "6"
+        },
+        {
+          "code": "psle-mathematics",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "5"
+        },
+        {
+          "code": "psle-science",
+          "name": "Science",
+          "level": "subject",
+          "grade": "6"
+        },
+        {
+          "code": "psle-mtl",
+          "name": "Mother Tongue Language",
+          "level": "subject",
+          "grade": "4"
+        }
+      ],
+      "expected": {
+        "value": 21.0,
+        "max_value": 32.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "Your four subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  AL6",
+            "detail": null,
+            "points": 6.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  AL5",
+            "detail": null,
+            "points": 5.0,
+            "running_total": 11.0
+          },
+          {
+            "kind": "component",
+            "label": "Science  AL6",
+            "detail": null,
+            "points": 6.0,
+            "running_total": 17.0
+          },
+          {
+            "kind": "component",
+            "label": "Mother Tongue Language  AL4",
+            "detail": null,
+            "points": 4.0,
+            "running_total": 21.0
+          },
+          {
+            "kind": "total",
+            "label": "PSLE Score",
+            "detail": null,
+            "points": null,
+            "running_total": 21.0
+          },
+          {
+            "kind": "note",
+            "label": "Lower is better. The best possible is 4 and the weakest is 32.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "The Achievement Level bands are fixed against the curriculum, not against the cohort. A child's AL does not depend on how anyone else did. The bands are deliberately uneven \u2014 MOE expects slightly under half the cohort to score AL1 to AL4, so the upper bands are narrower. An AL5 covering twenty marks does not mean AL4 is far away.\n",
+          "A cut-off point is the score of the FIRST and LAST student posted to a school in that Posting Group last year. It moves by a few points every year with each cohort's results and choices, and it is a record of what happened rather than a threshold \u2014 some students who matched it were tie-broken out and posted elsewhere.\n",
+          "Two MOE pages currently disagree about the second tie-breaker. The Full SBB infographic gives citizenship, then choice order, then ballot; the older results page says choice order does not give priority, but it is describing the 2020 cohort and states that the process changed from 2021. PathAhead encodes the infographic and links both.\n",
+          "A child admitted through Direct School Admission cannot submit the six S1 school choices and cannot transfer. The commitment runs for the duration of the programme, and it is agreed to before PSLE results exist.\n"
+        ]
+      }
+    },
+    {
+      "id": "olevel-l1r5-typical-seven-subjects",
+      "why": "the ordinary case: 7 subjects entered, L1R5 picks English + best Humanities + best Math/Science + best remaining of either + best 2 of everything left. Exercises every group in one pass",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "o-level-to-jc-mi-2027",
+      "year_level": "sec-4",
+      "subjects": [
+        {
+          "code": "ol-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "2"
+        },
+        {
+          "code": "ol-elit",
+          "name": "English Literature",
+          "level": "subject",
+          "grade": "3"
+        },
+        {
+          "code": "ol-history",
+          "name": "History",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-emath",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-amath",
+          "name": "Additional Mathematics",
+          "level": "subject",
+          "grade": "4"
+        },
+        {
+          "code": "ol-physics",
+          "name": "Physics",
+          "level": "subject",
+          "grade": "2"
+        },
+        {
+          "code": "ol-chemistry",
+          "name": "Chemistry",
+          "level": "subject",
+          "grade": "3"
+        }
+      ],
+      "expected": {
+        "value": 12.0,
+        "max_value": 54.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "L1 \u2014 English Language",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  A2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 2.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 2.0
+          },
+          {
+            "kind": "heading",
+            "label": "R1 \u2014 best Humanities subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "History  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 3.0
+          },
+          {
+            "kind": "excluded",
+            "label": "English Literature  B3",
+            "detail": "only the best 1 count in this group",
+            "points": 3.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 3.0
+          },
+          {
+            "kind": "heading",
+            "label": "R2 \u2014 best Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 4.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  A2",
+            "detail": "only the best 1 count in this group",
+            "points": 2.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Chemistry  B3",
+            "detail": "only the best 1 count in this group",
+            "points": 3.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Additional Mathematics  B4",
+            "detail": "only the best 1 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 4.0
+          },
+          {
+            "kind": "heading",
+            "label": "R3 \u2014 best remaining Humanities, Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Physics  A2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Chemistry  B3",
+            "detail": "only the best 1 count in this group",
+            "points": 3.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "English Literature  B3",
+            "detail": "only the best 1 count in this group",
+            "points": 3.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Additional Mathematics  B4",
+            "detail": "only the best 1 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 6.0
+          },
+          {
+            "kind": "heading",
+            "label": "R4 and R5 \u2014 best 2 remaining subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Chemistry  B3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 9.0
+          },
+          {
+            "kind": "component",
+            "label": "English Literature  B3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 12.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Additional Mathematics  B4",
+            "detail": "only the best 2 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 12.0
+          },
+          {
+            "kind": "total",
+            "label": "L1R5 gross aggregate",
+            "detail": null,
+            "points": null,
+            "running_total": 12.0
+          },
+          {
+            "kind": "note",
+            "label": "An aggregate of 20 or lower meets the stated requirement. Lower is better.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "This is the GROSS aggregate. MOE subtracts bonus points -- up to 4, from CCA grade, English-and-Higher-Mother-Tongue, a Special Programme or Bahasa Indonesia grade, or attending an affiliated JC -- to reach the NET aggregate JAE actually posts on. PathAhead does not collect CCA records or affiliation status, so your real result may be a few points lower (better) than this. The gross figure is the more conservative one to plan around.\n",
+          "L1 is modelled as English Language only. A student offering Higher Mother Tongue may use it as L1 instead if that produces a better aggregate -- MOE computes both and takes the better. PathAhead computes the English-as-L1 version only.\n",
+          "Which subject counts toward R1 (Humanities) versus R2 (Mathematics or Science) versus \"other\" is PathAhead's own classification of each subject by its ordinary meaning, not a transcription of MOE's official subject-group table. It affects which of YOUR subjects fills which slot, never whether a subject counts, and it is confidence medium.\n",
+          "A Junior College's cut-off range is the L1R5 net aggregate of the first and last student posted to it in the 2027 JAE -- the whole intake, both tails included, from a formula scored on GROSS above. It moves every year, and it is a record of what happened rather than a threshold: some students who matched it were tie-broken out and posted elsewhere.\n"
+        ]
+      }
+    },
+    {
+      "id": "olevel-l1r5-best-possible-score",
+      "why": "the floor of the scale: six A1s is an L1R5 of 6, not of 0",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "o-level-to-jc-mi-2027",
+      "year_level": "sec-4",
+      "subjects": [
+        {
+          "code": "ol-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-history",
+          "name": "History",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-emath",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-physics",
+          "name": "Physics",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-chemistry",
+          "name": "Chemistry",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-biology",
+          "name": "Biology",
+          "level": "subject",
+          "grade": "1"
+        }
+      ],
+      "expected": {
+        "value": 6.0,
+        "max_value": 54.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "L1 \u2014 English Language",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 1.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 1.0
+          },
+          {
+            "kind": "heading",
+            "label": "R1 \u2014 best Humanities subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "History  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 2.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 2.0
+          },
+          {
+            "kind": "heading",
+            "label": "R2 \u2014 best Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Biology  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 3.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Chemistry  A1",
+            "detail": "only the best 1 count in this group",
+            "points": 1.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Mathematics  A1",
+            "detail": "only the best 1 count in this group",
+            "points": 1.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  A1",
+            "detail": "only the best 1 count in this group",
+            "points": 1.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 3.0
+          },
+          {
+            "kind": "heading",
+            "label": "R3 \u2014 best remaining Humanities, Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Chemistry  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 4.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Mathematics  A1",
+            "detail": "only the best 1 count in this group",
+            "points": 1.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  A1",
+            "detail": "only the best 1 count in this group",
+            "points": 1.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 4.0
+          },
+          {
+            "kind": "heading",
+            "label": "R4 and R5 \u2014 best 2 remaining subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 5.0
+          },
+          {
+            "kind": "component",
+            "label": "Physics  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 6.0
+          },
+          {
+            "kind": "total",
+            "label": "L1R5 gross aggregate",
+            "detail": null,
+            "points": null,
+            "running_total": 6.0
+          },
+          {
+            "kind": "note",
+            "label": "An aggregate of 20 or lower meets the stated requirement. Lower is better.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "This is the GROSS aggregate. MOE subtracts bonus points -- up to 4, from CCA grade, English-and-Higher-Mother-Tongue, a Special Programme or Bahasa Indonesia grade, or attending an affiliated JC -- to reach the NET aggregate JAE actually posts on. PathAhead does not collect CCA records or affiliation status, so your real result may be a few points lower (better) than this. The gross figure is the more conservative one to plan around.\n",
+          "L1 is modelled as English Language only. A student offering Higher Mother Tongue may use it as L1 instead if that produces a better aggregate -- MOE computes both and takes the better. PathAhead computes the English-as-L1 version only.\n",
+          "Which subject counts toward R1 (Humanities) versus R2 (Mathematics or Science) versus \"other\" is PathAhead's own classification of each subject by its ordinary meaning, not a transcription of MOE's official subject-group table. It affects which of YOUR subjects fills which slot, never whether a subject counts, and it is confidence medium.\n",
+          "A Junior College's cut-off range is the L1R5 net aggregate of the first and last student posted to it in the 2027 JAE -- the whole intake, both tails included, from a formula scored on GROSS above. It moves every year, and it is a record of what happened rather than a threshold: some students who matched it were tie-broken out and posted elsewhere.\n"
+        ]
+      }
+    },
+    {
+      "id": "olevel-l1r5-only-one-humanities-subject",
+      "why": "with a single Humanities subject, R1 consumes it and R3 must fall back to the Mathematics/Science pool entirely -- proving `used` correctly empties the Humanities pool rather than reusing R1's pick",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "o-level-to-jc-mi-2027",
+      "year_level": "sec-4",
+      "subjects": [
+        {
+          "code": "ol-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "3"
+        },
+        {
+          "code": "ol-combined-humanities",
+          "name": "Combined Humanities",
+          "level": "subject",
+          "grade": "5"
+        },
+        {
+          "code": "ol-emath",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "2"
+        },
+        {
+          "code": "ol-amath",
+          "name": "Additional Mathematics",
+          "level": "subject",
+          "grade": "3"
+        },
+        {
+          "code": "ol-physics",
+          "name": "Physics",
+          "level": "subject",
+          "grade": "4"
+        },
+        {
+          "code": "ol-chemistry",
+          "name": "Chemistry",
+          "level": "subject",
+          "grade": "5"
+        }
+      ],
+      "expected": {
+        "value": 22.0,
+        "max_value": 54.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "L1 \u2014 English Language",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  B3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 3.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 3.0
+          },
+          {
+            "kind": "heading",
+            "label": "R1 \u2014 best Humanities subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Combined Humanities  C5",
+            "detail": null,
+            "points": 5.0,
+            "running_total": 8.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 8.0
+          },
+          {
+            "kind": "heading",
+            "label": "R2 \u2014 best Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  A2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 10.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Additional Mathematics  B3",
+            "detail": "only the best 1 count in this group",
+            "points": 3.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  B4",
+            "detail": "only the best 1 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Chemistry  C5",
+            "detail": "only the best 1 count in this group",
+            "points": 5.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 10.0
+          },
+          {
+            "kind": "heading",
+            "label": "R3 \u2014 best remaining Humanities, Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Additional Mathematics  B3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 13.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  B4",
+            "detail": "only the best 1 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Chemistry  C5",
+            "detail": "only the best 1 count in this group",
+            "points": 5.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 13.0
+          },
+          {
+            "kind": "heading",
+            "label": "R4 and R5 \u2014 best 2 remaining subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Physics  B4",
+            "detail": null,
+            "points": 4.0,
+            "running_total": 17.0
+          },
+          {
+            "kind": "component",
+            "label": "Chemistry  C5",
+            "detail": null,
+            "points": 5.0,
+            "running_total": 22.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 22.0
+          },
+          {
+            "kind": "total",
+            "label": "L1R5 gross aggregate",
+            "detail": null,
+            "points": null,
+            "running_total": 22.0
+          },
+          {
+            "kind": "note",
+            "label": "An aggregate of 20 or lower meets the stated requirement. Lower is better.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "This is the GROSS aggregate. MOE subtracts bonus points -- up to 4, from CCA grade, English-and-Higher-Mother-Tongue, a Special Programme or Bahasa Indonesia grade, or attending an affiliated JC -- to reach the NET aggregate JAE actually posts on. PathAhead does not collect CCA records or affiliation status, so your real result may be a few points lower (better) than this. The gross figure is the more conservative one to plan around.\n",
+          "L1 is modelled as English Language only. A student offering Higher Mother Tongue may use it as L1 instead if that produces a better aggregate -- MOE computes both and takes the better. PathAhead computes the English-as-L1 version only.\n",
+          "Which subject counts toward R1 (Humanities) versus R2 (Mathematics or Science) versus \"other\" is PathAhead's own classification of each subject by its ordinary meaning, not a transcription of MOE's official subject-group table. It affects which of YOUR subjects fills which slot, never whether a subject counts, and it is confidence medium.\n",
+          "A Junior College's cut-off range is the L1R5 net aggregate of the first and last student posted to it in the 2027 JAE -- the whole intake, both tails included, from a formula scored on GROSS above. It moves every year, and it is a record of what happened rather than a threshold: some students who matched it were tie-broken out and posted elsewhere.\n"
+        ]
+      }
+    },
+    {
+      "id": "sec-l1r4-2028-cohort",
+      "why": "the SEC-era formula on a different cohort and a different ceiling: 4 subjects, not 5, and this transition carries NO course outcomes yet -- the derivation must still be complete and correct on its own",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "sec-to-jc-mi-2028",
+      "year_level": "sec-3",
+      "subjects": [
+        {
+          "code": "ol-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "2"
+        },
+        {
+          "code": "ol-geography",
+          "name": "Geography",
+          "level": "subject",
+          "grade": "3"
+        },
+        {
+          "code": "ol-emath",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-physics",
+          "name": "Physics",
+          "level": "subject",
+          "grade": "4"
+        },
+        {
+          "code": "ol-chemistry",
+          "name": "Chemistry",
+          "level": "subject",
+          "grade": "2"
+        }
+      ],
+      "expected": {
+        "value": 8.0,
+        "max_value": 36.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "L1 \u2014 G3 English Language",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  A2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 2.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 2.0
+          },
+          {
+            "kind": "heading",
+            "label": "R1 \u2014 best Humanities subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Geography  B3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 5.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 5.0
+          },
+          {
+            "kind": "heading",
+            "label": "R2 \u2014 best Mathematics or Science subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Chemistry  A2",
+            "detail": "only the best 1 count in this group",
+            "points": 2.0,
+            "running_total": null
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  B4",
+            "detail": "only the best 1 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 6.0
+          },
+          {
+            "kind": "heading",
+            "label": "R3 \u2014 any 1 best-scoring remaining subject",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Chemistry  A2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 8.0
+          },
+          {
+            "kind": "excluded",
+            "label": "Physics  B4",
+            "detail": "only the best 1 count in this group",
+            "points": 4.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 8.0
+          },
+          {
+            "kind": "total",
+            "label": "L1R4 gross aggregate (G3 basis)",
+            "detail": null,
+            "points": null,
+            "running_total": 8.0
+          },
+          {
+            "kind": "note",
+            "label": "An aggregate of 16 or lower meets the stated requirement. Lower is better.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "THIS TRANSITION HAS NO COURSE OUTCOMES LOADED, AND CANNOT HAVE ANY YET. The Post-Secondary Admissions Exercise this feeds does not run until 2028 -- no junior college has published a cut-off under it, because none exists. PathAhead computes your aggregate and stops there, rather than showing last cohort's L1R5 ranges next to it: those are a different subject count on a different ceiling, and putting the two side by side would look like a comparison and be nonsense. See SAFEGUARDS.md 4b2.\n",
+          "L1R4 <= 16 (2028) is NOT a rescaled L1R5 <= 20 (2026/2027). Five subjects became four, and the ceiling dropped by more than proportionally. There is no arithmetic that turns one into the other.\n",
+          "Bonus points, CCA-based and otherwise, are not modelled. This is the gross aggregate. All subjects here are assumed taken at G3 -- the G3-to-G2 mapping that matters for the polytechnic transition below does not apply to L1R4, which requires G3 across the board.\n",
+          "The subject-field classification (Humanities / Mathematics-or-Science) carries the same medium-confidence caveat as the 2027 transition.\n"
+        ]
+      }
+    },
+    {
+      "id": "olevel-elr2b2-generic-polytechnic",
+      "why": "the polytechnic-facing transition: English plus the best 4 remaining, no tag restriction on the second group at all -- the simplest group shape, and the one most likely to be got right by accident if the tagged groups above were wrong",
+      "pack": "singapore",
+      "pack_version": "sg-2026.1",
+      "transition": "o-level-to-polytechnic-2027",
+      "year_level": "sec-4",
+      "subjects": [
+        {
+          "code": "ol-english",
+          "name": "English Language",
+          "level": "subject",
+          "grade": "3"
+        },
+        {
+          "code": "ol-emath",
+          "name": "Mathematics",
+          "level": "subject",
+          "grade": "2"
+        },
+        {
+          "code": "ol-combined-science",
+          "name": "Combined Science",
+          "level": "subject",
+          "grade": "4"
+        },
+        {
+          "code": "ol-poa",
+          "name": "Principles of Accounts",
+          "level": "subject",
+          "grade": "5"
+        },
+        {
+          "code": "ol-art",
+          "name": "Art",
+          "level": "subject",
+          "grade": "1"
+        },
+        {
+          "code": "ol-history",
+          "name": "History",
+          "level": "subject",
+          "grade": "6"
+        }
+      ],
+      "expected": {
+        "value": 15.0,
+        "max_value": 45.0,
+        "direction": "lower_is_better",
+        "unit": "points",
+        "steps": [
+          {
+            "kind": "heading",
+            "label": "EL \u2014 English Language",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "English Language  B3",
+            "detail": null,
+            "points": 3.0,
+            "running_total": 3.0
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 3.0
+          },
+          {
+            "kind": "heading",
+            "label": "R1, R2, B1, B2 \u2014 best 4 remaining subjects",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          },
+          {
+            "kind": "component",
+            "label": "Art  A1",
+            "detail": null,
+            "points": 1.0,
+            "running_total": 4.0
+          },
+          {
+            "kind": "component",
+            "label": "Mathematics  A2",
+            "detail": null,
+            "points": 2.0,
+            "running_total": 6.0
+          },
+          {
+            "kind": "component",
+            "label": "Combined Science  B4",
+            "detail": null,
+            "points": 4.0,
+            "running_total": 10.0
+          },
+          {
+            "kind": "component",
+            "label": "Principles of Accounts  C5",
+            "detail": null,
+            "points": 5.0,
+            "running_total": 15.0
+          },
+          {
+            "kind": "excluded",
+            "label": "History  C6",
+            "detail": "only the best 4 count in this group",
+            "points": 6.0,
+            "running_total": null
+          },
+          {
+            "kind": "subtotal",
+            "label": "Subtotal",
+            "detail": null,
+            "points": null,
+            "running_total": 15.0
+          },
+          {
+            "kind": "total",
+            "label": "ELR2B2 net aggregate (generic)",
+            "detail": null,
+            "points": null,
+            "running_total": 15.0
+          },
+          {
+            "kind": "note",
+            "label": "An aggregate of 26 or lower meets the stated requirement. Lower is better.",
+            "detail": null,
+            "points": null,
+            "running_total": null
+          }
+        ],
+        "warnings": [
+          "THIS IS AN APPROXIMATION, NOT THE REAL ELR2B2. The actual formula is English plus 2 subjects the DIPLOMA COURSE names as \"relevant\" plus your 2 remaining best subjects -- and which subjects count as relevant differs by course: an engineering diploma names Mathematics and Physics, a business diploma names Principles of Accounts and Combined Humanities. PathAhead does not hold that per-course list, so it computes English plus your best 4 remaining subjects overall. For most students most of the time this produces the same number, because your best subjects and a course's relevant subjects often overlap -- but it can differ, and the honest thing to do is say so on every screen that shows this figure rather than present it as the number the polytechnic itself would compute.\n",
+          "Bonus points (up to 2, from a CCA grade) are not modelled. This is the gross aggregate.\n",
+          "A polytechnic course's published range is the whole admitted intake -- the lowest and highest ELR2B2 of anyone admitted -- not a middle band. It moves every year, and it is a record of last year's intake rather than a promise about this year's.\n"
+        ]
+      }
+    }
+  ],
+  "fit_cases": [
+    {
+      "id": "fit-subject-gate-blocked",
+      "why": "the reported bug: a student with no Physics must get NO score on Applied Physics from EITHER engine. If the two disagree here, the website and the app tell one family two different things about whether a door is open.",
+      "profile": {
+        "interests": [
+          "I"
+        ],
+        "enjoyed_subjects": [
+          "economics"
+        ],
+        "subjects_offered": [
+          "mathematics",
+          "economics",
+          "literature"
+        ],
+        "assessment_style": "exams",
+        "teamwork": "individual"
+      },
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": 58,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-nursing": {
+          "score": 25,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-medicine": {
+          "score": 33,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Cost",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-humanities-sciences": {
+          "score": 72,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.3,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "ntu-physics-applied-physics": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Physics here, which is not among the subjects you said you take. It is left in the list rather than hidden, because the requirement is the institution's to state and to waive, not PathAhead's to assume you cannot meet. NTU publishes this in its Minimum Subject Requirements table for Singapore-Cambridge GCE 'A' Level applicants. Where it asks for a \"good grade\", PathAhead checks only that you offer the subject -- it does not hold your grades and will not guess at them.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-mathematical-sciences": {
+          "score": 67,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fit-subject-gate-satisfied-by-family",
+      "why": "Further Mathematics satisfies a Mathematics requirement, in both engines. Blocking here would take away a course the student is plainly qualified for, which is the costlier direction to be wrong in.",
+      "profile": {
+        "interests": [
+          "I"
+        ],
+        "subjects_offered": [
+          "further-mathematics",
+          "physics",
+          "chemistry"
+        ],
+        "assessment_style": "exams",
+        "teamwork": "individual"
+      },
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": 70,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-nursing": {
+          "score": 30,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-medicine": {
+          "score": 40,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Cost",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-humanities-sciences": {
+          "score": 80,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "ntu-physics-applied-physics": {
+          "score": 80,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "ntu-mathematical-sciences": {
+          "score": 80,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "fit-technical-individual",
+      "why": "every factor engaged, including a zero-scoring one",
+      "profile": {
+        "interests": [
+          "I",
+          "R"
+        ],
+        "enjoyed_subjects": [
+          "mathematics",
+          "computing"
+        ],
+        "assessment_style": "coursework",
+        "teamwork": "individual",
+        "priorities": [
+          "earnings",
+          "stability"
+        ],
+        "willing_extra_assessment": false,
+        "cost_sensitive": true,
+        "goal_text": "build things people actually use"
+      },
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": 93,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What you said matters",
+              "points": 0.8,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.7,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-nursing": {
+          "score": 50,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What you said matters",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-medicine": {
+          "score": 17,
+          "unscored_reason": null,
+          "not_assessed": [
+            "what you said matters most -- PathAhead has no published outcome figures for this course, which says nothing about the course"
+          ],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-humanities-sciences": {
+          "score": 72,
+          "unscored_reason": null,
+          "not_assessed": [
+            "what you said matters most -- PathAhead has no published outcome figures for this course, which says nothing about the course"
+          ],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.3,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "ntu-physics-applied-physics": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Physics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-mathematical-sciences": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Mathematics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        }
+      }
+    },
+    {
+      "id": "fit-caring-team",
+      "why": "a different student must get a different ordering",
+      "profile": {
+        "interests": [
+          "S"
+        ],
+        "enjoyed_subjects": [
+          "biology",
+          "chemistry"
+        ],
+        "assessment_style": "practical",
+        "teamwork": "team",
+        "willing_extra_assessment": true
+      },
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": 50,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-nursing": {
+          "score": 75,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-medicine": {
+          "score": 67,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "How you are assessed",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Cost",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-humanities-sciences": {
+          "score": 53,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.7,
+              "max_points": 1.0
+            },
+            {
+              "label": "Working style",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "How you are assessed",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "ntu-physics-applied-physics": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Physics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-mathematical-sciences": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Mathematics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        }
+      }
+    },
+    {
+      "id": "fit-regression-further-maths-real-session",
+      "why": "the real session that shipped broken: Further Mathematics must count as mathematics, and courses with no survey data must not be marked down for it",
+      "profile": {
+        "interests": [
+          "R",
+          "A",
+          "C"
+        ],
+        "enjoyed_subjects": [
+          "further-mathematics"
+        ],
+        "priorities": [
+          "earnings",
+          "impact",
+          "autonomy",
+          "stability"
+        ]
+      },
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": 72,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What you said matters",
+              "points": 0.8,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.3,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-nursing": {
+          "score": 40,
+          "unscored_reason": null,
+          "not_assessed": [],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What you said matters",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-medicine": {
+          "score": 13,
+          "unscored_reason": null,
+          "not_assessed": [
+            "what you said matters most -- PathAhead has no published outcome figures for this course, which says nothing about the course"
+          ],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.0,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "nus-humanities-sciences": {
+          "score": 70,
+          "unscored_reason": null,
+          "not_assessed": [
+            "what you said matters most -- PathAhead has no published outcome figures for this course, which says nothing about the course"
+          ],
+          "factors": [
+            {
+              "label": "Cost",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "Extra assessment",
+              "points": 1.0,
+              "max_points": 1.0
+            },
+            {
+              "label": "What pulls at you",
+              "points": 0.5,
+              "max_points": 1.0
+            },
+            {
+              "label": "Subjects you enjoy",
+              "points": 0.3,
+              "max_points": 1.0
+            }
+          ]
+        },
+        "ntu-physics-applied-physics": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Physics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-mathematical-sciences": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Mathematics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        }
+      }
+    },
+    {
+      "id": "fit-below-minimum-signals",
+      "why": "one answer must produce no score at all, not a misleading 50",
+      "profile": {
+        "interests": [
+          "A"
+        ]
+      },
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "nus-nursing": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "nus-medicine": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "nus-humanities-sciences": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-physics-applied-physics": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Physics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-mathematical-sciences": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Mathematics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        }
+      }
+    },
+    {
+      "id": "fit-no-answers",
+      "why": "an empty profile must decline to score",
+      "profile": {},
+      "outcomes": [
+        "nus-computer-science",
+        "nus-nursing",
+        "nus-medicine",
+        "nus-humanities-sciences",
+        "ntu-physics-applied-physics",
+        "ntu-mathematical-sciences"
+      ],
+      "expected": {
+        "nus-computer-science": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "nus-nursing": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "nus-medicine": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "nus-humanities-sciences": {
+          "score": null,
+          "unscored_reason": "Answer at least two of the optional questions and PathAhead will show how well this course matches what you said \u2014 with the reasoning, line by line.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-physics-applied-physics": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Physics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        },
+        "ntu-mathematical-sciences": {
+          "score": null,
+          "unscored_reason": "NTU asks for H2 Level pass in Mathematics before it will consider an application here. PathAhead has not been told which subjects you take, so it will not rank this as a match either way. Fill in the subjects you are taking and it will.",
+          "not_assessed": [],
+          "factors": []
+        }
+      }
+    }
+  ],
+  "school_match_cases": [
+    {
+      "id": "school-match-no-filters",
+      "why": "nothing set must match every eligible school -- an unfiltered family sees the whole pool",
+      "preferences": {},
+      "schools": [
+        "admiralty-secondary-school",
+        "anglican-high-school"
+      ],
+      "expected": {
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": null
+        },
+        "anglican-high-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": null
+        }
+      }
+    },
+    {
+      "id": "school-match-one-filter-is-enough",
+      "why": "a single filter hides a non-matching school outright. student_sex is set to 'female' purely so the (separately tested) sex-eligibility gate does not mask this case's actual point: a girls' school CHIJ Katong is eligible for a girl, and still fails to match because it is not co-ed",
+      "preferences": {
+        "gender": "co-ed",
+        "student_sex": "female"
+      },
+      "schools": [
+        "admiralty-secondary-school",
+        "chij-katong-convent"
+      ],
+      "expected": {
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": null
+        },
+        "chij-katong-convent": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "gender"
+          ],
+          "distance_km": null
+        }
+      }
+    },
+    {
+      "id": "school-match-distance-km-with-a-postal-code",
+      "why": "distance_km is informational and drives the shortlist's sort order and the separate km-band filter, never a match dimension here -- this case exists to keep the two engines' haversine arithmetic in agreement, not to test filtering",
+      "preferences": {
+        "postal_code": "737916"
+      },
+      "schools": [
+        "admiralty-secondary-school",
+        "ahmad-ibrahim-secondary-school",
+        "beatty-secondary-school"
+      ],
+      "expected": {
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": 8.2
+        },
+        "ahmad-ibrahim-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": 10.4
+        },
+        "beatty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": 14.1
+        }
+      }
+    },
+    {
+      "id": "school-match-wanting-every-trait",
+      "why": "every 'want' filter engaged at once, against schools that do and do not have each trait",
+      "preferences": {
+        "want_sap": true,
+        "want_ip": true,
+        "want_autonomous": true,
+        "want_gifted": true,
+        "school_types": [
+          "Independent school"
+        ]
+      },
+      "schools": [
+        "anglican-high-school",
+        "anglo-chinese-school-independent",
+        "anderson-secondary-school",
+        "admiralty-secondary-school"
+      ],
+      "expected": {
+        "anglican-high-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "ip",
+            "gifted",
+            "school_type"
+          ],
+          "distance_km": null
+        },
+        "anglo-chinese-school-independent": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "sap",
+            "autonomous"
+          ],
+          "distance_km": null
+        },
+        "anderson-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "sap",
+            "ip",
+            "gifted",
+            "school_type"
+          ],
+          "distance_km": null
+        },
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "sap",
+            "ip",
+            "autonomous",
+            "gifted",
+            "school_type"
+          ],
+          "distance_km": null
+        }
+      }
+    },
+    {
+      "id": "school-match-sex-eligibility-gate",
+      "why": "the fix for the 2026-08-13 review finding: a single-sex school must be INELIGIBLE, never merely a non-match, for a student who cannot attend it -- and unconfirmed for a different, clearly stated reason when student_sex is simply not yet known. Checked before any preference filter, independent of every one of them. A postal code is also set here to prove distance_km is populated even for a school this gate has just excluded -- distance is informational and never gated",
+      "preferences": {
+        "student_sex": "male",
+        "want_sap": true,
+        "want_ip": true,
+        "want_autonomous": true,
+        "postal_code": "737916"
+      },
+      "schools": [
+        "chij-katong-convent",
+        "anglo-chinese-school-barker-road",
+        "admiralty-secondary-school"
+      ],
+      "expected": {
+        "chij-katong-convent": {
+          "eligible": false,
+          "eligibility_reason": "This is a girls school; it does not admit boys. Not a preference to weigh \u2014 not a real option for this child.",
+          "matches_preferences": false,
+          "unmet": [
+            "sap",
+            "ip"
+          ],
+          "distance_km": 22.3
+        },
+        "anglo-chinese-school-barker-road": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "sap",
+            "ip",
+            "autonomous"
+          ],
+          "distance_km": 14.1
+        },
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "sap",
+            "ip",
+            "autonomous"
+          ],
+          "distance_km": 8.2
+        }
+      }
+    },
+    {
+      "id": "school-match-sex-unknown-gates-single-sex-schools-only",
+      "why": "no student_sex at all must gate girls'/boys' schools specifically, not co-ed ones",
+      "preferences": {
+        "want_sap": true
+      },
+      "schools": [
+        "chij-katong-convent",
+        "admiralty-secondary-school"
+      ],
+      "expected": {
+        "chij-katong-convent": {
+          "eligible": null,
+          "eligibility_reason": "This is a girls school. PathAhead has not been told your child's sex, so it cannot confirm whether this school is even an option \u2014 answer that above and this will resolve one way or the other.",
+          "matches_preferences": false,
+          "unmet": [
+            "sap"
+          ],
+          "distance_km": null
+        },
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "sap"
+          ],
+          "distance_km": null
+        }
+      }
+    },
+    {
+      "id": "school-match-avoiding-every-trait",
+      "why": "the mirror image: 'avoid SAP/IP/Autonomous/Gifted' must match the traits' ABSENCE, not just skip them",
+      "preferences": {
+        "want_sap": false,
+        "want_ip": false,
+        "want_autonomous": false,
+        "want_gifted": false
+      },
+      "schools": [
+        "admiralty-secondary-school",
+        "anglo-chinese-school-independent"
+      ],
+      "expected": {
+        "admiralty-secondary-school": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": true,
+          "unmet": [],
+          "distance_km": null
+        },
+        "anglo-chinese-school-independent": {
+          "eligible": true,
+          "eligibility_reason": null,
+          "matches_preferences": false,
+          "unmet": [
+            "ip",
+            "gifted"
+          ],
+          "distance_km": null
+        }
+      }
+    }
+  ],
+  "within_reach_cases": [
+    {
+      "id": "within-reach-clear-yes",
+      "why": "a score comfortably inside the cut-off is in reach",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "psle_score": 20,
+      "family_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": true
+    },
+    {
+      "id": "within-reach-margin-boundary",
+      "why": "a score exactly cutoff+margin is still in reach -- the margin exists precisely for this case",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "psle_score": 24,
+      "family_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": true
+    },
+    {
+      "id": "within-reach-clear-no",
+      "why": "one point past cutoff+margin is genuinely out of reach",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "psle_score": 25,
+      "family_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": false
+    },
+    {
+      "id": "within-reach-no-cutoff-held-is-unknown-not-no",
+      "why": "no cutoff held for this school -- whether because it admits through a specialised route, or (the shipped case) because PathAhead does not republish these figures -- must answer None, never False. 'Cannot tell' is not the same claim as 'not in reach'",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": null
+      },
+      "psle_score": 10,
+      "family_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": null
+    },
+    {
+      "id": "within-reach-score-outside-posting-table-is-unknown",
+      "why": "empty family_groups (score outside the published Posting Group table) must also answer None",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "psle_score": 31,
+      "family_groups": [],
+      "margin": 2,
+      "expected": null
+    },
+    {
+      "id": "within-reach-group-with-no-published-band-is-unknown",
+      "why": "a school with PG3/PG2 but no PG1 band -- a family in PG1 must get None for THIS school, not a false negative from a band that was never published",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": [
+            21,
+            25
+          ],
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "psle_score": 26,
+      "family_groups": [
+        1
+      ],
+      "margin": 2,
+      "expected": null
+    },
+    {
+      "id": "within-reach-a-choice-between-groups-checks-either",
+      "why": "a score that opens a CHOICE between two Posting Groups (family_groups has 2 entries) is in reach if EITHER group's cutoff would admit it -- the family could choose that one",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": [
+            21,
+            25
+          ],
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "psle_score": 27,
+      "family_groups": [
+        2,
+        3
+      ],
+      "margin": 2,
+      "expected": true
+    }
+  ]
+}

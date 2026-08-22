@@ -1,0 +1,37 @@
+# Stages -- the exams themselves. Largely static metadata; the churn lives in
+# transitions.yaml.
+
+stages:
+  - id: a-level
+    name: Singapore-Cambridge GCE A-Level
+    authority: SEAB / Cambridge Assessment
+    typical_age: "18-19, at the end of Junior College (2 years) or Millennia Institute (3 years)"
+    subject_levels: [h1, h2, h3, gp, mtl, pw]
+    description: >
+      Taken at the end of Junior College or Millennia Institute. Feeds admission
+      to Singapore's autonomous universities and to universities overseas.
+
+  - id: psle
+    name: Primary School Leaving Examination
+    authority: SEAB
+    typical_age: "12, at the end of Primary 6"
+    subject_levels: [subject]
+    description: >
+      Four subjects -- English, Mathematics, Science and Mother Tongue -- each
+      graded on an Achievement Level from AL1 to AL8 against fixed benchmarks
+      rather than against the cohort. The PSLE Score is the sum of the four,
+      from 4 (best) to 32, and it decides which of three Posting Groups a child
+      enters secondary school through. Foundation-level subjects are graded A
+      to C and map to AL6 to AL8. The scoring and posting rules are loaded;
+      secondary schools themselves are not -- psle.yaml says why that gap is
+      deliberate rather than unfinished.
+
+  - id: o-level
+    name: Singapore-Cambridge GCE O-Level
+    authority: SEAB / Cambridge Assessment
+    typical_age: "16, at the end of Secondary 4"
+    subject_levels: [subject]
+    description: >
+      2026 is the final year this qualification is awarded. From 2027 it is
+      replaced by the Singapore-Cambridge Secondary Education Certificate (SEC).
+      Not yet loaded in this pack -- see ROADMAP.md Phase C.

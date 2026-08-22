@@ -1,0 +1,351 @@
+# PathAhead data pack: Singapore — the PSLE stage
+#
+# Everything for one stage in one reviewable file: its sources, the cohorts
+# that sit it, the subjects it examines, and the transition that turns four
+# Achievement Levels into a posting group. The A-Level stage is spread across
+# several files because it grew; this one is meant to be read end to end by a
+# teacher or a parent in a single sitting.
+#
+# WHAT THIS FILE DOES NOT CONTAIN, DELIBERATELY: schools.
+#
+# A secondary school's cut-off range is published per school and per posting
+# group in MOE's SchoolFinder under MOE's Terms of Use, which permit citing and
+# deep-linking but not bulk copying (SAFEGUARDS.md §3b). Loading 148 schools is
+# a separate piece of work with a licensing review attached to it. Shipping the
+# scoring and the posting rules first is honest: it answers "what does this
+# score mean" completely, and says nothing at all about "which school", rather
+# than answering the second question badly.
+#
+# Verified against moe.gov.sg on 2026-08-09. See docs/POST_PSLE_AND_PORTAL.md §1.
+
+sources:
+  - id: moe-psle-scoring-2026
+    name: PSLE scoring system
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/psle-fsbb/psle/psle-scoring-system
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      Gives the eight Achievement Level mark bands, the four subjects, the 4-32
+      range, the Foundation A-C grades and their mapping to Standard AL6-AL8,
+      the treatment of Mother Tongue exemption, and the Higher Chinese posting
+      advantage for SAP schools. Only the figures are recorded here; no MOE
+      text, table layout or document is reproduced.
+
+  - id: moe-posting-groups-2026
+    name: Secondary 1 posting — what are Posting Groups
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/secondary/s1-posting/how-to-choose/what-are-posting-groups
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      Gives the PSLE-score-to-Posting-Group table, the rule that a chosen group
+      applies to all six school choices, the rule that submitting nothing
+      assigns the more academically demanding group, and the note that students
+      in Posting Groups 1 and 2 may take English, Mathematics, Science and
+      Mother Tongue at more demanding levels.
+
+  - id: moe-s1-tiebreakers-2026
+    name: Tie-breakers in the S1 Posting System
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/microsites/psle-fsbb/assets/infographics/new-psle-scoring-system/tie-breaker.pdf
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      The current three-step order: citizenship, then choice order of schools,
+      then computerised balloting. NOTE FOR ANYONE UPDATING THIS: the page at
+      moe.gov.sg/secondary/s1-posting/results/how-posted states that choice
+      order does NOT give priority, but it is describing the 2020 P6 cohort and
+      says so — it is a stale page, not a contradiction in policy. Both are
+      recorded; see the caveats on the transition below.
+
+  - id: moe-s1-posting-2026
+    name: Secondary 1 (S1) Posting process
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/secondary/s1-posting
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      The exercise timeline and the six school choices. Also the source for the
+      rule that a student who cannot be placed in any of their six choices is
+      posted to the nearest available school based on the registered address —
+      the only point at which a home address affects an S1 outcome.
+
+  - id: moe-s1-score-ranges-2026
+    name: Secondary 1 posting — understand PSLE score ranges
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/secondary/s1-posting/how-to-choose/understand-psle-score-ranges
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      Defines a cut-off point as the PSLE score of the first and last student
+      posted to a school in each Posting Group in the previous year, states
+      that cut-off points fluctuate year on year, and states that meeting one
+      does not guarantee admission because a student may be tie-broken out.
+      This is a min-max statistic; see SAFEGUARDS.md §4 b2.
+
+  - id: moe-dsa-sec-2026
+    name: Direct School Admission for secondary schools (DSA-Sec)
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/secondary/dsa
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      Up to three school-and-talent-area choices, applied for before PSLE
+      results exist. Source for the commitment term: a child admitted through
+      DSA-Sec cannot submit S1 school choices and cannot transfer.
+
+  - id: moe-school-types-2021
+    name: Secondary school types
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/secondary/schools/types
+    retrieved: 2026-08-09
+    licence: moe-tou
+    note: >
+      Government, Government-aided, Independent, Specialised Independent and
+      Specialised schools. WARNING — this page was last updated 1 February 2021
+      and still uses pre-Full-SBB stream vocabulary. The school types are
+      encoded; the stream language is not. Confidence medium; re-verify before
+      any school-level data is loaded.
+
+# ---------------------------------------------------------------------------
+# Cohorts — the question a family can always answer
+# ---------------------------------------------------------------------------
+
+cohorts:
+  - year_level: pri-6
+    label: Primary 6
+    stage: psle
+    years_to_exam: 0
+    admission_offset: 1
+    transition: psle-to-secondary-2026
+    note: >
+      Your child sits the PSLE this year. Results come out in late November and
+      secondary school posting is decided in December, for a place starting the
+      following January.
+
+  - year_level: pri-5
+    label: Primary 5
+    stage: psle
+    years_to_exam: 1
+    admission_offset: 1
+    transition: psle-to-secondary-2026
+    note: >
+      Your child sits the PSLE next year. The Achievement Level bands below are
+      fixed rather than cohort-relative, so they do not move between now and
+      then — but school cut-off ranges do, every year, so treat any range you
+      read this year as an indication and check again after the next posting.
+
+# ---------------------------------------------------------------------------
+# Subjects
+#
+# Four subjects, and that is the whole examination. `level: subject` matches
+# the level the PSLE stage declares in stages.yaml.
+#
+# Foundation subjects are listed separately rather than as a flag on the
+# Standard ones, because a family choosing from a list should see exactly what
+# their child sits, and because the two are graded on different scales — a
+# Foundation "A" and a Standard "A" have nothing to do with each other.
+# ---------------------------------------------------------------------------
+
+subjects:
+  - {code: psle-english,     name: English Language,         levels: [subject], stage: psle, aka: [el, english]}
+  - {code: psle-mathematics, name: Mathematics,              levels: [subject], stage: psle, aka: [maths, math]}
+  - {code: psle-science,     name: Science,                  levels: [subject], stage: psle, aka: [sci]}
+  - {code: psle-mtl,         name: Mother Tongue Language,   levels: [subject], stage: psle, aka: [mtl, mother tongue, chinese, malay, tamil, higher chinese, hcl]}
+  - {code: psle-english-foundation,     name: "Foundation English Language",   levels: [subject], stage: psle, aka: [foundation el], family: psle-english}
+  - {code: psle-mathematics-foundation, name: "Foundation Mathematics",        levels: [subject], stage: psle, aka: [foundation maths], family: psle-mathematics}
+  - {code: psle-science-foundation,     name: "Foundation Science",            levels: [subject], stage: psle, aka: [foundation science], family: psle-science}
+  - {code: psle-mtl-foundation,         name: "Foundation Mother Tongue Language", levels: [subject], stage: psle, aka: [foundation mtl], family: psle-mtl}
+
+# ---------------------------------------------------------------------------
+# The transition
+# ---------------------------------------------------------------------------
+
+transitions:
+  - id: psle-to-secondary-2026
+    stage: psle
+    name: PSLE to secondary school — the PSLE Score and Posting Groups
+    applies_to_exam_years: [2026, 2027]
+    admission_years: [2027, 2028]
+    direction: lower_is_better
+    policy_status: settled
+
+    rule_kind: lowest_sum
+    rule_params:
+      label: Your four subjects
+      total_label: PSLE Score
+      unit: points
+      scale: al
+      best_possible: 4
+      worst_possible: 32
+      # `accepts` names the Foundation subject that satisfies the same
+      # requirement. A child who sat Foundation Mathematics has sat the
+      # Mathematics paper; without this the engine would report their score as
+      # missing a subject, which is wrong and reads as an accusation.
+      required_subjects:
+        - {code: psle-english,     name: English Language,       accepts: [psle-english-foundation]}
+        - {code: psle-mathematics, name: Mathematics,            accepts: [psle-mathematics-foundation]}
+        - {code: psle-science,     name: Science,                accepts: [psle-science-foundation]}
+        - {code: psle-mtl,         name: Mother Tongue Language, accepts: [psle-mtl-foundation]}
+
+      # -- Posting Groups ---------------------------------------------------
+      #
+      # A gate, not a score. A posting group says which secondary courses a
+      # child may be posted to; it says nothing about how well a school would
+      # suit them, and PathAhead must never let it stand in for that.
+      #
+      # `groups` is ordered from best score to weakest and is read as a range
+      # over the PSLE Score. Where two groups are listed the family CHOOSES,
+      # and the choice applies to all six school choices — it cannot be mixed.
+      posting_groups:
+        source: moe-posting-groups-2026
+        default_when_unsubmitted: most_demanding
+        choice_applies_to_all_six: true
+        groups:
+          - {min: 4,  max: 20, groups: [3],    level: G3,       note: "Most subjects at G3 at the start of Secondary 1."}
+          - {min: 21, max: 22, groups: [2, 3], level: G2 or G3, note: "You choose between two Posting Groups. The choice applies to all six school choices."}
+          - {min: 23, max: 24, groups: [2],    level: G2,       note: "Most subjects at G2 at the start of Secondary 1."}
+          - {min: 25, max: 25, groups: [1, 2], level: G1 or G2, note: "You choose between two Posting Groups. The choice applies to all six school choices."}
+          - {min: 26, max: 30, groups: [1],    level: G1,       note: "Requires AL7 or better in BOTH English Language and Mathematics.",
+             also_requires: {subjects: [psle-english, psle-mathematics], max_al: 7}}
+        # The gap in the table above is deliberate and is the most important
+        # thing in this file. A score of 31 or 32, or 26-30 without AL7 in both
+        # English and Mathematics, appears in no row. MOE's posting-group page
+        # does not state what happens there, and PathAhead must not invent a
+        # threshold nobody published. It says what IS published: a place is
+        # offered through a different route, and names it.
+        outside_the_table:
+          headline: A place is offered through a different route.
+          body: >
+            Your child's score is outside the Posting Group table that MOE
+            publishes, which means secondary school placement is arranged
+            differently rather than through the usual six choices. NorthLight
+            School and Assumption Pathway School offer a hands-on, four-year
+            programme leading to an ITE Skills Certificate and on to the
+            Institute of Technical Education or to work. Crest Secondary and
+            Spectra Secondary offer a practice-oriented secondary curriculum.
+            PathAhead does not know which applies to your child — the school
+            will tell you, and MOE's page is linked here. What it will not do
+            is guess.
+          source: moe-school-types-2021
+          confidence: medium
+
+      # -- What the score decides beyond the posting group ------------------
+      #
+      # These are eligibility facts, not preferences. Each is a published
+      # criterion with a published threshold, and none of them is a ranking.
+      unlocks:
+        - id: higher-mtl
+          label: Higher Mother Tongue in secondary school
+          criterion: "PSLE Mother Tongue AL1 or AL2, or a Distinction or Merit in Higher Mother Tongue."
+          note: "Schools may also admit a student assessed to have exceptional ability in the language."
+          source: moe-psle-scoring-2026
+        - id: foreign-language
+          label: A third language — French, German, Japanese or Spanish
+          criterion: "PSLE Score of 8 or better. Japanese additionally requires a pass in Chinese or Higher Chinese. Singapore Citizen or Permanent Resident, or the child of one."
+          source: moe-psle-scoring-2026
+        - id: asian-language
+          label: A third language — Arabic or Bahasa Indonesia
+          criterion: "PSLE Score of 24 or better. Bahasa Indonesia is not open to a student who offered Malay or Higher Malay. Singapore Citizen or Permanent Resident, or the child of one."
+          source: moe-psle-scoring-2026
+        - id: special-programme
+          label: Malay or Chinese Special Programme
+          criterion: "PSLE Score of 24 or better, and not having offered that language as Mother Tongue."
+          source: moe-psle-scoring-2026
+        - id: sap-advantage
+          label: Posting advantage at a Special Assistance Plan school
+          criterion: "A Pass, Merit or Distinction in Higher Chinese AND a PSLE Score of 14 or better. This applies BEFORE the tie-breakers."
+          note: "Taking Higher Chinese in primary school is not a requirement for admission to a SAP school."
+          source: moe-psle-scoring-2026
+
+      # -- How a place is actually decided ----------------------------------
+      posting:
+        choices: 6
+        primary_criterion: "PSLE Score, then the order of your six choices, then vacancies."
+        tie_breakers:
+          - {order: 1, name: Citizenship, detail: "Singapore Citizen, then Permanent Resident, then International Student."}
+          - {order: 2, name: Choice order of schools, detail: "The student who ranked the school higher is posted to it."}
+          - {order: 3, name: Computerised balloting, detail: "Equal chance for each remaining student."}
+        source: moe-s1-tiebreakers-2026
+        # Read this before anyone adds a distance feature.
+        address_effect: >
+          A home address is NOT a tie-breaker at S1 Posting. It matters in one
+          place only: a student who cannot be placed in any of their six
+          choices is posted to the nearest available school based on the
+          registered address, which MOE advises keeping current with the
+          primary school by October. Distance IS a formal criterion at Primary
+          1 registration, which is a different exercise, and families conflate
+          the two constantly.
+        address_source: moe-s1-posting-2026
+
+    comparison_basis: >
+      the PSLE Score out of 32, compared against the score of the last student
+      posted to a school in the same Posting Group last year
+
+    # -- Grade scales ------------------------------------------------------
+    #
+    # Achievement Levels are the points. There is no conversion: AL3 scores 3.
+    # That is worth saying out loud, because every other scale in this pack
+    # maps a letter onto a number and this one does not.
+    #
+    # Foundation grades sit on the SAME scale under their own keys, because
+    # MOE maps Foundation A/B/C to Standard AL6/AL7/AL8 for the purpose of
+    # deriving the PSLE Score. `grades.py` normalises a Foundation "A" to "FA"
+    # on entry so the two can never silently collide.
+    scales:
+      al:
+        "1": 1
+        "2": 2
+        "3": 3
+        "4": 4
+        "5": 5
+        "6": 6
+        "7": 7
+        "8": 8
+        FA: 6
+        FB: 7
+        FC: 8
+
+    caveats:
+      - >
+        The Achievement Level bands are fixed against the curriculum, not
+        against the cohort. A child's AL does not depend on how anyone else
+        did. The bands are deliberately uneven — MOE expects slightly under
+        half the cohort to score AL1 to AL4, so the upper bands are narrower.
+        An AL5 covering twenty marks does not mean AL4 is far away.
+      # Phrased to avoid the "guarantee a place" construction even in the
+      # negative. tests/test_safeguards.py bans the phrase outright, and the
+      # right response to a guard firing is to write the sentence differently,
+      # not to loosen the guard so the sentence fits through.
+      - >
+        A cut-off point is the score of the FIRST and LAST student posted to a
+        school in that Posting Group last year. It moves by a few points every
+        year with each cohort's results and choices, and it is a record of what
+        happened rather than a threshold — some students who matched it were
+        tie-broken out and posted elsewhere.
+      - >
+        Two MOE pages currently disagree about the second tie-breaker. The Full
+        SBB infographic gives citizenship, then choice order, then ballot; the
+        older results page says choice order does not give priority, but it is
+        describing the 2020 cohort and states that the process changed from
+        2021. PathAhead encodes the infographic and links both.
+      - >
+        A child admitted through Direct School Admission cannot submit the six
+        S1 school choices and cannot transfer. The commitment runs for the
+        duration of the programme, and it is agreed to before PSLE results
+        exist.
+
+    fact:
+      value: "PSLE Score, the sum of four Achievement Levels, from 4 to 32"
+      as_of_year: 2026
+      source: moe-psle-scoring-2026
+      confidence: high
+      stale_after: 2027-06-30
+      note: >
+        The AL bands, the four subjects, the 4-32 range and the Foundation
+        mapping are all stated directly on MOE's PSLE scoring page and were
+        read from it on 2026-08-09. The Posting Group table is from MOE's
+        posting-group page of the same date. What is NOT settled, and is marked
+        medium confidence where it appears, is what happens to a score that
+        falls outside the published Posting Group table.
