@@ -54,7 +54,7 @@ The PSLE page opens with **no score box above the fold**. Before it asks for any
 
 Then it helps with the real task: **shortlisting 147 secondary schools**.
 
-<img src="docs/screenshots/psle-shortlist.png" alt="The school shortlist: filters for distance bands and PSLE reach, a plain-English summary reading '20 of 147 schools, closest to you first', and a school card showing address, straight-line distance, a Get Directions link, the Posting Group range from the user's own local copy, and a link to check it on MOE SchoolFinder." width="100%">
+<img src="docs/screenshots/psle-shortlist.png" alt="The school shortlist: school cards in alphabetical order -- Anglo-Chinese School (Independent), Assumption English School and Assumption Pathway School -- each showing its address, a line explaining that PathAhead does not republish Posting Group cut-off points because they are MOE's to publish, a link out to that school's own MOE SchoolFinder page, and tags for school type, co-ed status and district. The Assumption Pathway card explains instead that no cut-off is published for it at all, because it is a specialised-admission school sitting outside the standard PSLE-score posting exercise." width="100%">
 
 Every school shows **by default**. Filters *hide* — they never rank, never score, and never sort by selectivity. The summary line always says exactly how many were hidden and why ("15 not admitting your child's sex, 111 outside the distance you set"), because a filter that quietly removes options is worse than no filter at all.
 
