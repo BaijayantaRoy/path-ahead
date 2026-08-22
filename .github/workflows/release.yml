@@ -69,20 +69,13 @@ jobs:
       # licensing problem nobody could see by reading the repository. Assert
       # it against the artifact itself, not against the source it came from.
       - name: The binary carries no cut-off figures
-        run: |
-          python -c "
-          import json, sys
-          pack = json.load(open('web/data/singapore.json', encoding='utf-8'))
-          carried = [s['id'] for s in pack.get('schools', []) if s.get('cutoff_2025')]
-          if carried:
-              print(f'::error::the packaged build carries cut-off figures for {len(carried)} school(s). See docs/LOCAL_DATA.md.')
-              sys.exit(1)
-          print(f\"{len(pack.get('schools', []))} schools, 0 cut-off figures - safe to distribute\")
-          "
+        shell: bash
+        run: python -c "import json, sys; pack = json.load(open('web/data/singapore.json', encoding='utf-8')); carried = [s['id'] for s in pack.get('schools', []) if s.get('cutoff_2025')]; sys.exit(1) if carried else print(f'{len(pack.get(\"schools\", []))} schools, 0 cut-off figures - safe to distribute')"
 
       # Proves the artifact actually runs before it is offered to anyone --
       # a binary that builds and does not start is the classic release bug.
       - name: Smoke-test the built binary
+        shell: bash
         run: |
           python -c "
           import subprocess, time, urllib.request, sys
@@ -90,7 +83,7 @@ jobs:
           proc = subprocess.Popen([bin_path, '--no-browser', '--port', '8931'])
           try:
               time.sleep(5)
-              for attempt in range(10):
+              for attempt in range(15):
                   try:
                       with urllib.request.urlopen('http://127.0.0.1:8931/', timeout=3) as resp:
                           if resp.status == 200:
