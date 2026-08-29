@@ -25,7 +25,7 @@ and find more than one way there.
 
 ## The problem this exists for
 
-Picture a Primary 6 parent in October. Their child sits the PSLE next month. They have heard that "AL" replaced the T-score, that there are now three Posting Groups, that some schools take you at 8 and others at 22, that DSA closed in July and they may have missed it. They do not know which of those things are true, which apply to *their* child, or what any of it forecloses.
+Picture a Primary 6 parent in August. Their child sits the PSLE next month. They have heard that "AL" replaced the T-score, that there are now three Posting Groups, that some schools take you at 8 and others at 22, that DSA closed in July and they may have missed it. They do not know which of those things are true, which apply to *their* child, or what any of it forecloses.
 
 Four years later the same family faces L1R5, ELR2B2, JAE, DSA-JC and a January posting exercise. Two years after that, a 70-point University Admission Score, six autonomous universities that do not admit on the same terms, and National Service sitting in the middle of the timeline.
 
