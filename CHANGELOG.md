@@ -10,6 +10,31 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.1.0] — 2026-08-29
+
+### Added — "How your six school choices actually decide a place": the S1 posting mechanism, explained and made concrete
+
+Until now `psle.yaml`'s `transitions[].rule_params.posting` (`primary_criterion`, `tie_breakers`, `address_effect`) was sourced but never rendered anywhere in the app — a parent who searched the PSLE page for how the six choices actually get processed found nothing, despite how much a wrong choice order can cost. New card on the PSLE page:
+
+- A worked example (invented Schools A-G, an invented score) shown as two complete, parallel six-row lists side by side (`psleWorkedExampleCompare()` / `psleExampleListTable()`) — identical for Choices 1-5, differing only at Choice 6 — rather than one merged seven-row table. An early merged version read the run of early "No"s as the family's own mistake, when the actual point is the opposite: choices that do not clear cost nothing.
+- A picture of the general rule (`psleChoiceFlowDiagram()`): one child's own six choices, checked in order, falling through to the nearest school by registered address only if none of the six held.
+- A "When two children are tied on score" section: the three MOE tie-breakers as three steps (`psleTieBreakerSteps()`); a concrete Family 1 / Family 2 / School H example at the one point this actually matters — a school's published cut-off equal to the score you are checking it against, not comfortably below it (`psleTieDiagram()`, `psleTieExample()`); and those same three steps walked through again with the two families' actual ranks filled in, the deciding step (Choice order) visually marked apart from the other two (`psleTieBreakerApplied()`).
+- Two callout styles pulled out of the ordinary note stack so the single most load-bearing sentence in each half of the card does not read as just one more box among several: `.psle-insight` (solid, high-contrast, for the one-sentence mechanism finding) and `.psle-practical` (a labelled "Practical difference" chip, for the one piece of advice worth acting on).
+
+The mechanism itself was corrected mid-development after a parent using PathAhead pushed back hard on an early draft, which had implied a school's Choice-1 applicants are seated before its Choice-2 applicants are even considered — rank first, score second. Re-checked against MOE's own tie-breaker worked example (a Choice-1 and a Choice-2 applicant with the *identical* score, compared directly for the same last seat) confirms the opposite: a school's places go to whichever of its applicants have the strongest PSLE Score, however each of them ranked it; choice order is a tie-breaker only between applicants tied on score, and otherwise only decides which of the schools a child's score clears, the child is actually sent to. `psle.yaml` gained a fifth caveat recording the correction, dated and sourced, with a comment for the next maintainer explaining why.
+
+### Added — rank your own six choices, on the PSLE school shortlist
+
+A "Your six choices" panel (`renderPsleChoices()`) next to the school shortlist: a "Choice order" picker on every school card (`psleChoicePicker()`) lets a family assign ranks 1-6 to schools from their own filtered shortlist, one school per rank. The panel shows all six slots filled or empty, flags a rank held by a school that no longer reads as in-reach once the family's search narrows (gated on at least one school actually having a judged reach — never fires on merely-unknown reach), and reminds the family if fewer than six ranks are set. Printable: the picker becomes a plain "Choice N" line on paper rather than a dead `<select>`. Still a record of the family's own choices, never a suggestion or a ranking PathAhead makes on their behalf (SAFEGUARDS.md 5.1).
+
+### Added — PSLE key dates, as a timeline
+
+Four new milestones in `milestones.yaml` — oral exams, written exams, results released, S1 posting results — each with a per-year note on how much the date has moved historically and a live source link, rendered as a visual calendar strip (`psleCalendarStrip()`): four points positioned by real elapsed time between the first and last milestone, with a "Today" marker when today falls within that span, and the exact date under each dot.
+
+### Fixed — key-dates calendar dots clipping their own month/day text
+
+`.psle-cal`'s fixed height was shorter than its actual content (dot + label + date), and `.psle-cal-wrap`'s `overflow-x:auto` was silently forcing `overflow-y` to clip too, per the CSS overflow spec, even though `overflow-y` was never itself set to anything but the default. The date under every milestone was invisible. Fixed by sizing the box to its content and giving the scroll wrapper top padding, rather than by removing the horizontal scroll needed on narrow screens.
+
 ### Added — an explicit AL-score search on the PSLE school shortlist, one score or a range, 2026-08-29
 
 The reach filter used to be implicit: it only ever compared the school shortlist against whatever was typed into "If you have the score" (the Posting Group calculator further up the page), so browsing the shortlist against a hypothetical or estimated score meant either reusing that field for two purposes at once or having no way to explore a score you don't actually have yet.

@@ -95,6 +95,45 @@ sources:
       results exist. Source for the commitment term: a child admitted through
       DSA-Sec cannot submit S1 school choices and cannot transfer.
 
+  - id: moe-psle-exam-calendar-2026
+    name: PSLE examination timetable
+    publisher: Ministry of Education, Singapore / Singapore Examinations and Assessment Board
+    url: https://file.go.gov.sg/2026-psle-exam-cal.pdf
+    retrieved: 2026-08-29
+    licence: moe-tou
+    note: >
+      The 2026 oral, listening comprehension and written-paper dates, as
+      published by SEAB. Oral examinations: 12-13 August. Written papers:
+      24-30 September (English 24, Mathematics 25, Mother Tongue languages 28,
+      Science 29, Higher Mother Tongue 30). This is a fixed exam calendar, not
+      a compiled cut-off table, so it carries none of the licensing caution
+      that applies to school-level figures (see docs/LOCAL_DATA.md).
+
+  - id: moe-psle-results-2026
+    name: National examinations dates — 2026 PSLE results
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/national-exams-dates
+    retrieved: 2026-08-29
+    licence: moe-tou
+    note: >
+      States that the 2026 PSLE results will be released tentatively between
+      24 and 25 November 2026. MOE's own word is "tentatively" — this page is
+      updated as the date firms up, and PathAhead's fact carries the same
+      hedge rather than presenting a tentative date as settled.
+
+  - id: moe-s1-posting-results-pattern
+    name: Secondary 1 Posting Results — the two most recent cycles
+    publisher: Ministry of Education, Singapore
+    url: https://www.moe.gov.sg/news/press-releases/20251212-2025-secondary-1-posting-results
+    retrieved: 2026-08-29
+    licence: moe-tou
+    note: >
+      MOE's own announcement dates for the two most recent cycles — 11
+      December 2024 and 12 December 2025, each about three weeks after that
+      year's PSLE results — used here only to describe the typical gap after
+      results, not to assert a 2026 date. MOE has not yet published the 2026
+      Secondary 1 posting results date at the time this was written.
+
   - id: moe-school-types-2021
     name: Secondary school types
     publisher: Ministry of Education, Singapore
@@ -335,6 +374,24 @@ transitions:
         S1 school choices and cannot transfer. The commitment runs for the
         duration of the programme, and it is agreed to before PSLE results
         exist.
+      # Added 2026-08-29 after a parent using PathAhead pushed back hard on an
+      # earlier draft of the choice-order explanation, which had wrongly implied
+      # a school's Choice-1 applicants are permanently seated before its Choice-2
+      # applicants are even considered, regardless of score. MOE's own
+      # tie-breaker worked example (moe-s1-tiebreakers-2026) contradicts that: it
+      # shows a Choice-1 and a Choice-2 applicant with the SAME score compared
+      # directly for the same last seat, which a strict same-rank-first
+      # depletion could never produce. Re-verified against that source before
+      # writing this.
+      - >
+        Choice order does not weaken a strong score. A school's places go to
+        whichever of its applicants have the strongest PSLE Scores, however
+        each of them ranked it — MOE's own account of the rule is that
+        students with better scores are posted first. Choice order decides
+        which of the schools a child's score would clear they are actually
+        sent to (their highest-ranked one among them), and is a tie-breaker
+        only when two children have the identical PSLE Score contesting the
+        same last place.
 
     fact:
       value: "PSLE Score, the sum of four Achievement Levels, from 4 to 32"

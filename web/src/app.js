@@ -3296,6 +3296,348 @@ const PS = {score:null, prefs:{postal_code:null, student_sex:null, gender:null, 
 const SCHOOL_TYPE_OPTIONS = ["Government school","Government-aided school",
   "Independent school","Specialised school","Specialised independent school"];
 
+/** A short display label for the calendar strip -- the full label still
+    appears in the hover title and in the "exact dates" disclosure below it. */
+const PSLE_CAL_SHORT_LABEL = {
+  "psle-oral-exams": "Oral exams",
+  "psle-written-exams": "Written exams",
+  "psle-results-released": "Results",
+  "psle-s1-posting-results": "S1 posting",
+};
+
+/** The visual calendar strip for "Key dates": four points on a line,
+    positioned by real elapsed time between the first and last milestone,
+    plus a "Today" marker when today falls within that span. Deliberately a
+    picture first -- the exact date, the usual range and the source for each
+    point are one hover (or the disclosure underneath) away, not printed
+    beside every dot. */
+function psleCalendarStrip(tl){
+  if(!tl?.entries?.length) return null;
+  const times = tl.entries.map(e=>e.date.getTime());
+  const start = Math.min(...times), end = Math.max(...times);
+  const span = Math.max(end-start, 1);
+  const pct = t => Math.min(100, Math.max(0, (t-start)/span*100));
+  const now = Date.now();
+  const todayPct = (now>=start && now<=end) ? pct(now) : null;
+  // The label under each point is wider than the point itself, so placing a
+  // point at a raw 0% or 100% clips its own label against the card edge --
+  // a real bug the first render caught. `at()` reserves a fixed pixel margin
+  // on both sides (matching --psle-cal-inset below) and maps the 0-100
+  // fraction into what is left, so the track and every point line up and
+  // nothing overhangs the card.
+  const at = p => `left:calc(var(--psle-cal-inset) + (100% - var(--psle-cal-inset) * 2) * ${p/100})`;
+  let markedNext=false;
+  return el("div",{class:"psle-cal-wrap"},[
+    el("div",{class:"psle-cal",role:"img",
+      "aria-label":"A timeline from "+tl.entries[0].label+" to "+tl.entries[tl.entries.length-1].label+
+        "; exact dates are listed below."},[
+      el("div",{class:"psle-cal-track"}),
+      todayPct==null ? null : el("div",{class:"psle-cal-today",style:at(todayPct)},[
+        el("div",{class:"flag",text:"Today"}),
+        el("div",{class:"stem"}),
+      ]),
+      ...tl.entries.map(e=>{
+        const isNext = !e.passed && !markedNext; if(isNext) markedNext=true;
+        const state = e.passed ? "past" : (isNext ? "next" : "future");
+        return el("div",{class:"psle-cal-pt","data-state":state,style:at(pct(e.date.getTime())),
+          title:`${e.label} — ${e.date.toISOString().slice(0,10)}`+
+            `${e.approximate?" (approximate)":""}. ${e.detail}`},[
+          el("span",{class:"dot"}),
+          el("span",{class:"lbl",text:PSLE_CAL_SHORT_LABEL[e.id]||e.label}),
+          el("span",{class:"sub",text:e.date.toLocaleDateString("en-GB",{day:"numeric",month:"short"})}),
+        ]);
+      }),
+    ].filter(Boolean)),
+  ]);
+}
+
+/** The six-choice flow, as a picture: places fill Choice 1 first, then
+    Choice 2, and so on, with the address-based fallback drawn as a branch
+    below rather than folded into the same row -- it is a different outcome,
+    not a seventh choice. */
+/** This diagram is about ONE child's own path through their six choices,
+    never about how a school compares different children against each
+    other -- that part (score beats rank, always) is the note right below
+    this diagram, and lives here in the title text too so a reader who
+    only hovers still gets it right. Earlier wording ("filled first",
+    "only once Choice 1 is done") described the SCHOOL's side and, read
+    that way, wrongly implied a strong score ranked Choice 3 could be shut
+    out by weaker scores that happened to rank the school Choice 1 or 2 --
+    contradicted by MOE's own tie-breaker example and fixed 2026-08-29
+    after a parent caught exactly this reading. */
+function psleChoiceFlowDiagram(){
+  return el("div",{class:"psle-flow"},[
+    el("div",{class:"psle-flow-row"},[
+      el("div",{class:"pf-step",
+        title:"Your child's Choice 1 is checked against every other applicant to that "+
+          "school, at any rank -- score decides it, not who else ranked it Choice 1."},[
+        el("b",{text:"Choice 1"}), el("span",{text:"checked first for your child"})]),
+      el("div",{class:"pf-arrow","aria-hidden":"true",text:"→"}),
+      el("div",{class:"pf-step",
+        title:"Only reached if Choice 1 did not hold -- your child's score, not their "+
+          "rank, decided that. Choice 2 is checked the same way Choice 1 was."},[
+        el("b",{text:"Choice 2"}), el("span",{text:"checked next, only if Choice 1 didn't hold"})]),
+      el("div",{class:"pf-arrow","aria-hidden":"true",text:"→"}),
+      el("div",{class:"pf-step muted",
+        title:"Choices 3, 4 and 5 are each checked in turn, exactly the same way, only "+
+          "if every choice above them did not hold."},[
+        el("b",{text:"Choices 3–5"}), el("span",{text:"checked in turn, same way"})]),
+      el("div",{class:"pf-arrow","aria-hidden":"true",text:"→"}),
+      el("div",{class:"pf-step",title:"The last of the six to be checked for your child."},[
+        el("b",{text:"Choice 6"}), el("span",{text:"the last one checked"})]),
+    ]),
+    el("div",{class:"pf-branch"},[
+      el("div",{class:"pf-branch-note",text:"↓ if none of the six held"}),
+      el("div",{class:"pf-step risk",
+        title:"A home address is not a tie-breaker anywhere above -- it only matters in this one case."},[
+        el("b",{text:"Nearest school"}), el("span",{text:"by registered address, not your choice"})]),
+    ]),
+  ]);
+}
+
+/** The three tie-breakers, as three steps rather than one sentence with
+    three clauses in it. */
+function psleTieBreakerSteps(){
+  const steps = [
+    ["1","Citizenship","Citizen, then PR, then international student"],
+    ["2","Choice order","whoever ranked the school higher on their own list"],
+    ["3","Ballot","a computerised draw, equal odds for everyone left"],
+  ];
+  return el("div",{class:"pf-steps3"}, steps.map(([n,label,detail])=>
+    el("div",{class:"pf-step",title:detail},[
+      el("em",{text:n}), el("b",{text:label}), el("span",{text:detail}),
+    ])));
+}
+
+/** The same three steps, walked through for Family 1 and Family 2 by name --
+    added 2026-08-29 alongside the concrete example below, because the
+    abstract steps above and the funnel diagram/outcome cards below it each
+    make sense on their own but never say out loud, in one place, which of
+    the three steps is the one that actually separated these two families
+    (Choice order) and why the other two did not. Step 2 is marked with
+    .decider so it reads as the one that mattered, the same way
+    .psle-decider marks the one differing row in the worked-example
+    tables above. */
+function psleTieBreakerApplied(){
+  const rows = [
+    ["1","Citizenship","Both Singapore Citizens — this step does not separate them.",false],
+    ["2","Choice order","Family 1 ranked School H as Choice 1; Family 2 ranked it Choice 4 "+
+      "— the higher rank wins the last seat.",true],
+    ["3","Ballot","Not reached — choice order already decided it.",false],
+  ];
+  return el("div",{class:"pf-steps3"}, rows.map(([n,label,detail,isDecider])=>
+    el("div",{class:"pf-step"+(isDecider?" decider":""),title:detail},[
+      el("em",{text:n}), el("b",{text:label}), el("span",{text:detail}),
+    ])));
+}
+
+/** A funnel, not a photograph: PathAhead has no image generator and
+    would not use one here even if it did -- this is a self-contained,
+    zero-dependency page with no external assets of any kind, so a
+    "picture" can only ever be built from the page's own HTML and CSS, the
+    same way the flow diagram and calendar strip above it are. Two boxes
+    converge into one, then split into two again, reusing the exact same
+    .pf-step boxes as psleChoiceFlowDiagram() so this reads as the same
+    visual language, not a new one invented for a single example. */
+function psleTieDiagram(){
+  const step = (cls,title,label,sub) => el("div",{class:`pf-step ${cls||""}`.trim(),title},[
+    el("b",{text:label}), el("span",{text:sub})]);
+  return el("div",{class:"psle-tie-diagram"},[
+    el("div",{class:"psle-tie-diagram-pair"},[
+      step("","Family 1 has not yet been placed anywhere else.","Family 1","School H is their Choice 1"),
+      step("","Family 2's first three choices did not hold.","Family 2","School H is their Choice 4"),
+    ]),
+    el("div",{class:"psle-tie-diagram-down","aria-hidden":"true",text:"↓ both reach School H with the same score"}),
+    el("div",{class:"psle-tie-diagram-center"},[
+      step("","Both score 9. The school's one remaining place cannot go to both.",
+        "School H","one seat left"),
+    ]),
+    el("div",{class:"psle-tie-diagram-down","aria-hidden":"true",text:"↓ tied on score → choice order decides"}),
+    el("div",{class:"psle-tie-diagram-pair"},[
+      step("good","Ranked higher, so the tie-break favours Family 1.","Family 1","placed at School H"),
+      step("risk","Ranked lower, so Family 1 wins the tie -- Family 2 is not shut out "+
+        "generally, only here.","Family 2","continues to their Choice 5"),
+    ]),
+  ]);
+}
+
+/** A concrete case of the three steps above, added 2026-08-29 after a
+    parent pointed out that the abstract diagram alone did not make clear
+    HOW OFTEN this actually applies. It is not a rare edge case: the PSLE
+    Score has only a couple of dozen possible values shared across an
+    entire cohort, so whenever a school's cut-off lands exactly on the
+    score you are checking it against, there is a real chance you are not
+    the only family at that number -- and choice order, not score, is
+    what decides among you at that point. Family 1 / Family 2 / School H
+    are invented, the same way Schools A-G are above; the score (9) is
+    deliberately different from the main example's (8) so the two are
+    never mistaken for the same family. */
+function psleTieExample(){
+  return el("div",{class:"psle-tie-example"},[
+    el("div",{class:"psle-outcome good"},[
+      el("b",{text:"Family 1 — School H as Choice 1"}),
+      el("span",{text:
+        "PSLE Score of 9, the same as Family 2, both Singapore Citizens. Because Family 1 "+
+        "ranked School H higher, Family 1 takes the last place."}),
+    ]),
+    el("div",{class:"psle-outcome risk"},[
+      el("b",{text:"Family 2 — School H as Choice 4"}),
+      el("span",{text:
+        "Same score, same citizenship, same school — but their first three choices did "+
+        "not hold, so School H only entered the picture as Choice 4. Ranked lower, Family "+
+        "2 does not get the place, and moves on to their own Choice 5, exactly as if "+
+        "School H had said no outright."}),
+    ]),
+  ]);
+}
+
+/** The worked example under "How your six school choices actually decide a
+    place": invented schools, an invented score, so a first-time reader can
+    trace the mechanism against concrete numbers instead of taking the rule
+    on faith.
+
+    Shown as two complete, parallel six-row lists rather than one seven-row
+    table with "6 A" and "6 B" as two extra rows at the bottom -- a first
+    reading of that merged table read the string of early "No"s as the
+    family's mistake, when the actual point is the opposite: choices 1-5
+    not clearing costs nothing and is not what went wrong. Side by side,
+    with each list's own outcome directly under its own table, the only
+    thing that differs (Choice 6) is also the only place the eye has to
+    look for the difference. */
+const PSLE_EXAMPLE_SCORE = 8;
+const PSLE_EXAMPLE_SHARED_ROWS = [
+  {rank:"1", school:"School A", cutoff:[4,5]},
+  {rank:"2", school:"School B", cutoff:[4,6]},
+  {rank:"3", school:"School C", cutoff:[5,6]},
+  {rank:"4", school:"School D", cutoff:[5,7]},
+  {rank:"5", school:"School E", cutoff:[6,7]},
+];
+const PSLE_EXAMPLE_LISTS = [
+  {
+    key: "A", heading: "List A — no safety net",
+    sixth: {rank:"6", school:"School F", cutoff:[5,7]},
+    outcomeClass: "risk", outcomeLabel: "Falls back to the nearest school",
+    outcomeText: `None of the six clears a score of ${PSLE_EXAMPLE_SCORE}. This family is `+
+      "posted to the nearest school with space, by registered address — not a school they chose.",
+  },
+  {
+    key: "B", heading: "List B — one safe choice at 6",
+    sixth: {rank:"6", school:"School G", cutoff:[8,15]},
+    outcomeClass: "good", outcomeLabel: "Placed at Choice 6",
+    outcomeText: "Placed at Choice 6, School G — one different line on the form, and the "+
+      "family is somewhere they actually chose.",
+  },
+];
+/** Cutoff is [first_posted, last_posted]; a score clears when it is at or
+    better than (numerically at or below) the worse end -- the same rule
+    within_reach()/combinedReach() use for a real cutoff, just spelled out
+    plainly for a worked example rather than computed through the engine. */
+const psleExampleClears = (score,cutoff) => score<=cutoff[1];
+
+/** One list's own table -- ranks 1-5 shared, rank 6 is what makes this
+    list "A" or "B". The rank-6 row gets its own highlight (.psle-decider,
+    styles.css) precisely because it is the only row worth comparing
+    across the two columns; everything above it is identical on purpose. */
+function psleExampleListTable(list){
+  const rows = [...PSLE_EXAMPLE_SHARED_ROWS, list.sixth];
+  return el("table",{class:"cmp psle-cmp-compact"},[
+    el("thead",{},[el("tr",{},[
+      el("th",{text:"Rank"}), el("th",{text:"School"}),
+      el("th",{text:"Cutoff, last year"}),
+      el("th",{text:`Score ${PSLE_EXAMPLE_SCORE} clears?`})])]),
+    el("tbody",{},rows.map(r=>{
+      const clears = psleExampleClears(PSLE_EXAMPLE_SCORE, r.cutoff);
+      const isDecider = r===list.sixth;
+      return el("tr",{class: isDecider?"psle-decider":null},[
+        el("td",{text:r.rank}),
+        el("td",{text:r.school}),
+        el("td",{text:`${r.cutoff[0]}–${r.cutoff[1]}`}),
+        el("td",{text:clears?"Yes":"No"}),
+      ]);
+    })),
+  ]);
+}
+
+function psleWorkedExampleCompare(){
+  return el("div",{class:"psle-lists-compare"}, PSLE_EXAMPLE_LISTS.map(list=>
+    el("div",{class:"psle-list-col"},[
+      el("h4",{text:list.heading}),
+      psleExampleListTable(list),
+      el("div",{class:`psle-outcome ${list.outcomeClass}`},[
+        el("b",{text:list.outcomeLabel}),
+        el("span",{text:list.outcomeText}),
+      ]),
+    ])));
+}
+
+/** "Try it yourself" -- the same one-line rule (score <= cutoff, first
+    choice where that holds, in order) run against numbers a reader edits
+    themselves. Intentionally has nothing to do with any real school or the
+    reader's own shortlist -- see the disclaimer in the section itself. */
+const PSLE_SIM = {score: PSLE_EXAMPLE_SCORE, cutoffs:[5,6,6,7,7,7]};
+const PSLE_SIM_PRESETS = {
+  A: [5,6,6,7,7,7],
+  B: [5,6,6,7,7,15],
+};
+function clampPsleScore(v){
+  const n = parseInt(v,10);
+  if(!Number.isFinite(n)) return 4;
+  return Math.min(32, Math.max(4, n));
+}
+function renderPsleSim(){
+  const scoreInput=$("#simScore");
+  if(scoreInput && document.activeElement!==scoreInput) scoreInput.value=String(PSLE_SIM.score);
+  PSLE_SIM.cutoffs.forEach((c,i)=>{
+    const inp=$(`#simCut${i}`);
+    if(inp && document.activeElement!==inp) inp.value=String(c);
+  });
+  const host=$("#psleSimResult"); if(!host) return;
+  const idx = PSLE_SIM.cutoffs.findIndex(c=>PSLE_SIM.score<=c);
+  host.replaceChildren(
+    idx===-1
+      ? el("div",{class:"note warn"},[el("span",{text:
+          `A practice score of ${PSLE_SIM.score} does not clear any of the six cutoffs above `+
+          "it. In real life this is the case where placement falls back to the nearest "+
+          "school by registered address."})])
+      : el("div",{class:"note info"},[el("span",{text:
+          `A practice score of ${PSLE_SIM.score} is posted at Choice ${idx+1} `+
+          `(cutoff ${PSLE_SIM.cutoffs[idx]}) — every choice ranked above it had no room left.`})])
+  );
+}
+function psleSimSection(){
+  return el("section",{class:"card",id:"psleChoiceSim"},[
+    el("h2",{text:"Try it yourself"}),
+    el("p",{class:"hint",text:
+        "Practice numbers only — this has nothing to do with any real school or your own "+
+        "shortlist. Change the score or any cutoff below and watch where it lands."}),
+    el("div",{class:"psle-sim"},[
+      el("div",{class:"field field-max"},[
+        el("label",{for:"simScore",text:"Practice PSLE Score"}),
+        el("input",{type:"number",id:"simScore",min:"4",max:"32",inputmode:"numeric",
+          value:String(PSLE_SIM.score),
+          title:"A made-up score to test the mechanism with — 4 (best) to 32 (worst)",
+          oninput:e=>{ PSLE_SIM.score=clampPsleScore(e.target.value); renderPsleSim(); }}),
+      ]),
+      el("div",{class:"psle-sim-rows"}, PSLE_SIM.cutoffs.map((c,i)=>el("div",{class:"psle-sim-row"},[
+        el("label",{for:`simCut${i}`,text:`Choice ${i+1} cutoff`}),
+        el("input",{type:"number",id:`simCut${i}`,min:"4",max:"32",inputmode:"numeric",
+          value:String(c),
+          title:`A made-up cutoff for the pretend school ranked Choice ${i+1}`,
+          oninput:e=>{ PSLE_SIM.cutoffs[i]=clampPsleScore(e.target.value); renderPsleSim(); }}),
+      ]))),
+      el("div",{class:"actions"},[
+        el("button",{type:"button",class:"chip",text:"Load the risky list (List A)",
+          title:"Reset the six cutoffs above to the worked example's List A",
+          onclick:()=>{ PSLE_SIM.cutoffs=[...PSLE_SIM_PRESETS.A]; renderPsleSim(); }}),
+        el("button",{type:"button",class:"chip",text:"Load the safer list (List B)",
+          title:"Reset the six cutoffs above to the worked example's List B",
+          onclick:()=>{ PSLE_SIM.cutoffs=[...PSLE_SIM_PRESETS.B]; renderPsleSim(); }}),
+      ]),
+      el("div",{id:"psleSimResult"}),
+    ]),
+  ]);
+}
+
 function renderPsle(){
   const box=$("#psleOut"); if(!box) return;
   const pack=S.pack; if(!pack) return;
@@ -3311,11 +3653,22 @@ function renderPsle(){
   const rows=spec?.groups||[];
   const result = PS.score==null ? null : postingGroupFor(spec, PS.score, null);
 
+  // The exam calendar shown below is read from pack.milestones, the same
+  // data the A-Level "Dates" page already draws on -- see buildTimeline()
+  // above. "pri-6" is deliberate rather than driven by a selector on this
+  // page: this hero is written for a family who already knows their child
+  // sits the PSLE this year, and resolveCohort()'s own exam-year arithmetic
+  // (years_to_exam: 0 for pri-6) is what keeps the dates below correct
+  // without a hardcoded year anywhere in this file.
+  let psleTimeline=null;
+  try{ psleTimeline = buildTimeline(pack, resolveCohort(pack,"pri-6",new Date().getFullYear()), false, new Date()); }
+  catch(err){ psleTimeline=null; }
+
   box.replaceChildren(
     /* ── the hero ─────────────────────────────────────────── */
     el("section",{class:"card"},[
       el("p",{class:"eyebrow",text:"After the PSLE"}),
-      el("h1",{id:"psleH1",text:"Your child sits the PSLE in November. Here is what happens after."}),
+      el("h1",{id:"psleH1",text:"Your child sits the PSLE this year. Here is what happens after."}),
       el("p",{class:"lede",text:
         "A PSLE score decides a Posting Group and a set of schools. It does not decide "+
         "what your child can become — and the schools themselves will tell you the same thing."}),
@@ -3323,6 +3676,30 @@ function renderPsle(){
         "Nothing on this page asks for a name, a school or an address, and nothing you "+
         "type leaves this device. There is no server to send it to."}),
     ]),
+
+    /* ── key dates: the usual pattern, then this year's ─────── */
+    (psleTimeline && psleTimeline.entries.length) ? el("section",{class:"card",id:"psleDates"},[
+      el("h2",{text:"Key dates"}),
+      el("p",{class:"hint",text:
+        "Oral exams in August, written papers in September, results in November, "+
+        "Secondary 1 posting in December — roughly the same order every year. Hover a "+
+        "point for its date; the year's exact dates and sources are below."}),
+      psleCalendarStrip(psleTimeline),
+      el("details",{class:"disclosure"},[
+        el("summary",{text:"Exact dates, the usual range, and sources"}),
+        el("ol",{class:"timeline"}, psleTimeline.entries.map(e=>el("li",{class:e.passed?"past":""},[
+          el("div",{class:"t-when",text:e.when}),
+          el("div",{class:"t-label",text:e.label}),
+          el("div",{class:"t-detail",text:e.detail}),
+          el("div",{class:"t-date",text:e.date.toISOString().slice(0,10)+(e.approximate?" · approximate":"")}),
+          e.url?el("div",{},[el("a",{href:e.url,target:"_blank",rel:"noopener noreferrer",
+            text:"official page",style:"font-size:.82rem"})]):null,
+        ].filter(Boolean)))),
+        el("p",{class:"hint",text:
+          "These move a little every year. PathAhead shows what is coming; the linked MOE "+
+          "page for each one is what to rely on as the date gets closer."}),
+      ]),
+    ]) : null,
 
     /* ── three doors, not a form ───────────────────────────── */
     el("section",{class:"card"},[
@@ -3401,6 +3778,125 @@ function renderPsle(){
       citeSource(spec?.source),
     ]),
 
+    /* ── how the six choices actually get decided ────────────
+       This entire section was, until now, sourced but unrendered: every
+       fact quoted below already lived in psle.yaml's
+       transitions[].rule_params.posting (primary_criterion, tie_breakers,
+       address_effect) -- reachable in the built pack, but nothing in this
+       file ever read that key. A parent who searched this page for how the
+       six choices actually get processed found nothing, which is a real gap
+       given how much a wrong choice order can cost. */
+    el("section",{class:"card",id:"psleChoiceOrder"},[
+      el("h2",{text:"How your six school choices actually decide a place"}),
+      el("p",{class:"lede",text:
+        "A Posting Group opens a set of schools. Which one of the six a child goes to "+
+        "is a separate, published process — and the order you rank them in is not a "+
+        "formality. Here is how that plays out for one pretend family."}),
+
+      el("p",{text:
+        `Their PSLE Score is ${PSLE_EXAMPLE_SCORE} — a solid score. But every one of their `+
+        "first five choices is a very sought-after school."}),
+      el("p",{text:
+        "That is not, by itself, the problem: ranking a school your score does not clear "+
+        "costs nothing, because an unclearable choice is simply skipped and your child "+
+        "moves on to the next one down the list (the diagram below shows exactly this). "+
+        "The two lists below are identical for Choices 1 to 5 — only Choice 6 differs "+
+        "between them, and that one line is the entire difference in what happens next."}),
+      psleWorkedExampleCompare(),
+      el("p",{class:"hint",text:
+        "School A–G are invented for this example. They are not real schools, and this "+
+        "is not a ranking of any real one."}),
+
+      el("h3",{text:"The general rule behind that example"}),
+      psleChoiceFlowDiagram(),
+      el("div",{class:"psle-insight"},[el("span",{},[
+        el("strong",{text:"Score decides which schools your child clears. Rank only decides "+
+          "which one of those your child lands at — always the highest-ranked among them. "}),
+        el("span",{text:
+          "MOE's own account of the rule: students with better scores are posted first, so "+
+          "a strong score ranked Choice 3 still beats a weaker score ranked Choice 1 for "+
+          "that same school."}),
+      ])]),
+      el("div",{class:"note info"},[el("span",{text:
+        "That is what makes Choice 1 free to aim high: School A not working out for List "+
+        "A's family simply moved them on to Choice 2, exactly as it would for anyone."})]),
+      el("div",{class:"note warn"},[el("span",{text:
+        "List A's problem was never aiming high — it was having nowhere realistic to "+
+        "land. One choice like School G is the entire difference List B made."})]),
+      el("div",{class:"psle-practical"},[
+        el("span",{class:"psle-practical-label",text:"Practical difference"}),
+        el("span",{text:
+          "Ranking a backup above a school your child prefers and would equally have "+
+          "cleared sends your child to the backup — because it was ranked higher, not "+
+          "because the preferred school ran out of room."}),
+      ]),
+
+      el("h3",{text:"When two children are tied on score"}),
+      psleTieBreakerSteps(),
+      el("p",{text:
+        "This matters most exactly when a school's published cut-off equals the score "+
+        "you are checking it against — not when your score sits safely below it. The "+
+        "PSLE Score has only a couple of dozen possible values, shared across an entire "+
+        "cohort, so a school whose cut-off matches your score exactly is very likely to "+
+        "have more than one family at that same number contesting its last few places. "+
+        "At that point your score no longer tells the two of you apart — the three steps "+
+        "above do."}),
+      psleTieDiagram(),
+      psleTieExample(),
+      el("p",{class:"hint",text:
+        "Family 1, Family 2 and School H are invented for this example, the same way "+
+        "School A–G are above."}),
+      el("p",{class:"hint",text:
+        "How the three steps above played out for Family 1 and Family 2:"}),
+      psleTieBreakerApplied(),
+      el("div",{class:"psle-insight"},[el("span",{},[
+        el("strong",{text:"A school you comfortably clear is not made riskier by ranking "+
+          "it low. "}),
+        el("span",{text:
+          "Exactly as the earlier example showed — score decides who clears a school at "+
+          "all; rank only sorts out ties among families who clear it by the same amount."}),
+      ])]),
+      el("div",{class:"psle-practical"},[
+        el("span",{class:"psle-practical-label",text:"Practical difference"}),
+        el("span",{text:
+          "A school whose cut-off exactly matches your score is a different case: treat "+
+          "it as a toss-up rather than a safe bet, and rank it as high as you genuinely "+
+          "can if you want a real shot at winning that toss-up."}),
+      ]),
+      citeSource(t.rule_params?.posting?.source),
+      el("details",{class:"disclosure"},[
+        el("summary",{text:"Read the fuller explanation"}),
+        el("p",{text:
+          "Within a Posting Group, a school's places go to whichever of its applicants "+
+          "have the strongest PSLE Scores — however each of them ranked that school, "+
+          "Choice 1 through Choice 6. Choice order is not a queue that shuts out a "+
+          "lower-ranked application on its own: a strong score ranked Choice 3 still "+
+          "beats a weaker score ranked Choice 1 for the same school."}),
+        el("p",{text:
+          "One consequence of that order is reassuring: ranking a school you would "+
+          "genuinely prefer as Choice 1 costs nothing, however competitive it looks. If "+
+          "its places go to students with stronger scores, your child is then considered "+
+          "for Choice 2 exactly as if Choice 1 had never been listed."}),
+        el("p",{text:
+          "The other consequence is the one worth planning around. If none of the six "+
+          "choices still have room by the time your child's score is considered, none of "+
+          "the tie-breakers above come into play at all — your child is posted instead to "+
+          "the nearest school with space, based on your registered address, with no "+
+          "further choice of your own in it. Six ambitious choices and no realistic one "+
+          "is how a family ends up there."}),
+        el("p",{text:
+          "For the one remaining place when two children are tied on score, MOE decides "+
+          "in this order: citizenship (Singapore Citizen, then Permanent Resident, then "+
+          "international student), then which of the two ranked that school higher on "+
+          "their own list of six, then a computerised ballot giving each an equal chance. "+
+          "A home address is not one of these three — it only matters in the no-placement "+
+          "case above."}),
+      ]),
+    ]),
+
+    /* ── the same rule, run on numbers a reader edits themselves ────── */
+    psleSimSection(),
+
     /* ── three cards that are never behind a toggle ────────── */
     el("section",{class:"card",id:"psleHonesty"},[
       el("h2",{text:"Three things worth knowing before you read any cut-off point"}),
@@ -3477,6 +3973,7 @@ function renderPsle(){
   );
   renderSchoolPrefs();
   renderSchoolShortlist();
+  renderPsleSim();
 }
 
 /* ── #/psle — school shortlist ─────────────────────────────────────
@@ -3558,6 +4055,7 @@ function renderSchoolShortlistSection(pack){
     ]),
 
     el("div",{id:"schoolPrefsHost"}),
+    el("div",{id:"psleChoicesHost"}),
     el("div",{id:"schoolShortlistHost"}),
   ]);
 }
@@ -3592,9 +4090,7 @@ function renderSchoolPrefs(){
   // maximum-distance filter or the AL score search -- both real filters
   // (SAFEGUARDS.md 5.1 still applies to them) with no way to clear them from
   // here even though the button's own onclick already resets PS.filters too.
-  const alSearchIsActive = PS.filters.al.mode==="upper"
-    ? PS.filters.al.upper!=null
-    : (PS.filters.al.min!=null && PS.filters.al.max!=null);
+  const alSearchIsActive = alSearchActive();
   const hasAnyPreference = PS.prefs.postal_code || PS.prefs.student_sex || PS.prefs.gender ||
     PS.prefs.want_sap!=null || PS.prefs.want_ip!=null || PS.prefs.want_autonomous!=null ||
     PS.prefs.want_gifted!=null || PS.prefs.school_types.length ||
@@ -3839,6 +4335,13 @@ function paintSchoolDistanceFilterHost(){
 const SCHOOL_PAGE = 10;
 let schoolShortlistExpanded = false;
 
+/* "Your six choices" -- a ranking layer on TOP of the filtered shortlist,
+   never a replacement for it. Index i holds the school id ranked Choice
+   i+1, or null. Kept by id rather than by row, so a choice survives a
+   filter change -- narrowing "narrow the list further" afterwards does not
+   silently un-pick a school the family already ranked. */
+let PSLE_CHOICES = [null, null, null, null, null, null];
+
 /** Resolves the EXPLICIT AL-score search (renderSchoolPrefs' "Search by AL
     score" block) into a combined-reach state for one school -- one of
     combinedReach()'s four strings, or null when the search itself has
@@ -3866,6 +4369,143 @@ function alSearchReach(school){
   return combinedReach(school, lo, hi, groupsFor(lo), groupsFor(hi));
 }
 
+/** Whether the AL-score search has enough typed into it to search on --
+    the same two-mode test renderSchoolPrefs() uses to decide whether to
+    show "Clear all preferences", pulled out once so a third caller (the
+    choices panel below) does not have to re-derive it by hand a second
+    time. */
+function alSearchActive(){
+  return PS.filters.al.mode==="upper"
+    ? PS.filters.al.upper!=null
+    : (PS.filters.al.min!=null && PS.filters.al.max!=null);
+}
+
+/** Rank of a school in the family's six choices: 1-6, or 0 if it is not one
+    of them. Never guessed -- reads PSLE_CHOICES exactly as it stands. */
+function psleChoiceRankOf(schoolId){
+  const i = PSLE_CHOICES.indexOf(schoolId);
+  return i===-1 ? 0 : i+1;
+}
+
+/** Assigning a rank a different school already holds STEALS it from that
+    school outright -- there is no cascading renumbering, because MOE's own
+    S1 option form has no such thing either: six boxes, one school per box.
+    Rank 0 clears the school from the list. Always repaints both the
+    filtered list (so every card's picker agrees on who holds what) and the
+    choices panel. */
+function setPsleChoiceRank(schoolId, rank){
+  const cur = PSLE_CHOICES.indexOf(schoolId);
+  if(cur!==-1) PSLE_CHOICES[cur] = null;
+  if(rank>=1 && rank<=6) PSLE_CHOICES[rank-1] = schoolId;
+  renderSchoolShortlist();
+}
+
+/** The per-card control schoolCard() embeds below -- a plain <select>, not
+    drag-and-drop. Every option here is reachable from a keyboard and
+    announced correctly by a screen reader for free; a custom drag surface
+    cannot promise either without real extra engineering, and nothing else
+    in this project uses drag-and-drop. An option already held by a
+    different school says so in its own text, so picking it is an informed
+    swap, never a silent surprise. A companion span carries the same
+    answer as plain text for print, where the live control does not
+    apply -- see the print rule beside .c-choice in styles.css. */
+function psleChoicePicker(school){
+  const byId = Object.fromEntries((S.pack?.schools||[]).map(s=>[s.id,s]));
+  const mine = psleChoiceRankOf(school.id);
+  const opts = [el("option",{value:"0",text:"Not one of your six",
+    ...(mine===0?{selected:"selected"}:{})})];
+  for(let r=1; r<=6; r++){
+    const heldBy = PSLE_CHOICES[r-1];
+    const takenByOther = heldBy && heldBy!==school.id ? byId[heldBy]?.name : null;
+    opts.push(el("option",{value:String(r),
+      text: takenByOther ? `Choice ${r} (currently ${takenByOther})` : `Choice ${r}`,
+      ...(mine===r?{selected:"selected"}:{})}));
+  }
+  return el("div",{class:"c-choice"},[
+    el("label",{for:`choiceRank-${school.id}`,text:"Choice order"}),
+    el("select",{id:`choiceRank-${school.id}`,
+      title:"Where this school sits among your child's six ranked choices, if at all. "+
+        "Picking a slot another school already holds moves that school out.",
+      onchange:e=>setPsleChoiceRank(school.id, Number(e.target.value))}, opts),
+    el("span",{class:"c-choice-print",
+      text: mine===0 ? "Not one of your six choices" : `Choice ${mine}`}),
+  ]);
+}
+
+/** Sits just above the filtered list itself: a running receipt of the ranks
+    the family has assigned via psleChoicePicker(), plus the two checks the
+    choice-order mechanism above actually supports. Deliberately NOT a check
+    on taste -- ranking a stretch school above a safe one is the encouraged
+    strategy, not a mistake, so order relative to reach is never flagged
+    (see reachLine()'s own comment). `rows` is the already-filtered,
+    pre-pagination list renderSchoolShortlist() is about to show, passed in
+    rather than recomputed so the two panels can never quietly disagree
+    about which schools count as "shown". */
+function renderPsleChoices(rows, totalCount){
+  const host = $("#psleChoicesHost"); if(!host) return;
+  const pack = S.pack; if(!pack){ host.replaceChildren(); return; }
+  const byId = Object.fromEntries((pack.schools||[]).map(s=>[s.id,s]));
+  const active = alSearchActive();
+  const filled = PSLE_CHOICES.filter(Boolean).length;
+
+  const list = el("ol",{class:"psle-choice-list"}, PSLE_CHOICES.map((sid,i)=>{
+    const school = sid ? byId[sid] : null;
+    const reach = school ? alSearchReach(school) : null;
+    return el("li",{class:"psle-choice-row"},[
+      el("span",{class:"psle-choice-n",text:`Choice ${i+1}`}),
+      school ? el("span",{class:"psle-choice-school"},[
+        el("span",{text:school.name}),
+        (active && reach==="in-reach") ? el("span",{class:"tag reach-in",text:"in reach"}) : null,
+        (active && reach==="possible") ? el("span",{class:"tag reach-possible",text:"stretch"}) : null,
+      ].filter(Boolean)) : el("span",{class:"psle-choice-empty",text:"Not chosen yet"}),
+    ]);
+  }));
+
+  const notes = [];
+  if(filled>0 && filled<6){
+    notes.push(el("p",{class:"note warn",text:
+      `${filled} of 6 chosen so far. A child not placed in any ranked choice is posted to the `+
+      "nearest school with vacancies, whatever that turns out to be — each slot left blank is "+
+      "one fewer choice standing between your child and that fallback, at no cost to fill it."}));
+  }
+  if(active && filled>0){
+    // Only a real "possible" or "out-of-reach" reading counts as a signal here --
+    // a null reading means PathAhead has no cutoff to judge THAT school by (or
+    // the searched score falls outside every published band), not that the
+    // school is risky. Warning on silence would be a claim this project does
+    // not have the figures to back.
+    const reaches = PSLE_CHOICES.filter(Boolean).map(sid=>alSearchReach(byId[sid]));
+    const anyInReach = reaches.includes("in-reach");
+    const anyJudged = reaches.some(r=>r==="in-reach" || r==="possible" || r==="out-of-reach");
+    if(!anyInReach && anyJudged){
+      notes.push(el("p",{class:"note warn",text:
+        "None of your chosen schools looks like a safe match for the score you searched — every "+
+        "one PathAhead can judge is a stretch, or better only in the best case. Many families "+
+        "keep at least one school low on the list where last year's cut-off was comfortably "+
+        "clear of this score, so a place stays likely even if this year runs a little tougher "+
+        "than last year's."}));
+    }
+  }
+  if(active && rows.length){
+    const inReachCount = rows.filter(([s])=>alSearchReach(s)==="in-reach").length;
+    const possibleCount = rows.filter(([s])=>alSearchReach(s)==="possible").length;
+    notes.push(el("p",{class:"hint",text:
+      `Of the ${rows.length} school${rows.length===1?"":"s"} shown above (out of ${totalCount} in `+
+      `total), ${inReachCount} ${inReachCount===1?"is":"are"} in reach and ${possibleCount} `+
+      `${possibleCount===1?"is":"are"} a stretch for the score you searched.`}));
+  }
+
+  host.replaceChildren(el("div",{class:"psle-choices"},[
+    el("h3",{text:"Your six choices"}),
+    el("p",{class:"hint",text:
+      "Set \"Choice order\" on any school card below to build your six, in whatever order you "+
+      "would actually rank them. PathAhead never suggests an order — only lets you record the "+
+      "one you choose and checks it against the mechanism above, never against taste."}),
+    list,
+    ...notes,
+  ]));
+}
+
 function renderSchoolShortlist(){
   const host = $("#schoolShortlistHost"); if(!host) return;
   const pack = S.pack; if(!pack) return;
@@ -3884,6 +4524,8 @@ function renderSchoolShortlist(){
     if(alSearchReach(school)==="out-of-reach"){ hiddenByReach++; return false; }
     return true;
   });
+
+  renderPsleChoices(rows, allRows.length);
 
   if(!rows.length){
     host.replaceChildren(el("p",{class:"hint",id:"schoolNoPrefs",text:
@@ -4077,6 +4719,7 @@ function schoolCard(school, match, reach){
       ]),
     ]),
     meta,
+    psleChoicePicker(school),
   ]);
 }
 

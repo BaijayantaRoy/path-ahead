@@ -667,11 +667,25 @@ li.course.stale{opacity:.62}
 .c-summary{font-size:.91rem;color:var(--ink-2);margin:.6rem 0 0;max-width:var(--measure)}
 .c-meta{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin-top:.75rem;
   font-size:.79rem;color:var(--ink-3)}
+
+/* "Choice order" -- a plain <select>, styled small and quiet so it reads as
+   a bit of card metadata rather than the headline action. .c-choice-print
+   is invisible on screen and takes over only for printing, below, where the
+   live control has nothing to hand a reader. */
+.c-choice{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;
+  padding-top:.7rem;border-top:1px dashed var(--rule-soft)}
+.c-choice label{font-size:.79rem;color:var(--ink-3);white-space:nowrap}
+.c-choice select{font-size:.85rem;padding:.35rem .55rem;border-radius:var(--r-sm);
+  border:1px solid var(--rule);background:var(--card);color:inherit;min-height:auto}
+.c-choice select:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.c-choice-print{display:none}
 .tag{border:1px solid var(--rule);border-radius:999px;padding:.18rem .65rem;white-space:nowrap}
 .tag.ed{border-color:transparent;background:var(--editorial-bg);color:var(--editorial)}
 .tag.money{border-color:transparent;background:var(--good-bg);color:var(--good);
   font-variant-numeric:tabular-nums}
 .tag.flex{border-color:transparent;background:var(--mid-bg);color:var(--mid)}
+.tag.reach-in{border-color:transparent;background:var(--good-bg);color:var(--good)}
+.tag.reach-possible{border-color:transparent;background:var(--soft-bg);color:var(--soft)}
 
 /* Two axes, and they must never look like one number.
    MATCH is scored because every point traces to something the student typed.
@@ -728,6 +742,161 @@ li.past .t-when{color:var(--ink-3)}
 .t-label{font-family:var(--serif);font-size:1.04rem;font-weight:600;margin:.2rem 0 .15rem}
 .t-detail{font-size:.87rem;color:var(--ink-2);max-width:var(--measure)}
 .t-date{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+/* ── PSLE key-dates strip -- a picture instead of a paragraph ─────── */
+.psle-cal-wrap{overflow-x:auto;margin:1.1rem 0 .2rem;padding:.4rem 0 .15rem}
+.psle-cal{position:relative;min-width:460px;height:132px;
+  /* Half a label's width (108px) plus a little air, so a point placed at
+     the very start or end of the strip does not clip its own label against
+     the card edge -- see psleCalendarStrip()'s at() in app.js, which reads
+     this same custom property to place the track and every point in sync.
+     Height matters more than it looks: .psle-cal-wrap below sets
+     overflow-x:auto for narrow screens, and per the CSS overflow spec that
+     silently turns overflow-y auto too -- so if this box is even a few
+     pixels shorter than the dot+label+date stack it holds, the DATE ROW
+     gets clipped off with no visible sign anything is missing (found by a
+     parent reporting the dates simply were not there; measured overflow
+     was ~17px in one render and effectively zero margin in general, so 92
+     "worked" by pixel-perfect accident on one machine and not on another).
+     132px leaves real headroom rather than a hairline fit. */
+  --psle-cal-inset:58px}
+.psle-cal-track{position:absolute;left:var(--psle-cal-inset);right:var(--psle-cal-inset);
+  top:38px;height:2px;background:var(--rule)}
+.psle-cal-pt{position:absolute;top:38px;transform:translateX(-50%);text-align:center;width:108px}
+.psle-cal-pt .dot{display:inline-block;width:13px;height:13px;border-radius:50%;
+  background:var(--rule);border:2px solid var(--card);box-sizing:border-box;margin:0 auto}
+.psle-cal-pt[data-state="next"] .dot{background:var(--brand);
+  box-shadow:0 0 0 4px var(--brand-soft)}
+.psle-cal-pt[data-state="past"] .dot{opacity:.45}
+.psle-cal-pt .lbl{display:block;font:600 .74rem/1.25 var(--sans);margin-top:.5rem;color:var(--ink)}
+.psle-cal-pt[data-state="past"] .lbl{color:var(--ink-3);font-weight:500}
+.psle-cal-pt .sub{display:block;font-size:.68rem;color:var(--ink-3);margin-top:.15rem;
+  font-variant-numeric:tabular-nums}
+.psle-cal-today{position:absolute;top:-4px;transform:translateX(-50%);text-align:center;z-index:1}
+.psle-cal-today .flag{font:700 .66rem/1 var(--sans);color:var(--brand-ink);
+  background:var(--brand);padding:.16rem .45rem;border-radius:4px;white-space:nowrap}
+.psle-cal-today .stem{width:2px;height:32px;background:var(--brand);margin:1px auto 0;opacity:.55}
+
+/* ── S1 posting: the six-choice flow, drawn ───────────────────────── */
+.psle-flow{overflow-x:auto;margin:1.1rem 0}
+.psle-flow-row{display:flex;align-items:stretch;gap:.35rem;min-width:560px}
+.pf-step{flex:1;border:1px solid var(--rule);border-radius:var(--r-sm);
+  padding:.6rem .5rem;background:var(--card);text-align:center}
+.pf-step b{display:block;font:700 .8rem/1.2 var(--sans);color:var(--ink)}
+.pf-step span{display:block;font-size:.68rem;line-height:1.35;color:var(--ink-3);margin-top:.3rem}
+.pf-step.muted{background:var(--quiet-bg);border-color:transparent}
+.pf-step.muted b{color:var(--quiet)}
+.pf-step.risk{background:var(--soft-bg);border-color:transparent}
+.pf-step.risk b{color:var(--soft)}
+.pf-arrow{align-self:center;flex:none;color:var(--ink-3);font-size:1rem;padding:0 .1rem}
+.pf-branch{margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--rule);
+  text-align:center;min-width:560px}
+.pf-branch-note{font-size:.72rem;color:var(--ink-3);margin-bottom:.55rem}
+.pf-branch .pf-step{max-width:260px;margin:0 auto}
+.pf-step.good{background:var(--good-bg);border-color:transparent}
+.pf-step.good b{color:var(--good)}
+
+/* ── the tie-break drawn as a funnel: two in, one seat, two out ───── */
+.psle-tie-diagram{margin:1rem 0}
+.psle-tie-diagram-pair{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.psle-tie-diagram-down{text-align:center;font-size:.72rem;font-style:italic;
+  color:var(--ink-3);margin:.45rem 0}
+.psle-tie-diagram-center{display:flex;justify-content:center}
+.psle-tie-diagram-center .pf-step{width:100%;max-width:22rem}
+
+/* ── the three S1 tie-breakers, as steps rather than one long sentence ── */
+.pf-steps3{display:flex;align-items:stretch;gap:.4rem;margin:.9rem 0;flex-wrap:wrap}
+.pf-steps3 .pf-step{min-width:150px}
+.pf-steps3 .pf-step em{display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;background:var(--brand-soft);color:var(--brand-deep);
+  font:700 .72rem/1 var(--sans);font-style:normal;margin-bottom:.35rem}
+/* The one step, of the three, that actually separated Family 1 from Family
+   2 in the worked example below -- a stronger border and a filled badge so
+   the eye lands on it the same way it lands on the highlighted row in
+   .psle-decider, rather than reading all three steps as equally likely. */
+.pf-step.decider{border-color:var(--brand);background:var(--brand-soft)}
+.pf-step.decider b{color:var(--brand-deep)}
+.pf-step.decider em{background:var(--brand);color:var(--brand-ink)}
+
+/* ── the worked example: two complete lists, side by side ───────────
+   Two full six-row tables rather than one seven-row table with "6 A" /
+   "6 B" tacked on -- see psleWorkedExampleCompare()'s own comment in
+   app.js for why the merged version read as confusing. Each column is
+   self-contained: its own heading, its own table, its own outcome,
+   directly beneath each other so cause and effect never need to be
+   cross-referenced against a different part of the page. */
+.psle-lists-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.3rem;margin:1rem 0}
+.psle-list-col h4{margin:0 0 .55rem;font-family:var(--serif);font-size:1.02rem;
+  font-weight:600}
+/* Narrower and plainer than the multi-course .cmp table elsewhere -- four
+   short columns of one or two words each need none of that table's
+   34rem minimum, and forcing it here would make two columns wider than
+   the card that holds them. */
+.psle-list-col table.cmp.psle-cmp-compact{min-width:0;font-size:.85rem}
+.psle-list-col table.cmp.psle-cmp-compact th,
+.psle-list-col table.cmp.psle-cmp-compact td{padding:.55rem .6rem}
+/* The one row that differs between the two lists -- everything above it
+   is identical on purpose, so this is the only row worth the reader's
+   eye. A td-level background paints over the zebra-stripe rule above,
+   regardless of whether this lands on an odd or even row. */
+.psle-decider td{background:var(--brand-soft);font-weight:640}
+.psle-outcome{border-radius:var(--r-sm);padding:.75rem .9rem;margin-top:.8rem}
+.psle-outcome b{display:block;font:700 .76rem/1.2 var(--sans);letter-spacing:.03em;
+  text-transform:uppercase;margin-bottom:.35rem}
+.psle-outcome span{font-size:.87rem;line-height:1.45;color:var(--ink-2)}
+.psle-outcome.risk{background:var(--soft-bg)}
+.psle-outcome.risk b{color:var(--soft)}
+.psle-outcome.good{background:var(--good-bg)}
+.psle-outcome.good b{color:var(--good)}
+
+/* ── the tie-break made concrete: two families, one seat ─────────── */
+.psle-tie-example{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:.9rem;margin:1rem 0}
+.psle-tie-example .psle-outcome{margin-top:0}
+
+/* ── the one sentence per example that matters most, lifted out of the
+   ordinary .note stack so it does not read as just one more box among
+   several -- solid brand fill rather than a tint, the same high-contrast
+   pairing already used for a pressed nav link and button.primary:hover. ── */
+.psle-insight{margin:1.1rem 0;padding:.85rem 1.15rem;border-radius:var(--r-sm);
+  background:var(--brand-deep);color:var(--brand-ink)}
+.psle-insight strong{font-weight:800}
+.psle-insight span{font-size:.9rem;line-height:1.55}
+
+/* ── the "what to actually do about it" line, set apart from the note
+   stack with a labelled chip rather than the note's left-edge bar, so it
+   reads as advice rather than as one more fact among the notes above it. ── */
+.psle-practical{margin:1.1rem 0;padding:.85rem 1.1rem;border-radius:var(--r-sm);
+  border:1px solid var(--rule);background:var(--card)}
+.psle-practical-label{display:block;font:700 .72rem/1.2 var(--sans);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--brand-deep);margin-bottom:.3rem}
+.psle-practical span:last-child{font-size:.88rem;line-height:1.5;color:var(--ink-2)}
+
+/* ── "try it yourself": the same rule, on numbers a reader edits ─────
+   Six small number inputs rather than one, because the entire lesson is
+   that changing ONE of them (Choice 6) changes the outcome -- a single
+   combined "cutoff list" field would hide exactly the thing worth seeing. */
+.psle-sim-rows{display:grid;gap:.6rem;margin:.9rem 0;
+  grid-template-columns:repeat(auto-fill,minmax(148px,1fr))}
+.psle-sim-row label{display:block;font-size:.75rem;color:var(--ink-3);margin-bottom:.3rem}
+.psle-sim-row input{width:100%;box-sizing:border-box;font:600 1rem/1 var(--sans);
+  border-radius:var(--r-sm);border:1px solid var(--rule);background:var(--card);
+  color:inherit;padding:.55rem .6rem;min-height:auto}
+.psle-sim-row input:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+
+/* ── "your six choices": a receipt, not a builder ─────────────────
+   No drag-and-drop surface here on purpose -- see psleChoicePicker()'s own
+   comment in app.js. This panel only ever reflects state set elsewhere. */
+.psle-choices{border:1px solid var(--rule);border-radius:var(--r);
+  padding:1.1rem 1.2rem;margin:1rem 0;background:var(--sunk)}
+.psle-choices h3{margin:0 0 .3rem;font-family:var(--serif);font-size:1.05rem}
+.psle-choice-list{list-style:none;margin:.8rem 0 0;padding:0;display:grid;gap:.4rem}
+.psle-choice-row{display:flex;align-items:center;gap:.7rem;font-size:.9rem}
+.psle-choice-n{flex:0 0 5.2rem;font-size:.74rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-3)}
+.psle-choice-school{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.psle-choice-empty{color:var(--ink-3);font-style:italic}
 
 /* ── routes ───────────────────────────────────────────────────── */
 .routes{display:grid;gap:.9rem;margin-top:.9rem}
@@ -837,6 +1006,11 @@ footer a{color:var(--focus)}
   /* A card split across a page break loses the link between a course and its
      verdict, which is the one thing on the card that must not be orphaned. */
   li.course{break-inside:avoid}
+  .psle-choices{break-inside:avoid}
+  /* The select has nothing to hand a printed page; the answer it holds does. */
+  .c-choice select,.c-choice label{display:none}
+  .c-choice-print{display:inline;font-weight:640;font-size:.85rem}
+  .c-choice{border-top:none;padding-top:.3rem}
   h2,h3{break-after:avoid}
   a[href]::after{content:""}  /* URLs are cited in the notes already */
 }

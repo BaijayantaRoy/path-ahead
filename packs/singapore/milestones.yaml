@@ -174,3 +174,106 @@ milestones:
       source: nus-important-dates
       confidence: medium
       stale_after: 2027-06-30
+
+  # ---------------------------------------------------------------------
+  # PSLE — the exam itself and what follows it.
+  #
+  # Unlike the A-Level milestones above, these do not lead to an application
+  # window a family has to act on; they are dates a family needs simply to
+  # know when to expect something. `year_offset: 0` throughout because every
+  # one of these happens within the PSLE cohort's own exam year — there is no
+  # "the year after" here the way there is for A-Level results and admission.
+  # ---------------------------------------------------------------------
+
+  - id: psle-oral-exams
+    label: Oral examinations (English & Mother Tongue)
+    detail: >
+      Held over two days in mid-August, about six weeks before the written
+      papers. The exact two days shift by a day or so year to year — 2025 was
+      13-14 August, 2026 is 12-13 August.
+    year_offset: 0
+    month: 8
+    day: 12
+    kind: assessment
+    applies_to: [psle]
+    url: https://file.go.gov.sg/2026-psle-exam-cal.pdf
+    fact:
+      value: Oral exams held over two days in mid-August
+      as_of_year: 2026
+      source: moe-psle-exam-calendar-2026
+      confidence: high
+      stale_after: 2027-06-30
+      note: >
+        2026: 12-13 August. Confirm the exact days via SEAB's published
+        timetable each year rather than assuming this date repeats.
+
+  - id: psle-written-exams
+    label: Written examinations
+    detail: >
+      The main papers — English, Mathematics, Science and Mother Tongue —
+      run over about a week, typically the last week of September into the
+      first day or two of October.
+    year_offset: 0
+    month: 9
+    day: 24
+    kind: assessment
+    applies_to: [psle]
+    url: https://file.go.gov.sg/2026-psle-exam-cal.pdf
+    fact:
+      value: Written exams run over about a week, late September to early October
+      as_of_year: 2026
+      source: moe-psle-exam-calendar-2026
+      confidence: high
+      stale_after: 2027-06-30
+      note: >
+        2026: 24-30 September (English 24, Mathematics 25, Mother Tongue
+        languages 28, Science 29, Higher Mother Tongue 30). 2025 was 25
+        September - 1 October. Confirm the exact per-subject days via SEAB's
+        published timetable each year.
+
+  - id: psle-results-released
+    label: PSLE results released
+    detail: >
+      Released about eight weeks after the last written paper, generally in
+      the third or fourth week of November.
+    year_offset: 0
+    month: 11
+    day: 24
+    kind: result
+    applies_to: [psle]
+    url: https://www.moe.gov.sg/national-exams-dates
+    fact:
+      value: Results released in the second half of November
+      as_of_year: 2026
+      source: moe-psle-results-2026
+      confidence: medium
+      stale_after: 2027-06-30
+      note: >
+        2026: MOE states tentatively 24-25 November. 2025 was 25 November;
+        2024 was 20 November — a swing of a few days either way is normal.
+        Confirm via MOE's own notice closer to the date, since this one is
+        explicitly still tentative.
+
+  - id: psle-s1-posting-results
+    label: Secondary 1 posting results
+    detail: >
+      Comes roughly three weeks after the PSLE results themselves, once
+      families have submitted their six school choices — generally in the
+      first half of December.
+    year_offset: 0
+    month: 12
+    day: 12
+    kind: result
+    applies_to: [psle]
+    url: https://www.moe.gov.sg/news/press-releases/20251212-2025-secondary-1-posting-results
+    fact:
+      value: Posting results released roughly three weeks after PSLE results, in early-to-mid December
+      as_of_year: 2026
+      source: moe-s1-posting-results-pattern
+      confidence: medium
+      stale_after: 2027-06-30
+      note: >
+        2025 was 12 December; 2024 was 11 December. MOE has not yet published
+        the exact 2026 date at the time this was written — treat this one as
+        the least certain date on this page and check MOE's announcement once
+        the PSLE results themselves are out.

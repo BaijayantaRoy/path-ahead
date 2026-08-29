@@ -16,7 +16,7 @@ network. Everything above that is optional.
 
 from __future__ import annotations
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 from .backward import MIN_ROUTES, Plan, plan, what_if
 from .buckets import Assessment, Bucket
