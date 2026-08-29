@@ -3832,5 +3832,155 @@
       "margin": 2,
       "expected": true
     }
+  ],
+  "combined_reach_cases": [
+    {
+      "id": "combined-reach-both-ends-in-reach",
+      "why": "the whole range clears the cut-off -- the strongest signal, shown as in-reach",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "lo_score": 18,
+      "hi_score": 20,
+      "lo_groups": [
+        3
+      ],
+      "hi_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": "in-reach"
+    },
+    {
+      "id": "combined-reach-only-the-better-end-clears",
+      "why": "the better (lower) end of the range is in reach but the worse end is not -- 'possible', never plain in-reach, so a caller cannot present it as a match",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "lo_score": 20,
+      "hi_score": 27,
+      "lo_groups": [
+        3
+      ],
+      "hi_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": "possible"
+    },
+    {
+      "id": "combined-reach-neither-end-clears",
+      "why": "not in reach anywhere across the range -- the one state a shortlist filter actually hides on",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "lo_score": 26,
+      "hi_score": 30,
+      "lo_groups": [
+        3
+      ],
+      "hi_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": "out-of-reach"
+    },
+    {
+      "id": "combined-reach-no-cutoff-held-is-unknown",
+      "why": "no cut-off held for this school -- must answer unknown, never out-of-reach",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": null
+      },
+      "lo_score": 10,
+      "hi_score": 12,
+      "lo_groups": [
+        3
+      ],
+      "hi_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": "unknown"
+    },
+    {
+      "id": "combined-reach-exact-score-degenerate-range",
+      "why": "an 'upper bound' search is lo_score==hi_score with the same groups at both ends -- this must equal a plain within_reach() call, not a second, subtly different code path",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "lo_score": 24,
+      "hi_score": 24,
+      "lo_groups": [
+        3
+      ],
+      "hi_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": "in-reach"
+    },
+    {
+      "id": "combined-reach-exact-score-degenerate-range-out-of-reach",
+      "why": "the same degenerate-range identity, one point past the margin -- must be out-of-reach",
+      "school": {
+        "id": "fixture-school",
+        "cutoff_2025": {
+          "pg3": [
+            16,
+            22
+          ],
+          "pg2": null,
+          "pg1": null,
+          "ip": null
+        }
+      },
+      "lo_score": 25,
+      "hi_score": 25,
+      "lo_groups": [
+        3
+      ],
+      "hi_groups": [
+        3
+      ],
+      "margin": 2,
+      "expected": "out-of-reach"
+    }
   ]
 }

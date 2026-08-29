@@ -8,6 +8,27 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [Unreleased]
+
+### Added — an explicit AL-score search on the PSLE school shortlist, one score or a range, 2026-08-29
+
+The reach filter used to be implicit: it only ever compared the school shortlist against whatever was typed into "If you have the score" (the Posting Group calculator further up the page), so browsing the shortlist against a hypothetical or estimated score meant either reusing that field for two purposes at once or having no way to explore a score you don't actually have yet.
+
+"Search schools by AL score" is now its own control, entirely independent of the calculator, with two modes:
+
+- **Upper bound** — one AL score. Functionally identical to the old reach filter (a "Use the `N` entered above" button offers the one deliberate bridge back to the calculator's value, on a click, never automatically).
+- **Range** — a best-case and a worst-case AL score, for a family working from an estimate (a mock exam, a teacher's guess) rather than a result.
+
+`engine/school_fit.py:combined_reach()` (mirrored exactly by `web/src/app.js:combinedReach()`) checks both ends of the range and answers one of four states — `in-reach` (in reach even at the worse end), `possible` (in reach only near the better end — a caller must label this as depending on the best case, never as a plain match), `out-of-reach` (the one state the shortlist filter actually hides on), or `unknown` (no cut-off published, or a score fell outside the Posting Group table — shown, never hidden, same as `within_reach()`'s own `None`). An upper-bound search is the one-point degenerate case (`lo_score == hi_score`), not a second code path, so it can never quietly drift from `within_reach()`.
+
+Still a FILTER, never a score or a sort key (SAFEGUARDS.md 5.1): nothing here reorders the shortlist, and "possible" is an honest caveat on a visible card, not a number. Six new golden fixtures (`combined_reach_cases` in `evals/golden/rules.json`) and 7 new direct unit tests (`tests/test_school_fit.py`) cover all four states, the margin, and the degenerate-range identity against `within_reach()`.
+
+### Added — a hover title on every button, chip, toggle, dropdown and nav link, site-wide, 2026-08-29
+
+Every interactive control across the app — the main navigation and the "Everything else" list (built from the same `ROUTES` table, each entry now carrying a one-line `desc`), every filter chip and tri-state toggle on the PSLE school shortlist (including the new AL-score search above), the A-Level profile builder's interest/priority/stream/constraint chips, the course filter dropdowns, the O-Level cohort and subject-removal controls, the Two-of-you perspective questions, and the header/footer's logo, theme toggle and links — now carries a `title` attribute explaining what it does or means, shown by the browser on hover. Applied to `web/src/app.js` and `web/src/body.html` alike, so it reaches both the in-app views and the static shell, and therefore the GitHub Pages build too (rebuilt into `web/index.html` via `tools/build_web.py`).
+
+Titles were written to add information the visible label doesn't already give — what a toggle does, what a link leads to, what a figure means — rather than just repeating the button's own text back at it. `npm run check:ui` (116/116) and the golden cross-engine suite were re-run after the sweep; nothing in the DOM structure or button text changed, only the added attribute.
+
 ## [1.0.0] — 2026-08-19
 
 First public release. All three stages of Singapore's education system are

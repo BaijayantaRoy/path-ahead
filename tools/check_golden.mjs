@@ -33,9 +33,9 @@ if (!engineSrc.includes("weightedBestN")) {
 }
 
 const factory = new Function(
-  `${engineSrc}\nreturn { weightedBestN, gradePoints, RULES, PAError, scoreFit, fitCoverage, matchSchool, shortlistSchools, withinReach };`
+  `${engineSrc}\nreturn { weightedBestN, gradePoints, RULES, PAError, scoreFit, fitCoverage, matchSchool, shortlistSchools, withinReach, combinedReach };`
 );
-const { RULES, scoreFit, matchSchool, withinReach } = factory();
+const { RULES, scoreFit, matchSchool, withinReach, combinedReach } = factory();
 
 /* The compiled pack, from the one place every other tool in this directory
    reads it: web/data/. This file used to read dist/ instead, and nothing
@@ -269,6 +269,27 @@ for (const c of golden.within_reach_cases ?? []) {
     for (const p of problems.slice(0, 6)) console.error(`       ${p}`);
   } else {
     console.log(`  ok   ${c.id.padEnd(38)} within_reach = ${c.expected}`);
+  }
+}
+
+/* ---- combined_reach parity ---------------------------------------------
+   The EXPLICIT AL-score search filter (a single score, or a range) -- same
+   yes/no/unknown discipline as within_reach above, just answered across a
+   band instead of one point. Each fixture carries its own synthetic school,
+   same reasoning as within_reach_cases. */
+for (const c of golden.combined_reach_cases ?? []) {
+  checked++;
+  const problems = [];
+  {
+    const got = combinedReach(c.school, c.lo_score, c.hi_score, c.lo_groups, c.hi_groups, c.margin);
+    if (got !== c.expected) problems.push(`combined_reach ${got} != ${c.expected}`);
+  }
+  if (problems.length) {
+    failures++;
+    console.error(`FAIL ${c.id}`);
+    for (const p of problems.slice(0, 6)) console.error(`       ${p}`);
+  } else {
+    console.log(`  ok   ${c.id.padEnd(38)} combined_reach = ${c.expected}`);
   }
 }
 

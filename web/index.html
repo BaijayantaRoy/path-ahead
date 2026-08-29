@@ -871,14 +871,14 @@ footer a{color:var(--focus)}
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main" title="Skip past the navigation straight to the main content">Skip to content</a>
 
 <header class="top">
   <div class="wrap">
     <div class="masthead">
-      <a class="logo" href="#/" aria-label="PathAhead home">Path<em>Ahead</em></a>
+      <a class="logo" href="#/" aria-label="PathAhead home" title="Back to the start — choose After PSLE, O-Level, or A-Level">Path<em>Ahead</em></a>
       <div class="tagline" id="freshText">loading…</div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Toggle Theme">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Switch between light and dark appearance">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       </button>
       <p class="disclaim">
@@ -947,8 +947,8 @@ footer a{color:var(--focus)}
     <p class="lede">This one answer decides which rulebook applies. One school year apart
       can mean two entirely different systems — so PathAhead reads your answer back to you.</p>
     <div class="field field-max">
-      <label for="yearLevel">Year level</label>
-      <select id="yearLevel"></select>
+      <label for="yearLevel" title="Which year your child is in decides which rulebook applies">Year level</label>
+      <select id="yearLevel" title="Which year your child is in decides which rulebook applies"></select>
     </div>
     <div class="note info" id="cohortEcho" role="status" aria-live="polite"><span></span></div>
     <p class="hint" id="otherStages"></p>
@@ -965,8 +965,8 @@ footer a{color:var(--focus)}
       <tbody id="rows"></tbody>
     </table>
     <div class="actions">
-      <button type="button" id="addRow">Add a subject</button>
-      <button type="button" class="ghost" id="sample">Fill in a worked example instead</button>
+      <button type="button" id="addRow" title="Add another subject row to the grades table">Add a subject</button>
+      <button type="button" class="ghost" id="sample" title="Fill every row in with a sample set of grades, to see how this works">Fill in a worked example instead</button>
     </div>
     <div id="inputError" class="err" hidden role="alert"></div>
 
@@ -1048,8 +1048,8 @@ footer a{color:var(--focus)}
     </div>
 
     <div class="field field-max">
-      <label for="citizenship">Citizenship — this changes the fees shown</label>
-      <select id="citizenship">
+      <label for="citizenship" title="International and PR fees are usually higher than Citizen fees">Citizenship — this changes the fees shown</label>
+      <select id="citizenship" title="International and PR fees are usually higher than Citizen fees">
         <option value="citizen">Singapore Citizen</option>
         <option value="pr">Singapore Permanent Resident</option>
         <option value="international">International student</option>
@@ -1062,8 +1062,9 @@ footer a{color:var(--focus)}
     </div>
 
     <div class="field">
-      <label for="goalText">In your own words, what do you want to be doing in ten years?</label>
-      <textarea id="goalText" placeholder="No wrong answer. &quot;No idea&quot; is a real answer."></textarea>
+      <label for="goalText" title="Optional — PathAhead shows this back to you, it does not interpret it">In your own words, what do you want to be doing in ten years?</label>
+      <textarea id="goalText" placeholder="No wrong answer. &quot;No idea&quot; is a real answer."
+        title="Optional — PathAhead shows this back to you, it does not interpret it"></textarea>
       <div id="goalSuggestions" class="note info" style="margin-top:.6rem" hidden></div>
       <p class="hint" style="margin-top:.4rem">PathAhead will show this back to you next to your
         options rather than pretending to interpret it — there is no language model running here.</p>
@@ -1077,8 +1078,8 @@ footer a{color:var(--focus)}
     <div class="note info" id="signalProgress" role="status" aria-live="polite"><span></span></div>
 
     <div class="actions">
-      <button type="button" class="primary" id="go">Show me the result</button>
-      <button type="button" id="reset">Clear everything</button>
+      <button type="button" class="primary" id="go" title="Score your answers against every course PathAhead holds">Show me the result</button>
+      <button type="button" id="reset" title="Clear every grade and answer on this page and start over">Clear everything</button>
     </div>
   </section>
   </div><!-- /view-start -->
@@ -1118,7 +1119,7 @@ footer a{color:var(--focus)}
       <ol class="timeline" id="timeline"></ol>
       <div id="timelineNotes"></div>
       <div class="actions">
-        <button type="button" id="icsBtn">Add these dates to my calendar</button>
+        <button type="button" id="icsBtn" title="Download an .ics file of these dates for your calendar app">Add these dates to my calendar</button>
       </div>
     </section>
 
@@ -1161,8 +1162,8 @@ footer a{color:var(--focus)}
       <p class="eyebrow">Working backwards</p>
       <h2 id="hPlan">Getting to a particular course</h2>
       <div class="field field-max">
-        <label for="target">Course</label>
-        <select id="target"></select>
+        <label for="target" title="Pick a course to see every route into it, not just direct entry">Course</label>
+        <select id="target" title="Pick a course to see every route into it, not just direct entry"></select>
       </div>
       <div id="planOut"></div>
     </section>
@@ -1189,7 +1190,7 @@ footer a{color:var(--focus)}
     <section class="card">
       <h2>That page does not exist</h2>
       <p class="lede">The address may have been mistyped, or a link may be out of date.</p>
-      <div class="actions"><a class="btn primary" href="#/alevel">Back to the start</a></div>
+      <div class="actions"><a class="btn primary" href="#/alevel" title="Go back to the A-Level start page">Back to the start</a></div>
     </section>
   </div>
 </main>
@@ -1204,9 +1205,9 @@ footer a{color:var(--focus)}
     <p id="footAdvice"></p>
     <p id="footAttr"></p>
     <p class="links">
-      <a href="#/data">What this is, and what it is not</a> ·
-      <a href="https://github.com/BaijayantaRoy/path-ahead">Source code and data</a> ·
-      <a href="https://github.com/BaijayantaRoy/path-ahead/issues/new?labels=data&amp;title=Figure%20looks%20wrong">Report a figure that looks wrong</a> ·
+      <a href="#/data" title="Every source PathAhead cites, and the limits of what it holds">What this is, and what it is not</a> ·
+      <a href="https://github.com/BaijayantaRoy/path-ahead" title="Read the code and data on GitHub — nothing here is hidden">Source code and data</a> ·
+      <a href="https://github.com/BaijayantaRoy/path-ahead/issues/new?labels=data&amp;title=Figure%20looks%20wrong" title="Open a GitHub issue if a figure on this site looks wrong">Report a figure that looks wrong</a> ·
       MIT licensed, no warranty
     </p>
     <p class="cite" id="footVersion"></p>
@@ -1992,6 +1993,27 @@ function withinReach(school, psleScore, familyGroups, margin){
   return seenPublishedGroup ? false : null;
 }
 
+/* Reach across an EXPLICIT AL-score search a family types directly into
+   the shortlist filter -- a single score, or a range for a family working
+   from an estimate rather than a result -- independent of whatever they
+   entered into the Posting Group calculator elsewhere on the page. Pass
+   loScore===hiScore (with the same groups at both ends) for a single exact
+   score: an "upper bound" search is the one-point degenerate case of a
+   range, not a second code path, so withinReach() above never needed
+   duplicating. Still a FILTER, never a score -- a caller only ever hides on
+   "out-of-reach", the same way a plain withinReach()===false already only
+   ever hid; the other three states all stay visible and differ only in
+   which honest caveat a caller shows. Mirrors
+   engine/school_fit.py:combined_reach exactly. */
+function combinedReach(school, loScore, hiScore, loGroups, hiGroups, margin){
+  const reachWorst = withinReach(school, hiScore, hiGroups, margin);
+  const reachBest = withinReach(school, loScore, loGroups, margin);
+  if(reachWorst===true) return "in-reach";
+  if(reachBest===true) return "possible";
+  if(reachBest===false && reachWorst===false) return "out-of-reach";
+  return "unknown";
+}
+
 /* Checks one school against one family's FILTERS. Mirrors
    engine/school_fit.py:match_school exactly: the one hard, unconditional
    fact (sex-based admission) is resolved first and independently of
@@ -2237,6 +2259,7 @@ function renderRows(){
       onchange:e=>{row.grade=e.target.value; paintEnjoy();}});
     GRADES.forEach(g=>gr.append(el("option",{value:g,text:g,...(row.grade===g?{selected:"selected"}:{})})));
     const rm = el("button",{class:"rmbtn",type:"button","aria-label":`Remove subject ${i+1}`,text:"×",
+      title:"Remove this subject row",
       onclick:()=>{S.rows.splice(i,1);renderRows();paintEnjoy();}});
     const fixed = LEVEL_IS_THE_SUBJECT[row.level];
     let nameCell;
@@ -2317,36 +2340,42 @@ function paintEnjoy(){
   for(const s of subs){
     const pressed = P.enjoyed_subjects.includes(s.code);
     host.append(el("button",{type:"button",class:"chip","aria-pressed":String(pressed),
-      text:s.name, onclick:e=>toggleChip(e.currentTarget,P.enjoyed_subjects,s.code)}));
+      text:s.name, title:`Mark ${s.name} as a subject you enjoy`,
+      onclick:e=>toggleChip(e.currentTarget,P.enjoyed_subjects,s.code)}));
   }
 }
 function buildProfileUI(){
   const ih = $("#interestChips");
   for(const it of (S.pack.interests||[])){
     ih.append(el("button",{type:"button",class:"chip chip-stack","aria-pressed":"false",
+      title:`Pick up to 3 interests — ${it.label}: ${it.detail}`,
       onclick:e=>{
         if(P.interests.length>=3 && e.currentTarget.getAttribute("aria-pressed")==="false") return;
         toggleChip(e.currentTarget,P.interests,it.code);
       }},[document.createTextNode(it.label), el("small",{text:it.detail})]));
   }
-  const seg=(host,opts,set)=>{
+  const seg=(host,opts,set,groupLabel)=>{
     for(const [v,t] of opts) host.append(el("button",{type:"button","aria-pressed":"false",text:t,
+      title: groupLabel ? `${groupLabel}: ${t}` : t,
       onclick:e=>{ [...host.children].forEach(b=>b.setAttribute("aria-pressed","false"));
                    e.currentTarget.setAttribute("aria-pressed","true"); set(v); }}));
   };
-  seg($("#asmSeg"),ASM,v=>P.assessment_style=v);
-  seg($("#teamSeg"),TEAM,v=>P.teamwork=v);
+  seg($("#asmSeg"),ASM,v=>P.assessment_style=v,"How you like to be assessed");
+  seg($("#teamSeg"),TEAM,v=>P.teamwork=v,"How you like to work");
   for(const [k,t] of PRI)
     $("#priChips").append(el("button",{type:"button",class:"chip","aria-pressed":"false",text:t,
+      title:`Toggle "${t}" as one of the things you personally care about`,
       onclick:e=>toggleChip(e.currentTarget,P.priorities,k)}));
   renderRanking();
   for(const [id,label] of STREAMS)
     $("#streamChips").append(el("button",{type:"button",class:"chip","aria-pressed":"false",
       text:label,
+      title:`Show only courses in ${label} — pick more than one to include several fields`,
       onclick:e=>{ toggleChip(e.currentTarget,P.streams,id);
                    if(S.result) renderOptions(); }}));
   for(const [k,t] of CON)
     $("#conChips").append(el("button",{type:"button",class:"chip","aria-pressed":"false",text:t,
+      title:`Toggle: ${t}`,
       onclick:e=>{ const on=e.currentTarget.getAttribute("aria-pressed")==="true";
                    e.currentTarget.setAttribute("aria-pressed",String(!on)); P[k]=!on; }}));
   /* Mother tongue. "None of these" is a real answer and is stored as an empty
@@ -2356,6 +2385,8 @@ function buildProfileUI(){
               ["__none","None of these"]];
   for(const [k,t] of MT)
     $("#mtChips").append(el("button",{type:"button",class:"chip","aria-pressed":"false",text:t,
+      title: k==="__none" ? "None of these Mother Tongue languages are offered"
+        : `Mother Tongue: ${t} is offered`,
       onclick:e=>{
         const btn=e.currentTarget, on=btn.getAttribute("aria-pressed")==="true";
         const chips=[...$("#mtChips").children];
@@ -2421,6 +2452,7 @@ function buildProfileUI(){
       el("div",{style:"display:flex;flex-wrap:wrap;gap:.35rem"}, matched.slice(0,5).map(sig =>
         el("button",{type:"button",class:"chip",style:"font-size:.8rem;padding:.2rem .5rem",
           text:`+ ${sig.label}`,
+          title:`Add "${sig.label}" based on the words you typed`,
           onclick:()=>{
             if(sig.type==="interest"){
               if(P.interests.length < 3 && !P.interests.includes(sig.code)){
@@ -2639,6 +2671,7 @@ function renderOptions(){
     const seg=el("div",{class:"seg",role:"group","aria-label":"Order the list"});
     for(const [v,t] of [["match","Strongest match first"],["name","A to Z"]])
       seg.append(el("button",{type:"button","aria-pressed":String(S.sort===v),text:t,
+        title:`Order the list: ${t}`,
         onclick:()=>{ S.sort=v; renderOptions(); }}));
     sortHost.append(el("div",{class:"field",style:"margin:0 0 1rem"},[
       el("label",{id:"lblSort",text:"Order"}), seg]));
@@ -2757,6 +2790,7 @@ function renderOptions(){
     if(items.length>PAGE && DENSITY.mode!=="compact"){
       parts.push(el("button",{type:"button",class:"more",
         text:S.expanded[key] ? `Show fewer` : `Show all ${items.length}`,
+        title:S.expanded[key] ? `Collapse back to the first ${PAGE} courses` : `Expand to see all ${items.length} courses at once`,
         onclick:()=>{ S.expanded[key]=!S.expanded[key]; renderOptions(); }}));
       if(!S.expanded[key]) parts.push(el("p",{class:"hint",style:"margin:.4rem 0 0",
         text:`Showing ${shown} of ${items.length}. `+
@@ -2922,6 +2956,7 @@ function renderRanking(){
   // absent button is actually absent.
   actions.replaceChildren(...[
     anySet ? el("button",{type:"button",class:"ghost",text:"Reset to equal",
+      title:"Clear every importance level so all seven count equally again",
       onclick:()=>{P.importance.length=0; renderRanking(); if(S.result) renderOptions();}}) : null
   ].filter(Boolean));
 
@@ -2943,40 +2978,50 @@ function renderFilters(){
   const pack=S.pack, t=S.result?.t;
   const pool=pack.outcomes.filter(o=>!t||o.transition===t.id);
   const uniq=(f)=>[...new Set(pool.map(f).filter(Boolean))].sort();
-  const sel=(id,label,value,opts,onchange)=>el("div",{class:"field"},[
-    el("label",{for:id,text:label}),
-    el("select",{id,onchange},[el("option",{value:"",text:"Any"}),
+  const sel=(id,label,value,opts,onchange,hint)=>el("div",{class:"field"},[
+    el("label",{for:id,text:label,title:hint||label}),
+    el("select",{id,onchange,title:hint||label},[el("option",{value:"",text:"Any"}),
       ...opts.map(([v,tx])=>el("option",{value:v,text:tx,...(v===value?{selected:"selected"}:{})}))])]);
 
   const shown=pool.filter(matchesFilters).length;
   host.replaceChildren(
     el("div",{class:"field"},[
-      el("label",{for:"courseSearch",text:"Search"}),
+      el("label",{for:"courseSearch",text:"Search",title:"Search by course name, institution or field"}),
       el("input",{id:"courseSearch",type:"search",value:F.q,
         placeholder:"course, institution or field — type it how you say it",
+        title:"Search by course name, institution or field",
         oninput:e=>{F.q=e.target.value; renderOptions();}})]),
     el("div",{class:"filters"},[
       sel("fInst","Institution",F.inst,uniq(o=>o.institution_short).map(v=>[v,v]),
-        e=>{F.inst=e.target.value; renderOptions();}),
+        e=>{F.inst=e.target.value; renderOptions();},
+        "Show only courses at one institution"),
       sel("fField","Field",F.field,uniq(o=>o.faculty||"Other").map(v=>[v,v]),
-        e=>{F.field=e.target.value; renderOptions();}),
+        e=>{F.field=e.target.value; renderOptions();},
+        "Show only courses in one faculty or field"),
       sel("fInterest","Interest",F.interest,Object.entries(INTEREST_LABEL),
-        e=>{F.interest=e.target.value; renderOptions();}),
+        e=>{F.interest=e.target.value; renderOptions();},
+        "Show only courses tagged with one interest"),
       sel("fAsm","Assessed by",F.assessment,
         [["exams","Exams"],["coursework","Coursework"],["practical","Hands-on"]],
-        e=>{F.assessment=e.target.value; renderOptions();}),
+        e=>{F.assessment=e.target.value; renderOptions();},
+        "Show only courses assessed the way you picked"),
       sel("fExtra","Interview / portfolio",F.extra,[["yes","Required"],["no","Not required"]],
-        e=>{F.extra=e.target.value; renderOptions();}),
+        e=>{F.extra=e.target.value; renderOptions();},
+        "Filter by whether the course requires an interview, test or portfolio"),
       sel("fFlex","Can change direction later",F.flex,[["yes","Yes"]],
-        e=>{F.flex=e.target.value; renderOptions();}),
+        e=>{F.flex=e.target.value; renderOptions();},
+        "Show only courses that let you change direction after enrolling"),
       sel("fFee","Fee figure",F.fee,[["known","Held"],["unknown","Not held"]],
-        e=>{F.fee=e.target.value; renderOptions();}),
+        e=>{F.fee=e.target.value; renderOptions();},
+        "Filter by whether PathAhead holds a published fee figure for the course"),
     ]),
     el("div",{class:"field",style:"margin:.4rem 0 0"},[
       el("label",{id:"lblDensity",text:"How to show them"}),
       el("div",{class:"seg",role:"group","aria-labelledby":"lblDensity"},
         [["cards","Cards"],["compact","Compact table"]].map(([v,tx])=>
           el("button",{type:"button","aria-pressed":String(DENSITY.mode===v),text:tx,
+            title: v==="compact" ? "One row per course — for scanning the whole list at once"
+              : "One card per course, paged 10 at a time",
             onclick:()=>{DENSITY.mode=v; renderOptions();}})))]),
     /* A filter that silently removes two hundred courses is indistinguishable
        from a pack that never had them. Say the number, and offer the undo. */
@@ -2987,6 +3032,7 @@ function renderFilters(){
         `other courses are hidden by that choice — it changes nothing about how any course scores.`}),
       el("button",{type:"button",class:"ghost",style:"margin-left:.4rem",
         text:"Show every field again",
+        title:"Clear the field filter and show courses from every field",
         onclick:()=>{P.streams.length=0;
           for(const b of document.querySelectorAll("#streamChips button"))
             b.setAttribute("aria-pressed","false");
@@ -2998,6 +3044,7 @@ function renderFilters(){
     Object.values(F).some(Boolean)
       ? el("div",{class:"actions",style:"margin-top:.4rem"},[
           el("button",{type:"button",class:"ghost",text:"Clear filters",
+            title:"Reset the search box and every dropdown filter above",
             onclick:()=>{for(const k of Object.keys(F)) F[k]=""; renderOptions();}})])
       : null,
   );
@@ -3140,6 +3187,7 @@ function courseCard(o,bucketKey){
         el("div",{class:"c-sub",style:"font-family:var(--mono);font-size:.72rem",text:o.id})]),
       el("button",{type:"button",class:short?"primary":"",text:short?"On your shortlist":"Add to shortlist",
         style:"min-height:40px;padding:.4rem .8rem;font-size:.84rem",
+        title: short ? "Remove this course from your shortlist" : "Add this course to your shortlist to compare it side by side",
         onclick:()=>{ S.shortlist.has(o.id)?S.shortlist.delete(o.id):S.shortlist.add(o.id);
                       renderOptions(); renderCompare(); }})]),
     o.editorial?.summary ? el("p",{class:"c-summary",text:o.editorial.summary}) : null,
@@ -3318,16 +3366,26 @@ const ROUTES = [
   // "#/" is the stage chooser, NOT a stage. Which stage a family is at
   // changes the reader, the vocabulary, the legal posture and the decision —
   // so it is a fork in the road, not a dropdown on a form.
-  {id:"start",   hash:"#/",        view:"view-home",    label:"Start",     icon:"✎", tab:1},
-  {id:"alevel",  hash:"#/alevel",  view:"view-start",   label:"A-Level",   icon:"◈", tab:1},
-  {id:"result",  hash:"#/result",  view:"view-result",  label:"Result",    icon:"◎", tab:1, needsRun:true},
-  {id:"courses", hash:"#/courses", view:"view-courses", label:"Courses",   icon:"☰", tab:1, needsRun:true},
-  {id:"compare", hash:"#/compare", view:"view-compare", label:"Shortlist", icon:"⇄", tab:1, needsRun:true},
-  {id:"dates",   hash:"#/dates",   view:"view-dates",   label:"Dates",     icon:"▤", needsRun:true},
-  {id:"routes",  hash:"#/routes",  view:"view-routes",  label:"Ways in",   icon:"↳", needsRun:true},
-  {id:"fees",    hash:"#/fees",    view:"view-fees",    label:"Fees",      icon:"¤"},
-  {id:"data",    hash:"#/data",    view:"view-data",    label:"Sources",   icon:"ⓘ"},
-  {id:"scoring", hash:"#/scoring", view:"view-scoring", label:"How Scoring Works", icon:"?"},
+  {id:"start",   hash:"#/",        view:"view-home",    label:"Start",     icon:"✎", tab:1,
+   desc:"Choose which stage you're at: after PSLE, O-Level, or A-Level"},
+  {id:"alevel",  hash:"#/alevel",  view:"view-start",   label:"A-Level",   icon:"◈", tab:1,
+   desc:"For A-Level students: enter grades to see university courses in reach"},
+  {id:"result",  hash:"#/result",  view:"view-result",  label:"Result",    icon:"◎", tab:1, needsRun:true,
+   desc:"What your A-Level result is comparable to, for this year's cohort"},
+  {id:"courses", hash:"#/courses", view:"view-courses", label:"Courses",   icon:"☰", tab:1, needsRun:true,
+   desc:"Browse every university course PathAhead holds, filtered and searchable"},
+  {id:"compare", hash:"#/compare", view:"view-compare", label:"Shortlist", icon:"⇄", tab:1, needsRun:true,
+   desc:"Your shortlisted courses, compared side by side"},
+  {id:"dates",   hash:"#/dates",   view:"view-dates",   label:"Dates",     icon:"▤", needsRun:true,
+   desc:"Application windows and deadlines for this admissions cycle"},
+  {id:"routes",  hash:"#/routes",  view:"view-routes",  label:"Ways in",   icon:"↳", needsRun:true,
+   desc:"Routes into a course besides direct entry — polytechnic, a foundation year, and so on"},
+  {id:"fees",    hash:"#/fees",    view:"view-fees",    label:"Fees",      icon:"¤",
+   desc:"Tuition fees and bond terms by citizenship, as a range"},
+  {id:"data",    hash:"#/data",    view:"view-data",    label:"Sources",   icon:"ⓘ",
+   desc:"Every source PathAhead cites, and what it does not hold"},
+  {id:"scoring", hash:"#/scoring", view:"view-scoring", label:"How Scoring Works", icon:"?",
+   desc:"How PathAhead turns grades into a comparable score, in plain terms"},
   // The PSLE stage's own front door. Added as a SEPARATE landing rather than
   // a mode of "#/" on purpose: a P6 parent and a JC2 student are not the same
   // reader, and folding both into one page would settle the tone on the one
@@ -3337,20 +3395,26 @@ const ROUTES = [
   // and does not yet know what they are looking for -- the single front door
   // that demanded a transcript is the problem #/explore was built to fix, and
   // repeating it here for twelve-year-olds would be worse.
-  {id:"psle",    hash:"#/psle",    view:"view-psle",    label:"After PSLE", icon:"◇", tab:1},
+  {id:"psle",    hash:"#/psle",    view:"view-psle",    label:"After PSLE", icon:"◇", tab:1,
+   desc:"For families with a child sitting the PSLE, with or without a score yet"},
   // The O-Level/SEC stage's own front door, same reasoning as #/psle above:
   // a Secondary 4 student computing a real L1R5 aggregate and a Secondary 2
   // student who cannot yet see a single course outcome are not the same
   // reader, and both are a different reader from the A-Level start view.
   // No `needsRun` — the cohort choice and the honesty about what is not
   // loaded yet both have to be visible before any grade is entered.
-  {id:"olevel",  hash:"#/olevel",  view:"view-olevel",  label:"O-Level",    icon:"◆", tab:1},
-  {id:"explore", hash:"#/explore", view:"view-explore", label:"No idea yet",icon:"◇"},
-  {id:"resultsday",hash:"#/results-day",view:"view-resultsday",label:"Results day",icon:"◐"},
-  {id:"perspectives",hash:"#/perspectives",view:"view-perspectives",label:"Two of you",icon:"⚭"},
+  {id:"olevel",  hash:"#/olevel",  view:"view-olevel",  label:"O-Level",    icon:"◆", tab:1,
+   desc:"For O-Level/SEC students, before or after results"},
+  {id:"explore", hash:"#/explore", view:"view-explore", label:"No idea yet",icon:"◇",
+   desc:"Not sure what to look for yet — browse courses by interest, not by grades"},
+  {id:"resultsday",hash:"#/results-day",view:"view-resultsday",label:"Results day",icon:"◐",
+   desc:"What to do differently on the day results actually come out"},
+  {id:"perspectives",hash:"#/perspectives",view:"view-perspectives",label:"Two of you",icon:"⚭",
+   desc:"Compare what two people — say, a parent and a child — each said matters"},
   {id:"course",  hash:"#/course/", view:"view-course",  label:"Course",    hidden:true},
   {id:"uni",     hash:"#/uni/",    view:"view-uni",     label:"University",hidden:true},
-  {id:"more",    hash:"#/more",    view:"view-more",    label:"More",      icon:"⋯", tab:1},
+  {id:"more",    hash:"#/more",    view:"view-more",    label:"More",      icon:"⋯", tab:1,
+   desc:"Everything else this app offers, in one list"},
 ];
 const ROUTE_BY_ID = Object.fromEntries(ROUTES.map(r=>[r.id,r]));
 
@@ -3424,7 +3488,12 @@ function wireStickyNav(){
 function buildNav(track){
   const top=$("#topnav"), tab=$("#tabbar");
   const link=r=>{
-    const a=el("a",{href:r.hash,"data-route":r.id,title:r.label});
+    // A hover title of just the label repeats what the text already says;
+    // r.desc is the one-line explanation of what the page actually is,
+    // falling back to the label only for the couple of entries plain
+    // enough not to need one (e.g. "Course"/"University", which never
+    // render into nav anyway -- see ROUTES' `hidden` flag).
+    const a=el("a",{href:r.hash,"data-route":r.id,title:r.desc||r.label});
     a.append(icon(r.id), el("span",{text:r.label}));
     return a;
   };
@@ -3736,8 +3805,9 @@ function renderCoursePage(id){
   /* 4 — money */
   const fee=feeFor(o,cz), c=o.cost, mk=[];
   mk.push(el("div",{class:"field field-max"},[
-    el("label",{for:"czCourse",text:"Fees shown for"}),
-    el("select",{id:"czCourse",onchange:e=>{P.citizenship=e.target.value;
+    el("label",{for:"czCourse",text:"Fees shown for",title:"Recalculate the fee for a different citizenship"}),
+    el("select",{id:"czCourse",title:"Recalculate the fee for a different citizenship",
+      onchange:e=>{P.citizenship=e.target.value;
       const s=$("#citizenship"); if(s) s.value=e.target.value; renderCoursePage(id);}},
       Object.entries(CITIZEN_LABEL).map(([v,t])=>
         el("option",{value:v,text:t,...(v===cz?{selected:"selected"}:{})})))]));
@@ -3862,13 +3932,18 @@ function renderCoursePage(id){
   out.push(courseSection(9,"Sources",[
     el("ul",{class:"plain"},[...ids].map(sid=>{const s=sourceById(sid); if(!s) return null;
       return el("li",{},[el("strong",{text:s.name||s.id}),el("span",{text:" — "+(s.publisher||"")}),
-        s.url?el("span",{},[el("span",{text:" · "}),el("a",{href:s.url,rel:"noopener",target:"_blank",text:"source"})]):null,
+        s.url?el("span",{},[el("span",{text:" · "}),el("a",{href:s.url,rel:"noopener",target:"_blank",text:"source",title:`Open ${s.name||s.id} at its publisher`})]):null,
         s.retrieved?el("div",{class:"cite",text:"retrieved "+s.retrieved+(s.licence?" · "+s.licence:"")}):null,
       ].filter(Boolean));}).filter(Boolean)),
     el("div",{class:"actions"},[
-      o.url?el("a",{class:"btn",href:o.url,rel:"noopener",target:"_blank",text:"The institution's own page"}):null,
-      el("a",{class:"btn",href:"#/uni/"+encodeURIComponent(o.institution_short),text:"More from "+o.institution_short}),
-      el("button",{type:"button",onclick:()=>window.print(),text:"Print this page"}),
+      o.url?el("a",{class:"btn",href:o.url,rel:"noopener",target:"_blank",
+        title:"Open this course's page on the institution's own website",
+        text:"The institution's own page"}):null,
+      el("a",{class:"btn",href:"#/uni/"+encodeURIComponent(o.institution_short),
+        title:`See every other course PathAhead holds for ${o.institution_short}`,
+        text:"More from "+o.institution_short}),
+      el("button",{type:"button",onclick:()=>window.print(),text:"Print this page",
+        title:"Open your browser's print dialog for this course's full page"}),
     ].filter(Boolean)),
   ]));
 
@@ -4096,7 +4171,7 @@ function renderDataPage(){
       el("strong",{text:s.name||s.id}),
       el("span",{text:" — "+(s.publisher||"")}),
       s.url?el("span",{},[el("span",{text:" · "}),
-        el("a",{href:s.url,rel:"noopener noreferrer",target:"_blank",text:"source"})]):null,
+        el("a",{href:s.url,rel:"noopener noreferrer",target:"_blank",text:"source",title:`Open ${s.name||s.id} at its publisher`})]):null,
       el("div",{class:"cite"},[
         s.retrieved?el("span",{text:"retrieved "+s.retrieved}):null,
         s.licence?el("span",{text:" · "}):null,
@@ -4125,7 +4200,7 @@ function renderMorePage(){
     el("section",{class:"card"},[
       el("h2",{text:"Everything else"}),
       el("ul",{class:"plain"},ROUTES.filter(r=>!r.hidden&&!r.tab).map(r=>
-        el("li",{},[el("a",{href:r.hash,text:r.label})]))),
+        el("li",{},[el("a",{href:r.hash,text:r.label,title:r.desc||r.label})]))),
     ]),
     limitsCard(),
   );
@@ -4248,6 +4323,7 @@ function renderExplore(){
             renderExplore();}}))),
       picked.length?el("div",{class:"actions"},[
         el("button",{type:"button",class:"ghost",text:"Start again",
+          title:"Clear everything you've picked and start over",
           onclick:()=>{EX.picked.clear(); renderExplore();}})]):null,
     ].filter(Boolean)),
     picked.length ? el("section",{class:"card"},[
@@ -4341,22 +4417,29 @@ function renderHome(){
           el("p",{text:dr.body}),
           el("span",{class:"go",text:ready?dr.go:DOORS.find(x=>x.stage===dr.stage).go}),
         ];
+        const doorTitle = ready
+          ? `${dr.title} — for ${dr.who}`
+          : `${dr.title} — not in this build yet`;
         return ready
-          ? el("a",{class:"door",href:dr.href,"data-door":dr.stage},kids)
-          : el("div",{class:"door unbuilt","data-door":dr.stage,"aria-disabled":"true"},kids);
+          ? el("a",{class:"door",href:dr.href,"data-door":dr.stage,title:doorTitle},kids)
+          : el("div",{class:"door unbuilt","data-door":dr.stage,"aria-disabled":"true",title:doorTitle},kids);
       })),
     ]),
 
     el("section",{class:"card"},[
       el("h2",{text:"If none of those is where you are"}),
       el("ul",{class:"plain"},[
-        el("li",{},[el("a",{href:"#/explore",text:"I have no idea what I want to do"}),
+        el("li",{},[el("a",{href:"#/explore",text:"I have no idea what I want to do",
+          title:"Browse courses by interest instead of grades"}),
           el("span",{text:" — start from what you are drawn to, with no grades at all."})]),
-        el("li",{},[el("a",{href:"#/results-day",text:"The results were worse than we hoped"}),
+        el("li",{},[el("a",{href:"#/results-day",text:"The results were worse than we hoped",
+          title:"Ways forward that don't ask for a score"}),
           el("span",{text:" — the ways forward, without a score being asked for."})]),
-        el("li",{},[el("a",{href:"#/perspectives",text:"Two of us see this differently"}),
+        el("li",{},[el("a",{href:"#/perspectives",text:"Two of us see this differently",
+          title:"Compare what two people each said matters, without a score"}),
           el("span",{text:" — where a parent and a student agree and where they don't, without a score."})]),
-        el("li",{},[el("a",{href:"#/data",text:"Where every figure here comes from"}),
+        el("li",{},[el("a",{href:"#/data",text:"Where every figure here comes from",
+          title:"Every source PathAhead cites, and what it does not hold"}),
           el("span",{text:" — each one cited, dated, and linked to its publisher."})]),
       ]),
     ]),
@@ -4416,10 +4499,16 @@ const PS = {score:null, prefs:{postal_code:null, student_sex:null, gender:null, 
   // Every one of these narrows WHICH schools appear; none of them score or
   // sort anything (SAFEGUARDS.md 5.1) -- the visible list is always sorted
   // by distance then name, never by how closely a school matches. `filters`
-  // is kept separate from `prefs` only because postal code/km and reach
-  // work differently under the hood (a chosen band vs. a tri-state match) --
-  // both are filters in exactly the same sense.
-  filters:{maxKm:null, reachOnly:false}};
+  // is kept separate from `prefs` only because postal code/km and the AL
+  // score search work differently under the hood (a chosen band vs. a
+  // tri-state match) -- both are filters in exactly the same sense.
+  //
+  // `al` is the EXPLICIT AL-score search (see renderSchoolPrefs' "Search by
+  // AL score" block): independent of PS.score above, which only ever drives
+  // the Posting Group calculator. mode "upper" reads `upper` alone; mode
+  // "range" reads `min` and `max` together, and only once BOTH are set --
+  // a single one of the two is not enough to mean anything.
+  filters:{maxKm:null, al:{mode:"upper", upper:null, min:null, max:null}}};
 const SCHOOL_TYPE_OPTIONS = ["Government school","Government-aided school",
   "Independent school","Specialised school","Specialised independent school"];
 
@@ -4456,10 +4545,13 @@ function renderPsle(){
       el("h2",{text:"Where are you in this?"}),
       el("div",{class:"chips",id:"psleDoors",role:"group","aria-label":"Where you are"},[
         el("button",{type:"button",class:"chip",text:"We have a score",
+          title:"Jump to the PSLE Score field below to see which Posting Groups it opens",
           onclick:()=>{ const f=$("#psleScore"); if(f){ f.focus(); f.scrollIntoView({block:"center"}); } }}),
         el("button",{type:"button",class:"chip",text:"Not yet — we are choosing",
+          title:"Stay on this page — it's written for families with no score yet",
           onclick:()=>navigate("#/psle")}),
         el("button",{type:"button",class:"chip",text:"Explain the system",
+          title:"Jump to the published Posting Group table further down this page",
           onclick:()=>{ const h=$("#psleTable"); if(h) h.scrollIntoView({block:"start"}); }}),
       ]),
       el("p",{class:"hint",text:
@@ -4485,15 +4577,16 @@ function renderPsle(){
         // catch the throw; it is to stop destroying the element someone is
         // typing into.
         el("input",{type:"number",id:"psleScore",min:"4",max:"32",inputmode:"numeric",
+          title:"The four Achievement Levels added together — 4 (best) to 32 (worst)",
           value: PS.score==null ? "" : String(PS.score),
           oninput:e=>{ const v=parseInt(e.target.value,10);
             PS.score = Number.isFinite(v) && v>=4 && v<=32 ? v : null;
             paintPsleAnswer();
-            // The school shortlist's reach filter reads PS.score too (see
-            // familyPostingGroups()); without this, entering a score after
-            // already scrolling to the shortlist would leave that filter
-            // showing "enter your score first" until something else
-            // happened to repaint it.
+            // The AL score search's "Use the ... entered above" quick-fill
+            // button (see renderSchoolPrefs) reads PS.score too; without
+            // this, entering a score after already scrolling to the
+            // shortlist would leave that button showing a stale value, or
+            // missing entirely, until something else happened to repaint it.
             renderSchoolPrefs(); renderSchoolShortlist(); }}),
       ]),
       el("div",{id:"psleAnswerHost"},[
@@ -4694,31 +4787,44 @@ function renderSchoolPrefs(){
   const triState = (label, key, hint) => {
     const val = prefs[key];
     return el("div",{class:"field"},[
-      el("label",{text:label}),
+      el("label",{text:label,title:hint||label}),
       el("div",{class:"seg",role:"group","aria-label":label},[
         el("button",{type:"button","aria-pressed":String(val===null),text:"No preference",
+          title:`Don't filter by ${label}`,
           onclick:()=>{ prefs[key]=null; onSingleSelect(); }}),
         el("button",{type:"button","aria-pressed":String(val===true),text:"Only show these",
+          title:`Hide every school that is not ${label}`,
           onclick:()=>{ prefs[key]=true; onSingleSelect(); }}),
         el("button",{type:"button","aria-pressed":String(val===false),text:"Hide these",
+          title:`Hide every school that is ${label}`,
           onclick:()=>{ prefs[key]=false; onSingleSelect(); }}),
       ]),
       hint ? el("p",{class:"hint",text:hint}) : null,
     ]);
   };
 
+  // Pre-2026-08-29 this only ever looked at PS.prefs, so "Clear all
+  // preferences" stayed hidden for a family who had set nothing BUT the
+  // maximum-distance filter or the AL score search -- both real filters
+  // (SAFEGUARDS.md 5.1 still applies to them) with no way to clear them from
+  // here even though the button's own onclick already resets PS.filters too.
+  const alSearchIsActive = PS.filters.al.mode==="upper"
+    ? PS.filters.al.upper!=null
+    : (PS.filters.al.min!=null && PS.filters.al.max!=null);
   const hasAnyPreference = PS.prefs.postal_code || PS.prefs.student_sex || PS.prefs.gender ||
     PS.prefs.want_sap!=null || PS.prefs.want_ip!=null || PS.prefs.want_autonomous!=null ||
-    PS.prefs.want_gifted!=null || PS.prefs.school_types.length;
+    PS.prefs.want_gifted!=null || PS.prefs.school_types.length ||
+    PS.filters.maxKm!=null || alSearchIsActive;
 
   host.replaceChildren(
     ...[
       hasAnyPreference ? el("div",{class:"actions"},[
         el("button",{type:"button",class:"ghost",text:"Clear all preferences",
+          title:"Reset every filter on this shortlist back to showing all schools",
           onclick:()=>{
             PS.prefs = {postal_code:null, student_sex:null, gender:null, want_sap:null,
               want_ip:null, want_autonomous:null, want_gifted:null, school_types:[]};
-            PS.filters = {maxKm:null, reachOnly:false};
+            PS.filters = {maxKm:null, al:{mode:"upper", upper:null, min:null, max:null}};
             renderSchoolPrefs(); renderSchoolShortlist();
           }}),
       ]) : null,
@@ -4733,6 +4839,7 @@ function renderSchoolPrefs(){
         el("div",{class:"chips",role:"group","aria-label":"Your child's sex"},
           [["","Not answered"],["male","Boy"],["female","Girl"]].map(([v,t])=>
             el("button",{type:"button",class:"chip","aria-pressed":String((prefs.student_sex||"")===v),text:t,
+              title:"Used only to decide whether a single-sex school is even an option — never sent anywhere",
               onclick:()=>{
                 prefs.student_sex = v||null;
                 // A "co-ed or single-sex" preference for a gender your child
@@ -4753,6 +4860,7 @@ function renderSchoolPrefs(){
         el("label",{for:"schoolPostal",text:"Postal code (optional)"}),
         el("input",{type:"text",id:"schoolPostal",inputmode:"numeric",maxlength:"6",
           placeholder:"e.g. 738907",
+          title:"Your postal code, used only to sort by distance and feed the distance filter — never sent anywhere",
           value: prefs.postal_code||"",
           oninput:e=>{ prefs.postal_code = e.target.value.trim()||null;
             paintPostalStatus(); paintSchoolDistanceFilterHost(); renderSchoolShortlist(); }}),
@@ -4783,6 +4891,7 @@ function renderSchoolPrefs(){
         el("div",{class:"chips",role:"group","aria-label":"Co-ed or single-sex"},
           genderOpts.map(([v,t])=>
             el("button",{type:"button",class:"chip","aria-pressed":String((prefs.gender||"")===v),text:t,
+              title:v ? `Show only ${t} schools your child is eligible for` : "Don't filter by co-ed or single-sex",
               onclick:()=>{ prefs.gender = v||null; onSingleSelect(); }}))),
         !prefs.student_sex ? el("p",{class:"hint",text:
           "Answer your child's sex above and this list will only offer single-sex "+
@@ -4804,6 +4913,7 @@ function renderSchoolPrefs(){
       el("div",{class:"chips",role:"group","aria-label":"School type"},
         SCHOOL_TYPE_OPTIONS.map(t=>
           el("button",{type:"button",class:"chip","aria-pressed":String(prefs.school_types.includes(t)),text:t,
+            title:`Toggle showing ${t}s — pick more than one to include several types`,
             onclick:e=>{ toggleChip(e.currentTarget, prefs.school_types, t); renderSchoolShortlist(); }}))),
     ]),
 
@@ -4821,8 +4931,18 @@ function renderSchoolPrefs(){
 
     /* SAFEGUARDS.md 5.1 forbids ranking schools by cut-off point, so this
        narrows which schools appear without ever reordering what remains.
-       See engine/school_fit.py:within_reach for the margin and the
-       reasoning. */
+       See engine/school_fit.py:combined_reach for the four states and
+       within_reach for the margin and the reasoning behind it.
+
+       This is an EXPLICIT search, deliberately separate from "If you have
+       the score" above: that field drives the Posting Group calculator and
+       nothing else, so typing a number into it to merely browse the
+       shortlist used to mean either reusing it for two different purposes
+       at once, or having no way to explore a score you don't actually have
+       yet. Two modes: "Upper bound" is a single score; "Range" is for a
+       family working from an estimate (a mock exam, a teacher's guess)
+       rather than a result -- see combinedReach()'s four states for what
+       each end of a range can honestly tell you. */
     (() => {
       const spec = psleTransition()?.rule_params?.posting_groups;
       // The filter needs cut-off figures to compare against, and the
@@ -4835,26 +4955,64 @@ function renderSchoolPrefs(){
       // school at a time.
       const hasLocalCutoffs = (S.pack?.schools||[]).some(s=>s.cutoff_2025);
       if(!hasLocalCutoffs) return null;
-      const canUse = PS.score!=null && !!spec;
-      return el("div",{class:"field"},[
-        el("label",{text:"Only show schools within reach of your PSLE score"}),
-        el("div",{class:"seg",role:"group","aria-label":"Reach filter"},[
-          el("button",{type:"button","aria-pressed":String(!PS.filters.reachOnly),text:"Show all schools",
+      const al = PS.filters.al;
+      const canUse = !!spec;
+      const onField = (field) => (e) => {
+        const v = parseInt(e.target.value,10);
+        al[field] = Number.isFinite(v) && v>=4 && v<=32 ? v : null;
+        renderSchoolShortlist();
+      };
+      const scoreField = (id,label,field) => el("div",{class:"field field-max"},[
+        el("label",{for:id,text:label,
+          title:"PSLE Achievement Level sum: 4 (best) to 32 (worst)."}),
+        el("input",{type:"number",id,min:"4",max:"32",inputmode:"numeric",
+          title:"Enter a PSLE AL score from 4 to 32 — lower is stronger.",
+          disabled: !canUse, value: al[field]==null ? "" : String(al[field]),
+          oninput: onField(field)}),
+      ]);
+      return el("div",{class:"field",role:"group","aria-label":"Reach filter"},[
+        el("label",{text:"Search schools by AL score (explicit)"}),
+        el("p",{class:"hint",text:
+          "Separate from the calculator above: type a score here directly (or a realistic "+
+          "range, if you're working from an estimate rather than a result) and the list below "+
+          "narrows to schools that stay in reach of it. The score entered above never feeds "+
+          "this on its own, and typing here never changes what the calculator says."}),
+        el("div",{class:"seg",role:"group","aria-label":"AL score search mode"},[
+          el("button",{type:"button","aria-pressed":String(al.mode==="upper"),text:"Upper bound",
+            title:"Search with one AL score — schools within reach of it stay visible.",
             disabled: !canUse,
-            onclick:()=>{ PS.filters.reachOnly=false; renderSchoolShortlist(); }}),
-          el("button",{type:"button","aria-pressed":String(!!PS.filters.reachOnly),text:"Only schools in reach",
+            onclick:()=>{ al.mode="upper"; renderSchoolPrefs(); renderSchoolShortlist(); }}),
+          el("button",{type:"button","aria-pressed":String(al.mode==="range"),text:"Range",
+            title:"Search with a best-case-to-worst-case AL score range, for an estimate rather than a result.",
             disabled: !canUse,
-            onclick:()=>{ PS.filters.reachOnly=true; renderSchoolShortlist(); }}),
+            onclick:()=>{ al.mode="range"; renderSchoolPrefs(); renderSchoolShortlist(); }}),
         ]),
-        el("p",{class:"hint",text: canUse
+        al.mode==="upper" ? el("div",{},[
+          scoreField("alSearchUpper","AL score (4 to 32)","upper"),
+          (PS.score!=null && al.upper==null) ? el("button",{type:"button",class:"ghost",
+            title:"Copy the score from the calculator above into this search.",
+            text:`Use the ${PS.score} entered above`,
+            onclick:()=>{ al.upper=PS.score; renderSchoolPrefs(); renderSchoolShortlist(); }}) : null,
+        ].filter(Boolean)) : el("div",{},[
+          scoreField("alSearchMin","Best realistic AL score (4 to 32)","min"),
+          scoreField("alSearchMax","Worst realistic AL score (4 to 32)","max"),
+        ]),
+        el("p",{class:"hint",title:"How this search reads the cut-off figures in your own local copy.",text: !canUse
+          ? "This build has no Posting Group table to compare a score against."
+          : al.mode==="upper"
           ? "Uses the cut-off figures from your own local copy, plus a margin, since MOE's own "+
-            "figures say cut-off points \"can fluctuate by a few points year-on-year.\" These "+
-            "figures are yours, not PathAhead's: it has not verified them, and you should check "+
-            "anything that matters against the school's own SchoolFinder page, linked on every "+
-            "card. A school with no cut-off in your copy still shows, marked as unable to be "+
-            "judged rather than hidden."
-          : "Enter your child's PSLE score above on this page first — this filter compares it to "+
-            "the cut-off figures in your local copy."}),
+            "figures say cut-off points \"can fluctuate by a few points year-on-year.\" A school "+
+            "with no cut-off in your copy still shows, marked as unable to be judged rather than "+
+            "hidden."
+          : "Uses the SAME cut-off figures and margin, checked at both ends of your range. A "+
+            "school reads \"in reach\" if it stays in reach even at your worst-case score, "+
+            "\"possible\" if only your best-case score reaches it — read that one as depending "+
+            "on the better end of your range, never as a plain match — and is hidden only when "+
+            "neither end of the range reaches it at all."}),
+        el("p",{class:"hint",text:
+          "These figures are yours, not PathAhead's: it has not verified them, and you should "+
+          "check anything that matters against the school's own SchoolFinder page, linked on "+
+          "every card."}),
       ]);
     })(),
   );
@@ -4886,6 +5044,7 @@ function paintSchoolDistanceFilterHost(){
     el("div",{class:"chips",role:"group","aria-label":"Maximum distance"},
       opts.map(([v,t])=>
         el("button",{type:"button",class:"chip","aria-pressed":String(km===v),text:t,
+          title: v==null ? "Don't filter by distance" : `Hide schools more than ~${v} km away, straight-line`,
           disabled: !hasPostal,
           onclick:()=>{ PS.filters.maxKm=v; paintSchoolDistanceFilterHost(); renderSchoolShortlist(); }}))),
     !hasPostal ? el("p",{class:"hint",text:
@@ -4896,23 +5055,31 @@ function paintSchoolDistanceFilterHost(){
 const SCHOOL_PAGE = 10;
 let schoolShortlistExpanded = false;
 
-/** Which Posting Group(s) the family's own PSLE score has opened, or null
-    if there is no score yet / the pack has no posting_groups spec. Computed
-    once per render rather than once per school -- see schoolReach(). */
-function familyPostingGroups(){
-  if(PS.score==null) return null;
+/** Resolves the EXPLICIT AL-score search (renderSchoolPrefs' "Search by AL
+    score" block) into a combined-reach state for one school -- one of
+    combinedReach()'s four strings, or null when the search itself has
+    nothing to say yet (nothing typed, or -- in "range" mode -- only one of
+    the two ends). null here means "this filter is not active", never
+    "unknown reach"; schoolCard()/reachLine() below read it that way.
+    Computed once per render rather than once per school. Deliberately
+    independent of PS.score / the Posting Group calculator above -- the
+    "Use the ... entered above" button is the one deliberate bridge between
+    the two, and only ever copies a value across on a click. */
+function alSearchReach(school){
+  const al = PS.filters.al;
   const spec = psleTransition()?.rule_params?.posting_groups;
   if(!spec) return null;
-  return postingGroupFor(spec, PS.score, null).groups || [];
-}
-
-/** true / false / null for one school -- see engine/school_fit.py's
-    within_reach docstring for what each means. null (never treated as a
-    "no") when there is no PSLE score yet, no cutoff published for this
-    school, or the score fell outside the Posting Group table entirely. */
-function schoolReach(school, familyGroups){
-  if(PS.score==null || familyGroups==null) return null;
-  return withinReach(school, PS.score, familyGroups);
+  let lo, hi;
+  if(al.mode==="upper"){
+    if(al.upper==null) return null;
+    lo = hi = al.upper;
+  } else {
+    if(al.min==null || al.max==null) return null;
+    lo = Math.min(al.min, al.max);
+    hi = Math.max(al.min, al.max);
+  }
+  const groupsFor = sc => postingGroupFor(spec, sc, null).groups || [];
+  return combinedReach(school, lo, hi, groupsFor(lo), groupsFor(hi));
 }
 
 function renderSchoolShortlist(){
@@ -4924,28 +5091,26 @@ function renderSchoolShortlist(){
   // them reorder anything (SAFEGUARDS.md 5.1 -- see the field comments
   // above). eligible===false is the one unconditional hide; everything
   // else only hides when the family actually set it.
-  const familyGroups = familyPostingGroups();
   const maxKm = PS.filters.maxKm;
-  const reachOnly = PS.filters.reachOnly;
   let hiddenBySex = 0, hiddenByPrefs = 0, hiddenByKm = 0, hiddenByReach = 0;
   const rows = allRows.filter(([school,m])=>{
     if(m.eligible===false){ hiddenBySex++; return false; }
     if(!m.matches_preferences){ hiddenByPrefs++; return false; }
     if(maxKm!=null && m.distance_km!=null && m.distance_km>maxKm){ hiddenByKm++; return false; }
-    if(reachOnly && schoolReach(school, familyGroups)===false){ hiddenByReach++; return false; }
+    if(alSearchReach(school)==="out-of-reach"){ hiddenByReach++; return false; }
     return true;
   });
 
   if(!rows.length){
     host.replaceChildren(el("p",{class:"hint",id:"schoolNoPrefs",text:
       "No school matches the filters above — try clearing a preference, widening the "+
-      "distance, or turning off the reach filter, and PathAhead will show what it hid."}));
+      "distance, or clearing the AL score search, and PathAhead will show what it hid."}));
     return;
   }
 
   const shown = schoolShortlistExpanded ? rows.length : Math.min(SCHOOL_PAGE, rows.length);
   const list = el("ul",{class:"courses",id:"schoolResults"});
-  for(const [school,m] of rows.slice(0,shown)) list.append(schoolCard(school,m,schoolReach(school,familyGroups)));
+  for(const [school,m] of rows.slice(0,shown)) list.append(schoolCard(school,m,alSearchReach(school)));
 
   const sortNote = PS.prefs.postal_code ? "closest to you first" : "in alphabetical order";
   let summary = rows.length===allRows.length
@@ -4955,7 +5120,7 @@ function renderSchoolShortlist(){
   if(hiddenBySex) bits.push(`${hiddenBySex} not admitting your child's sex`);
   if(hiddenByPrefs) bits.push(`${hiddenByPrefs} not matching a preference you set`);
   if(hiddenByKm) bits.push(`${hiddenByKm} outside the distance you set`);
-  if(hiddenByReach) bits.push(`${hiddenByReach} outside reach of your PSLE score`);
+  if(hiddenByReach) bits.push(`${hiddenByReach} outside reach of the AL score you searched`);
   if(bits.length) summary += ` (${bits.join(", ")} — hidden by the filters above, never scored or ranked.)`;
 
   const parts = [
@@ -4964,6 +5129,8 @@ function renderSchoolShortlist(){
   ];
   if(rows.length>SCHOOL_PAGE) parts.push(el("button",{type:"button",class:"more",
     text: schoolShortlistExpanded ? "Show fewer" : `Show all ${rows.length}`,
+    title: schoolShortlistExpanded ? `Collapse back to the first ${SCHOOL_PAGE} schools`
+      : `Expand to see all ${rows.length} matching schools at once`,
     onclick:()=>{ schoolShortlistExpanded=!schoolShortlistExpanded; renderSchoolShortlist(); }}));
   host.replaceChildren(...parts);
 }
@@ -5054,20 +5221,29 @@ function cutoffRangeLine(school){
   ]);
 }
 
-/** Plain-language line for one school's reach status against THIS family's
-    own PSLE score -- true/false only; see schoolReach()'s comment for what
-    each means. Never says "you missed the cut-off" or any other verdict
+/** Plain-language line for one school's reach status against the AL score
+    (or range) the family explicitly searched -- see alSearchReach()'s
+    comment for what each of the four states means. Never says "you missed
+    the cut-off" or any other verdict
     language (SAFEGUARDS.md 5.3); states the published number and lets the
     family read it themselves. The "no cut-off published at all" case is
     handled once, unconditionally, by cutoffRangeLine() above instead of
     here, so it does not depend on a score having been entered yet. */
 function reachLine(school, reach){
-  if(reach===true) return el("div",{class:"c-sub",text:
-    "Last year's Posting Group cut-off suggests this school is within reach of your PSLE score."});
-  if(reach===false) return el("div",{class:"c-sub",text:
-    "Last year's Posting Group cut-off was better than your PSLE score by more than a few points — "+
-    "still allowed as one of your six choices, just less likely on past figures."});
-  return null; // no PSLE score yet, or score fell outside the posting table -- nothing extra to say
+  if(reach==="in-reach") return el("div",{class:"c-sub",text:
+    "Last year's Posting Group cut-off suggests this school stays in reach across the AL score "+
+    "you searched."});
+  if(reach==="possible") return el("div",{class:"c-sub",text:
+    "Last year's Posting Group cut-off puts this school in reach only near the better end of the "+
+    "range you searched — depends on the best case, not a plain match."});
+  // "out-of-reach" never actually reaches this function -- renderSchoolShortlist() hides those
+  // schools before schoolCard() is ever called for them, the same way an eligible===false school
+  // never reaches schoolCard() either. Kept as an explicit branch anyway, for the same reason: a
+  // future change to that filter should not silently start showing an unlabelled card.
+  if(reach==="out-of-reach") return el("div",{class:"c-sub",text:
+    "Last year's Posting Group cut-off was better than the AL score you searched by more than a "+
+    "few points — still allowed as one of your six choices, just less likely on past figures."});
+  return null; // the AL score search isn't active, or PathAhead can't judge this school -- nothing extra to say
 }
 
 /** Plain-language line when PathAhead cannot yet confirm a single-sex
@@ -5106,7 +5282,7 @@ function schoolCard(school, match, reach){
   ]) : null;
 
   return el("li",{class:"course","data-school":school.id,style:"grid-template-columns:1fr",
-    "data-reach": reach===true?"in-reach":reach===false?"out-of-reach":"unknown"},[
+    "data-reach": reach==null?"unknown":reach},[
     el("div",{class:"c-top"},[
       el("div",{},[el("div",{class:"c-name",text:school.name}),
         el("div",{class:"c-sub",text:school.address}),
@@ -5237,6 +5413,7 @@ function renderOlevel(){
         cohorts.map(c=>el("button",{type:"button",class:"chip",
           "aria-pressed": String(OL.yearLevel===c.year_level),
           text:c.label,
+          title:`Use the rulebook for students who started Secondary 1 ${c.label}`,
           onclick:()=>{ OL.yearLevel=c.year_level; OL.rows=[]; renderOlevel(); }}))),
       cohort ? el("p",{class:"note info",id:"olevelCohortNote",text:cohort.note}) : null,
     ]),
@@ -5272,6 +5449,7 @@ function olevelSubjectsCard(){
           OL_GRADE_OPTIONS.map(g=>el("option",{value:g,text:olLabel(g),...(row.grade===g?{selected:"selected"}:{})})));
         gr.addEventListener("change",e=>{ row.grade=e.target.value; renderOlevel(); });
         const rm = el("button",{class:"rmbtn",type:"button","aria-label":`Remove ${def?.name||row.code}`,text:"×",
+          title:`Remove ${def?.name||row.code} from your subject list`,
           onclick:()=>{ OL.rows.splice(i,1); renderOlevel(); }});
         return el("tr",{},[el("td",{text:def?.name||row.code}),el("td",{},gr),el("td",{},rm)]);
       })),
@@ -5561,6 +5739,7 @@ function renderPerspectives(){
       el("div",{class:"seg",role:"group","aria-label":"Who is answering"},
         [["child","The young person"],["parent","The parent"]].map(([v,t])=>
           el("button",{type:"button","aria-pressed":String(PERSP.who===v),text:t,
+            title:`Switch to answering as ${t.toLowerCase()}`,
             onclick:()=>{PERSP.who=v; renderPerspectives();}}))),
       el("p",{class:"hint",style:"margin-top:.5rem",text:
         `Answering as: ${PERSP.who==="child"?"the young person":"the parent"}. `+
@@ -5571,6 +5750,7 @@ function renderPerspectives(){
       el("div",{class:"chips",role:"group"},q.opts().map(([v,t])=>{
         const on=q.multi?(side[q.k]||[]).includes(v):side[q.k]===v;
         return el("button",{type:"button","aria-pressed":String(on),text:t,
+          title:`${q.label}: ${t}`,
           onclick:()=>answer(q,v)});
       }))]))),
   ];
@@ -5607,7 +5787,9 @@ function renderGate(route){
       `“${route?route.label:"That page"}” is built from your own answers, and there are `+
       `none yet. Nothing is stored between visits — not on a server and not on `+
       `this device — so the questions start empty every time.`}),
-    el("div",{class:"actions"},[el("a",{class:"btn primary",href:"#/alevel",text:"Go to the questions"})]),
+    el("div",{class:"actions"},[el("a",{class:"btn primary",href:"#/alevel",
+      title:"Go answer the profile questions this page needs",
+      text:"Go to the questions"})]),
   ]));
 }
 
@@ -5642,7 +5824,8 @@ async function boot(){
     if(note) note.replaceChildren(el("span",{},[
       el("span",{text:"Is your child in "+
         elsewhere.map(c=>c.label).join(" or ")+"? "}),
-      el("a",{href:"#/psle",text:"That is a different system — start here instead"}),
+      el("a",{href:"#/psle",title:"Go to PathAhead's PSLE page instead",
+        text:"That is a different system — start here instead"}),
       el("span",{text:". The rules, the vocabulary and the decision are all different, "+
         "so it has its own page rather than being an option in this list."}),
     ]));

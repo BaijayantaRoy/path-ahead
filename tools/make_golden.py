@@ -28,7 +28,12 @@ from engine import GradeSheet, load_pack  # noqa: E402
 from engine.fit import score_outcome, subject_families  # noqa: E402
 from engine.forward import score  # noqa: E402
 from engine.profile import StudentProfile  # noqa: E402
-from engine.school_fit import SchoolPreferences, match_school, within_reach  # noqa: E402
+from engine.school_fit import (  # noqa: E402
+    SchoolPreferences,
+    combined_reach,
+    match_school,
+    within_reach,
+)
 
 #: Cases chosen to exercise every branch, including the awkward ones.
 CASES: list[dict] = [
@@ -545,6 +550,58 @@ WITHIN_REACH_CASES: list[dict] = [
 ]
 
 
+#: combined_reach() cases -- the EXPLICIT AL-score search (a single score,
+#: or a range for a family working from an estimate rather than a result),
+#: independent of the Posting Group calculator elsewhere on the page. Each
+#: case reuses a WITHIN_REACH_CASES-style synthetic school; see that list's
+#: own comment for why the school travels with the fixture rather than
+#: being looked up in the pack.
+COMBINED_REACH_CASES: list[dict] = [
+    {
+        "id": "combined-reach-both-ends-in-reach",
+        "why": "the whole range clears the cut-off -- the strongest signal, shown as in-reach",
+        "school": {"pg3": [16, 22]},
+        "lo_score": 18, "hi_score": 20, "lo_groups": [3], "hi_groups": [3], "margin": 2,
+    },
+    {
+        "id": "combined-reach-only-the-better-end-clears",
+        "why": (
+            "the better (lower) end of the range is in reach but the worse end is not -- "
+            "'possible', never plain in-reach, so a caller cannot present it as a match"
+        ),
+        "school": {"pg3": [16, 22]},
+        "lo_score": 20, "hi_score": 27, "lo_groups": [3], "hi_groups": [3], "margin": 2,
+    },
+    {
+        "id": "combined-reach-neither-end-clears",
+        "why": "not in reach anywhere across the range -- the one state a shortlist filter actually hides on",
+        "school": {"pg3": [16, 22]},
+        "lo_score": 26, "hi_score": 30, "lo_groups": [3], "hi_groups": [3], "margin": 2,
+    },
+    {
+        "id": "combined-reach-no-cutoff-held-is-unknown",
+        "why": "no cut-off held for this school -- must answer unknown, never out-of-reach",
+        "school": None,
+        "lo_score": 10, "hi_score": 12, "lo_groups": [3], "hi_groups": [3], "margin": 2,
+    },
+    {
+        "id": "combined-reach-exact-score-degenerate-range",
+        "why": (
+            "an 'upper bound' search is lo_score==hi_score with the same groups at both ends -- "
+            "this must equal a plain within_reach() call, not a second, subtly different code path"
+        ),
+        "school": {"pg3": [16, 22]},
+        "lo_score": 24, "hi_score": 24, "lo_groups": [3], "hi_groups": [3], "margin": 2,
+    },
+    {
+        "id": "combined-reach-exact-score-degenerate-range-out-of-reach",
+        "why": "the same degenerate-range identity, one point past the margin -- must be out-of-reach",
+        "school": {"pg3": [16, 22]},
+        "lo_score": 25, "hi_score": 25, "lo_groups": [3], "hi_groups": [3], "margin": 2,
+    },
+]
+
+
 def _synthetic_school(bands: dict | None) -> dict:
     """A school row shaped the way within_reach() reads one, from a fixture's
     own `school` field. `None` means no cut-off held at all."""
@@ -669,6 +726,32 @@ def generate(pack_dir: Path, out_dir: Path) -> Path:
             }
         )
 
+    combined_reach_fixtures = []
+    for case in COMBINED_REACH_CASES:
+        school = _synthetic_school(case["school"])
+        got = combined_reach(
+            school, case["lo_score"], case["hi_score"],
+            tuple(case["lo_groups"]), tuple(case["hi_groups"]),
+            margin=case["margin"],
+        )
+        combined_reach_fixtures.append(
+            {
+                "id": case["id"],
+                "why": case["why"],
+                # Same reasoning as within_reach_fixtures above: the school
+                # travels WITH the fixture so check_golden.mjs feeds the JS
+                # engine identical input rather than reading cut-off figures
+                # out of a pack that no longer carries any.
+                "school": school,
+                "lo_score": case["lo_score"],
+                "hi_score": case["hi_score"],
+                "lo_groups": case["lo_groups"],
+                "hi_groups": case["hi_groups"],
+                "margin": case["margin"],
+                "expected": got,
+            }
+        )
+
     path = out_dir / "rules.json"
     path.write_text(
         json.dumps(
@@ -678,6 +761,7 @@ def generate(pack_dir: Path, out_dir: Path) -> Path:
                 "fit_cases": fit_fixtures,
                 "school_match_cases": school_match_fixtures,
                 "within_reach_cases": within_reach_fixtures,
+                "combined_reach_cases": combined_reach_fixtures,
             },
             indent=2,
         ),

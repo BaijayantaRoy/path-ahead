@@ -30,7 +30,12 @@ allowed under SAFEGUARDS.md 5.1's own words, and neither one selectivity.
                  family can narrow 147 schools to ones realistically in
                  reach of their own PSLE score, while the schools that
                  remain stay sorted by distance and name, exactly as they
-                 always have.
+                 always have. `combined_reach()` answers the same question
+                 for an EXPLICIT search a family types directly into the
+                 shortlist filter -- a single score, or a range for a
+                 family working from an estimate rather than a result --
+                 independent of whatever they entered into the Posting
+                 Group calculator elsewhere on the page.
 
     Filters   -- "does this school match what you said you're looking
                  for": close to home (a straight-line distance band), co-ed
@@ -290,6 +295,59 @@ def within_reach(
         if cop is not None and psle_score <= cop + margin:
             return True
     return False if seen_a_published_group else None
+
+
+def combined_reach(
+    school: Mapping[str, Any],
+    lo_score: float,
+    hi_score: float,
+    lo_groups: Sequence[int],
+    hi_groups: Sequence[int],
+    *,
+    margin: int = REACH_MARGIN,
+) -> str:
+    """Reach across an explicit, possibly-uncertain AL-score search -- the
+    band a family typed directly into the shortlist filter, independent of
+    whatever they entered into the Posting Group calculator above it (see
+    the "explicit search" control in web/src/app.js:renderSchoolPrefs). Pass
+    `lo_score == hi_score` (and the same groups for both) for a single exact
+    score -- an "upper bound" search is the degenerate one-point case of a
+    range, not a second code path, so within_reach() itself never needed
+    duplicating.
+
+    Still a FILTER, never a score: this never orders schools, and a caller
+    only ever HIDES on one of the four strings below -- "out-of-reach" --
+    exactly the way a plain within_reach()===False already only ever hid.
+    The other three all stay visible; they differ only in which honest
+    caveat a caller shows next to a school, the same "cannot judge" is not
+    "no" principle within_reach()'s own None already follows.
+
+        "in-reach"     -- in reach even at the band's WORSE (higher) end --
+                          the strongest signal within_reach() can give.
+        "possible"     -- in reach only near the band's BETTER (lower) end.
+                          A caller must label this as depending on the
+                          better end of the search, never as a plain match.
+        "out-of-reach" -- not in reach anywhere across the band -- the one
+                          state a shortlist filter actually hides on.
+        "unknown"      -- PathAhead cannot judge at either end (no cut-off
+                          published for this school, or a score fell
+                          outside the published Posting Group table) --
+                          shown, never hidden, same as within_reach()'s own
+                          None.
+
+    `lo_groups`/`hi_groups` are each end's own `PostingGroupResult.groups`
+    (`engine/posting.py:resolve_posting_group`), resolved by the caller once
+    per end -- exactly what within_reach() already expects for one score.
+    """
+    reach_worst = within_reach(school, hi_score, hi_groups, margin=margin)
+    reach_best = within_reach(school, lo_score, lo_groups, margin=margin)
+    if reach_worst is True:
+        return "in-reach"
+    if reach_best is True:
+        return "possible"
+    if reach_best is False and reach_worst is False:
+        return "out-of-reach"
+    return "unknown"
 
 
 @dataclass(frozen=True, slots=True)

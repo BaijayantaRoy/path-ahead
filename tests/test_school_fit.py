@@ -20,6 +20,7 @@ from engine.school_fit import (
     FILTER_DISCLAIMER,
     REACH_MARGIN,
     SchoolPreferences,
+    combined_reach,
     distance_km,
     explain_school_match,
     haversine_km,
@@ -286,6 +287,64 @@ def test_within_reach_is_never_part_of_a_schoolmatch(pack):
 
     assert "within_reach" not in {f.name for f in fields(SchoolMatch)}
     assert "reach" not in {f.name for f in fields(SchoolMatch)}
+
+
+# --- combined_reach(): the EXPLICIT AL-score search, one score or a range -
+# The shortlist's "Search by AL score" control (web/src/app.js:renderSchoolPrefs),
+# independent of whatever the family typed into the Posting Group calculator
+# elsewhere on the page. Same discipline as within_reach() above -- a caller
+# only ever hides on "out-of-reach"; the other three states stay visible and
+# differ only in which honest caveat a caller shows.
+
+
+def test_combined_reach_in_reach_when_both_ends_clear_the_cutoff():
+    school = _school(pg3=[16, 22])
+    assert combined_reach(school, 18, 20, (3,), (3,)) == "in-reach"
+
+
+def test_combined_reach_possible_when_only_the_better_end_clears():
+    """The worse end of the range misses; the better end still clears --
+    'possible', never plain 'in-reach', so a caller can't present it as a
+    confirmed match."""
+    school = _school(pg3=[16, 22])
+    assert combined_reach(school, 20, 27, (3,), (3,)) == "possible"
+
+
+def test_combined_reach_out_of_reach_when_neither_end_clears():
+    school = _school(pg3=[16, 22])
+    assert combined_reach(school, 26, 30, (3,), (3,)) == "out-of-reach"
+
+
+def test_combined_reach_is_unknown_not_out_of_reach_when_no_cutoff_is_published():
+    school = _school()  # cutoff_2025 is None
+    assert combined_reach(school, 10, 12, (3,), (3,)) == "unknown"
+
+
+def test_combined_reach_with_equal_ends_matches_a_plain_within_reach_call():
+    """An 'upper bound' search is lo_score == hi_score with the same groups
+    at both ends -- the one-point degenerate case of a range, not a second
+    code path that could quietly drift from within_reach() over time."""
+    school = _school(pg3=[16, 22])
+    for score in (18, 22 + REACH_MARGIN, 22 + REACH_MARGIN + 1, 30):
+        want = "in-reach" if within_reach(school, score, (3,)) else "out-of-reach"
+        assert combined_reach(school, score, score, (3,), (3,)) == want
+
+
+def test_combined_reach_respects_a_custom_margin():
+    school = _school(pg3=[16, 22])
+    assert combined_reach(school, 23, 23, (3,), (3,), margin=0) == "out-of-reach"
+    assert combined_reach(school, 22, 22, (3,), (3,), margin=0) == "in-reach"
+
+
+def test_combined_reach_never_returns_a_boolean_or_none():
+    """Every return path is one of the four named strings -- a caller
+    (schoolCard()'s data-reach attribute, in particular) must never see a
+    bare True/False/None it could confuse with within_reach()'s own return."""
+    school = _school(pg3=[16, 22])
+    for lo, hi in ((18, 20), (20, 27), (26, 30)):
+        result = combined_reach(school, lo, hi, (3,), (3,))
+        assert result in ("in-reach", "possible", "out-of-reach", "unknown")
+    assert combined_reach(_school(), 10, 12, (3,), (3,)) == "unknown"
 
 
 # --- SAP / IP / Autonomous / Gifted: want vs avoid, both filter honestly ---

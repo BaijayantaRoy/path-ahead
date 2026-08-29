@@ -1,11 +1,11 @@
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main" title="Skip past the navigation straight to the main content">Skip to content</a>
 
 <header class="top">
   <div class="wrap">
     <div class="masthead">
-      <a class="logo" href="#/" aria-label="PathAhead home">Path<em>Ahead</em></a>
+      <a class="logo" href="#/" aria-label="PathAhead home" title="Back to the start — choose After PSLE, O-Level, or A-Level">Path<em>Ahead</em></a>
       <div class="tagline" id="freshText">loading…</div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Toggle Theme">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Switch between light and dark appearance">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
       </button>
       <p class="disclaim">
@@ -74,8 +74,8 @@
     <p class="lede">This one answer decides which rulebook applies. One school year apart
       can mean two entirely different systems — so PathAhead reads your answer back to you.</p>
     <div class="field field-max">
-      <label for="yearLevel">Year level</label>
-      <select id="yearLevel"></select>
+      <label for="yearLevel" title="Which year your child is in decides which rulebook applies">Year level</label>
+      <select id="yearLevel" title="Which year your child is in decides which rulebook applies"></select>
     </div>
     <div class="note info" id="cohortEcho" role="status" aria-live="polite"><span></span></div>
     <p class="hint" id="otherStages"></p>
@@ -92,8 +92,8 @@
       <tbody id="rows"></tbody>
     </table>
     <div class="actions">
-      <button type="button" id="addRow">Add a subject</button>
-      <button type="button" class="ghost" id="sample">Fill in a worked example instead</button>
+      <button type="button" id="addRow" title="Add another subject row to the grades table">Add a subject</button>
+      <button type="button" class="ghost" id="sample" title="Fill every row in with a sample set of grades, to see how this works">Fill in a worked example instead</button>
     </div>
     <div id="inputError" class="err" hidden role="alert"></div>
 
@@ -175,8 +175,8 @@
     </div>
 
     <div class="field field-max">
-      <label for="citizenship">Citizenship — this changes the fees shown</label>
-      <select id="citizenship">
+      <label for="citizenship" title="International and PR fees are usually higher than Citizen fees">Citizenship — this changes the fees shown</label>
+      <select id="citizenship" title="International and PR fees are usually higher than Citizen fees">
         <option value="citizen">Singapore Citizen</option>
         <option value="pr">Singapore Permanent Resident</option>
         <option value="international">International student</option>
@@ -189,8 +189,9 @@
     </div>
 
     <div class="field">
-      <label for="goalText">In your own words, what do you want to be doing in ten years?</label>
-      <textarea id="goalText" placeholder="No wrong answer. &quot;No idea&quot; is a real answer."></textarea>
+      <label for="goalText" title="Optional — PathAhead shows this back to you, it does not interpret it">In your own words, what do you want to be doing in ten years?</label>
+      <textarea id="goalText" placeholder="No wrong answer. &quot;No idea&quot; is a real answer."
+        title="Optional — PathAhead shows this back to you, it does not interpret it"></textarea>
       <div id="goalSuggestions" class="note info" style="margin-top:.6rem" hidden></div>
       <p class="hint" style="margin-top:.4rem">PathAhead will show this back to you next to your
         options rather than pretending to interpret it — there is no language model running here.</p>
@@ -204,8 +205,8 @@
     <div class="note info" id="signalProgress" role="status" aria-live="polite"><span></span></div>
 
     <div class="actions">
-      <button type="button" class="primary" id="go">Show me the result</button>
-      <button type="button" id="reset">Clear everything</button>
+      <button type="button" class="primary" id="go" title="Score your answers against every course PathAhead holds">Show me the result</button>
+      <button type="button" id="reset" title="Clear every grade and answer on this page and start over">Clear everything</button>
     </div>
   </section>
   </div><!-- /view-start -->
@@ -245,7 +246,7 @@
       <ol class="timeline" id="timeline"></ol>
       <div id="timelineNotes"></div>
       <div class="actions">
-        <button type="button" id="icsBtn">Add these dates to my calendar</button>
+        <button type="button" id="icsBtn" title="Download an .ics file of these dates for your calendar app">Add these dates to my calendar</button>
       </div>
     </section>
 
@@ -288,8 +289,8 @@
       <p class="eyebrow">Working backwards</p>
       <h2 id="hPlan">Getting to a particular course</h2>
       <div class="field field-max">
-        <label for="target">Course</label>
-        <select id="target"></select>
+        <label for="target" title="Pick a course to see every route into it, not just direct entry">Course</label>
+        <select id="target" title="Pick a course to see every route into it, not just direct entry"></select>
       </div>
       <div id="planOut"></div>
     </section>
@@ -316,7 +317,7 @@
     <section class="card">
       <h2>That page does not exist</h2>
       <p class="lede">The address may have been mistyped, or a link may be out of date.</p>
-      <div class="actions"><a class="btn primary" href="#/alevel">Back to the start</a></div>
+      <div class="actions"><a class="btn primary" href="#/alevel" title="Go back to the A-Level start page">Back to the start</a></div>
     </section>
   </div>
 </main>
@@ -331,9 +332,9 @@
     <p id="footAdvice"></p>
     <p id="footAttr"></p>
     <p class="links">
-      <a href="#/data">What this is, and what it is not</a> ·
-      <a href="https://github.com/BaijayantaRoy/path-ahead">Source code and data</a> ·
-      <a href="https://github.com/BaijayantaRoy/path-ahead/issues/new?labels=data&amp;title=Figure%20looks%20wrong">Report a figure that looks wrong</a> ·
+      <a href="#/data" title="Every source PathAhead cites, and the limits of what it holds">What this is, and what it is not</a> ·
+      <a href="https://github.com/BaijayantaRoy/path-ahead" title="Read the code and data on GitHub — nothing here is hidden">Source code and data</a> ·
+      <a href="https://github.com/BaijayantaRoy/path-ahead/issues/new?labels=data&amp;title=Figure%20looks%20wrong" title="Open a GitHub issue if a figure on this site looks wrong">Report a figure that looks wrong</a> ·
       MIT licensed, no warranty
     </p>
     <p class="cite" id="footVersion"></p>
