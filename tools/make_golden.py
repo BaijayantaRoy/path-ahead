@@ -606,10 +606,10 @@ def _synthetic_school(bands: dict | None) -> dict:
     """A school row shaped the way within_reach() reads one, from a fixture's
     own `school` field. `None` means no cut-off held at all."""
     if bands is None:
-        return {"id": "fixture-school", "cutoff_2025": None}
+        return {"id": "fixture-school", "cutoff_current": None}
     return {
         "id": "fixture-school",
-        "cutoff_2025": {k: bands.get(k) for k in ("pg3", "pg2", "pg1", "ip")},
+        "cutoff_current": {k: bands.get(k) for k in ("pg3", "pg2", "pg1", "ip")},
     }
 
 

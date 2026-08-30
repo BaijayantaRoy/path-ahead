@@ -764,7 +764,7 @@ const REACH_MARGIN = 2;
    engine/school_fit.py:within_reach exactly. */
 function withinReach(school, psleScore, familyGroups, margin){
   const m = margin==null ? REACH_MARGIN : margin;
-  const cutoffs = school.cutoff_2025;
+  const cutoffs = school.cutoff_current;
   if(!cutoffs || !familyGroups || !familyGroups.length) return null;
   let seenPublishedGroup = false;
   for(const group of familyGroups){
@@ -2181,6 +2181,10 @@ const ROUTES = [
   // repeating it here for twelve-year-olds would be worse.
   {id:"psle",    hash:"#/psle",    view:"view-psle",    label:"After PSLE", icon:"◇", tab:1,
    desc:"For families with a child sitting the PSLE, with or without a score yet"},
+  // Split out of #/psle so it can be searched directly, and returned to
+  // directly -- see renderSchoolsPage()'s comment for why.
+  {id:"schools", hash:"#/schools", view:"view-schools", label:"Find a School", icon:"⌕", tab:1,
+   desc:"Search all 147 secondary schools by category, location and PSLE score reach"},
   // The O-Level/SEC stage's own front door, same reasoning as #/psle above:
   // a Secondary 4 student computing a real L1R5 aggregate and a Secondary 2
   // student who cannot yet see a single course outcome are not the same
@@ -2189,8 +2193,19 @@ const ROUTES = [
   // loaded yet both have to be visible before any grade is entered.
   {id:"olevel",  hash:"#/olevel",  view:"view-olevel",  label:"O-Level",    icon:"◆", tab:1,
    desc:"For O-Level/SEC students, before or after results"},
-  {id:"explore", hash:"#/explore", view:"view-explore", label:"No idea yet",icon:"◇",
-   desc:"Not sure what to look for yet — browse courses by interest, not by grades"},
+  // Split out of #/olevel so it can be searched directly, and returned to
+  // directly, with no L1R5/L1R4 aggregate required -- see
+  // renderJcSearchPage()'s comment for why.
+  {id:"jc",      hash:"#/jc",      view:"view-jc",      label:"Find a JC/MI", icon:"⌕", tab:1,
+   desc:"Browse every Junior College and Millennia Institute course by stream"},
+  // A-Level's own separate menu for browsing by stream/interest rather than
+  // grades -- exactly the role #/schools plays for #/psle and #/jc plays
+  // for #/olevel. Moved out of SHARED_ROUTE_IDS (below) for the same reason:
+  // its content is entirely university courses, so a PSLE or O-Level reader
+  // seeing it in their own nav were being pointed at a page that was never
+  // about their child's next step.
+  {id:"explore", hash:"#/explore", view:"view-explore", label:"No idea yet",icon:"◇", tab:1,
+   desc:"Not sure what to look for yet — browse university courses by interest, not by grades"},
   {id:"resultsday",hash:"#/results-day",view:"view-resultsday",label:"Results day",icon:"◐",
    desc:"What to do differently on the day results actually come out"},
   {id:"perspectives",hash:"#/perspectives",view:"view-perspectives",label:"Two of you",icon:"⚭",
@@ -2235,19 +2250,21 @@ function icon(id){
   return svg;
 }
 
-/* Which routes belong to which track, for nav scoping. PSLE and O-Level are
-   single-page stages today, so their own list is one entry each — the shape
-   still matters, because A-Level's eight sub-pages (Result, Courses, Fees
-   and so on) are exactly the clutter a parent on the PSLE page never asked
-   for. Shared pages (Sources, No idea yet, Results day, Two of you) answer a
-   question that is not stage-specific and stay visible once INSIDE a track —
-   never on the chooser itself, see buildNav below. */
+/* Which routes belong to which track, for nav scoping. Every stage now has
+   its own stream/interest course-search page alongside its main one --
+   #/schools next to #/psle, #/jc next to #/olevel, #/explore next to
+   #/alevel -- so none of A-Level's eight sub-pages (Result, Courses, Fees
+   and so on), and none of another stage's own search page, are the clutter
+   a parent on a different stage's page never asked for. Shared pages
+   (Sources, Results day and Two of you) answer a question that is not
+   stage-specific and stay visible once INSIDE a track — never on the
+   chooser itself, see buildNav below. */
 const TRACK_STAGE_ROUTES = {
-  psle:   ["psle"],
-  olevel: ["olevel"],
-  alevel: ["alevel","result","courses","compare","dates","routes","fees","scoring"],
+  psle:   ["psle","schools"],
+  olevel: ["olevel","jc"],
+  alevel: ["alevel","explore","result","courses","compare","dates","routes","fees","scoring"],
 };
-const SHARED_ROUTE_IDS = ["data","explore","resultsday","perspectives"];
+const SHARED_ROUTE_IDS = ["data","resultsday","perspectives"];
 //: The three doors, in the order a child actually moves through school —
 //: never the order their ROUTES entries happen to sit in, which is what a
 //: real screenshot once showed: A-Level first, because it was the first
@@ -2334,8 +2351,8 @@ function buildNav(track){
    straight to the institution's own page — so they carry the A-Level accent
    rather than none at all. */
 const TRACK_BY_ROUTE_ID = {
-  psle:"psle", olevel:"olevel",
-  alevel:"alevel", result:"alevel", courses:"alevel", compare:"alevel",
+  psle:"psle", olevel:"olevel", schools:"psle", jc:"olevel",
+  alevel:"alevel", explore:"alevel", result:"alevel", courses:"alevel", compare:"alevel",
   dates:"alevel", routes:"alevel", fees:"alevel", scoring:"alevel",
   course:"alevel", uni:"alevel",
 };
@@ -2367,7 +2384,9 @@ function renderRoute(){
   if(target==="view-more")   renderMorePage();
   if(target==="view-home")         renderHome();
   if(target==="view-psle")         renderPsle();
+  if(target==="view-schools")      renderSchoolsPage();
   if(target==="view-olevel")       renderOlevel();
+  if(target==="view-jc")           renderJcSearchPage();
   if(target==="view-explore")      renderExplore();
   if(target==="view-resultsday")   renderResultsDay();
   if(target==="view-perspectives") renderPerspectives();
@@ -3946,9 +3965,46 @@ function renderPsle(){
       ])),
     ]),
 
-    /* ── the shortlist: preference, never admission ──────────── */
-    renderSchoolShortlistSection(pack),
+    /* ── the shortlist now has its own separate menu (#/schools) ──
+       so a family already knee-deep in "which school" can jump straight
+       there, and a family still reading this page is not made to scroll
+       past 147 schools' worth of filters first. See renderSchoolsPage(). */
+    el("section",{class:"card",id:"psleFindSchool"},[
+      el("h2",{text:"Find a Secondary School"}),
+      el("p",{class:"lede",text:
+        `Search all ${(pack.schools||[]).length} schools a PSLE cohort can be posted to — `+
+        "by category (SAP, Integrated Programme, Autonomous, co-ed or single-sex), "+
+        "location, and whether your own PSLE score would realistically reach them. "+
+        "Its own page now, so you can come straight back to it without re-reading "+
+        "everything above."}),
+      el("div",{class:"actions"},[
+        el("a",{class:"btn",href:"#/schools",text:"Open Find a Secondary School →"})]),
+    ]),
+  );
+  renderPsleSim();
+}
 
+/* ── #/schools — the school shortlist, as its own page ─────────────
+   Mirrors engine/school_fit.py exactly: every preference below is a
+   FILTER, none of them a score, so this never ranks the 147 schools by how
+   well they match and never estimates which ones a PSLE score could reach
+   — see FILTER_DISCLAIMER, shown once above the results and repeated in
+   "How these filters work" below rather than on every card.
+
+   Split out from #/psle into its own top-level menu (rather than one
+   section on a long page a family scrolls past everything else to reach)
+   so it can be searched directly, and returned to directly, the same way
+   A-Level's #/courses is separate from the #/alevel front door. */
+function renderSchoolsPage(){
+  const box=$("#schoolsOut"); if(!box) return;
+  const pack=S.pack; if(!pack) return;
+  box.replaceChildren(
+    el("section",{class:"card"},[
+      el("p",{class:"eyebrow",text:"After PSLE"}),
+      el("h1",{text:"Find a Secondary School"}),
+      el("p",{class:"hint",text:"Nothing on this page leaves this device. There is no server to send it to."}),
+    ]),
+    renderSchoolShortlistSection(pack),
     el("section",{class:"card"},[
       el("h3",{text:"What is not here, and why"}),
       el("p",{text:
@@ -3968,20 +4024,14 @@ function renderPsle(){
         "did not make this pass), and religious or primary-school affiliation, which is not "+
         "in any dataset PathAhead can cite in bulk."}),
       el("div",{class:"actions"},[
-        el("a",{class:"btn",href:"#/data",text:"Where these figures come from"})]),
+        el("a",{class:"btn",href:"#/data",text:"Where these figures come from"}),
+        el("a",{class:"btn",href:"#/psle",text:"← Back to After PSLE"})]),
     ]),
   );
   renderSchoolPrefs();
   renderSchoolShortlist();
-  renderPsleSim();
 }
 
-/* ── #/psle — school shortlist ─────────────────────────────────────
-   Mirrors engine/school_fit.py exactly: every preference below is a
-   FILTER, none of them a score, so this never ranks the 147 schools by how
-   well they match and never estimates which ones a PSLE score could reach
-   — see FILTER_DISCLAIMER, shown once above the results and repeated in
-   "How these filters work" below rather than on every card. */
 function renderSchoolShortlistSection(pack){
   return el("section",{class:"card",id:"schoolShortlist"},[
     el("h2",{text:"Narrow down the schools worth a closer look"}),
@@ -4233,7 +4283,7 @@ function renderSchoolPrefs(){
       // an explanation nobody can act on is worse than no control, and the
       // card-level SchoolFinder link already answers the same question one
       // school at a time.
-      const hasLocalCutoffs = (S.pack?.schools||[]).some(s=>s.cutoff_2025);
+      const hasLocalCutoffs = (S.pack?.schools||[]).some(s=>s.cutoff_current);
       if(!hasLocalCutoffs) return null;
       const al = PS.filters.al;
       const canUse = !!spec;
@@ -4590,7 +4640,7 @@ function schoolFinderUrl(school){
 
 /** Formats a locally-held PSLE Score range per Posting Group, or null.
 
-    Returns null in the published build, always: `cutoff_2025` is null for
+    Returns null in the published build, always: `cutoff_current` is null for
     every school unless the person running PathAhead has supplied their own
     copy under `packs/<id>/local/` (see engine/loader.py and
     docs/LOCAL_DATA.md). "Lower is stronger" is stated wherever this is
@@ -4598,11 +4648,63 @@ function schoolFinderUrl(school){
     most likely misreading of an Aggregate Score range. Never a score, never
     a sort key — see SAFEGUARDS.md 5.1. */
 function cutoffRangeText(school){
-  const c = school.cutoff_2025;
+  const c = school.cutoff_current;
   if(!c) return null;
   const band = (label,v) => v ? `${label} ${v[0]}–${v[1]}` : null;
   return [band("PG3",c.pg3), band("PG2",c.pg2), band("PG1",c.pg1), band("IP",c.ip)]
     .filter(Boolean).join(" · ") || null;
+}
+
+/** Year-on-year table of a school's own LOCAL cut-off history, with mean,
+    median and a plain trend per Posting Group — built entirely from
+    `school.cutoff_trend` (engine/loader.py:_cutoff_trend), never recomputed
+    here. Returns null when there is no local overlay at all.
+
+    With a single year on record — today, for every school; see
+    docs/LOCAL_DATA.md for why — this renders one short sentence saying so,
+    rather than dressing up one data point as a trend. The table itself only
+    appears once a second real year has been added by refreshing the local
+    overlay in a later admissions cycle. */
+function cutoffHistoryTable(school){
+  const trend = school.cutoff_trend;
+  if(!trend) return null;
+  const years = (trend.years||[]).slice().sort((a,b)=>b-a);
+  const GROUPS = [["pg3","PG3"],["pg2","PG2"],["pg1","PG1"],["ip","IP"]].filter(([k])=>trend[k]);
+  if(!GROUPS.length) return null;
+
+  if(years.length<2) return el("p",{class:"hint",text:
+    `Only ${years[0]}'s figures are on record so far. PathAhead adds each `+
+    `admissions cycle's figures here as they are gathered, so a real year-on-year `+
+    `trend builds up over time — it is never estimated or backfilled.`});
+
+  const DIR = {up:"risen (a higher score needed)", down:"eased (a lower score needed)",
+               flat:"held steady", single:"—"};
+  const trendLine = GROUPS.map(([k,label])=>{
+    const t = trend[k];
+    const firstYear = Math.min(...t.points.map(p=>p[0]));
+    return `${label} has ${DIR[t.direction]} since ${firstYear}`;
+  }).join("; ")+".";
+
+  return el("div",{class:"psle-cutoff-history"},[
+    el("table",{class:"cmp"},[
+      el("thead",{},[el("tr",{},[el("th",{text:"Year"}),
+        ...GROUPS.map(([,label])=>el("th",{text:label}))])]),
+      el("tbody",{},years.map(y=>el("tr",{},[
+        el("td",{text:String(y)}),
+        ...GROUPS.map(([k])=>{
+          const pt = trend[k].points.find(([py])=>py===y);
+          return el("td",{text: pt ? String(pt[1]) : "—"});
+        }),
+      ]))),
+      el("tfoot",{},[
+        el("tr",{},[el("th",{text:"Mean"}),
+          ...GROUPS.map(([k])=>el("td",{text:String(trend[k].mean)}))]),
+        el("tr",{},[el("th",{text:"Median"}),
+          ...GROUPS.map(([k])=>el("td",{text:String(trend[k].median)}))]),
+      ]),
+    ]),
+    el("p",{class:"hint",text:trendLine+" (the last-posted score in each Posting Group; lower is stronger)."}),
+  ]);
 }
 
 /** Shown on EVERY school card, whether or not a PSLE score has been entered.
@@ -4620,7 +4722,8 @@ function cutoffRangeText(school){
          school, not about PathAhead.
       3. Figures present from the reader's own local copy. Labelled as
          locally supplied, dated, and never presented as something PathAhead
-         published or verified.
+         published or verified. `cutoffHistoryTable()` adds whatever
+         year-on-year picture the same local copy can honestly support.
 
     Every state still offers the SchoolFinder link, because even a reader
     with local figures should be able to check them against the source. */
@@ -4629,12 +4732,18 @@ function cutoffRangeLine(school){
   const link = el("a",{href:schoolFinderUrl(school),target:"_blank",
     rel:"noopener noreferrer",text:"View on MOE SchoolFinder ↗"});
 
-  if(text) return el("div",{class:"c-sub","data-cutoff":text,"data-cutoff-origin":"local"},[
-    el("span",{text:
-      `From your own local copy (not published by PathAhead) — PSLE Score range by `+
-      `Posting Group, lower is stronger: ${text}. Check against the source: `}),
-    link,
-  ]);
+  if(text){
+    const year = school.cutoff_current_year;
+    return el("div",{},[
+      el("div",{class:"c-sub","data-cutoff":text,"data-cutoff-origin":"local"},[
+        el("span",{text:
+          `From your own local copy (not published by PathAhead) — PSLE Score range by `+
+          `Posting Group, lower is stronger, as posted for ${year}: ${text}. Check against the source: `}),
+        link,
+      ]),
+      cutoffHistoryTable(school),
+    ]);
+  }
 
   // The 8 specialised-admission schools carry their own explanatory note
   // from the pack; everything else carries the "not republished" note. Both
@@ -4833,6 +4942,15 @@ function renderOlevel(){
         "depends on the year you started Secondary 1, not on the year you sit the exam."}),
       el("p",{class:"hint",text:
         "Nothing on this page leaves this device. There is no server to send it to."}),
+    ]),
+    el("section",{class:"card",id:"olevelFindJc"},[
+      el("h2",{text:"Find a JC or Millennia Institute"}),
+      el("p",{class:"lede",text:
+        "Browse every Junior College and Millennia Institute course this pack holds, by "+
+        "stream — no L1R5 or L1R4 aggregate needed. Its own page, so a Secondary 2 or 3 "+
+        "student can look now, long before there is a real result to enter below."}),
+      el("div",{class:"actions"},[
+        el("a",{class:"btn",href:"#/jc",text:"Open Find a JC/MI →"})]),
     ]),
     el("section",{class:"card"},[
       el("h2",{text:"When did you start Secondary 1?"}),
@@ -5043,6 +5161,86 @@ function olevelResultCard(t){
   }
 
   return parts;
+}
+
+/** #/jc — browse every Junior College and Millennia Institute course by
+    stream, with no L1R5/L1R4 aggregate required. The O-Level equivalent of
+    A-Level's #/explore: a family two years out, or one who just wants to
+    see what is out there, should not have to enter subjects and grades
+    first to find out Raffles Institution even has an Arts course. Scored
+    browsing (against a real aggregate) still lives on #/olevel itself,
+    exactly as before -- this page only ever shows the published range,
+    never a comparison, because there is nothing to compare it against
+    here. Its own top-level menu, the same way #/courses is separate from
+    #/alevel's front door. */
+const JC = {streams:[]};
+
+/** "Science (27S)" -> "Science". Cheaper and more robust than a second
+    field: every JC/MI outcome name in the pack already starts with its
+    stream, by convention -- see packs/singapore/olevel.yaml. */
+function jcStreamOf(o){
+  return (o.name||"").split(" ")[0];
+}
+
+function renderJcSearchPage(){
+  const box=$("#jcOut"); if(!box) return;
+  const pack=S.pack; if(!pack) return;
+  const all = (pack.outcomes||[]).filter(o=>o.route_group==="jc-direct"||o.route_group==="mi-direct");
+  if(!all.length){
+    box.replaceChildren(el("section",{class:"card"},[
+      el("h2",{text:"No Junior College or Millennia Institute data in this pack"}),
+      el("p",{class:"lede",text:"This build was made without it. Nothing is broken — "+
+        "the page simply has nothing to show, and says so rather than pretending."})]));
+    return;
+  }
+  const streams = [...new Set(all.map(jcStreamOf))].sort();
+  const visible = all.filter(o=>!JC.streams.length || JC.streams.includes(jcStreamOf(o)));
+  const byInst = {};
+  for(const o of visible) (byInst[o.institution] ||= []).push(o);
+  const institutions = Object.keys(byInst).sort();
+
+  box.replaceChildren(
+    el("section",{class:"card"},[
+      el("p",{class:"eyebrow",text:"O-Level and the SEC"}),
+      el("h1",{text:"Find a JC or Millennia Institute course"}),
+      el("p",{class:"lede",text:
+        `Every course PathAhead holds for the ${new Set(all.map(o=>o.institution)).size} `+
+        "Junior Colleges and Millennia Institute it covers, by stream — no L1R5 or L1R4 "+
+        "aggregate needed. Enter your subjects on the O-Level page instead if you want to "+
+        "see how your own result compares."}),
+      el("p",{class:"hint",text:"Nothing on this page leaves this device. There is no server to send it to."}),
+    ]),
+    el("section",{class:"card"},[
+      el("h2",{text:"Stream"}),
+      el("p",{class:"hint",text:
+        "A filter, not a ranking: pick one or more streams to narrow the list below. "+
+        "Clear every chip to see all of them again."}),
+      el("div",{class:"chips",role:"group","aria-label":"Stream"},streams.map(s=>
+        el("button",{type:"button",class:"chip","aria-pressed":String(JC.streams.includes(s)),
+          text:s, onclick:e=>{ toggleChip(e.currentTarget, JC.streams, s); renderJcSearchPage(); }}))),
+    ]),
+    el("section",{class:"card"},[
+      el("h2",{text:`${institutions.length} of ${new Set(all.map(o=>o.institution)).size} institutions`}),
+      ...institutions.map(inst=>{
+        const courses = byInst[inst];
+        return el("div",{class:"bucket"},[
+          el("h3",{text:inst}),
+          el("ul",{class:"courses"},courses.map(o=>el("li",{class:"course"},[
+            el("div",{class:"c-top"},[
+              el("div",{},[el("div",{class:"c-name",text:o.name}),
+                el("div",{class:"c-sub",text:jcStreamOf(o)})]),
+            ]),
+            o.band ? el("div",{class:"small",text:
+              `${o.band.p10}–${o.band.p90} (${o.band.fact?.as_of_year??""}), ${o.band.basis}. `+
+              (o.band.comparable===false
+                ? "Shown, not compared — this institution is scored on a different measure."
+                : "Lower is stronger.")}) : el("div",{class:"small",text:"No published range for this course yet."}),
+            o.url ? el("a",{href:o.url,target:"_blank",rel:"noopener noreferrer",text:"official page"}) : null,
+          ].filter(Boolean)))),
+        ]);
+      }),
+    ]),
+  );
 }
 
 /** #/results-day — for the day it went badly. Leads with routes, never a

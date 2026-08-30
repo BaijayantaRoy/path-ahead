@@ -42,7 +42,7 @@ Inputs:
     An individual may still hold a local copy for their own private study.
     If `packs/singapore/local/cutoff.json` exists at build time, this script
     reads it and the reach filter lights up; if it does not, every school
-    gets `cutoff_2025: null` and the app degrades to the link-out, which is
+    gets `cutoff_current: null` and the app degrades to the link-out, which is
     the shipped behaviour. `packs/singapore/local/` is gitignored precisely
     so that a personal copy can never become a published one by accident.
     See docs/LOCAL_DATA.md for the format and the reasoning.
@@ -360,7 +360,7 @@ def build() -> None:
                 "gifted": r.get("gifted_ind") == "Yes",
                 "ip": r.get("ip_ind") == "Yes",
                 "mainlevel_code": r.get("mainlevel_code"),
-                "cutoff_2025": cutoff,
+                "cutoff_current": cutoff,
             }
         )
 
@@ -378,7 +378,7 @@ def build() -> None:
     if cutoffs:
         unexpected_missing_cutoff = sorted(
             s["id"] for s in schools
-            if s["cutoff_2025"] is None and s["id"] not in EXPECTED_NO_COP
+            if s["cutoff_current"] is None and s["id"] not in EXPECTED_NO_COP
         )
         if unexpected_missing_cutoff:
             raise SystemExit(
@@ -535,9 +535,9 @@ def build() -> None:
         w(f'    gifted: {str(s["gifted"]).lower()}')
         w(f'    ip: {str(s["ip"]).lower()}')
         w('    fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}')
-        cutoff = s["cutoff_2025"]
+        cutoff = s["cutoff_current"]
         if cutoff is None:
-            w("    cutoff_2025: null")
+            w("    cutoff_current: null")
             # Two different reasons a school has no figure, and they must not
             # read alike. "MOE publishes none for this school" is a fact about
             # the school; "PathAhead does not republish these" is a fact about
@@ -549,13 +549,13 @@ def build() -> None:
                 w(f'    cutoff_note: "{NOT_REDISTRIBUTED_NOTE}"')
         else:
             ranges = {k: cutoff.get(k) for k in ("pg3", "pg2", "pg1", "ip")}
-            w(f"    cutoff_2025: {json.dumps(ranges)}")
-            w('    cutoff_fact: {source: moe-schoolfinder, as_of_year: 2025, confidence: medium}')
+            w(f"    cutoff_current: {json.dumps(ranges)}")
+            w('    cutoff_fact: {source: moe-schoolfinder, confidence: medium}')
             if cutoff.get("note"):
                 note = cutoff["note"].replace('"', "'")
                 w(f'    cutoff_note: "{note}"')
     OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    carried = sum(1 for s in schools if s["cutoff_2025"] is not None)
+    carried = sum(1 for s in schools if s["cutoff_current"] is not None)
     print(f"wrote {len(schools)} schools -> {OUT}")
     print(
         f"  cut-off figures carried: {carried}"

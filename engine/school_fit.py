@@ -21,7 +21,7 @@ by distance (when a postal code was given) and then by name -- both
 allowed under SAFEGUARDS.md 5.1's own words, and neither one selectivity.
 
     Evidence  -- a Posting Group cut-off / Aggregate Score range. PathAhead
-                 holds a `cutoff_2025` figure for 139 of the 147 schools
+                 holds a `cutoff_current` figure for 139 of the 147 schools
                  (see tools/build_secondary_schools_pack.py for where it
                  came from and why it is recorded at `confidence: medium`,
                  not `high`). This module still never turns it into a score
@@ -274,7 +274,7 @@ def within_reach(
     either.
 
     Returns None -- never False -- when PathAhead genuinely cannot judge:
-    no cut-off is published for this school (`cutoff_2025` is None -- see
+    no cut-off is published for this school (`cutoff_current` is None -- see
     tools/build_secondary_schools_pack.py for which 8 schools and why), or
     the family's score fell outside the published Posting Group table
     entirely (`family_groups` is empty). A caller must SHOW these schools,
@@ -282,7 +282,7 @@ def within_reach(
     the same rule this project applies everywhere an absence of data is
     not the same as an absence in reality.
     """
-    cutoffs = school.get("cutoff_2025")
+    cutoffs = school.get("cutoff_current")
     if not cutoffs or not family_groups:
         return None
     seen_a_published_group = False

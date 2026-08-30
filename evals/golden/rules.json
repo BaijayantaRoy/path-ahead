@@ -3691,7 +3691,7 @@
       "why": "a score comfortably inside the cut-off is in reach",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3713,7 +3713,7 @@
       "why": "a score exactly cutoff+margin is still in reach -- the margin exists precisely for this case",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3735,7 +3735,7 @@
       "why": "one point past cutoff+margin is genuinely out of reach",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3757,7 +3757,7 @@
       "why": "no cutoff held for this school -- whether because it admits through a specialised route, or (the shipped case) because PathAhead does not republish these figures -- must answer None, never False. 'Cannot tell' is not the same claim as 'not in reach'",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": null
+        "cutoff_current": null
       },
       "psle_score": 10,
       "family_groups": [
@@ -3771,7 +3771,7 @@
       "why": "empty family_groups (score outside the published Posting Group table) must also answer None",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3791,7 +3791,7 @@
       "why": "a school with PG3/PG2 but no PG1 band -- a family in PG1 must get None for THIS school, not a false negative from a band that was never published",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3816,7 +3816,7 @@
       "why": "a score that opens a CHOICE between two Posting Groups (family_groups has 2 entries) is in reach if EITHER group's cutoff would admit it -- the family could choose that one",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3844,7 +3844,7 @@
       "why": "the whole range clears the cut-off -- the strongest signal, shown as in-reach",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3870,7 +3870,7 @@
       "why": "the better (lower) end of the range is in reach but the worse end is not -- 'possible', never plain in-reach, so a caller cannot present it as a match",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3896,7 +3896,7 @@
       "why": "not in reach anywhere across the range -- the one state a shortlist filter actually hides on",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3922,7 +3922,7 @@
       "why": "no cut-off held for this school -- must answer unknown, never out-of-reach",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": null
+        "cutoff_current": null
       },
       "lo_score": 10,
       "hi_score": 12,
@@ -3940,7 +3940,7 @@
       "why": "an 'upper bound' search is lo_score==hi_score with the same groups at both ends -- this must equal a plain within_reach() call, not a second, subtly different code path",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22
@@ -3966,7 +3966,7 @@
       "why": "the same degenerate-range identity, one point past the margin -- must be out-of-reach",
       "school": {
         "id": "fixture-school",
-        "cutoff_2025": {
+        "cutoff_current": {
           "pg3": [
             16,
             22

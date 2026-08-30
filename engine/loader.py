@@ -658,11 +658,11 @@ def _apply_local_overlays(pack: Pack, origin: Path | None) -> None:
     """Merge any local-only data the person running this has supplied.
 
     PathAhead publishes no Posting Group cut-off points. They are MOE's to
-    publish, they are published per school on SchoolFinder, and MOE's Terms
-    of Use reserve reproduction -- so the public pack carries none of them
-    and the app deep-links to the official page instead. That is the shipped
-    behaviour and it is not a gap; see
-    tools/build_secondary_schools_pack.py.
+    publish, they are published per school on SchoolFinder -- one year at a
+    time; SchoolFinder itself carries no history -- and MOE's Terms of Use
+    reserve reproduction, so the public pack carries none of them and the
+    app deep-links to the official page instead. That is the shipped
+    behaviour and it is not a gap; see tools/build_secondary_schools_pack.py.
 
     An individual may nonetheless hold their own copy for private study. If
     `packs/<id>/local/cutoff.json` exists, it is merged HERE, at load time,
@@ -671,6 +671,17 @@ def _apply_local_overlays(pack: Pack, origin: Path | None) -> None:
     anything written into it can be committed by accident; a value that only
     ever exists in memory cannot be. `.gitignore` covers the directory as a
     second line of defence, not the only one.
+
+    THE SCHEMA IS KEYED BY YEAR, not by school-attribute, because a single
+    year is all any one refresh of this file can honestly hold -- MOE never
+    publishes more than the current year per school, and there is no
+    archive to backfill from (checked 2026-08-30: no earlier SchoolFinder
+    snapshot exists anywhere reachable). A real multi-year trend is only
+    ever built by running this same refresh again next year and the year
+    after, appending to `"years"` rather than replacing it. See
+    docs/LOCAL_DATA.md for the file format and `_cutoff_trend()` below for
+    what a family sees while only one year is on record versus once several
+    are.
 
     Silent when absent, because absent is the normal case. Loud when present
     but malformed, because a family relying on a figure deserves to know the
@@ -699,7 +710,8 @@ def _apply_local_overlays(pack: Pack, origin: Path | None) -> None:
     if not isinstance(rows, Mapping):
         raise PackError(
             f"{overlay_path}: expected an object keyed by school id",
-            'Format: {"admiralty-secondary-school": {"pg3": [16, 22], ...}, ...}',
+            'Format: {"admiralty-secondary-school": {"years": {"2025": '
+            '{"pg3": [16, 22], ...}}}, ...}',
         )
 
     known = {str(s.get("id")) for s in pack.schools}
@@ -717,7 +729,24 @@ def _apply_local_overlays(pack: Pack, origin: Path | None) -> None:
         row = rows.get(str(school.get("id")))
         if not row:
             continue
-        school["cutoff_2025"] = {k: row.get(k) for k in ("pg3", "pg2", "pg1", "ip")}
+        years_raw = row.get("years")
+        if not isinstance(years_raw, Mapping) or not years_raw:
+            continue
+        try:
+            history = {
+                int(year): {k: band.get(k) for k in ("pg3", "pg2", "pg1", "ip")}
+                for year, band in years_raw.items()
+            }
+        except (TypeError, AttributeError, ValueError) as exc:
+            raise PackError(
+                f"{overlay_path}: {school.get('id')}'s \"years\" entry is malformed -- {exc}",
+                'Each year must map to an object like {"pg3": [16, 22], ...}.',
+            ) from exc
+        latest = max(history)
+        school["cutoff_current"] = history[latest]
+        school["cutoff_current_year"] = latest
+        school["cutoff_history"] = history
+        school["cutoff_trend"] = _cutoff_trend(history)
         if row.get("note"):
             school["cutoff_note"] = str(row["note"])
         else:
@@ -728,6 +757,50 @@ def _apply_local_overlays(pack: Pack, origin: Path | None) -> None:
         school["cutoff_local"] = True
         applied += 1
     pack.local_overlay_applied = applied > 0
+
+
+def _cutoff_trend(history: dict[int, dict[str, Any]]) -> dict[str, Any]:
+    """Mean, median and a plain-language trend per Posting Group, computed
+    from however many years `history` actually holds -- one today for every
+    school in this pack, more for whoever keeps refreshing the overlay each
+    admissions cycle. Never invents a year that is not in `history`, and
+    never smooths or projects: with one year, mean and median both just
+    equal it and the trend line says so plainly rather than implying a
+    direction from a single point."""
+    years = sorted(history)
+    out: dict[str, Any] = {"years": years}
+    for group in ("pg3", "pg2", "pg1", "ip"):
+        points = [
+            (y, history[y].get(group)[1])
+            for y in years
+            if history[y].get(group) is not None
+        ]
+        if not points:
+            continue
+        values = [v for _, v in points]
+        mean = sum(values) / len(values)
+        sorted_vals = sorted(values)
+        mid = len(sorted_vals) // 2
+        median = (
+            sorted_vals[mid]
+            if len(sorted_vals) % 2
+            else (sorted_vals[mid - 1] + sorted_vals[mid]) / 2
+        )
+        if len(points) < 2:
+            direction = "single"
+        elif values[-1] < values[0]:
+            direction = "down"  # a lower cut-off, i.e. easier to clear
+        elif values[-1] > values[0]:
+            direction = "up"
+        else:
+            direction = "flat"
+        out[group] = {
+            "points": points,
+            "mean": round(mean, 1),
+            "median": median,
+            "direction": direction,
+        }
+    return out
 
 
 def _num(v: Any) -> float | None:

@@ -67,6 +67,21 @@
        year-level dropdown from it, so a cohort belonging to another stage
        cannot appear on this page. -->
   <div class="view" id="view-start" data-stage="a-level">
+  <!-- Its own separate menu (#/explore) for a family with no idea yet what
+       to study -- mirrors #psleFindSchool on #/psle and #olevelFindJc on
+       #/olevel. Static markup, like the rest of this page, because
+       #/alevel itself is the one stage front door that was never a JS
+       render() target -- see the ROUTES entry for "alevel" (view-start). -->
+  <section class="card" id="alevelFindExplore">
+    <h2>Not sure what to study yet?</h2>
+    <p class="lede">Browse every university course PathAhead holds by what you are drawn
+      to, not by a grade you may not have yet. Its own page, so you can come back to it
+      without re-entering anything below.</p>
+    <div class="actions">
+      <a class="btn" href="#/explore">Browse by interest instead →</a>
+    </div>
+  </section>
+
   <!-- ── 1 ─────────────────────────────────────────────────── -->
   <section class="card" aria-labelledby="h1a">
     <p class="eyebrow" data-step="1">Step one</p>
@@ -308,7 +323,9 @@
   <div class="view" id="view-more"><div id="moreOut"></div></div>
   <!-- U5: the flows that were missing. None of these asks for a grade. -->
   <div class="view" id="view-psle"><div id="psleOut"></div></div>
+  <div class="view" id="view-schools"><div id="schoolsOut"></div></div>
   <div class="view" id="view-olevel"><div id="olevelOut"></div></div>
+  <div class="view" id="view-jc"><div id="jcOut"></div></div>
   <div class="view" id="view-explore"><div id="exploreOut"></div></div>
   <div class="view" id="view-scoring"><div id="scoringOut"></div></div>
   <div class="view" id="view-resultsday"><div id="resultsDayOut"></div></div>

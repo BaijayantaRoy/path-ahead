@@ -176,7 +176,7 @@ def test_distance_km_is_populated_even_for_a_school_gated_out_by_student_sex(pac
 # First, correctness: as of 2026-08-14 PathAhead does not republish Posting
 # Group cut-off points at all (see engine/loader.py:_apply_local_overlays and
 # docs/LOCAL_DATA.md), so every school in a clean checkout has
-# `cutoff_2025: None`. Tests that read figures out of the pack passed only on
+# `cutoff_current: None`. Tests that read figures out of the pack passed only on
 # a machine that happened to hold a private overlay and failed in CI -- which
 # is precisely backwards, since CI is the environment that matches what users
 # get.
@@ -190,12 +190,12 @@ def test_distance_km_is_populated_even_for_a_school_gated_out_by_student_sex(pac
 def _school(school_id="test-secondary-school", **cutoffs):
     """A minimal school row shaped the way within_reach() reads one.
 
-    Only `id` and `cutoff_2025` matter here. Bands are given as
+    Only `id` and `cutoff_current` matter here. Bands are given as
     [first_posted, last_posted]; within_reach only reads the second, which is
     the cut-off proper -- the score of the last student admitted.
     """
     bands = {k: cutoffs.get(k) for k in ("pg3", "pg2", "pg1", "ip")}
-    return {"id": school_id, "cutoff_2025": None if not any(bands.values()) else bands}
+    return {"id": school_id, "cutoff_current": None if not any(bands.values()) else bands}
 
 
 def test_within_reach_true_for_a_score_comfortably_inside_the_cutoff():
@@ -222,8 +222,8 @@ def test_within_reach_is_none_not_false_when_no_cutoff_is_published():
     answer None: 'cannot tell' is not the same claim as 'not in reach', and a
     caller must show these schools rather than silently treating the absence
     of data as a no."""
-    school = _school()  # cutoff_2025 is None
-    assert school["cutoff_2025"] is None
+    school = _school()  # cutoff_current is None
+    assert school["cutoff_current"] is None
     assert within_reach(school, 10, (3,)) is None
 
 
@@ -243,7 +243,7 @@ def test_every_school_in_a_clean_checkout_answers_none(pack):
 
         pytest.skip("a local cut-off overlay is present; this asserts the published state")
     for school in pack.schools:
-        assert school.get("cutoff_2025") is None, school["id"]
+        assert school.get("cutoff_current") is None, school["id"]
         assert within_reach(school, 10, (3,)) is None, school["id"]
 
 
@@ -259,7 +259,7 @@ def test_within_reach_is_none_when_the_familys_group_has_no_published_band():
     only PG1 must get None for this school, not a false negative manufactured
     from a band nobody published."""
     school = _school(pg3=[16, 22], pg2=[21, 25])
-    assert school["cutoff_2025"]["pg1"] is None
+    assert school["cutoff_current"]["pg1"] is None
     assert within_reach(school, 26, (1,)) is None
 
 
@@ -316,7 +316,7 @@ def test_combined_reach_out_of_reach_when_neither_end_clears():
 
 
 def test_combined_reach_is_unknown_not_out_of_reach_when_no_cutoff_is_published():
-    school = _school()  # cutoff_2025 is None
+    school = _school()  # cutoff_current is None
     assert combined_reach(school, 10, 12, (3,), (3,)) == "unknown"
 
 

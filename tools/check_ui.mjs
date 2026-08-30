@@ -764,7 +764,23 @@ await check("every figure on the PSLE page links to the page it came from", () =
    score (see engine/school_fit.py's module docstring for why). These
    checks confirm the pool shows by default, filters hide rather than
    rank, the eligibility gate hides unconditionally while an unanswered
-   sex only adds a caveat, and nothing here reads as a verdict. */
+   sex only adds a caveat, and nothing here reads as a verdict.
+
+   Moved onto its own page, #/schools, so a family can search directly
+   without first reading the whole #/psle page -- see renderSchoolsPage()'s
+   comment. Every check below stays on #/schools once navigated there;
+   nothing after this file re-visits #/psle until explicitly noted. */
+
+await check("the school shortlist has its own separate menu, reachable from the PSLE page", async () => {
+  await go("#/psle");
+  const pointer = $("#psleFindSchool a.btn");
+  assert(pointer, "no link from the PSLE page to the school shortlist");
+  assert(!$("#schoolShortlist"), "the shortlist should no longer render inline on #/psle");
+  await go("#/schools");
+  const vis = visibleViews();
+  assert(vis.length === 1 && vis[0].id === "view-schools", `got ${vis.map(v=>v.id).join(",")}`);
+  assert($("#schoolShortlist"), "the shortlist did not render on its own page");
+});
 
 await check("the school shortlist shows every school by default, before any preference is set", () => {
   const host = $("#schoolShortlistHost");
@@ -785,7 +801,7 @@ await check("no school card republishes a cut-off figure; every one links to MOE
   // This check would legitimately fail on a machine holding a private local
   // overlay, which is why it asserts against the pack it was actually served
   // rather than assuming the published state.
-  const overlayPresent = (pack.schools || []).some((s) => s.cutoff_2025);
+  const overlayPresent = (pack.schools || []).some((s) => s.cutoff_current);
   const showAll = [...all("#schoolShortlistHost button")].find((b) => /^Show all/.test(b.textContent));
   if (showAll) click(showAll);
 
@@ -994,7 +1010,7 @@ await check("the reach filter is absent entirely when no cut-off figures are hel
   //
   // On a machine holding a private local overlay the control legitimately
   // appears, so this asserts against the pack actually served.
-  const overlayPresent = (pack.schools || []).some((s) => s.cutoff_2025);
+  const overlayPresent = (pack.schools || []).some((s) => s.cutoff_current);
   const reachGroup = $('#schoolPrefsHost [aria-label="Reach filter"]');
   if (overlayPresent) {
     assert(reachGroup, "a local overlay is present, so the reach filter should render");
@@ -1039,7 +1055,7 @@ await check("entering a PSLE score never makes the shortlist hide a school for b
   const showAll = [...all("#schoolShortlistHost button")].find((b) => /^Show all/.test(b.textContent));
   if (showAll) click(showAll);
 
-  const overlayPresent = (pack.schools || []).some((s) => s.cutoff_2025);
+  const overlayPresent = (pack.schools || []).some((s) => s.cutoff_current);
   if (!overlayPresent) {
     const summary = $("#schoolShortlistHost .hint")?.textContent || "";
     assert(!/outside reach of your PSLE score/.test(summary),
@@ -1080,13 +1096,15 @@ await check("the limits and responsibility statement is reachable and says who d
     "banned phrase reached the limits card");
 });
 
-await check("the PSLE page explains that cut-off points are MOE's to publish, not PathAhead's to copy", () => {
-  window.location.hash = "#/psle";
+await check("the school-search page explains that cut-off points are MOE's to publish, not PathAhead's to copy", () => {
+  window.location.hash = "#/schools";
   // The shipped position, stated on the page rather than buried in a repo
   // document: PathAhead does not republish Posting Group cut-off points, it
   // links to MOE SchoolFinder, and the 8 specialised-admission schools have
   // none published anywhere. A reader must be able to tell those two apart.
-  const text = $("#view-psle").textContent;
+  // Lives on #/schools, alongside the shortlist itself, since #/psle split
+  // the shortlist out into its own page -- see renderSchoolsPage().
+  const text = $("#view-schools").textContent;
   assert(/SchoolFinder/.test(text),
     "the page never mentions SchoolFinder, where the figures actually live");
   assert(/does not republish Posting Group cut-off points/.test(text),
@@ -1107,6 +1125,28 @@ const addOlevelSubject = (code) => {
   sel.value = code;
   sel.dispatchEvent(new window.Event("change", { bubbles: true }));
 };
+
+await check("Find a JC/MI has its own separate menu, reachable from the O-Level page", async () => {
+  await go("#/olevel");
+  const pointer = $("#olevelFindJc a.btn");
+  assert(pointer, "no link from the O-Level page to Find a JC/MI");
+  await go("#/jc");
+  const vis = visibleViews();
+  assert(vis.length === 1 && vis[0].id === "view-jc", `got ${vis.map(v=>v.id).join(",")}`);
+  const h1 = $("#jcOut h1");
+  assert(h1, "the JC/MI search page rendered nothing");
+});
+
+await check("Find a JC/MI browses every stream with no aggregate entered, and its chips filter", () => {
+  const chips = all("#jcOut .chips .chip");
+  assert(chips.length >= 2, `only ${chips.length} stream chips rendered`);
+  const before = all("#jcOut li.course").length;
+  assert(before > 0, "no courses rendered with no stream filter set");
+  chips[0].click();
+  const after = all("#jcOut li.course").length;
+  assert(after > 0 && after <= before, `filtering by "${chips[0].textContent}" did not narrow the list (before=${before}, after=${after})`);
+  chips[0].click(); // clear it back, so later checks in this file see the unfiltered page
+});
 
 await check("the O-Level landing page opens without a score", async () => {
   await go("#/olevel");
@@ -1332,6 +1372,33 @@ await check("the PSLE and O-Level pages hide A-Level's own sub-pages from nav", 
     assert(!top.includes(alevelOnly), `A-Level's "${alevelOnly}" page is still in nav on the PSLE page`);
   }
   assert(top.includes("psle"), "the PSLE page lost its own nav entry");
+});
+
+await check("browsing courses by interest is A-Level's own separate menu, not PSLE's or O-Level's", async () => {
+  // #/explore used to be a SHARED_ROUTE_ID, visible in every track's nav even
+  // though its content -- pack.outcomes, i.e. university courses -- is only
+  // ever relevant to A-Level. Moved into TRACK_STAGE_ROUTES.alevel so it gets
+  // the same "own separate menu" treatment as #/schools (psle) and #/jc
+  // (olevel), rather than pointing a PSLE parent or an O-Level student at a
+  // page about their child's university options years early.
+  await go("#/alevel");
+  const alevelTop = all("#topnav a[data-route]").map((a) => a.dataset.route);
+  assert(alevelTop.includes("explore"), "A-Level's own nav lost the course-browse-by-interest entry");
+
+  await go("#/psle");
+  const psleTop = all("#topnav a[data-route]").map((a) => a.dataset.route);
+  assert(!psleTop.includes("explore"), "the PSLE page still shows A-Level's course-browse page in nav");
+
+  await go("#/olevel");
+  const olevelTop = all("#topnav a[data-route]").map((a) => a.dataset.route);
+  assert(!olevelTop.includes("explore"), "the O-Level page still shows A-Level's course-browse page in nav");
+});
+
+await check("the A-Level landing page points to browsing courses by interest, for a family with no grades yet", async () => {
+  await go("#/alevel");
+  const pointer = $("#alevelFindExplore a.btn");
+  assert(pointer, "no link from the A-Level page to browsing by interest");
+  assert(pointer.getAttribute("href") === "#/explore", `pointer links to ${pointer.getAttribute("href")}, not #/explore`);
 });
 
 await check("being inside a track offers a compact way back to the chooser", async () => {

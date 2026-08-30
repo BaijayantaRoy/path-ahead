@@ -52,20 +52,43 @@ packs/singapore/local/cutoff.json
 
 ```json
 {
-  "admiralty-secondary-school": { "pg3": [16, 22], "pg2": [21, 25], "pg1": [25, 29], "ip": null },
-  "anderson-secondary-school":  { "pg3": [9, 11],  "pg2": null,     "pg1": null,     "ip": null }
+  "admiralty-secondary-school": {
+    "years": {
+      "2025": { "pg3": [16, 22], "pg2": [21, 25], "pg1": [25, 29], "ip": null }
+    }
+  },
+  "anderson-secondary-school": {
+    "years": {
+      "2025": { "pg3": [9, 11], "pg2": null, "pg1": null, "ip": null }
+    },
+    "note": "Optional, shown on the school's card."
+  }
 }
 ```
 
 - Keys are school ids exactly as they appear in
   `packs/singapore/secondary-schools.yaml`. A typo fails the load loudly
   rather than silently dropping a school.
-- Each band is `[first_posted, last_posted]` — the PSLE Score of the first and
-  the last student posted to that Posting Group. The reach filter reads the
-  second number, the cut-off proper.
-- `null` for a Posting Group the school does not offer or does not publish.
-  A missing band is treated as *unknown*, never as *out of reach*.
-- Optional `"note": "..."` per school, shown on that school's card.
+- **The schema is keyed by year**, because that is the only thing a refresh
+  of this file can honestly hold: MOE's SchoolFinder never shows more than
+  the current admissions cycle per school, and there is no archive to
+  backfill from (checked 2026-08-30 -- no earlier SchoolFinder snapshot
+  exists anywhere reachable, and a compiled multi-year table from a third
+  party is not something this project will import unverified). A REAL
+  multi-year trend is built the only honest way there is: run this same
+  refresh again next admissions cycle and add that year alongside the ones
+  already here, never replacing them. `engine/loader.py:_cutoff_trend`
+  computes mean, median and a plain-language direction from however many
+  years are actually present -- one today, more as this file is kept up to
+  date over time.
+- Each band is `[first_posted, last_posted]` -- the PSLE Score of the first
+  and the last student posted to that Posting Group. The reach filter, and
+  the trend, both read the second number, the cut-off proper.
+- `null` for a Posting Group the school does not offer or does not publish
+  in a given year. A missing band is treated as *unknown*, never as *out of
+  reach*.
+- Optional `"note": "..."` per school (not per year), shown on that
+  school's card.
 
 Then rebuild the pack:
 

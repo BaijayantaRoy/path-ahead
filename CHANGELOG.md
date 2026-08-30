@@ -8,7 +8,23 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
-## [1.1.1] — 2026-08-30
+## [Unreleased]
+
+### Added — a separate "find a school/college" menu for each of PSLE, O-Level and A-Level
+
+Requested directly by a parent using the app: the PSLE school shortlist was one section on a long page, reachable only by scrolling past everything else. Each stage now gets its own top-level menu item for browsing by stream, alongside its main page, never gated behind entering a score:
+
+- **PSLE** — "Find a School" (`#/schools`). The existing shortlist (category, location, reach-by-score filters) moved out of `#/psle` into its own page (`renderSchoolsPage()`); `#/psle` now carries a short pointer card instead.
+- **O-Level** — "Find a JC/MI" (`#/jc`, `renderJcSearchPage()`). New: every Junior College and Millennia Institute course PathAhead holds, browsable by stream (Arts/Commerce/Science) with no L1R5/L1R4 aggregate required — for a Secondary 2 or 3 student years before there is a real result to enter.
+- **A-Level** — "No idea yet" (`#/explore`, browse university courses by interest) was already built, but lived in every track's nav regardless of stage, because it predated the other two stages having their own search page at all. Rescoped into A-Level's own nav only, and given a pointer card on `#/alevel` itself, so a PSLE parent or an O-Level student is no longer pointed at a page about university course options years early.
+
+### Added — Posting Group cut-off points, year over year, with a mean/median trend
+
+The local cut-off overlay (`packs/singapore/local/cutoff.json` — see `docs/LOCAL_DATA.md`; never bundled or committed, because MOE's SchoolFinder Terms of Use reserve reproduction) moved from one hardcoded year per school to a year-keyed schema: `{"years": {"<year>": {"pg3": [lo, hi], ...}}}`. `engine/loader.py` now computes `cutoff_current`, `cutoff_current_year`, `cutoff_history` (every year held) and `cutoff_trend` (mean, median and a plain-language direction per Posting Group) generically over however many years are on file. Every school card renders this as a year-on-year table with Mean/Median rows (`cutoffHistoryTable()`), never sorted or ranked.
+
+Before building this, looked for a legitimate bulk multi-year source to seed the trend with real history from day one — MOE's own press releases and parliamentary replies, the Wayback Machine, and third-party tuition-centre compilations. None held up: MOE has never published a bulk table, no historical snapshot of SchoolFinder exists anywhere crawled, and the one third-party table checked against a verified official figure did not match it (Admiralty Secondary School: blog said PG3 12–21, MOE's own page says 16–22). Rather than seed the trend with unverifiable numbers, a school with only one year on file shows that year plainly with no fabricated trend line — the table and its mean/median fill in for real, automatically, as this project's own local overlay is refreshed each admissions cycle and years accumulate, which is the only way a genuine trend can exist here.
+
+`cutoff_2025` (the old, single-year field name baked in when there was only ever one year) is renamed `cutoff_current` throughout `engine/`, `tools/`, `tests/`, the compiled pack and the JS mirror.
 
 ### Fixed — text going invisible in Evening Mode on the PSLE, O-Level and A-Level pages
 

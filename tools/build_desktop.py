@@ -75,7 +75,7 @@ def build_pack(include_local: bool) -> None:
     print(f"  pack      {built['bundle'].name}")
 
     pack = load_pack(PACK_DIR)
-    carried = [s["id"] for s in pack.schools if s.get("cutoff_2025")]
+    carried = [s["id"] for s in pack.schools if s.get("cutoff_current")]
     if carried and not include_local:
         raise SystemExit(
             f"\n  REFUSING TO BUILD: the compiled pack carries cut-off figures for\n"

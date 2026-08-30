@@ -27,6 +27,6 @@ changes nothing and the browser keeps serving the figures:
 
 Then hard-refresh (Ctrl+Shift+R) and confirm the count is zero before screenshotting:
 
-    .venv\Scripts\python.exe -c "import json;p=json.load(open('web/data/singapore.json',encoding='utf-8'));print(sum(1 for s in p['schools'] if s.get('cutoff_2025')),'schools carry cut-offs')"
+    .venv\Scripts\python.exe -c "import json;p=json.load(open('web/data/singapore.json',encoding='utf-8'));print(sum(1 for s in p['schools'] if s.get('cutoff_current')),'schools carry cut-offs')"
 
 Restore afterwards by moving the folder back and rebuilding again.

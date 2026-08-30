@@ -152,7 +152,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: ahmad-ibrahim-secondary-school
     name: "Ahmad Ibrahim Secondary School"
@@ -171,7 +171,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: anderson-secondary-school
     name: "Anderson Secondary School"
@@ -190,7 +190,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: ang-mo-kio-secondary-school
     name: "Ang Mo Kio Secondary School"
@@ -209,7 +209,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: anglican-high-school
     name: "Anglican High School"
@@ -228,7 +228,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: anglo-chinese-school-barker-road
     name: "Anglo-chinese School (Barker Road)"
@@ -247,7 +247,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: anglo-chinese-school-independent
     name: "Anglo-chinese School (Independent)"
@@ -266,7 +266,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: assumption-english-school
     name: "Assumption English School"
@@ -285,7 +285,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: assumption-pathway-school
     name: "Assumption Pathway School"
@@ -304,7 +304,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: bartley-secondary-school
     name: "Bartley Secondary School"
@@ -323,7 +323,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: beatty-secondary-school
     name: "Beatty Secondary School"
@@ -342,7 +342,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bedok-green-secondary-school
     name: "Bedok Green Secondary School"
@@ -361,7 +361,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bedok-south-secondary-school
     name: "Bedok South Secondary School"
@@ -380,7 +380,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bedok-view-secondary-school
     name: "Bedok View Secondary School"
@@ -399,7 +399,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bendemeer-secondary-school
     name: "Bendemeer Secondary School"
@@ -418,7 +418,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: boon-lay-secondary-school
     name: "Boon Lay Secondary School"
@@ -437,7 +437,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bowen-secondary-school
     name: "Bowen Secondary School"
@@ -456,7 +456,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: broadrick-secondary-school
     name: "Broadrick Secondary School"
@@ -475,7 +475,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bukit-batok-secondary-school
     name: "Bukit Batok Secondary School"
@@ -494,7 +494,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bukit-merah-secondary-school
     name: "Bukit Merah Secondary School"
@@ -513,7 +513,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bukit-panjang-govt-high-school
     name: "Bukit Panjang Govt. High School"
@@ -532,7 +532,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: bukit-view-secondary-school
     name: "Bukit View Secondary School"
@@ -551,7 +551,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chij-katong-convent
     name: "CHIJ Katong Convent"
@@ -570,7 +570,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chij-secondary-toa-payoh
     name: "CHIJ Secondary (Toa Payoh)"
@@ -589,7 +589,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chij-st-josephs-convent
     name: "CHIJ St. Joseph's Convent"
@@ -608,7 +608,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chij-st-nicholas-girls-school
     name: "CHIJ St. Nicholas Girls' School"
@@ -627,7 +627,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chij-st-theresas-convent
     name: "CHIJ St. Theresa's Convent"
@@ -646,7 +646,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: canberra-secondary-school
     name: "Canberra Secondary School"
@@ -665,7 +665,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: catholic-high-school
     name: "Catholic High School"
@@ -684,7 +684,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: cedar-girls-secondary-school
     name: "Cedar Girls' Secondary School"
@@ -703,7 +703,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: changkat-changi-secondary-school
     name: "Changkat Changi Secondary School"
@@ -722,7 +722,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: christ-church-secondary-school
     name: "Christ Church Secondary School"
@@ -741,7 +741,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chua-chu-kang-secondary-school
     name: "Chua Chu Kang Secondary School"
@@ -760,7 +760,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chung-cheng-high-school-main
     name: "Chung Cheng High School (Main)"
@@ -779,7 +779,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: chung-cheng-high-school-yishun
     name: "Chung Cheng High School (Yishun)"
@@ -798,7 +798,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: clementi-town-secondary-school
     name: "Clementi Town Secondary School"
@@ -817,7 +817,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: commonwealth-secondary-school
     name: "Commonwealth Secondary School"
@@ -836,7 +836,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: compassvale-secondary-school
     name: "Compassvale Secondary School"
@@ -855,7 +855,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: crescent-girls-school
     name: "Crescent Girls' School"
@@ -874,7 +874,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: crest-secondary-school
     name: "Crest Secondary School"
@@ -893,7 +893,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: damai-secondary-school
     name: "Damai Secondary School"
@@ -912,7 +912,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: deyi-secondary-school
     name: "Deyi Secondary School"
@@ -931,7 +931,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: dunearn-secondary-school
     name: "Dunearn Secondary School"
@@ -950,7 +950,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: dunman-high-school
     name: "Dunman High School"
@@ -969,7 +969,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: dunman-secondary-school
     name: "Dunman Secondary School"
@@ -988,7 +988,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: east-spring-secondary-school
     name: "East Spring Secondary School"
@@ -1007,7 +1007,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: edgefield-secondary-school
     name: "Edgefield Secondary School"
@@ -1026,7 +1026,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: evergreen-secondary-school
     name: "Evergreen Secondary School"
@@ -1045,7 +1045,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: fairfield-methodist-school-secondary
     name: "Fairfield Methodist School (Secondary)"
@@ -1064,7 +1064,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: fuhua-secondary-school
     name: "Fuhua Secondary School"
@@ -1083,7 +1083,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: gan-eng-seng-school
     name: "Gan Eng Seng School"
@@ -1102,7 +1102,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: geylang-methodist-school-secondary
     name: "Geylang Methodist School (Secondary)"
@@ -1121,7 +1121,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: greendale-secondary-school
     name: "Greendale Secondary School"
@@ -1140,7 +1140,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: greenridge-secondary-school
     name: "Greenridge Secondary School"
@@ -1159,7 +1159,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: guangyang-secondary-school
     name: "Guangyang Secondary School"
@@ -1178,7 +1178,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: hai-sing-catholic-school
     name: "Hai Sing Catholic School"
@@ -1197,7 +1197,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: hillgrove-secondary-school
     name: "Hillgrove Secondary School"
@@ -1216,7 +1216,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: holy-innocents-high-school
     name: "Holy Innocents' High School"
@@ -1235,7 +1235,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: hougang-secondary-school
     name: "Hougang Secondary School"
@@ -1254,7 +1254,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: hua-yi-secondary-school
     name: "Hua Yi Secondary School"
@@ -1273,7 +1273,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: hwa-chong-institution
     name: "Hwa Chong Institution"
@@ -1292,7 +1292,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: junyuan-secondary-school
     name: "Junyuan Secondary School"
@@ -1311,7 +1311,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: jurong-secondary-school
     name: "Jurong Secondary School"
@@ -1330,7 +1330,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: jurong-west-secondary-school
     name: "Jurong West Secondary School"
@@ -1349,7 +1349,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: jurongville-secondary-school
     name: "Jurongville Secondary School"
@@ -1368,7 +1368,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: juying-secondary-school
     name: "Juying Secondary School"
@@ -1387,7 +1387,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: kent-ridge-secondary-school
     name: "Kent Ridge Secondary School"
@@ -1406,7 +1406,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: kranji-secondary-school
     name: "Kranji Secondary School"
@@ -1425,7 +1425,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: kuo-chuan-presbyterian-secondary-school
     name: "Kuo Chuan Presbyterian Secondary School"
@@ -1444,7 +1444,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: loyang-view-secondary-school
     name: "Loyang View Secondary School"
@@ -1463,7 +1463,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: manjusri-secondary-school
     name: "Manjusri Secondary School"
@@ -1482,7 +1482,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: maris-stella-high-school
     name: "Maris Stella High School"
@@ -1501,7 +1501,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: marsiling-secondary-school
     name: "Marsiling Secondary School"
@@ -1520,7 +1520,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: mayflower-secondary-school
     name: "Mayflower Secondary School"
@@ -1539,7 +1539,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: meridian-secondary-school
     name: "Meridian Secondary School"
@@ -1558,7 +1558,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: methodist-girls-school-secondary
     name: "Methodist Girls' School (Secondary)"
@@ -1577,7 +1577,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: montfort-secondary-school
     name: "Montfort Secondary School"
@@ -1596,7 +1596,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: nus-high-school-of-mathematics-and-science
     name: "NUS High School of Mathematics and Science"
@@ -1615,7 +1615,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: nan-chiau-high-school
     name: "Nan Chiau High School"
@@ -1634,7 +1634,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: nan-hua-high-school
     name: "Nan Hua High School"
@@ -1653,7 +1653,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: nanyang-girls-high-school
     name: "Nanyang Girls' High School"
@@ -1672,7 +1672,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: national-junior-college
     name: "National Junior College"
@@ -1691,7 +1691,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: naval-base-secondary-school
     name: "Naval Base Secondary School"
@@ -1710,7 +1710,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: new-town-secondary-school
     name: "New Town Secondary School"
@@ -1729,7 +1729,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: ngee-ann-secondary-school
     name: "Ngee Ann Secondary School"
@@ -1748,7 +1748,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: north-vista-secondary-school
     name: "North Vista Secondary School"
@@ -1767,7 +1767,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: northbrooks-secondary-school
     name: "Northbrooks Secondary School"
@@ -1786,7 +1786,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: northland-secondary-school
     name: "Northland Secondary School"
@@ -1805,7 +1805,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: northlight-school
     name: "Northlight School"
@@ -1824,7 +1824,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: orchid-park-secondary-school
     name: "Orchid Park Secondary School"
@@ -1843,7 +1843,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: outram-secondary-school
     name: "Outram Secondary School"
@@ -1862,7 +1862,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: pasir-ris-crest-secondary-school
     name: "Pasir Ris Crest Secondary School"
@@ -1881,7 +1881,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: pasir-ris-secondary-school
     name: "Pasir Ris Secondary School"
@@ -1900,7 +1900,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: paya-lebar-methodist-girls-school-secondary
     name: "Paya Lebar Methodist Girls' School (Secondary)"
@@ -1919,7 +1919,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: pei-hwa-secondary-school
     name: "Pei Hwa Secondary School"
@@ -1938,7 +1938,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: peicai-secondary-school
     name: "Peicai Secondary School"
@@ -1957,7 +1957,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: peirce-secondary-school
     name: "Peirce Secondary School"
@@ -1976,7 +1976,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: presbyterian-high-school
     name: "Presbyterian High School"
@@ -1995,7 +1995,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: punggol-secondary-school
     name: "Punggol Secondary School"
@@ -2014,7 +2014,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: queenstown-secondary-school
     name: "Queenstown Secondary School"
@@ -2033,7 +2033,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: queensway-secondary-school
     name: "Queensway Secondary School"
@@ -2052,7 +2052,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: raffles-girls-school-secondary
     name: "Raffles Girls' School (Secondary)"
@@ -2071,7 +2071,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: raffles-institution
     name: "Raffles Institution"
@@ -2090,7 +2090,7 @@ schools:
     gifted: true
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: regent-secondary-school
     name: "Regent Secondary School"
@@ -2109,7 +2109,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: river-valley-high-school
     name: "River Valley High School"
@@ -2128,7 +2128,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: riverside-secondary-school
     name: "Riverside Secondary School"
@@ -2147,7 +2147,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: school-of-science-and-technology-singapore
     name: "School of Science and Technology, Singapore"
@@ -2166,7 +2166,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: school-of-the-arts-singapore
     name: "School of the Arts, Singapore"
@@ -2185,7 +2185,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: sembawang-secondary-school
     name: "Sembawang Secondary School"
@@ -2204,7 +2204,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: seng-kang-secondary-school
     name: "Seng Kang Secondary School"
@@ -2223,7 +2223,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: serangoon-garden-secondary-school
     name: "Serangoon Garden Secondary School"
@@ -2242,7 +2242,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: serangoon-secondary-school
     name: "Serangoon Secondary School"
@@ -2261,7 +2261,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: singapore-chinese-girls-school
     name: "Singapore Chinese Girls' School"
@@ -2280,7 +2280,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: singapore-sports-school
     name: "Singapore Sports School"
@@ -2299,7 +2299,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: spectra-secondary-school
     name: "Spectra Secondary School"
@@ -2318,7 +2318,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "No Posting Group cut-off is published for this school -- it is one of a small number of specialised-admission secondary schools (through auditions, aptitude tests, sports trials, or a customised curriculum) that sit outside the standard PSLE-score S1 Posting Exercise."
   - id: springfield-secondary-school
     name: "Springfield Secondary School"
@@ -2337,7 +2337,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-andrews-school-secondary
     name: "St Andrew's School (Secondary)"
@@ -2356,7 +2356,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-anthonys-canossian-secondary-school
     name: "St. Anthony's Canossian Secondary School"
@@ -2375,7 +2375,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-gabriels-secondary-school
     name: "St. Gabriel's Secondary School"
@@ -2394,7 +2394,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-hildas-secondary-school
     name: "St. Hilda's Secondary School"
@@ -2413,7 +2413,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-josephs-institution
     name: "St. Joseph's Institution"
@@ -2432,7 +2432,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-margarets-school-secondary
     name: "St. Margaret's School (Secondary)"
@@ -2451,7 +2451,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: st-patricks-school
     name: "St. Patrick's School"
@@ -2470,7 +2470,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: swiss-cottage-secondary-school
     name: "Swiss Cottage Secondary School"
@@ -2489,7 +2489,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: tampines-secondary-school
     name: "Tampines Secondary School"
@@ -2508,7 +2508,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: tanjong-katong-girls-school
     name: "Tanjong Katong Girls' School"
@@ -2527,7 +2527,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: tanjong-katong-secondary-school
     name: "Tanjong Katong Secondary School"
@@ -2546,7 +2546,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: temasek-junior-college
     name: "Temasek Junior College"
@@ -2565,7 +2565,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: temasek-secondary-school
     name: "Temasek Secondary School"
@@ -2584,7 +2584,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: unity-secondary-school
     name: "Unity Secondary School"
@@ -2603,7 +2603,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: victoria-school
     name: "Victoria School"
@@ -2622,7 +2622,7 @@ schools:
     gifted: false
     ip: true
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: west-spring-secondary-school
     name: "West Spring Secondary School"
@@ -2641,7 +2641,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: westwood-secondary-school
     name: "Westwood Secondary School"
@@ -2660,7 +2660,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: whitley-secondary-school
     name: "Whitley Secondary School"
@@ -2679,7 +2679,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: woodgrove-secondary-school
     name: "Woodgrove Secondary School"
@@ -2698,7 +2698,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: woodlands-ring-secondary-school
     name: "Woodlands Ring Secondary School"
@@ -2717,7 +2717,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: woodlands-secondary-school
     name: "Woodlands Secondary School"
@@ -2736,7 +2736,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: xinmin-secondary-school
     name: "Xinmin Secondary School"
@@ -2755,7 +2755,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yio-chu-kang-secondary-school
     name: "Yio Chu Kang Secondary School"
@@ -2774,7 +2774,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yishun-secondary-school
     name: "Yishun Secondary School"
@@ -2793,7 +2793,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yishun-town-secondary-school
     name: "Yishun Town Secondary School"
@@ -2812,7 +2812,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yuan-ching-secondary-school
     name: "Yuan Ching Secondary School"
@@ -2831,7 +2831,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yuhua-secondary-school
     name: "Yuhua Secondary School"
@@ -2850,7 +2850,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yusof-ishak-secondary-school
     name: "Yusof Ishak Secondary School"
@@ -2869,7 +2869,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: yuying-secondary-school
     name: "Yuying Secondary School"
@@ -2888,7 +2888,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: zhenghua-secondary-school
     name: "Zhenghua Secondary School"
@@ -2907,7 +2907,7 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
   - id: zhonghua-secondary-school
     name: "Zhonghua Secondary School"
@@ -2926,5 +2926,5 @@ schools:
     gifted: false
     ip: false
     fact: {source: datagovsg-school-directory-2026, as_of_year: 2026, confidence: high}
-    cutoff_2025: null
+    cutoff_current: null
     cutoff_note: "PathAhead does not republish Posting Group cut-off points. They are MOE's to publish, and MOE publishes them on each school's own SchoolFinder page -- open it below to read the current figures at source."
