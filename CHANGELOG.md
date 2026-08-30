@@ -10,6 +10,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed — text going invisible in Evening Mode on the PSLE, O-Level and A-Level pages
+
+Reported by a parent as "some fonts are not visible in dark mode in a few screens." The two dark states in the app are independent: the OS `prefers-color-scheme:dark` setting, and the in-app Evening Mode toggle (`data-theme="evening"`, which also applies automatically by the clock). Each track page additionally sets its own accent colour (`data-track="psle|olevel|alevel"`). The track rule carried no light/dark condition of its own, so it always won the cascade over `[data-theme="evening"]`'s dark values — silently reverting `--brand`, `--brand-deep`, `--brand-soft`, `--brand-ink` and `--focus` to their light-mode numbers while `--paper`/`--card`/`--ink` correctly went dark. Every plain link, section eyebrow, disclosure arrow and highlighted-row background (anything using those five variables) then rendered as dark-on-dark. OS dark mode was unaffected — only the manual toggle, which is what most people mean by "dark mode."
+
+Fixed with three explicit `[data-theme="evening"][data-track="…"]` rules restoring the same values already used (and already contrast-proven) for OS dark mode on each track. Confirmed with an automated sweep that walks every route in the app across light/OS-dark/Evening Mode and measures rendered text-vs-background contrast: 40 flagged instances before the fix, 0 after, re-verified visually on all three track pages. Also tightened `.pf-step span` (the choice-flow and tie-break diagram captions) from `--ink-3` to `--ink-2`, after the same sweep caught it measuring 4.35-4.44:1 against its tinted `.risk`/`.good` backgrounds — just under the 4.5:1 floor.
+
 ## [1.1.0] — 2026-08-29
 
 ### Added — "How your six school choices actually decide a place": the S1 posting mechanism, explained and made concrete

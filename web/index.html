@@ -131,9 +131,27 @@
 
    `[data-theme="evening"]` is declared before these in the stylesheet, so a
    track's colour wins over evening mode's own softened terracotta when
-   both attributes are present — a known, deliberate simplification rather
-   than building a three-theme-by-three-track matrix; evening mode still
-   applies to every other variable (paper, ink, the tinted badges). */
+   both attributes are present -- deliberately, for LIGHT mode: it is what
+   makes a track's own accent show up at all instead of evening mode's
+   terracotta leaking into every track.
+
+   That same source-order tie-break was the bug: with NO media query or
+   theme condition of its own, the plain `[data-track="x"]` rule below also
+   wins over `[data-theme="evening"]`'s DARK values, at any hour, on any
+   track page -- so toggling evening mode while on PSLE/O-Level/A-Level
+   silently reverted --brand, --brand-deep, --brand-soft, --brand-ink and
+   --focus to their LIGHT-mode numbers while --paper/--card/--ink correctly
+   went dark. Every plain link (`a{color:var(--focus)}`), eyebrow label,
+   disclosure summary, and anything using --brand-soft as a background (the
+   empty-shortlist callout, a highlighted table row) then rendered as
+   dark-on-dark or light-on-light -- caught 2026-08-29 by a parent reporting
+   text going invisible in dark mode, confirmed by an automated contrast
+   scan across every route in evening mode. Fixed with the three explicit
+   combinations below, reusing the SAME dark numbers as the prefers-color-
+   scheme:dark track blocks that already had a WCAG-AA contrast case made
+   for them two paragraphs up -- evening mode's own --paper/--card are close
+   enough in luminance to OS dark mode's that the same pairs clear 4.5:1
+   there too, without inventing a third palette to prove safe. */
 [data-track="psle"]   { --brand:#5a6b2f; --brand-deep:#465423; --brand-soft:#eef1dd; --brand-ink:#fffcf7; --focus:#465423; }
 [data-track="olevel"] { --brand:#7a4560; --brand-deep:#623650; --brand-soft:#f8e9f0; --brand-ink:#fffcf7; --focus:#623650; }
 [data-track="alevel"] { --brand:#a8481b; --brand-deep:#8a3a15; --brand-soft:#fbe8da; --brand-ink:#fffcf7; --focus:#96401a; }
@@ -142,6 +160,9 @@
   [data-track="olevel"] { --brand:#d9a8c0; --brand-deep:#e5bdd2; --brand-soft:#2d1f27; --brand-ink:#191411; --focus:#e5bdd2; }
   [data-track="alevel"] { --brand:#eb9a68; --brand-deep:#f5b184; --brand-soft:#36241a; --brand-ink:#191411; --focus:#f2a97c; }
 }
+[data-theme="evening"][data-track="psle"]   { --brand:#aec27a; --brand-deep:#c3d494; --brand-soft:#242a17; --brand-ink:#191411; --focus:#c3d494; }
+[data-theme="evening"][data-track="olevel"] { --brand:#d9a8c0; --brand-deep:#e5bdd2; --brand-soft:#2d1f27; --brand-ink:#191411; --focus:#e5bdd2; }
+[data-theme="evening"][data-track="alevel"] { --brand:#eb9a68; --brand-deep:#f5b184; --brand-soft:#36241a; --brand-ink:#191411; --focus:#f2a97c; }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
@@ -811,7 +832,12 @@ li.past .t-when{color:var(--ink-3)}
 .pf-step{flex:1;border:1px solid var(--rule);border-radius:var(--r-sm);
   padding:.6rem .5rem;background:var(--card);text-align:center}
 .pf-step b{display:block;font:700 .8rem/1.2 var(--sans);color:var(--ink)}
-.pf-step span{display:block;font-size:.68rem;line-height:1.35;color:var(--ink-3);margin-top:.3rem}
+/* --ink-3 measures 4.5:1+ on .pf-step's plain and .muted backgrounds but
+   drops to 4.35-4.44:1 on the tinted .risk/.good variants (a comprehensive
+   contrast sweep caught this, 2026-08-29) -- --ink-2 clears all four with
+   room to spare, so it is simpler to use one caption colour across every
+   .pf-step variant than to special-case the two tinted ones. */
+.pf-step span{display:block;font-size:.68rem;line-height:1.35;color:var(--ink-2);margin-top:.3rem}
 .pf-step.muted{background:var(--quiet-bg);border-color:transparent}
 .pf-step.muted b{color:var(--quiet)}
 .pf-step.risk{background:var(--soft-bg);border-color:transparent}
