@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pathahead"
-version = "1.1.0"
+version = "1.1.1"
 description = "An open engine for understanding education pathways. Local-first, cited, and honest about what it does not know."
 readme = "README.md"
 license = { file = "LICENSE" }
