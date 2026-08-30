@@ -840,6 +840,46 @@ await check("no school card republishes a cut-off figure; every one links to MOE
   if (showFewer) click(showFewer);
 });
 
+await check("a matched school's third-party public cut-off trend renders with its own attribution, disclaimer and source link", () => {
+  // packs/singapore/cutoff-trend-public.yaml (see docs/LOCAL_DATA.md) -- a
+  // citation of SG School Kaki's own already-public compilation, distinct
+  // from the MOE-sourced local overlay checked above. Ships in every build,
+  // so unlike the overlay-gated checks elsewhere in this file this one does
+  // not need to branch on whether a local overlay is present.
+  const showAll = [...all("#schoolShortlistHost button")].find((b) => /^Show all/.test(b.textContent));
+  if (showAll) click(showAll);
+
+  const card = $('#schoolResults li.course[data-school="admiralty-secondary-school"]');
+  assert(card, "Admiralty Secondary School did not render");
+
+  const box = card.querySelector(".psle-cutoff-history-public");
+  assert(box, "no third-party public cut-off trend table on Admiralty's card");
+
+  const rows = [...box.querySelectorAll("tbody tr")];
+  assert(rows.length === 5, `expected 5 years of public-trend data for Admiralty, found ${rows.length}`);
+
+  assert(/not an MOE publication/i.test(box.textContent),
+    "the public-trend box does not disclaim that this is not an MOE publication");
+
+  const srcLink = [...box.querySelectorAll("a")].find((a) => /SG School Kaki/.test(a.textContent));
+  assert(srcLink, "no 'SG School Kaki' source link in the public-trend box");
+  assert(srcLink.href === "https://sgschoolkaki.com/psle-trends",
+    `the source link does not point at the cited page: ${srcLink.href}`);
+  assert(srcLink.getAttribute("target") === "_blank" && /noopener/.test(srcLink.getAttribute("rel") || ""),
+    "the source link does not open safely in a new tab");
+
+  // The 8 specialised-admission schools have no PSLE cut-off under any
+  // source, including this one -- the site itself has no row for them, so
+  // nothing should render rather than an empty or fabricated box.
+  const specialised = $('#schoolResults li.course[data-school="nus-high-school-of-mathematics-and-science"]');
+  assert(specialised, "NUS High School of Mathematics and Science did not render");
+  assert(!specialised.querySelector(".psle-cutoff-history-public"),
+    "a specialised-admission school should carry no public cut-off trend box at all");
+
+  const showFewer = [...all("#schoolShortlistHost button")].find((b) => /^Show fewer/.test(b.textContent));
+  if (showFewer) click(showFewer);
+});
+
 await check("the word 'null' never leaks into the school shortlist", () => {
   // Element.replaceChildren(x) does not skip a bare `null` argument -- it
   // stringifies it to the TEXT NODE "null". renderRanking() (A-Level,

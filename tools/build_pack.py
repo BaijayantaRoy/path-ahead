@@ -400,6 +400,11 @@ def to_bundle(pack: Pack) -> dict[str, Any]:
         "interests": pack.interests,
         "schools": pack.schools,
         "postal_districts": pack.postal_districts,
+        # Attribution + disclaimer for schools[]["cutoff_public_trend"] --
+        # see engine/model.py's field comment and engine/loader.py:
+        # _apply_public_cutoff_trend for what this is and why it ships in
+        # every compiled bundle (unlike MOE's own figures, which never do).
+        "cutoff_public_trend_source": pack.cutoff_public_trend_source,
         "prerequisites": [
             {
                 "id": p.id,

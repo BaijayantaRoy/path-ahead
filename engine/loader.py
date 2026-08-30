@@ -82,6 +82,12 @@ _PACK_FILES = (
     # transitions or outcomes of its own, so ordering relative to
     # outcomes*.yaml does not matter the way it does for olevel.yaml above.
     "secondary-schools.yaml",
+    # Third-party (not MOE) historical PSLE cut-off trend, cited with
+    # attribution -- see packs/singapore/cutoff-trend-public.yaml's own
+    # header comment and _apply_public_cutoff_trend below for why this is
+    # tracked and published while local/cutoff.json (MOE's own figures)
+    # is not. Listed after secondary-schools.yaml for the same reason.
+    "cutoff-trend-public.yaml",
     "outcomes.yaml",
     "outcomes-ntu-smu.yaml",
     "outcomes-sutd-sit-suss.yaml",
@@ -643,6 +649,8 @@ def _from_mapping(data: Mapping[str, Any], *, origin: str) -> Pack:
     pack.schools = list(data.get("schools", []) or [])
     pack.postal_districts = list(data.get("postal_districts", []) or [])
 
+    pack.cutoff_public_trend_source = dict(data.get("cutoff_public_trend_source") or {}) or None
+    _apply_public_cutoff_trend(pack, data.get("cutoff_public_trend") or {})
     _apply_local_overlays(pack, origin)
     _attach_cross_transition_reuse(pack)
     _validate(pack, origin)
@@ -652,6 +660,81 @@ def _from_mapping(data: Mapping[str, Any], *, origin: str) -> Pack:
 #: Files under `packs/<id>/local/` that this loader will merge if they exist.
 #: The whole directory is gitignored -- see .gitignore and docs/LOCAL_DATA.md.
 _LOCAL_DIR = "local"
+
+
+def _apply_public_cutoff_trend(pack: Pack, trend_rows: Mapping[str, Any]) -> None:
+    """Merge packs/<id>/cutoff-trend-public.yaml onto each school, as
+    `school["cutoff_public_trend"]`.
+
+    Unlike _apply_local_overlays below, this file is TRACKED and PUBLISHED.
+    It does not hold MOE's own SchoolFinder figure -- this project still
+    does not republish that, for the reason _apply_local_overlays explains
+    -- it holds a single number per school per year (that school's Posting
+    Group 3 cut-off point) cited from a THIRD PARTY's own already-public
+    compilation (SG School Kaki, https://sgschoolkaki.com/psle-trends),
+    attributed and disclaimed via `pack.cutoff_public_trend_source`, which
+    the UI shows inline wherever this trend is shown. Spot-checked against
+    MOE's own live 2025 figure for four schools spanning very different
+    profiles before being trusted (see CHANGELOG.md) -- every one matched
+    exactly. Earlier years could not be checked the same way: no official
+    multi-year archive of SchoolFinder exists anywhere reachable.
+
+    Silent when the file is absent -- a pack built without it still works,
+    it simply has no trend to show. Loud when a row's school id is not in
+    this pack, for the same reason _apply_local_overlays is loud about it:
+    a typo here would silently drop a school's figures rather than erroring.
+    """
+    if not trend_rows:
+        return
+    known = {str(s.get("id")) for s in pack.schools}
+    unknown = sorted(k for k in trend_rows if k not in known)
+    if unknown:
+        raise PackError(
+            f"cutoff-trend-public.yaml: {len(unknown)} school id(s) are not in this pack: "
+            f"{unknown[:5]}",
+            "School ids must match the pack exactly.",
+        )
+    for school in pack.schools:
+        row = trend_rows.get(str(school.get("id")))
+        if not row:
+            continue
+        try:
+            values = {int(year): int(v) for year, v in row.items()}
+        except (TypeError, ValueError) as exc:
+            raise PackError(
+                f"cutoff-trend-public.yaml: {school.get('id')}'s trend is malformed -- {exc}",
+                "Each year must map to a plain number.",
+            ) from exc
+        if values:
+            school["cutoff_public_trend"] = _public_trend(values)
+
+
+def _public_trend(values: dict[int, int]) -> dict[str, Any]:
+    """Mean, median and a plain-language direction for the third-party
+    cut-off series above -- the same computation _cutoff_trend does for the
+    MOE-sourced local overlay below, but over plain year -> number points,
+    because this source only ever gives one number per school per year,
+    never a PG3/PG2/PG1 breakdown. Never invents a missing year."""
+    years = sorted(values)
+    points = [(y, values[y]) for y in years]
+    vals = [v for _, v in points]
+    mean = sum(vals) / len(vals)
+    sorted_vals = sorted(vals)
+    mid = len(sorted_vals) // 2
+    median = (
+        sorted_vals[mid]
+        if len(sorted_vals) % 2
+        else (sorted_vals[mid - 1] + sorted_vals[mid]) / 2
+    )
+    if len(points) < 2:
+        direction = "single"
+    elif vals[-1] < vals[0]:
+        direction = "down"  # a lower cut-off, i.e. easier to clear
+    elif vals[-1] > vals[0]:
+        direction = "up"
+    else:
+        direction = "flat"
+    return {"points": points, "mean": round(mean, 1), "median": median, "direction": direction}
 
 
 def _apply_local_overlays(pack: Pack, origin: Path | None) -> None:

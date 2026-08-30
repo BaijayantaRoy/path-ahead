@@ -6140,6 +6140,49 @@ function cutoffHistoryTable(school){
   ]);
 }
 
+/** A third-party historical cut-off trend, shown on every school card that
+    has one -- independent of whether a local MOE overlay is present,
+    unlike cutoffHistoryTable() above. `school.cutoff_public_trend` arrives
+    precomputed from engine/loader.py:_apply_public_cutoff_trend
+    (packs/singapore/cutoff-trend-public.yaml -- tracked and published,
+    unlike packs/singapore/local/cutoff.json, because this is a citation of
+    a third party's own already-public compilation, not a republishing of
+    MOE's own SchoolFinder figure -- see that file's own header comment).
+
+    Always carries its own attribution and disclaimer inline, and is never
+    presented as PathAhead's own figure or as equivalent to the officially-
+    linked current-year figure above it. */
+function publicCutoffTrendTable(school){
+  const trend = school.cutoff_public_trend;
+  const source = S.pack && S.pack.cutoff_public_trend_source;
+  if(!trend || !source) return null;
+  const years = trend.points.map(p=>p[0]).slice().sort((a,b)=>b-a);
+  const DIR = {up:"risen (a higher score needed)", down:"eased (a lower score needed)",
+               flat:"held steady", single:"—"};
+  const oldestYear = years[years.length-1];
+
+  return el("div",{class:"psle-cutoff-history psle-cutoff-history-public"},[
+    el("p",{class:"hint",text:`Historical trend, ${oldestYear}–${years[0]} — not from PathAhead or MOE:`}),
+    el("table",{class:"cmp"},[
+      el("thead",{},[el("tr",{},[el("th",{text:"Year"}),el("th",{text:"PG3 cut-off"})])]),
+      el("tbody",{},years.map(y=>{
+        const pt = trend.points.find(p=>p[0]===y);
+        return el("tr",{},[el("td",{text:String(y)}),el("td",{text: pt ? String(pt[1]) : "—"})]);
+      })),
+      el("tfoot",{},[
+        el("tr",{},[el("th",{text:"Mean"}),el("td",{text:String(trend.mean)})]),
+        el("tr",{},[el("th",{text:"Median"}),el("td",{text:String(trend.median)})]),
+      ]),
+    ]),
+    el("p",{class:"hint",text:
+      (years.length>1 ? `Has ${DIR[trend.direction]} since ${oldestYear}. ` : "")+source.disclaimer}),
+    el("p",{class:"hint"},[
+      el("span",{text:"Source: "}),
+      el("a",{href:source.url,target:"_blank",rel:"noopener noreferrer",text:source.name}),
+    ]),
+  ]);
+}
+
 /** Shown on EVERY school card, whether or not a PSLE score has been entered.
 
     Three states, and they say three genuinely different things — collapsing
@@ -6175,6 +6218,7 @@ function cutoffRangeLine(school){
         link,
       ]),
       cutoffHistoryTable(school),
+      publicCutoffTrendTable(school),
     ]);
   }
 
@@ -6182,10 +6226,13 @@ function cutoffRangeLine(school){
   // from the pack; everything else carries the "not republished" note. Both
   // arrive in cutoff_note — see tools/build_secondary_schools_pack.py, which
   // deliberately keeps the two sentences distinct.
-  return el("div",{class:"c-sub","data-cutoff":"","data-cutoff-origin":"linked"},[
-    el("span",{text:(school.cutoff_note ||
-      "PathAhead does not republish Posting Group cut-off points.")+" "}),
-    link,
+  return el("div",{},[
+    el("div",{class:"c-sub","data-cutoff":"","data-cutoff-origin":"linked"},[
+      el("span",{text:(school.cutoff_note ||
+        "PathAhead does not republish Posting Group cut-off points.")+" "}),
+      link,
+    ]),
+    publicCutoffTrendTable(school),
   ]);
 }
 

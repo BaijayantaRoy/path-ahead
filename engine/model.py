@@ -986,6 +986,16 @@ class Pack:
     #: engine/loader.py:_apply_local_overlays and docs/LOCAL_DATA.md.
     local_overlay_applied: bool = False
 
+    #: Attribution + disclaimer for `school["cutoff_public_trend"]` (below),
+    #: from packs/<id>/cutoff-trend-public.yaml if that file is present.
+    #: Unlike local_overlay_applied above, this is TRACKED and PUBLISHED --
+    #: not MOE's own per-school figure, which this project does not
+    #: republish, but a citation of an already-public third-party
+    #: compilation with its own attribution and disclaimer carried right
+    #: through to the UI. See engine/loader.py:_apply_public_cutoff_trend
+    #: and CHANGELOG.md for how this was sourced and spot-checked.
+    cutoff_public_trend_source: dict[str, Any] | None = None
+
     # -- lookups ---------------------------------------------------------
 
     def source(self, source_id: str) -> Source:

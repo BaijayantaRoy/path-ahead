@@ -1,0 +1,175 @@
+# Third-party PSLE cut-off point trend, 2021-2025 -- NOT an MOE publication.
+#
+# Source: SG School Kaki (unofficial, community-compiled), a public site that
+# compiles MOE's own yearly Secondary School COP releases into one table.
+# https://sgschoolkaki.com/psle-trends -- fetched 2026-08-30.
+#
+# Each number is the school's Posting Group 3 cut-off point (the boundary
+# between PG3 and PG2 -- the single figure schools and newspapers have always
+# quoted as "the" cut-off, going back to before PG1/PG2/PG3 existed as separate
+# bands). Spot-checked against MOE's own live 2025 SchoolFinder figure for four
+# schools spanning very different profiles (an SAP-adjacent school, an average
+# neighbourhood school, a school whose cut-off moved sharply year over year, and
+# a girls' school with no PG1 at all) before being trusted -- every one matched
+# exactly. Earlier years (2021-2024) could not be independently checked the same
+# way: no official multi-year archive of SchoolFinder exists anywhere reachable
+# (see docs/LOCAL_DATA.md). See CHANGELOG.md for the full spot-check writeup.
+#
+# This file is DELIBERATELY separate from packs/singapore/local/cutoff.json:
+# that file holds MOE's own current-year PG3/PG2/PG1/IP figures, which this
+# project does not republish (see engine/loader.py:_apply_local_overlays) and
+# which therefore stays local-only, gitignored, never committed. This file is a
+# citation of a THIRD PARTY's own already-public compilation -- attributed,
+# disclaimed inline wherever it is shown, and safe to ship in the public pack.
+
+cutoff_public_trend_source:
+  name: "SG School Kaki (unofficial, community-compiled)"
+  url: "https://sgschoolkaki.com/psle-trends"
+  fetched: "2026-08-30"
+  disclaimer: >-
+    Community-compiled figures, not an MOE publication. Shown for historical
+    reference only, alongside -- never instead of -- this year's figure linked
+    from MOE SchoolFinder above. Spot-checked against MOE's own 2025 figure for
+    a sample of schools and matched exactly; earlier years could not be
+    independently verified, because no official multi-year archive exists.
+
+cutoff_public_trend:
+  admiralty-secondary-school: {"2021": 20, "2022": 21, "2023": 21, "2024": 20, "2025": 22}
+  ahmad-ibrahim-secondary-school: {"2021": 17, "2022": 17, "2023": 17, "2024": 17, "2025": 18}
+  anderson-secondary-school: {"2021": 10, "2022": 10, "2023": 10, "2024": 10, "2025": 11}
+  ang-mo-kio-secondary-school: {"2021": 16, "2022": 16, "2023": 18, "2024": 15, "2025": 16}
+  anglican-high-school: {"2021": 12, "2022": 12, "2023": 14, "2024": 11, "2025": 12}
+  anglo-chinese-school-barker-road: {"2021": 11, "2022": 10, "2023": 10, "2024": 9, "2025": 9}
+  anglo-chinese-school-independent: {"2021": 7, "2022": 7, "2023": 7, "2024": 6, "2025": 7}
+  assumption-english-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  bartley-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 21}
+  beatty-secondary-school: {"2021": 18, "2022": 18, "2023": 18, "2024": 17, "2025": 18}
+  bedok-green-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 20, "2025": 20}
+  bedok-south-secondary-school: {"2021": 19, "2022": 20, "2023": 20, "2024": 18, "2025": 18}
+  bedok-view-secondary-school: {"2021": 18, "2022": 18, "2023": 18, "2024": 16, "2025": 16}
+  bendemeer-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  boon-lay-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  bowen-secondary-school: {"2021": 16, "2022": 16, "2023": 17, "2024": 15, "2025": 16}
+  broadrick-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  bukit-batok-secondary-school: {"2021": 15, "2022": 15, "2023": 16, "2024": 14, "2025": 15}
+  bukit-merah-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  bukit-panjang-govt-high-school: {"2021": 11, "2022": 11, "2023": 12, "2024": 11, "2025": 11}
+  bukit-view-secondary-school: {"2021": 19, "2022": 19, "2023": 19, "2024": 19, "2025": 20}
+  canberra-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  catholic-high-school: {"2021": 8, "2022": 8, "2023": 8, "2024": 7, "2025": 7}
+  cedar-girls-secondary-school: {"2021": 8, "2022": 8, "2023": 8, "2024": 7, "2025": 9}
+  changkat-changi-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  chij-katong-convent: {"2021": 15, "2022": 15, "2023": 16, "2024": 13, "2025": 14}
+  chij-secondary-toa-payoh: {"2021": 10, "2022": 10, "2023": 11, "2024": 9, "2025": 10}
+  chij-st-josephs-convent: {"2021": 13, "2022": 14, "2023": 14, "2024": 13, "2025": 14}
+  chij-st-nicholas-girls-school: {"2021": 7, "2022": 7, "2023": 7, "2024": 7, "2025": 7}
+  chij-st-theresas-convent: {"2021": 13, "2022": 13, "2023": 15, "2024": 12, "2025": 13}
+  christ-church-secondary-school: {"2021": 19, "2022": 18, "2023": 18, "2024": 17, "2025": 17}
+  chua-chu-kang-secondary-school: {"2023": 21, "2024": 20, "2025": 20}
+  chung-cheng-high-school-main: {"2021": 11, "2022": 11, "2023": 11, "2024": 9, "2025": 10}
+  chung-cheng-high-school-yishun: {"2021": 11, "2022": 11, "2023": 13, "2024": 11, "2025": 11}
+  clementi-town-secondary-school: {"2021": 14, "2022": 14, "2023": 14, "2024": 13, "2025": 13}
+  commonwealth-secondary-school: {"2021": 12, "2022": 12, "2023": 15, "2024": 12, "2025": 13}
+  compassvale-secondary-school: {"2021": 18, "2022": 19, "2023": 19, "2024": 18, "2025": 18}
+  crescent-girls-school: {"2021": 11, "2022": 11, "2023": 12, "2024": 10, "2025": 13}
+  damai-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  deyi-secondary-school: {"2021": 17, "2022": 18, "2023": 18, "2024": 16, "2025": 16}
+  dunearn-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  dunman-high-school: {"2021": 8, "2022": 8, "2023": 8, "2024": 7, "2025": 8}
+  dunman-secondary-school: {"2021": 14, "2022": 14, "2023": 15, "2024": 13, "2025": 14}
+  east-spring-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  edgefield-secondary-school: {"2021": 14, "2022": 14, "2023": 15, "2024": 13, "2025": 14}
+  evergreen-secondary-school: {"2021": 15, "2022": 15, "2023": 16, "2024": 14, "2025": 15}
+  fairfield-methodist-school-secondary: {"2021": 11, "2022": 10, "2023": 10, "2024": 10, "2025": 11}
+  fuhua-secondary-school: {"2021": 13, "2022": 13, "2023": 14, "2024": 12, "2025": 13}
+  gan-eng-seng-school: {"2021": 15, "2022": 15, "2023": 16, "2024": 14, "2025": 15}
+  geylang-methodist-school-secondary: {"2021": 15, "2022": 15, "2023": 15, "2024": 13, "2025": 14}
+  greendale-secondary-school: {"2021": 18, "2022": 18, "2023": 18, "2024": 16, "2025": 16}
+  greenridge-secondary-school: {"2023": 22, "2024": 22, "2025": 22}
+  guangyang-secondary-school: {"2021": 21, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  hai-sing-catholic-school: {"2021": 16, "2022": 16, "2023": 18, "2024": 15, "2025": 15}
+  hillgrove-secondary-school: {"2021": 19, "2022": 19, "2023": 19, "2024": 17, "2025": 18}
+  holy-innocents-high-school: {"2021": 15, "2022": 15, "2023": 15, "2024": 13, "2025": 14}
+  hougang-secondary-school: {"2021": 20, "2022": 20, "2023": 22, "2024": 20, "2025": 20}
+  hua-yi-secondary-school: {"2021": 16, "2022": 16, "2023": 16, "2024": 14, "2025": 14}
+  hwa-chong-institution: {"2021": 7, "2022": 7, "2023": 7, "2024": 6, "2025": 6}
+  junyuan-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 21}
+  jurong-secondary-school: {"2021": 16, "2022": 15, "2023": 16, "2024": 15, "2025": 16}
+  jurong-west-secondary-school: {"2021": 18, "2022": 18, "2023": 18, "2024": 16, "2025": 16}
+  jurongville-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 20, "2025": 22}
+  juying-secondary-school: {"2021": 21, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  kent-ridge-secondary-school: {"2021": 19, "2022": 18, "2023": 19, "2024": 18, "2025": 18}
+  kranji-secondary-school: {"2021": 14, "2022": 14, "2023": 15, "2024": 13, "2025": 14}
+  kuo-chuan-presbyterian-secondary-school: {"2021": 13, "2022": 12, "2023": 10, "2024": 9}
+  loyang-view-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  manjusri-secondary-school: {"2021": 21, "2022": 22, "2023": 22, "2024": 22, "2025": 21}
+  maris-stella-high-school: {"2021": 12, "2022": 12, "2023": 14, "2024": 11, "2025": 12}
+  marsiling-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  mayflower-secondary-school: {"2021": 17, "2022": 17, "2023": 18, "2024": 17, "2025": 17}
+  meridian-secondary-school: {"2021": 19, "2022": 20, "2023": 22, "2024": 22, "2025": 22}
+  methodist-girls-school-secondary: {"2021": 6, "2022": 7, "2023": 6, "2024": 6, "2025": 6}
+  montfort-secondary-school: {"2021": 20, "2022": 21, "2023": 21, "2024": 22, "2025": 22}
+  nan-chiau-high-school: {"2021": 11, "2022": 12, "2023": 12, "2024": 10, "2025": 11}
+  nan-hua-high-school: {"2021": 11, "2022": 11, "2023": 11, "2024": 10, "2025": 10}
+  nanyang-girls-high-school: {"2021": 7, "2022": 7, "2023": 7, "2024": 6, "2025": 6}
+  national-junior-college: {"2021": 7, "2022": 7, "2023": 7, "2024": 7, "2025": 8}
+  naval-base-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 18, "2025": 19}
+  new-town-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 21, "2025": 20}
+  ngee-ann-secondary-school: {"2021": 12, "2022": 12, "2023": 13, "2024": 11, "2025": 12}
+  north-vista-secondary-school: {"2021": 18, "2022": 18, "2023": 19, "2024": 17, "2025": 18}
+  northbrooks-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  northland-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  orchid-park-secondary-school: {"2021": 19, "2022": 19, "2023": 19, "2024": 18, "2025": 19}
+  outram-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 17}
+  pasir-ris-crest-secondary-school: {"2021": 17, "2022": 18, "2023": 19, "2024": 17, "2025": 18}
+  pasir-ris-secondary-school: {"2021": 18, "2022": 18, "2023": 19, "2024": 17, "2025": 17}
+  paya-lebar-methodist-girls-school-secondary: {"2021": 11, "2022": 11, "2023": 13, "2024": 10, "2025": 10}
+  pei-hwa-secondary-school: {"2021": 16, "2022": 16, "2023": 17, "2024": 14, "2025": 14}
+  peicai-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 21, "2025": 20}
+  peirce-secondary-school: {"2021": 19, "2022": 19, "2023": 20, "2024": 19, "2025": 20}
+  presbyterian-high-school: {"2021": 13, "2022": 13, "2023": 14, "2024": 12, "2025": 13}
+  punggol-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 19, "2025": 19}
+  queenstown-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  queensway-secondary-school: {"2021": 17, "2022": 17, "2023": 18, "2024": 16, "2025": 17}
+  raffles-girls-school-secondary: {"2021": 6, "2022": 6, "2023": 6, "2024": 5, "2025": 6}
+  raffles-institution: {"2021": 6, "2022": 6, "2023": 6, "2024": 6, "2025": 6}
+  regent-secondary-school: {"2021": 21, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  river-valley-high-school: {"2021": 9, "2022": 9, "2023": 9, "2024": 8, "2025": 9}
+  riverside-secondary-school: {"2021": 14, "2022": 14, "2023": 15, "2024": 13, "2025": 14}
+  sembawang-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  seng-kang-secondary-school: {"2021": 19, "2022": 20, "2023": 20, "2024": 19, "2025": 19}
+  serangoon-garden-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  serangoon-secondary-school: {"2021": 21, "2022": 21, "2023": 22, "2024": 22, "2025": 20}
+  singapore-chinese-girls-school: {"2021": 8, "2022": 8, "2023": 8, "2024": 7, "2025": 7}
+  springfield-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  st-andrews-school-secondary: {"2021": 10, "2022": 10, "2023": 10, "2024": 9, "2025": 9}
+  st-anthonys-canossian-secondary-school: {"2021": 15, "2022": 16, "2023": 16, "2024": 14, "2025": 15}
+  st-gabriels-secondary-school: {"2021": 17, "2022": 17, "2023": 18, "2024": 15, "2025": 15}
+  st-hildas-secondary-school: {"2021": 15, "2022": 15, "2023": 15, "2024": 13, "2025": 14}
+  st-josephs-institution: {"2021": 8, "2022": 8, "2023": 8, "2024": 7, "2025": 7}
+  st-margarets-school-secondary: {"2021": 11, "2022": 11, "2023": 14, "2024": 11, "2025": 11}
+  st-patricks-school: {"2021": 14, "2022": 13, "2024": 11, "2025": 11}
+  swiss-cottage-secondary-school: {"2021": 11, "2022": 11, "2023": 11, "2024": 10, "2025": 11}
+  tampines-secondary-school: {"2021": 19, "2022": 20, "2023": 20, "2024": 18, "2025": 19}
+  tanjong-katong-girls-school: {"2021": 13, "2022": 13, "2023": 14, "2024": 12, "2025": 13}
+  tanjong-katong-secondary-school: {"2021": 14, "2022": 14, "2023": 14, "2024": 12, "2025": 13}
+  temasek-junior-college: {"2021": 9, "2022": 8, "2023": 9, "2024": 8, "2025": 8}
+  temasek-secondary-school: {"2021": 13, "2022": 13, "2023": 13, "2024": 11, "2025": 11}
+  unity-secondary-school: {"2021": 18, "2022": 18, "2023": 20, "2024": 18, "2025": 18}
+  victoria-school: {"2021": 9, "2022": 9, "2023": 10, "2024": 9, "2025": 8}
+  west-spring-secondary-school: {"2021": 17, "2022": 17, "2023": 17, "2024": 16, "2025": 17}
+  westwood-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  whitley-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  woodgrove-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 19, "2025": 19}
+  woodlands-ring-secondary-school: {"2021": 19, "2022": 20, "2023": 21, "2024": 22, "2025": 22}
+  woodlands-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  xinmin-secondary-school: {"2021": 14, "2022": 14, "2023": 16, "2024": 13, "2025": 13}
+  yio-chu-kang-secondary-school: {"2021": 21, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  yishun-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 19, "2025": 20}
+  yishun-town-secondary-school: {"2021": 13, "2022": 13, "2023": 13, "2024": 12, "2025": 13}
+  yuan-ching-secondary-school: {"2021": 19, "2022": 19, "2023": 19, "2024": 18, "2025": 18}
+  yuhua-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 21, "2025": 20}
+  yusof-ishak-secondary-school: {"2022": 17, "2023": 16, "2024": 14, "2025": 15}
+  yuying-secondary-school: {"2021": 22, "2022": 22, "2023": 22, "2024": 22, "2025": 22}
+  zhenghua-secondary-school: {"2021": 20, "2022": 20, "2023": 20, "2024": 19, "2025": 20}
+  zhonghua-secondary-school: {"2021": 13, "2022": 13, "2023": 14, "2024": 12, "2025": 12}

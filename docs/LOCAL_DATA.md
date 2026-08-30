@@ -73,14 +73,17 @@ packs/singapore/local/cutoff.json
   of this file can honestly hold: MOE's SchoolFinder never shows more than
   the current admissions cycle per school, and there is no archive to
   backfill from (checked 2026-08-30 -- no earlier SchoolFinder snapshot
-  exists anywhere reachable, and a compiled multi-year table from a third
-  party is not something this project will import unverified). A REAL
-  multi-year trend is built the only honest way there is: run this same
+  exists anywhere reachable from MOE itself). A REAL multi-year trend from
+  *your own* copy is built the only honest way there is: run this same
   refresh again next admissions cycle and add that year alongside the ones
   already here, never replacing them. `engine/loader.py:_cutoff_trend`
   computes mean, median and a plain-language direction from however many
   years are actually present -- one today, more as this file is kept up to
   date over time.
+  (Separately, PathAhead *does* now cite one already-public, independently
+  spot-checked third-party multi-year compilation -- see "Third-party public
+  trend citation" below. That is a different mechanism from this local
+  overlay, kept deliberately apart from it.)
 - Each band is `[first_posted, last_posted]` -- the PSLE Score of the first
   and the last student posted to that Posting Group. The reach filter, and
   the trend, both read the second number, the cut-off proper.
@@ -154,9 +157,57 @@ belongs so that the obligation travels with the data.
 
 ---
 
+## Third-party public trend citation
+
+`packs/singapore/cutoff-trend-public.yaml` is a **different mechanism** from
+the local overlay above, and it is worth being precise about why, because the
+two look similar (both end up rendering a year-on-year cut-off table on a
+school's card) while being governed by opposite rules.
+
+|  | `packs/singapore/local/cutoff.json` | `packs/singapore/cutoff-trend-public.yaml` |
+|---|---|---|
+| What it holds | **MOE's own** per-school figures | A third party's own **already-public** compilation of the same kind of figure |
+| Whose licence applies | MOE's Terms of Use (reproduction reserved) | The third party's own site is the publisher; PathAhead cites it, it does not scrape or re-derive MOE's figures itself |
+| Tracked in git? | **No** -- `.gitignore`'d, never committed | **Yes** -- committed, ships in every build |
+| Verified how? | By you, personally, against your own source | Spot-checked by this project against live MOE SchoolFinder pages before being trusted (below) |
+| Shown as | "From your own local copy" | A separately-boxed table with its own inline attribution, url and disclaimer |
+
+The source is [SG School Kaki](https://sgschoolkaki.com/psle-trends), an
+unofficial, community-compiled site (not MOE, not PathAhead) — fetched
+2026-08-30. Before this file was written, the single "cut-off" figure the site
+publishes per school per year was cross-checked against four schools' live
+MOE SchoolFinder pages (Admiralty, Assumption English, Outram, Crescent
+Girls' — chosen for different profiles: a girls' school with no PG1, a
+school with a large single-year swing, an SAP-adjacent school, and an
+otherwise-average one). All four matched exactly, confirming the site's
+number is each school's **PG3 upper bound** — the historic single
+"cut-off point" quoted before Singapore split posting into PG1/PG2/PG3 bands.
+The earlier years (2021-2024) could not be independently verified the same
+way, because no official multi-year archive exists to check them against; the
+in-app disclaimer says so.
+
+139 of the pack's 147 schools matched a site row by (normalized) name. The 8
+that did not are exactly the specialised-admission schools that carry no
+PSLE-score cut-off at all (School of the Arts, NUS High, Singapore Sports
+School, and the rest of that set) — a consistency check, not a gap. 2
+site rows had no match in the pack (Fajar Secondary, Teck Whye Secondary),
+which appear to have since closed or merged.
+
+This file is deliberately tracked and published, unlike the local overlay,
+because it is not a reproduction of MOE's own SchoolFinder page — it is
+citation of a third party's own already-public compilation, carried through
+to the UI with its own attribution and disclaimer, the same way any other
+secondary source in this pack is cited. See the file's own header comment,
+`engine/model.py`'s `cutoff_public_trend_source` field comment, and
+`engine/loader.py:_apply_public_cutoff_trend` for the mechanics.
+
+---
+
 ## Related
 
 - [SAFEGUARDS.md](../SAFEGUARDS.md) §3 — the per-source licensing posture
 - `tools/build_secondary_schools_pack.py` — the build, and why it writes nulls
 - `engine/loader.py:_apply_local_overlays` — the merge, and why it is here
 - `engine/school_fit.py:within_reach` — the filter, and why absence is never a no
+- `packs/singapore/cutoff-trend-public.yaml` — the third-party public trend citation, its own header comment
+- `engine/loader.py:_apply_public_cutoff_trend` — how that citation is validated and computed
