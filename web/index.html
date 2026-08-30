@@ -2231,6 +2231,34 @@ function combinedReach(school, loScore, hiScore, loGroups, hiGroups, margin){
   return "unknown";
 }
 
+/* The most recent year's figure from school.cutoff_public_trend (see
+   engine/loader.py:_apply_public_cutoff_trend, packs/singapore/cutoff-
+   trend-public.yaml) -- a third-party, project-spot-checked citation, not
+   MOE's own figure and not a family's own local copy. null when this
+   school carries no such citation at all. Mirrors
+   engine/school_fit.py:public_trend_current exactly. */
+function publicTrendCurrent(school){
+  const trend = school.cutoff_public_trend;
+  const points = trend && trend.points;
+  if(!points || !points.length) return null;
+  return points.reduce((best,p)=> p[0]>best[0] ? p : best, points[0])[1];
+}
+
+/* Whether this school's most recent PUBLIC historical cut-off falls within
+   [lo, hi] inclusive -- the plain "browse schools near a score" filter a
+   family types directly (e.g. "AL 13, show me 12 to 14"), which is NOT the
+   same question combinedReach()/withinReach() answer above: those need a
+   family's own local MOE overlay (cutoff_current) to run at all. This
+   works from the data PathAhead actually ships to everyone. A FILTER, not
+   a score: never orders schools, and returns null -- never false -- when
+   this school carries no public citation to compare against. Mirrors
+   engine/school_fit.py:in_score_range exactly. */
+function inScoreRange(school, lo, hi){
+  const value = publicTrendCurrent(school);
+  if(value==null) return null;
+  return value>=lo && value<=hi;
+}
+
 /* Checks one school against one family's FILTERS. Mirrors
    engine/school_fit.py:match_school exactly: the one hard, unconditional
    fact (sex-based admission) is resolved first and independently of
@@ -4744,7 +4772,16 @@ const PS = {score:null, prefs:{postal_code:null, student_sex:null, gender:null, 
   // the Posting Group calculator. mode "upper" reads `upper` alone; mode
   // "range" reads `min` and `max` together, and only once BOTH are set --
   // a single one of the two is not enough to mean anything.
-  filters:{maxKm:null, al:{mode:"upper", upper:null, min:null, max:null}}};
+  //
+  // `scoreRange` is a SEPARATE, simpler filter -- "browse schools whose
+  // published-elsewhere historical cut-off sits between these two AL
+  // scores" -- built on packs/singapore/cutoff-trend-public.yaml's data,
+  // which (unlike `al` above) is present in every build, not just a
+  // machine with a private local overlay. See inScoreRange()/
+  // publicTrendCurrent() and renderSchoolPrefs' "Browse by historical
+  // cut-off" block.
+  filters:{maxKm:null, al:{mode:"upper", upper:null, min:null, max:null},
+    scoreRange:{min:null, max:null}}};
 const SCHOOL_TYPE_OPTIONS = ["Government school","Government-aided school",
   "Independent school","Specialised school","Specialised independent school"];
 
@@ -5574,10 +5611,11 @@ function renderSchoolPrefs(){
   // (SAFEGUARDS.md 5.1 still applies to them) with no way to clear them from
   // here even though the button's own onclick already resets PS.filters too.
   const alSearchIsActive = alSearchActive();
+  const scoreRangeIsActive = PS.filters.scoreRange.min!=null && PS.filters.scoreRange.max!=null;
   const hasAnyPreference = PS.prefs.postal_code || PS.prefs.student_sex || PS.prefs.gender ||
     PS.prefs.want_sap!=null || PS.prefs.want_ip!=null || PS.prefs.want_autonomous!=null ||
     PS.prefs.want_gifted!=null || PS.prefs.school_types.length ||
-    PS.filters.maxKm!=null || alSearchIsActive;
+    PS.filters.maxKm!=null || alSearchIsActive || scoreRangeIsActive;
 
   host.replaceChildren(
     ...[
@@ -5587,7 +5625,8 @@ function renderSchoolPrefs(){
           onclick:()=>{
             PS.prefs = {postal_code:null, student_sex:null, gender:null, want_sap:null,
               want_ip:null, want_autonomous:null, want_gifted:null, school_types:[]};
-            PS.filters = {maxKm:null, al:{mode:"upper", upper:null, min:null, max:null}};
+            PS.filters = {maxKm:null, al:{mode:"upper", upper:null, min:null, max:null},
+              scoreRange:{min:null, max:null}};
             renderSchoolPrefs(); renderSchoolShortlist();
           }}),
       ]) : null,
@@ -5691,6 +5730,56 @@ function renderSchoolPrefs(){
        bug the PSLE score field's own oninput handler was already fixed for
        once; see there). */
     el("div",{id:"schoolDistanceFilterHost"}),
+
+    /* A SEPARATE, simpler filter from the AL-score search below: "show only
+       schools whose most recent PUBLIC historical cut-off sits between
+       these two AL scores" -- e.g. a family with a real AL 13 wanting to
+       browse schools around AL 12 to 14, both a shade above and a shade
+       below their own score, rather than a strict "would I get in" check.
+       Built on packs/singapore/cutoff-trend-public.yaml (docs/LOCAL_DATA.md),
+       which -- unlike the local MOE overlay the AL-score search below
+       needs -- ships in every build, so this is usable for the 139 of 147
+       schools that citation covers without anyone supplying their own
+       copy of anything. See inScoreRange()/publicTrendCurrent(). */
+    (() => {
+      const hasPublicTrend = (S.pack?.schools||[]).some(s=>s.cutoff_public_trend);
+      if(!hasPublicTrend) return null;
+      const sr = PS.filters.scoreRange;
+      const onField = (field) => (e) => {
+        const v = parseInt(e.target.value,10);
+        sr[field] = Number.isFinite(v) && v>=4 && v<=32 ? v : null;
+        renderSchoolShortlist();
+      };
+      return el("div",{class:"field",role:"group","aria-label":"Historical cut-off range filter"},[
+        el("label",{text:"Browse by historical cut-off (public data)"}),
+        el("p",{class:"hint",text:
+          "Not the AL-score search below -- this shows schools whose most recently recorded "+
+          "cut-off falls in a range you choose, so a family working from a real or expected AL "+
+          "score can see nearby schools on both sides of it, not only ones that score would "+
+          "reach. Leave either box empty and this filter does nothing."}),
+        el("div",{class:"field field-max"},[
+          el("label",{for:"scoreRangeMin",text:"From (AL score)",
+            title:"PSLE Achievement Level sum: 4 (best) to 32 (worst)."}),
+          el("input",{type:"number",id:"scoreRangeMin",min:"4",max:"32",inputmode:"numeric",
+            title:"Show schools with a historical cut-off at or above this AL score.",
+            value: sr.min==null ? "" : String(sr.min), oninput: onField("min")}),
+        ]),
+        el("div",{class:"field field-max"},[
+          el("label",{for:"scoreRangeMax",text:"To (AL score)",
+            title:"PSLE Achievement Level sum: 4 (best) to 32 (worst)."}),
+          el("input",{type:"number",id:"scoreRangeMax",min:"4",max:"32",inputmode:"numeric",
+            title:"Show schools with a historical cut-off at or below this AL score.",
+            value: sr.max==null ? "" : String(sr.max), oninput: onField("max")}),
+        ]),
+        el("p",{class:"hint",text:
+          "Uses SG School Kaki's community-compiled figures (2025, the most recent year on "+
+          "file) -- not an MOE publication, and not independently verified for every school "+
+          "(see each card's own cut-off history for the disclaimer and a link to the source). "+
+          "A school with no figure on file still shows, marked as unable to be judged rather "+
+          "than hidden -- that covers the 8 specialised-admission schools with no PSLE cut-off "+
+          "at all, and any other school the source itself carries no row for."}),
+      ]);
+    })(),
 
     /* SAFEGUARDS.md 5.1 forbids ranking schools by cut-off point, so this
        narrows which schools appear without ever reordering what remains.
@@ -5999,12 +6088,17 @@ function renderSchoolShortlist(){
   // above). eligible===false is the one unconditional hide; everything
   // else only hides when the family actually set it.
   const maxKm = PS.filters.maxKm;
-  let hiddenBySex = 0, hiddenByPrefs = 0, hiddenByKm = 0, hiddenByReach = 0;
+  const sr = PS.filters.scoreRange;
+  const scoreRangeActive = sr.min!=null && sr.max!=null;
+  const scoreRangeLo = scoreRangeActive ? Math.min(sr.min, sr.max) : null;
+  const scoreRangeHi = scoreRangeActive ? Math.max(sr.min, sr.max) : null;
+  let hiddenBySex = 0, hiddenByPrefs = 0, hiddenByKm = 0, hiddenByReach = 0, hiddenByScoreRange = 0;
   const rows = allRows.filter(([school,m])=>{
     if(m.eligible===false){ hiddenBySex++; return false; }
     if(!m.matches_preferences){ hiddenByPrefs++; return false; }
     if(maxKm!=null && m.distance_km!=null && m.distance_km>maxKm){ hiddenByKm++; return false; }
     if(alSearchReach(school)==="out-of-reach"){ hiddenByReach++; return false; }
+    if(scoreRangeActive && inScoreRange(school, scoreRangeLo, scoreRangeHi)===false){ hiddenByScoreRange++; return false; }
     return true;
   });
 
@@ -6013,13 +6107,16 @@ function renderSchoolShortlist(){
   if(!rows.length){
     host.replaceChildren(el("p",{class:"hint",id:"schoolNoPrefs",text:
       "No school matches the filters above — try clearing a preference, widening the "+
-      "distance, or clearing the AL score search, and PathAhead will show what it hid."}));
+      "distance, widening the historical cut-off range, or clearing the AL score search, and "+
+      "PathAhead will show what it hid."}));
     return;
   }
 
   const shown = schoolShortlistExpanded ? rows.length : Math.min(SCHOOL_PAGE, rows.length);
   const list = el("ul",{class:"courses",id:"schoolResults"});
-  for(const [school,m] of rows.slice(0,shown)) list.append(schoolCard(school,m,alSearchReach(school)));
+  for(const [school,m] of rows.slice(0,shown))
+    list.append(schoolCard(school,m,alSearchReach(school),
+      scoreRangeActive ? inScoreRange(school, scoreRangeLo, scoreRangeHi) : null));
 
   const sortNote = PS.prefs.postal_code ? "closest to you first" : "in alphabetical order";
   let summary = rows.length===allRows.length
@@ -6030,6 +6127,7 @@ function renderSchoolShortlist(){
   if(hiddenByPrefs) bits.push(`${hiddenByPrefs} not matching a preference you set`);
   if(hiddenByKm) bits.push(`${hiddenByKm} outside the distance you set`);
   if(hiddenByReach) bits.push(`${hiddenByReach} outside reach of the AL score you searched`);
+  if(hiddenByScoreRange) bits.push(`${hiddenByScoreRange} outside the historical cut-off range you set`);
   if(bits.length) summary += ` (${bits.join(", ")} — hidden by the filters above, never scored or ranked.)`;
 
   const parts = [
@@ -6271,7 +6369,30 @@ function eligibilityLine(match){
   return el("div",{class:"c-sub",text:match.eligibility_reason});
 }
 
-function schoolCard(school, match, reach){
+/** Plain-language line for whether this school's most recent PUBLIC
+    historical cut-off (packs/singapore/cutoff-trend-public.yaml) falls in
+    the range a family typed into "Browse by historical cut-off" -- a
+    DIFFERENT question from reachLine() above, which needs a local MOE
+    overlay and answers "would this score likely get in". This just states
+    whether the school's own figure sits inside the chosen window,
+    factually, with no verdict language (SAFEGUARDS.md 5.3). `inRange` is
+    null when the filter is not active OR this school has no public figure
+    to compare -- either way there is nothing extra to say here, since the
+    no-figure case is already covered once, unconditionally, by
+    cutoffRangeLine()/publicCutoffTrendTable() above. */
+function scoreRangeLine(inRange){
+  if(inRange===true) return el("div",{class:"c-sub",text:
+    "Its most recent public historical cut-off falls inside the range you're browsing."});
+  // inRange===false never actually reaches this function -- renderSchoolShortlist() hides those
+  // schools before schoolCard() is ever called for them, the same way reachLine()'s own
+  // "out-of-reach" never does. Kept as an explicit branch anyway, for the same reason: a future
+  // change to that filter should not silently start showing an unlabelled card.
+  if(inRange===false) return el("div",{class:"c-sub",text:
+    "Its most recent public historical cut-off falls outside the range you're browsing."});
+  return null;
+}
+
+function schoolCard(school, match, reach, inRange){
   const meta = el("div",{class:"c-meta"},[
     el("span",{class:"tag",text:school.type_label}),
     el("span",{class:"tag",text:school.gender==="co-ed"?"Co-ed":school.gender==="girls"?"Girls' school":"Boys' school"}),
@@ -6305,6 +6426,7 @@ function schoolCard(school, match, reach){
         eligibilityLine(match),
         cutoffRangeLine(school),
         reachLine(school, reach),
+        scoreRangeLine(inRange),
       ]),
     ]),
     meta,

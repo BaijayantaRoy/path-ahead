@@ -350,6 +350,52 @@ def combined_reach(
     return "unknown"
 
 
+def public_trend_current(school: Mapping[str, Any]) -> int | None:
+    """The most recent year's figure from `school["cutoff_public_trend"]`
+    (engine/loader.py:_apply_public_cutoff_trend, sourced from
+    packs/singapore/cutoff-trend-public.yaml) -- a third-party,
+    project-spot-checked citation of one already-public compilation, not
+    MOE's own figure and not this family's own local copy. See that file's
+    header and docs/LOCAL_DATA.md's "Third-party public trend citation"
+    section for what this number is (a school's PG3 upper bound) and how
+    it was verified.
+
+    Returns None when this school carries no such citation at all -- the
+    8 specialised-admission schools with no PSLE cut-off under any source,
+    plus any school the site itself had no matching row for. Never a
+    fabricated or estimated figure.
+    """
+    trend = school.get("cutoff_public_trend")
+    points = trend.get("points") if trend else None
+    if not points:
+        return None
+    return max(points, key=lambda p: p[0])[1]
+
+
+def in_score_range(school: Mapping[str, Any], lo: int, hi: int) -> bool | None:
+    """Whether this school's most recent PUBLIC historical cut-off (see
+    public_trend_current()) falls within [lo, hi] inclusive -- the plain
+    "browse schools near a score" filter a family types directly (e.g. "my
+    child is looking at AL 13, show me schools around 12 to 14"), which is
+    NOT the same question within_reach()/combined_reach() answer above.
+    Those need this family's own local MOE overlay (cutoff_current) to run
+    at all, and read a family's OWN uncertain score against a school's
+    admission likelihood; this reads a chosen score WINDOW against one
+    already-public historical figure, so it works from the data this
+    project actually ships to everyone, not just a family with a private
+    copy.
+
+    A FILTER, not a score: never orders schools, and returns None -- never
+    False -- when this school carries no public citation to compare
+    against, so a caller shows it with that plain fact rather than hiding
+    it as if it had been checked and had missed the window.
+    """
+    value = public_trend_current(school)
+    if value is None:
+        return None
+    return lo <= value <= hi
+
+
 @dataclass(frozen=True, slots=True)
 class SchoolMatch:
     """Whether one school should appear in a shortlist for one family --

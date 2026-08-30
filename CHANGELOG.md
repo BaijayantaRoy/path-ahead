@@ -10,6 +10,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added — browse schools by a historical cut-off range, not just a strict "would I get in" check
+
+Feedback on the historical-trend feature above: the existing AL-score search (`PS.filters.al`, "Search schools by AL score (explicit)") only ever worked on a machine holding a private local MOE overlay -- absent one, which is every published-build user, that whole control stayed hidden, so a family with a real or expected score had no way to browse schools by cut-off at all beyond reading one card at a time.
+
+New, separate filter: "Browse by historical cut-off (public data)" -- two plain number inputs, From and To. A family with, say, an AL 13 can set 12 to 14 and see every school whose most recent (2025) `cutoff_public_trend` figure falls in that window, both a shade above and a shade below their own score, which the existing reach search does not answer (it only ever asks "would this score likely get in", never "what sits near it either way"). Built entirely on the SG School Kaki citation above, so it works for the 139 of 147 schools that citation covers, in every build, with no local copy of anything required.
+
+`engine/school_fit.py:public_trend_current`/`in_score_range` (mirrored in `web/src/app.js` as `publicTrendCurrent`/`inScoreRange`) do the comparison -- a FILTER, never a score or sort key (SAFEGUARDS.md 5.1), and `None`/`null` rather than a false negative for the 8 specialised-admission schools and any other school the source has no row for, consistent with every other filter on this page. Each matching card states plainly whether its own figure sits inside the searched window; the shortlist summary counts how many were hidden by it, the same way it already does for distance and the AL search.
+
 ### Added — historical PSLE cut-off trend from a third-party public source (SG School Kaki)
 
 The existing local overlay (`packs/singapore/local/cutoff.json`, entry below) only ever holds one year until an individual refreshes it themselves next admissions cycle, because no legitimate bulk archive of MOE's own figures exists to seed it with (the entry below explains that search, including the one third-party blog that was checked and rejected for not matching MOE's own figure). Pointed at a specific site not checked before, [SG School Kaki](https://sgschoolkaki.com/psle-trends), which publishes a five-year (2021—2025) compiled cut-off table across 141 schools.

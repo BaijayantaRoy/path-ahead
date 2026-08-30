@@ -880,6 +880,49 @@ await check("a matched school's third-party public cut-off trend renders with it
   if (showFewer) click(showFewer);
 });
 
+await check("browsing by a historical cut-off range shows schools inside it and hides schools outside it", () => {
+  // "Browse by historical cut-off" (PS.filters.scoreRange, engine/
+  // school_fit.py:in_score_range) -- a plain min/max window over
+  // cutoff_public_trend, distinct from the AL-score reach search checked
+  // elsewhere. Crescent Girls' most recent (2025) public figure is 13;
+  // Admiralty's is 22 -- a 12-14 window should keep the first and hide the
+  // second, with no need for a local MOE overlay at all.
+  const min = $("#scoreRangeMin");
+  const max = $("#scoreRangeMax");
+  assert(min && max, "the historical cut-off range inputs did not render");
+
+  type(min, "12");
+  type(max, "14");
+
+  const showAll = [...all("#schoolShortlistHost button")].find((b) => /^Show all/.test(b.textContent));
+  if (showAll) click(showAll);
+
+  assert($('#schoolResults li.course[data-school="crescent-girls-school"]'),
+    "Crescent Girls' School (2025 figure: 13) should be shown for a 12-14 range search");
+  assert(!$('#schoolResults li.course[data-school="admiralty-secondary-school"]'),
+    "Admiralty Secondary School (2025 figure: 22) should be hidden for a 12-14 range search");
+
+  const inRangeCard = $('#schoolResults li.course[data-school="crescent-girls-school"]');
+  assert(/falls inside the range you're browsing/.test(inRangeCard.textContent),
+    "a school inside the searched range does not say so on its own card");
+
+  const summary = $("#schoolShortlistHost p.hint")?.textContent || "";
+  assert(/outside the historical cut-off range you set/.test(summary),
+    "the shortlist summary does not account for schools hidden by the historical cut-off range");
+
+  // A school with no public citation at all (a specialised-admission
+  // school) must still show, marked unable to be judged rather than hidden
+  // -- absence of data is never treated as "no" (see in_score_range()'s
+  // docstring, and every other filter in this file).
+  const specialised = $('#schoolResults li.course[data-school="nus-high-school-of-mathematics-and-science"]');
+  assert(specialised, "a school with no public cut-off citation should still show, not be hidden, by the range filter");
+
+  const showFewer = [...all("#schoolShortlistHost button")].find((b) => /^Show fewer/.test(b.textContent));
+  if (showFewer) click(showFewer);
+  type(min, "");
+  type(max, "");
+});
+
 await check("the word 'null' never leaks into the school shortlist", () => {
   // Element.replaceChildren(x) does not skip a bare `null` argument -- it
   // stringifies it to the TEXT NODE "null". renderRanking() (A-Level,
